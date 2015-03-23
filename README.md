@@ -6,4 +6,4 @@ Supertråkigt ju
 Team members
 ------------
 Linnea Malcherek
->>>>>>> awesome-readme
+Marcus Nygren
