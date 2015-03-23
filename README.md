@@ -5,5 +5,5 @@ Supertråkigt ju
 
 Team members
 ------------
-Linnea Malcherek
-Marcus Nygren
+- Linnea Malcherek
+- Marcus Nygren
