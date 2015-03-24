@@ -2,23 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
-    android:padding="6dip">
+    android:padding="3dip">
     <ImageView
         android:id="@+id/icon"
         android:layout_width="400px"
         android:layout_height="fill_parent"
-        android:layout_marginRight="6dip"
+        android:layout_marginRight="3dip"
         android:src="@drawable/ovre_ryggstodsbrada" />
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="0dip"
         android:layout_weight="1"
-        android:textSize="30px"
         android:layout_height="fill_parent">
         <TextView
             android:id="@+id/toptext"
             android:layout_width="fill_parent"
             android:layout_height="0dip"
+            android:textSize="20sp"
             android:layout_weight="1"
             android:gravity="center_vertical"
             />
@@ -26,6 +26,8 @@
             android:layout_width="fill_parent"
             android:layout_height="0dip"
             android:layout_weight="1"
+            android:textSize="30sp"
+            android:textColor="#000"
             android:id="@+id/bottomtext"
             android:singleLine="true"
             android:ellipsize="marquee"

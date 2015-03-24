@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -33,13 +34,13 @@ public class ListContent extends ListFragment {
 
     static {
         // Add 3 sample items.
-        addItem(new ListItem("1", "Insektsnyckel (100001) 1x"));
-        addItem(new ListItem("2", "Skruv (100214) 6x"));
-        addItem(new ListItem("3", "Plugg (101350) 2x"));
-        addItem(new ListItem("4", "Övre ryggstödsbräda"));
-        addItem(new ListItem("5", "Ryggstöd"));
-        addItem(new ListItem("6", "Sits"));
-        addItem(new ListItem("7", "Sidsektion"));
+        addItem(new ListItem("1", "Insexnyckel",1, 100001));
+        addItem(new ListItem("2", "Skruv", 6, 100214));
+        addItem(new ListItem("3", "Plugg", 2, 101350));
+        addItem(new ListItem("4", "Övre ryggstödsbräda",1,0));
+        addItem(new ListItem("5", "Ryggstöd", 1, 0));
+        addItem(new ListItem("6", "Sits", 1,0));
+        addItem(new ListItem("7", "Sidsektion",2,0));
 
 
     }
@@ -55,10 +56,14 @@ public class ListContent extends ListFragment {
     public static class ListItem {
         public String id;
         public String content;
+        public int count;
+        public int productKey;
 
-        public ListItem(String id, String content) {
+        public ListItem(String id, String content, int count, int productKey) {
             this.id = id;
             this.content = content;
+            this.count = count;
+            this.productKey = productKey;
         }
 
         @Override
@@ -106,8 +111,19 @@ public class ListContent extends ListFragment {
             if (o != null) {
                 TextView tt = (TextView) v.findViewById(R.id.toptext);
                 TextView bt = (TextView) v.findViewById(R.id.bottomtext);
-                if (tt != null) {
-                    tt.setText(o.content);                            }
+                ImageView img = (ImageView) v.findViewById(R.id.icon);
+                tt.setText(o.content);
+                bt.setText(o.count + "x");
+
+                if(o.content == "Insexnyckel") img.setImageResource(R.drawable.insektsnyckel_omskalad);
+                else if(o.content == "Skruv") img.setImageResource(R.drawable.skruv);
+                else if(o.content == "Plugg") img.setImageResource(R.drawable.traplugg);
+                else if(o.content == "Övre ryggstödsbräda") img.setImageResource(R.drawable.ovre_ryggstodsbrada);
+                else if(o.content == "Ryggstöd") img.setImageResource(R.drawable.ryggstod_image);
+                else if(o.content == "Sits") img.setImageResource(R.drawable.sittsen);
+                else if(o.content == "Sidsektion") img.setImageResource(R.drawable.sidsektion_omskalad);
+
+
             }
             return v;
         }
