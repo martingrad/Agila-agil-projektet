@@ -33,10 +33,15 @@ public class ListContent extends ListFragment {
 
     static {
         // Add 3 sample items.
-        addItem(new ListItem("1", "Item 1"));
-        addItem(new ListItem("2", "Item 2"));
-        addItem(new ListItem("3", "Item 3"));
-        addItem(new ListItem("4", "Item 4"));
+        addItem(new ListItem("1", "Insektsnyckel (100001) 1x"));
+        addItem(new ListItem("2", "Skruv (100214) 6x"));
+        addItem(new ListItem("3", "Plugg (101350) 2x"));
+        addItem(new ListItem("4", "Övre ryggstödsbräda"));
+        addItem(new ListItem("5", "Ryggstöd"));
+        addItem(new ListItem("6", "Sits"));
+        addItem(new ListItem("7", "Sidsektion"));
+
+
     }
 
     private static void addItem(ListItem item) {
@@ -62,15 +67,22 @@ public class ListContent extends ListFragment {
         }
     }
 
+    /**
+     * Creates a list view  with all the items added to the list
+     * @param inflater too fill the layout with content
+     * @param container
+     * @param savedInstanceState
+     * @user @martingrad @marcusnygren @LinneaMalcherek
+     * @return The list view with all the items added to the list
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        ListView listView = new ListView(getActivity());
-        listView.setId(android.R.id.list);
+        ListView listView = new ListView(getActivity()); // Create a list view in the current activity
+        listView.setId(android.R.id.list); // Sets ID according to the Android documentation
 
-        //setListAdapter(new ArrayAdapter<ListItem>(getActivity(), android.R.layout.lis, ITEMS) );
-
+        // Connects the items to the list view activity, using the layout specified in the second parameter
+        // PS: android.R.layout provides a range of sample list layouts
         setListAdapter(new OrderAdapter(getActivity(), R.layout.list_item, (ArrayList)ITEMS));
-
         return listView;
     }
 
@@ -95,7 +107,7 @@ public class ListContent extends ListFragment {
                 TextView tt = (TextView) v.findViewById(R.id.toptext);
                 TextView bt = (TextView) v.findViewById(R.id.bottomtext);
                 if (tt != null) {
-                    tt.setText("Name: "+o.content);                            }
+                    tt.setText(o.content);                            }
             }
             return v;
         }
