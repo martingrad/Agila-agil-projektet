@@ -1,6 +1,12 @@
 package agilec.ikeaswipe;
 
+import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,4 +59,16 @@ public class ListContent extends ListFragment {
             return content;
         }
     }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        ListView listView = new ListView(getActivity());
+        listView.setId(android.R.id.list);
+
+        setListAdapter(new ArrayAdapter<ListItem>(getActivity(), android.R.layout.simple_list_item_activated_1, ITEMS) );
+
+        return listView;
+    }
+
+
 }
