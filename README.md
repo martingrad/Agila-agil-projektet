@@ -7,3 +7,4 @@ Team members
 ------------
 - Linnea Malcherek
 - Marcus Nygren
+- Tobias Erlandsson
