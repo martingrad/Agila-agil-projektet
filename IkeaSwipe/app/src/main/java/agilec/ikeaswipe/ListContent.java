@@ -31,10 +31,15 @@ public class ListContent extends ListFragment {
 
     static {
         // Add 3 sample items.
-        addItem(new ListItem("1", "Item 1"));
-        addItem(new ListItem("2", "Item 2"));
-        addItem(new ListItem("3", "Item 3"));
-        addItem(new ListItem("4", "Item 4"));
+        addItem(new ListItem("1", "Insektsnyckel (100001) 1x"));
+        addItem(new ListItem("2", "Skruv (100214) 6x"));
+        addItem(new ListItem("3", "Plugg (101350) 2x"));
+        addItem(new ListItem("4", "Övre ryggstödsbräda"));
+        addItem(new ListItem("5", "Ryggstöd"));
+        addItem(new ListItem("6", "Sits"));
+        addItem(new ListItem("7", "Sidsektion"));
+
+
     }
 
     private static void addItem(ListItem item) {
