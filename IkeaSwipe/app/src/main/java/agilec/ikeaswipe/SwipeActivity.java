@@ -39,6 +39,9 @@ public class SwipeActivity extends ActionBarActivity {
      */
     ViewPager mViewPager;
 
+    /** Perform initialization of all fragments and loaders.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +57,11 @@ public class SwipeActivity extends ActionBarActivity {
 
     }
 
-
+    /**
+     * Initialize the contents of the Activity's standard options menu.
+     * @param menu
+     * @return true
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -62,6 +69,11 @@ public class SwipeActivity extends ActionBarActivity {
         return true;
     }
 
+    /**
+     * This hook is called whenever an item in your options menu is selected.
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -85,9 +97,15 @@ public class SwipeActivity extends ActionBarActivity {
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
+
             super(fm);
         }
 
+        /**
+         * Return the Fragment associated with a specified position.
+         * @param position
+         * @return
+         */
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
@@ -99,12 +117,21 @@ public class SwipeActivity extends ActionBarActivity {
             }
         }
 
+        /**
+         * Return the number of views available.
+         * @return 3
+         */
         @Override
         public int getCount() {
             // Show 3 total pages.
             return 3;
         }
 
+        /**
+         * This method may be called by the ViewPager to obtain a title string to describe the specified page.
+         * @param position
+         * @return
+         */
         @Override
         public CharSequence getPageTitle(int position) {
             Locale l = Locale.getDefault();
@@ -145,6 +172,13 @@ public class SwipeActivity extends ActionBarActivity {
         public PlaceholderFragment() {
         }
 
+        /**
+         * Called to have the fragment instantiate its user interface view.
+         * @param inflater
+         * @param container
+         * @param savedInstanceState
+         * @return rootView
+         */
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
@@ -152,5 +186,4 @@ public class SwipeActivity extends ActionBarActivity {
             return rootView;
         }
     }
-
 }
