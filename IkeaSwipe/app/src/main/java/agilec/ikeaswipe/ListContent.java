@@ -60,11 +60,21 @@ public class ListContent extends ListFragment {
         }
     }
 
+    /**
+     * Creates a list view  with all the items added to the list
+     * @param inflater too fill the layout with content
+     * @param container
+     * @param savedInstanceState
+     * @user @martingrad @marcusnygren @LinneaMalcherek
+     * @return The list view with all the items added to the list
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        ListView listView = new ListView(getActivity());
-        listView.setId(android.R.id.list);
+        ListView listView = new ListView(getActivity()); // Create a list view in the current activity
+        listView.setId(android.R.id.list); // Sets ID according to the Android documentation
 
+        // Connects the items to the list view activity, using the layout specified in the second parameter
+        // PS: android.R.layout provides a range of sample list layouts
         setListAdapter(new ArrayAdapter<ListItem>(getActivity(), android.R.layout.simple_list_item_activated_1, ITEMS) );
 
         return listView;
