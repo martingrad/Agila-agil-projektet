@@ -102,14 +102,14 @@ public class SwipeActivity extends ActionBarActivity {
         }
 
         /**
-         * Return the Fragment associated with a specified position.
-         * @param position
-         * @return
+         * getItem is called to instantiate the fragment for the given page.
+         * This method can be used if you want to add an activity you've created to a certain swipe view position in the app.
+         * @param position Position for your swipe view, starts from 0. So position 1, will be the next window to the right.
+         * @return a PlaceholderFragment (defined as a static inner class below).
+         * @user @marcusnygren
          */
         @Override
         public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
             if(position == 0) {
                 return new ListContent();
             } else {
@@ -182,7 +182,7 @@ public class SwipeActivity extends ActionBarActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_swipe, container, false);
+            View rootView = inflater.inflate(R.layout.fragment_swipe, container, false); // if no other layout is loaded for a position, this is the layout which is used
             return rootView;
         }
     }
