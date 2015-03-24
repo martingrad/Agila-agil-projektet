@@ -1,5 +1,6 @@
 package agilec.ikeaswipe;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -65,10 +67,38 @@ public class ListContent extends ListFragment {
         ListView listView = new ListView(getActivity());
         listView.setId(android.R.id.list);
 
-        setListAdapter(new ArrayAdapter<ListItem>(getActivity(), android.R.layout.simple_list_item_activated_1, ITEMS) );
+        //setListAdapter(new ArrayAdapter<ListItem>(getActivity(), android.R.layout.lis, ITEMS) );
+
+        setListAdapter(new OrderAdapter(getActivity(), R.layout.list_item, (ArrayList)ITEMS));
 
         return listView;
     }
 
+    private class OrderAdapter extends ArrayAdapter<ListItem> {
+
+        private ArrayList<ListItem> items;
+
+        public OrderAdapter(Context context, int textViewResourceId, ArrayList<ListItem> items) {
+            super(context, textViewResourceId, items);
+            this.items = items;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View v = convertView;
+            if (v == null) {
+                LayoutInflater vi = (LayoutInflater)getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                v = vi.inflate(R.layout.list_item, null);
+            }
+            ListItem o = items.get(position);
+            if (o != null) {
+                TextView tt = (TextView) v.findViewById(R.id.toptext);
+                TextView bt = (TextView) v.findViewById(R.id.bottomtext);
+                if (tt != null) {
+                    tt.setText("Name: "+o.content);                            }
+            }
+            return v;
+        }
+    }
 
 }
