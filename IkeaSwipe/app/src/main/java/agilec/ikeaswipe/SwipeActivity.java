@@ -16,7 +16,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import agilec.ikeaswipe.ListContent;
 
 
 public class SwipeActivity extends ActionBarActivity {
@@ -36,11 +39,13 @@ public class SwipeActivity extends ActionBarActivity {
      */
     ViewPager mViewPager;
 
+    /** Perform initialization of all fragments and loaders.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_swipe);
-
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -52,7 +57,11 @@ public class SwipeActivity extends ActionBarActivity {
 
     }
 
-
+    /**
+     * Initialize the contents of the Activity's standard options menu.
+     * @param menu
+     * @return true
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -60,6 +69,11 @@ public class SwipeActivity extends ActionBarActivity {
         return true;
     }
 
+    /**
+     * This hook is called whenever an item in your options menu is selected.
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -83,22 +97,41 @@ public class SwipeActivity extends ActionBarActivity {
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
+
             super(fm);
         }
 
+        /**
+         * getItem is called to instantiate the fragment for the given page.
+         * This method can be used if you want to add an activity you've created to a certain swipe view position in the app.
+         * @param position Position for your swipe view, starts from 0. So position 1, will be the next window to the right.
+         * @return a PlaceholderFragment (defined as a static inner class below).
+         * @user @marcusnygren
+         */
         @Override
         public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            if(position == 0) {
+                return new ListContent();
+            } else {
+                return PlaceholderFragment.newInstance(position + 1);
+            }
         }
 
+        /**
+         * Return the number of views available.
+         * @return 3
+         */
         @Override
         public int getCount() {
             // Show 3 total pages.
             return 3;
         }
 
+        /**
+         * This method may be called by the ViewPager to obtain a title string to describe the specified page.
+         * @param position
+         * @return
+         */
         @Override
         public CharSequence getPageTitle(int position) {
             Locale l = Locale.getDefault();
@@ -139,12 +172,18 @@ public class SwipeActivity extends ActionBarActivity {
         public PlaceholderFragment() {
         }
 
+        /**
+         * Called to have the fragment instantiate its user interface view.
+         * @param inflater
+         * @param container
+         * @param savedInstanceState
+         * @return rootView
+         */
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_swipe, container, false);
+            View rootView = inflater.inflate(R.layout.fragment_swipe, container, false); // if no other layout is loaded for a position, this is the layout which is used
             return rootView;
         }
     }
-
 }
