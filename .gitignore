@@ -1,4 +1,13 @@
 # OS generated files #
 .DS_Store
 .DS_Store?
+
+# Android Studio generated files #
+# In case someone happens to build the android project from the root map #
+.idea
+.gradle
+/local.properties
+/.idea/workspace.xml
 /.idea/libraries
+.DS_Store
+/build

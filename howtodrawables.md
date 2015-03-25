@@ -1,3 +1,5 @@
+# How to add drawables as buttons or images in layout
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,6 +27,6 @@
         android:layout_alignParentStart="true" />
 
 
-- 1500x297 px funkar bra, större funkar inte på tablets pga begränsning. 
+### Drawables of size 1500x297 px works fine, larger than that does not work on tablets.
 
 
