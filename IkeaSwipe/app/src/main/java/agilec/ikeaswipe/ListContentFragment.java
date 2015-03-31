@@ -19,9 +19,9 @@ import java.util.Map;
 
 /**
  * List containing all the IKEA items. Used in the ListView.
- * @user @LinneaMalcherek @marcusnygren
+ * @author @LinneaMalcherek @marcusnygren
  */
-public class ListContent extends ListFragment {
+public class ListContentFragment extends ListFragment {
     /**
      * An array of sample (dummy) items.
      */
@@ -74,10 +74,10 @@ public class ListContent extends ListFragment {
 
     /**
      * Creates a list view  with all the items added to the list
+     * @author @martingrad @marcusnygren @LinneaMalcherek
      * @param inflater too fill the layout with content
      * @param container
      * @param savedInstanceState
-     * @user @martingrad @marcusnygren @LinneaMalcherek
      * @return The list view with all the items added to the list
      */
     @Override
@@ -122,8 +122,6 @@ public class ListContent extends ListFragment {
                 else if(o.content == "Ryggstöd") img.setImageResource(R.drawable.ryggstod_image);
                 else if(o.content == "Sits") img.setImageResource(R.drawable.sittsen);
                 else if(o.content == "Sidsektion") img.setImageResource(R.drawable.sidsektion_omskalad);
-
-
             }
             return v;
         }
