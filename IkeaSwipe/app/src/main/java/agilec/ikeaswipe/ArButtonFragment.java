@@ -1,6 +1,7 @@
 package agilec.ikeaswipe;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -27,6 +28,8 @@ public class ArButtonFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.i("ArButtonClick", "Pushed it!");
+                Intent ArIntent = new Intent(getActivity(), ArViewFindAll.class);
+                startActivity(ArIntent);
             }
         });
         return view;
