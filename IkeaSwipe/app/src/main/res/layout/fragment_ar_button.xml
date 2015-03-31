@@ -16,7 +16,6 @@
         android:id="@+id/Ar_button_all"
         android:background="#ffffc358"
         android:layout_gravity="center"
-        android:clickable="true"
         android:elegantTextHeight="true"
         android:ellipsize="end" />
 
