@@ -33,7 +33,7 @@ public class ListContentFragment extends ListFragment {
     public static Map<String, ListItem> ITEM_MAP = new HashMap<String, ListItem>();
 
     static {
-        // Add 3 sample items.
+        // Add the items with parameters, id, content, count and productKey (IKEA ID)
         addItem(new ListItem("1", "Insexnyckel",1, 100001));
         addItem(new ListItem("2", "Skruv", 6, 100214));
         addItem(new ListItem("3", "Plugg", 2, 101350));
@@ -41,8 +41,6 @@ public class ListContentFragment extends ListFragment {
         addItem(new ListItem("5", "Ryggstöd", 1, 0));
         addItem(new ListItem("6", "Sits", 1,0));
         addItem(new ListItem("7", "Sidsektion",2,0));
-
-
     }
 
     private static void addItem(ListItem item) {
@@ -87,15 +85,20 @@ public class ListContentFragment extends ListFragment {
 
         // Connects the items to the list view activity, using the layout specified in the second parameter
         // PS: android.R.layout provides a range of sample list layouts
-        setListAdapter(new OrderAdapter(getActivity(), R.layout.list_item, (ArrayList)ITEMS));
+        setListAdapter(new ListAdapter(getActivity(), R.layout.list_item, (ArrayList)ITEMS));
         return listView;
     }
 
-    private class OrderAdapter extends ArrayAdapter<ListItem> {
-
+    /**
+     * A custom ArrayAdapter, used to achieve the desirable list style with an image alongside text.
+     * @user @martingrad @jacobselg
+     */
+    private class ListAdapter extends ArrayAdapter<ListItem> {
+        //Copy of the arrayList or ListItem's.
         private ArrayList<ListItem> items;
 
-        public OrderAdapter(Context context, int textViewResourceId, ArrayList<ListItem> items) {
+        //Constructor, copying passed ListItems to items.
+        public ListAdapter(Context context, int textViewResourceId, ArrayList<ListItem> items) {
             super(context, textViewResourceId, items);
             this.items = items;
         }
@@ -109,19 +112,21 @@ public class ListContentFragment extends ListFragment {
             }
             ListItem o = items.get(position);
             if (o != null) {
-                TextView tt = (TextView) v.findViewById(R.id.toptext);
-                TextView bt = (TextView) v.findViewById(R.id.bottomtext);
-                ImageView img = (ImageView) v.findViewById(R.id.icon);
-                tt.setText(o.content);
-                bt.setText(o.count + "x");
+                //Finding the current ListItems TopText, BottomText and Image
+                TextView listTopText = (TextView) v.findViewById(R.id.toptext);
+                TextView listBottomText = (TextView) v.findViewById(R.id.bottomtext);
+                ImageView listImg = (ImageView) v.findViewById(R.id.icon);
+                listTopText.setText(o.content);
+                listBottomText.setText(o.count + "x");
 
-                if(o.content == "Insexnyckel") img.setImageResource(R.drawable.insektsnyckel_omskalad);
-                else if(o.content == "Skruv") img.setImageResource(R.drawable.skruv);
-                else if(o.content == "Plugg") img.setImageResource(R.drawable.traplugg);
-                else if(o.content == "Övre ryggstödsbräda") img.setImageResource(R.drawable.ovre_ryggstodsbrada);
-                else if(o.content == "Ryggstöd") img.setImageResource(R.drawable.ryggstod_image);
-                else if(o.content == "Sits") img.setImageResource(R.drawable.sittsen);
-                else if(o.content == "Sidsektion") img.setImageResource(R.drawable.sidsektion_omskalad);
+                //Ugly way of applying the correct image to the correct ListItem.
+                if(o.content == "Insexnyckel") listImg.setImageResource(R.drawable.insektsnyckel_omskalad);
+                else if(o.content == "Skruv") listImg.setImageResource(R.drawable.skruv);
+                else if(o.content == "Plugg") listImg.setImageResource(R.drawable.traplugg);
+                else if(o.content == "Övre ryggstödsbräda") listImg.setImageResource(R.drawable.ovre_ryggstodsbrada);
+                else if(o.content == "Ryggstöd") listImg.setImageResource(R.drawable.ryggstod_image);
+                else if(o.content == "Sits") listImg.setImageResource(R.drawable.sittsen);
+                else if(o.content == "Sidsektion") listImg.setImageResource(R.drawable.sidsektion_omskalad);
             }
             return v;
         }
