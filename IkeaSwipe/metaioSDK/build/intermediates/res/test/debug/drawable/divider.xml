@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android" >
-    <size android:height="1dip" />
-    <solid android:color="@color/metaiocolor" />
-</shape><!-- From: file:/Users/antonosterblad/Development/Agila-agil-projektet/IkeaSwipe/metaioSDK/res/drawable/divider.xml --><!-- From: file:/Users/antonosterblad/Development/Agila-agil-projektet/IkeaSwipe/metaioSDK/build/intermediates/bundles/debug/res/drawable/divider.xml -->
