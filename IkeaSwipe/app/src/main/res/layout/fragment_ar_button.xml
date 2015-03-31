@@ -1,9 +1,23 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="agilec.ikeaswipe.ArButtonFragment">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    tools:context="agilec.ikeaswipe.ArButtonFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <TextView android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="@string/push_the_button" />
 
-</FrameLayout>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Ar_button_find_all"
+        android:id="@+id/Ar_button_all"
+        android:background="#ffffc358"
+        android:layout_gravity="center"
+        android:clickable="true"
+        android:elegantTextHeight="true"
+        android:ellipsize="end" />
+
+</LinearLayout>
