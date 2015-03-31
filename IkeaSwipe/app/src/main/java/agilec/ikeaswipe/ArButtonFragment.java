@@ -1,8 +1,6 @@
 package agilec.ikeaswipe;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -13,8 +11,8 @@ import android.widget.Button;
 
 
 /**
- * @user @ingelhag @antonosterblad
  * Simple layout to start a new AR activity when clicking on a button.
+ * @author @ingelhag @antonosterblad
  * TODO design
  */
 public class ArButtonFragment extends Fragment {
@@ -22,9 +20,9 @@ public class ArButtonFragment extends Fragment {
     private Button ArButton;
 
     /**
-     * @user @ingelhag @antonosterblad
      * Create a view with fragment_ar_button.
      * Sets onClickListener on the button.
+     * @author @ingelhag @antonosterblad
      * @param inflater
      * @param container
      * @param savedInstanceState
@@ -38,19 +36,17 @@ public class ArButtonFragment extends Fragment {
         ArButton.setOnClickListener(new View.OnClickListener() {
             /**
              * @user @ingelhag @antonosterblad
-             * Start activity ArViewFindAll.
+             * Start activity ArFindAllActivity.
              * @param v
              */
             // TODO refactor class names to define differences between activities and fragments.
             @Override
             public void onClick(View v) {
                 Log.i("ArButtonClick", "Pushed it!");
-                Intent ArIntent = new Intent(getActivity(), ArViewFindAll.class);
+                Intent ArIntent = new Intent(getActivity(), ArFindAllActivity.class);
                 startActivity(ArIntent);
             }
         });
         return view;
     }
-
-
 }

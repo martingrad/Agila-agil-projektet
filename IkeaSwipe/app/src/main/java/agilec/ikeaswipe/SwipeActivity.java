@@ -3,24 +3,16 @@ package agilec.ikeaswipe;
 import java.util.Locale;
 
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
-import android.widget.TextView;
-
-import agilec.ikeaswipe.ListContent;
-import agilec.ikeaswipe.ArButtonFragment;
 
 
 public class SwipeActivity extends ActionBarActivity {
@@ -105,14 +97,14 @@ public class SwipeActivity extends ActionBarActivity {
         /**
          * getItem is called to instantiate the fragment for the given page.
          * This method can be used if you want to add an activity you've created to a certain swipe view position in the app.
+         * @author @marcusnygren
          * @param position Position for your swipe view, starts from 0. So position 1, will be the next window to the right.
          * @return a PlaceholderFragment (defined as a static inner class below).
-         * @user @marcusnygren
          */
         @Override
         public Fragment getItem(int position) {
             if(position == 0) {
-                return new ListContent();
+                return new ListContentFragment();
             } else if(position == 2) {
                 return new ArButtonFragment();
             } else {

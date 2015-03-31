@@ -5,10 +5,12 @@
     android:orientation="horizontal"
     tools:context="agilec.ikeaswipe.ArButtonFragment">
 
+    <!-- The text encouraging the user to push the button -->
     <TextView android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text="@string/push_the_button" />
+        android:text="@string/push_the_button" /> <!-- All strings can be found in the folder values > strings.xml -->
 
+    <!-- The actual button -->
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

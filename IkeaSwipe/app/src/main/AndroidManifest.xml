@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ArViewFindAll"
+            android:name=".ArFindAllActivity"
             android:label="@string/title_activity_ar_view_find_all" >
         </activity>
     </application>
