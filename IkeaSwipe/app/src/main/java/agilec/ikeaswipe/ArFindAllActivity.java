@@ -1,32 +1,46 @@
 package agilec.ikeaswipe;
 
-import java.util.Locale;
+import java.io.File;
 
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.metaio.sdk.ARViewActivity;
+import com.metaio.sdk.MetaioDebug;
+import com.metaio.sdk.jni.EENV_MAP_FORMAT;
 import com.metaio.sdk.jni.IGeometry;
 import com.metaio.sdk.jni.IMetaioSDKCallback;
+import com.metaio.tools.io.AssetsManager;
 
 /*
     Creates a camera environment for Metaio
     @author @antonosterblad @ingelhag
  */
 public class ArFindAllActivity extends ARViewActivity {
+
+/*    *//**
+     * Rim model
+     *//*
+    private IGeometry mRimModel = null;
+
+    *//**
+     * Edge visualization model
+     *//*
+    private IGeometry mVizAidModel = null;
+
+    *//**
+     * Metaio SDK callback handler
+     *//*
+    private MetaioSDKCallbackHandler mCallbackHandler;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+
+        mCallbackHandler = new MetaioSDKCallbackHandler();
+    }*/
 
     @Override
     protected int getGUILayout() {
@@ -47,5 +61,23 @@ public class ArFindAllActivity extends ARViewActivity {
     protected void onGeometryTouched(IGeometry geometry) {
 
     }
+
+/*    final class MetaioSDKCallbackHandler extends IMetaioSDKCallback
+    {
+
+        @Override
+        public void onSDKReady()
+        {
+            // show GUI
+            runOnUiThread(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    mGUIView.setVisibility(View.VISIBLE);
+                }
+            });
+        }
+    }*/
 
 }
