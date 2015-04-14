@@ -1,4 +1,5 @@
-[
+{
+    "parts": [
         {
             "title": "Insexsnyckel",
             "articleNumber": "100001",
@@ -105,3 +106,4 @@
             "imgUrl": "R.drawable.side_section"
         }
     ]
+}

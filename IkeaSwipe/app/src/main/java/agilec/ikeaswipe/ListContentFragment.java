@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.json.JSONException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,7 +22,6 @@ import java.util.Map;
 /**
  * List containing all the IKEA items. Used in the ListView.
  * @author @LinneaMalcherek @marcusnygren
- * TODO: replace with JSON item list, // Items items = new Items("kritter_parts.json", getActivity());
  */
 public class ListContentFragment extends ListFragment {
     /**
@@ -120,7 +121,11 @@ public class ListContentFragment extends ListFragment {
                 listTopText.setText(o.content);
                 listBottomText.setText(o.count + "x");
 
-                Items items = new Items("kritter_parts.json", getActivity());
+                try {
+                    Items items = new Items("kritter_parts.json", getActivity());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
                 //Ugly way of applying the correct image to the correct ListItem.
                 if(o.content == "Insexnyckel") listImg.setImageResource(R.drawable.allen_key);
