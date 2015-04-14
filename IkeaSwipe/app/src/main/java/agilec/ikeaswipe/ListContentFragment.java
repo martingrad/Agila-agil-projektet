@@ -22,7 +22,6 @@ import java.util.Map;
 /**
  * List containing all the IKEA items. Used in the ListView.
  * @author @LinneaMalcherek @marcusnygren
- * TODO: replace with JSON item list, // Items items = new Items("kritter_parts.json", getActivity());
  */
 public class ListContentFragment extends ListFragment {
     /**
