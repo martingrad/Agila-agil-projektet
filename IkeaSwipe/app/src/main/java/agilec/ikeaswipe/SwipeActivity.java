@@ -26,11 +26,33 @@ public class SwipeActivity extends ActionBarActivity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     SectionsPagerAdapter mSectionsPagerAdapter;
+    private int currentStep;
+    Bundle bundle;
+    StepByStepFragment stepFragment;
+
+    public void setStep(int stepNumber){
+        System.out.println("MÖHÖHÖHÖHÖHÖHÖHÖHÖHÖHÖHÖH");
+        currentStep = stepNumber;
+    }
 
     /**
      * The {@link ViewPager} that will host the section contents.
      */
     ViewPager mViewPager;
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        currentStep = savedInstanceState.getInt("stepNumber");
+        System.out.println("onRestoreInstanceState(), currentStep = " + currentStep);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt("stepNumber", currentStep);
+        System.out.println("onSaveInstanceState(), currentStep = " + currentStep);
+        super.onSaveInstanceState(outState);
+    }
 
     /** Perform initialization of all fragments and loaders.
      * @param savedInstanceState
@@ -39,6 +61,13 @@ public class SwipeActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_swipe);
+
+        // Create a bundle with the currentStep 1 as default.
+        bundle = new Bundle();
+        currentStep = 0;
+        bundle.putInt("stepNumber", currentStep);
+        stepFragment = new StepByStepFragment();
+        stepFragment.setArguments(bundle);
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -108,7 +137,8 @@ public class SwipeActivity extends ActionBarActivity {
             } else if(position == 2) {
                 return new ArButtonFragment();
             } else {
-                return PlaceholderFragment.newInstance(position + 1);
+                return stepFragment;
+                //return PlaceholderFragment.newInstance(position + 1);
             }
         }
 
