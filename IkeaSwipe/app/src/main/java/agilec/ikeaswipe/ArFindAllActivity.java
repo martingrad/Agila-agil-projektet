@@ -26,6 +26,9 @@ import com.metaio.sdk.jni.IMetaioSDKCallback;
     Creates a camera environment for Metaio
     @author @antonosterblad @ingelhag
  */
+
+//This is going great...
+
 public class ArFindAllActivity extends ARViewActivity {
 
     @Override
