@@ -16,6 +16,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONException;
+import android.util.Log;
 
 /**
  * List containing all the IKEA items. Used in the ListView.
@@ -119,6 +123,9 @@ public class ListContentFragment extends ListFragment {
                 listTopText.setText(o.content);
                 listBottomText.setText(o.count + "x");
 
+
+
+
                 //Ugly way of applying the correct image to the correct ListItem.
                 if(o.content == "Insexnyckel") listImg.setImageResource(R.drawable.insektsnyckel_omskalad);
                 else if(o.content == "Skruv") listImg.setImageResource(R.drawable.skruv);
@@ -130,6 +137,20 @@ public class ListContentFragment extends ListFragment {
             }
             return v;
         }
+
+        public void loadItemsFromJSON() {
+            String json = ((SwipeActivity)getActivity()).loadJSONFromAsset();
+
+            try{
+                //TODO: skapa public static class Items
+                JSONObject obj = new JSONObject(json);
+            }
+            catch (JSONException e){
+                Log.e("JSON", "Unexpected JSON exception", e);
+            }
+        }
     }
+
+
 
 }
