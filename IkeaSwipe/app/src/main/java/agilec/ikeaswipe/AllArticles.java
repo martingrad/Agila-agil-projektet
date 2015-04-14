@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * Handles the articles
  * Created by Ingelhag on 14/04/15.
  */
-public class ArticleHandler {
+public class AllArticles {
 
     private String filename;            // Filename of the json-file
     private Context activityContext;    // Context of the activity
@@ -22,7 +22,7 @@ public class ArticleHandler {
      * @param activityContext
      * @throws JSONException
      */
-    public ArticleHandler(String filename, Context activityContext) throws JSONException {
+    public AllArticles(String filename, Context activityContext) throws JSONException {
         this.filename = filename;
         this.activityContext = activityContext;
 

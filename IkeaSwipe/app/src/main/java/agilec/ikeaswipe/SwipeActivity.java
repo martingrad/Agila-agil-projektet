@@ -1,7 +1,5 @@
 package agilec.ikeaswipe;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Locale;
 
 import android.support.v7.app.ActionBarActivity;
@@ -10,7 +8,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -107,7 +104,7 @@ public class SwipeActivity extends ActionBarActivity {
         @Override
         public Fragment getItem(int position) {
             if(position == 0) {
-                return new ListContentFragment();
+                return new ArticlesListFragment();
             } else if(position == 2) {
                 return new ArButtonFragment();
             } else {

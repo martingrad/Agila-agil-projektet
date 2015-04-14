@@ -23,7 +23,7 @@ import java.util.Map;
  * List containing all the IKEA items. Used in the ListView.
  * @author @LinneaMalcherek @marcusnygren
  */
-public class ListContentFragment extends ListFragment {
+public class ArticlesListFragment extends ListFragment {
     /**
      * An array of sample (dummy) items.
      */
@@ -122,7 +122,7 @@ public class ListContentFragment extends ListFragment {
                 listBottomText.setText(o.count + "x");
 
                 try {
-                    ArticleHandler articleHandler = new ArticleHandler("kritter_parts.json", getActivity());
+                    AllArticles articleHandler = new AllArticles("kritter_parts.json", getActivity());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
