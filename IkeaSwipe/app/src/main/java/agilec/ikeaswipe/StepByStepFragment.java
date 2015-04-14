@@ -17,7 +17,6 @@ public class StepByStepFragment extends Fragment {
 
     private Button nextBtn, prevBtn;
 
-    private TextView txtView;
     private ImageView currentStepImg;
 
     private ImageView imgView;
@@ -60,7 +59,7 @@ public class StepByStepFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_step_by_step, container, false);
 
-        txtView = (TextView)view.findViewById(R.id.txtView);
+
         imgView = (ImageView)view.findViewById(R.id.steps);
         //txtView.setText("hej");
 
