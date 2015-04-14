@@ -127,13 +127,13 @@ public class ListContentFragment extends ListFragment {
 
 
                 //Ugly way of applying the correct image to the correct ListItem.
-                if(o.content == "Insexnyckel") listImg.setImageResource(R.drawable.insektsnyckel_omskalad);
-                else if(o.content == "Skruv") listImg.setImageResource(R.drawable.skruv);
-                else if(o.content == "Plugg") listImg.setImageResource(R.drawable.traplugg);
-                else if(o.content == "Övre ryggstödsbräda") listImg.setImageResource(R.drawable.ovre_ryggstodsbrada);
-                else if(o.content == "Ryggstöd") listImg.setImageResource(R.drawable.ryggstod_image);
-                else if(o.content == "Sits") listImg.setImageResource(R.drawable.sittsen);
-                else if(o.content == "Sidsektion") listImg.setImageResource(R.drawable.sidsektion_omskalad);
+                if(o.content == "Insexnyckel") listImg.setImageResource(R.drawable.allen_key);
+                else if(o.content == "Skruv") listImg.setImageResource(R.drawable.screw);
+                else if(o.content == "Plugg") listImg.setImageResource(R.drawable.dowel);
+                else if(o.content == "Övre ryggstödsbräda") listImg.setImageResource(R.drawable.upper_back_side);
+                else if(o.content == "Ryggstöd") listImg.setImageResource(R.drawable.back_side);
+                else if(o.content == "Sits") listImg.setImageResource(R.drawable.seat);
+                else if(o.content == "Sidsektion") listImg.setImageResource(R.drawable.side_section);
             }
             return v;
         }
@@ -150,7 +150,4 @@ public class ListContentFragment extends ListFragment {
             }
         }
     }
-
-
-
 }
