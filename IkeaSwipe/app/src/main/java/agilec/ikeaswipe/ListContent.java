@@ -115,13 +115,13 @@ public class ListContent extends ListFragment {
                 tt.setText(o.content);
                 bt.setText(o.count + "x");
 
-                if(o.content == "Insexnyckel") img.setImageResource(R.drawable.insektsnyckel_omskalad);
-                else if(o.content == "Skruv") img.setImageResource(R.drawable.skruv);
-                else if(o.content == "Plugg") img.setImageResource(R.drawable.traplugg);
-                else if(o.content == "Övre ryggstödsbräda") img.setImageResource(R.drawable.ovre_ryggstodsbrada);
-                else if(o.content == "Ryggstöd") img.setImageResource(R.drawable.ryggstod_image);
-                else if(o.content == "Sits") img.setImageResource(R.drawable.sittsen);
-                else if(o.content == "Sidsektion") img.setImageResource(R.drawable.sidsektion_omskalad);
+                if(o.content == "Insexnyckel") img.setImageResource(R.drawable.allen_key);
+                else if(o.content == "Skruv") img.setImageResource(R.drawable.screw);
+                else if(o.content == "Plugg") img.setImageResource(R.drawable.dowel);
+                else if(o.content == "Övre ryggstödsbräda") img.setImageResource(R.drawable.upper_back_side);
+                else if(o.content == "Ryggstöd") img.setImageResource(R.drawable.back_side);
+                else if(o.content == "Sits") img.setImageResource(R.drawable.seat);
+                else if(o.content == "Sidsektion") img.setImageResource(R.drawable.side_section);
 
 
             }
