@@ -16,6 +16,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONException;
+import android.util.Log;
 
 /**
  * List containing all the IKEA items. Used in the ListView.
