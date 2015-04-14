@@ -10,5 +10,6 @@
     <string name="title_activity_ar_view_find_all">ArViewFindAll</string>
     <string name="push_the_button">Push the button. Push it!</string>
     <string name="Ar_button_find_all">Find all parts with AR</string>
+    <color name="white">#FFFFFF</color>
 
 </resources>
