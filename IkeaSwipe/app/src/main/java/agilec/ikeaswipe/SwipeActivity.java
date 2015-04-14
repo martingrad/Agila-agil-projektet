@@ -1,7 +1,5 @@
 package agilec.ikeaswipe;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Locale;
 
 import android.support.v7.app.ActionBarActivity;
@@ -15,9 +13,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
-import org.json.JSONObject;
-import org.json.JSONException;
 
 public class SwipeActivity extends ActionBarActivity {
 
@@ -184,35 +179,5 @@ public class SwipeActivity extends ActionBarActivity {
             View rootView = inflater.inflate(R.layout.fragment_swipe, container, false); // if no other layout is loaded for a position, this is the layout which is used
             return rootView;
         }
-    }
-
-    /**
-     * Loads a JSON file from the assets folder and converts it into a string
-     * @user @marcusnygren, code from http://stackoverflow.com/questions/19945411/android-java-how-can-i-parse-a-local-json-file-from-assets-folder-into-a-listvi
-     * TODO: denna metod skulle kunna vara ett interface JSONLoader istället t.ex.
-     */
-    public String loadJSONFromAsset() {
-        String json = null;
-        try {
-
-            InputStream is = getAssets().open("yourfilename.json");
-
-            int size = is.available();
-
-            byte[] buffer = new byte[size];
-
-            is.read(buffer);
-
-            is.close();
-
-            json = new String(buffer, "UTF-8");
-
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            return null;
-        }
-        return json;
-
     }
 }

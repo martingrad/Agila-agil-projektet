@@ -123,9 +123,6 @@ public class ListContentFragment extends ListFragment {
                 listTopText.setText(o.content);
                 listBottomText.setText(o.count + "x");
 
-
-
-
                 //Ugly way of applying the correct image to the correct ListItem.
                 if(o.content == "Insexnyckel") listImg.setImageResource(R.drawable.allen_key);
                 else if(o.content == "Skruv") listImg.setImageResource(R.drawable.screw);
@@ -136,18 +133,6 @@ public class ListContentFragment extends ListFragment {
                 else if(o.content == "Sidsektion") listImg.setImageResource(R.drawable.side_section);
             }
             return v;
-        }
-
-        public void loadItemsFromJSON() {
-            String json = ((SwipeActivity)getActivity()).loadJSONFromAsset();
-
-            try{
-                //TODO: skapa public static class Items
-                JSONObject obj = new JSONObject(json);
-            }
-            catch (JSONException e){
-                Log.e("JSON", "Unexpected JSON exception", e);
-            }
         }
     }
 }
