@@ -1,4 +1,4 @@
-# Ikea Swipe
+## Ikea Swipe
 *"Ikea Swipe shows you how to build your IKEA furniture!"*
 
 ## License
