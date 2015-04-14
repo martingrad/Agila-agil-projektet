@@ -20,10 +20,10 @@ import java.util.Iterator;
  */
 public class Items {
 
-    private ArrayList<Article> articles = new ArrayList<Article>();
-    private Context context;
-    private String jsonString;
-    private JSONObject jObject;
+    private ArrayList<Article> articles = new ArrayList<Article>(); // A List with all articles
+    private Context context;    // Context from activity
+    private String jsonString;  // The jsonfile in string format
+    private JSONObject jObject; // The JSON object
 
 
     /**
@@ -40,15 +40,25 @@ public class Items {
 
     /**
      * Parse jsonString to JSONObject
-     * Get all description from an JSONObject
+     * Get all description from an JSONObject and parse it into Article class
      * @throws JSONException
+     * @user @ingelhag
      */
     private void parseJSONtoItem() throws JSONException {
+
+        // Parse the json string into a JSONObject
         jObject = new JSONObject(jsonString);
+
+        // Make an JSONArray with all parts
         JSONArray jArr = jObject.getJSONArray("parts");
 
+        // Loop through all parts that exits in the JSON-file
         for (int i = 0; i < jArr.length(); i++) {
+
+            // Get an object(in this case each article)
             JSONObject obj = jArr.getJSONObject(i);
+
+            // Set all descriptions
             String title            = obj.get("title").toString();
             String articleNumber    = obj.get("articleNumber").toString();
             int quantity            = obj.getInt("quantity");
@@ -56,11 +66,13 @@ public class Items {
             String imgUrl           = obj.get("imgUrl").toString();
             JSONArray stepsJson     = obj.getJSONArray("step");
 
+            // JSONArray > int[] so convert the JSONArray into int[]
             int[] stepsArray        = new int[stepsJson.length()+1];
             for(int j=0; j<stepsJson.length(); j++) {
                 stepsArray[j] = stepsJson.getInt(j);
             }
 
+            // Define a new article and add this into the ArrayList
             Article newArticle = new Article(title, articleNumber, quantity, quantityLeft, imgUrl, stepsArray);
             articles.add(newArticle);
         }
