@@ -122,7 +122,7 @@ public class ListContentFragment extends ListFragment {
                 listBottomText.setText(o.count + "x");
 
                 try {
-                    Items items = new Items("kritter_parts.json", getActivity());
+                    ArticleHandler articleHandler = new ArticleHandler("kritter_parts.json", getActivity());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

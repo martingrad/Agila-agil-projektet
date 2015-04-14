@@ -15,27 +15,24 @@ import java.util.Arrays;
 import java.util.Iterator;
 
 /**
- * Handles the items via loading from a JSON file and parsing
+ * Handles the articles via loading from a JSON file and parsing
  * @user @marcusnygren @ingelhag
  */
-public class Items {
+public class JsonToItems {
 
-    private ArrayList<Article> articles = new ArrayList<Article>(); // A List with all articles
     private Context context;    // Context from activity
     private String jsonString;  // The jsonfile in string format
     private JSONObject jObject; // The JSON object
 
-
     /**
-     * Constructor of Items
-     * @param filename JSON file where items are stored
+     * Constructor of JSONLoader
+     * @param filename JSON file where articles are stored
      * @param context activity context
      * @user @marcusnygren @ingelhag
      */
-    public Items(String filename, Context context) throws JSONException {
+    public JsonToItems(String filename, Context context) throws JSONException {
         this.context = context;
-        jsonString = loadJSONFromAsset(filename); // load the items immediately, so we don't have to do this later
-        parseJSONtoItem();
+        jsonString = loadJSONFromAsset(filename); // load the articles immediately, so we don't have to do this later
     }
 
     /**
@@ -44,7 +41,10 @@ public class Items {
      * @throws JSONException
      * @user @ingelhag
      */
-    private void parseJSONtoItem() throws JSONException {
+    public ArrayList<Article> parseJSONtoItem() throws JSONException {
+
+        // A List with all articles
+        ArrayList<Article> articles = new ArrayList<Article>();
 
         // Parse the json string into a JSONObject
         jObject = new JSONObject(jsonString);
@@ -76,7 +76,10 @@ public class Items {
             Article newArticle = new Article(title, articleNumber, quantity, quantityLeft, imgUrl, stepsArray);
             articles.add(newArticle);
         }
+
+        return articles;
     }
+
 
     /**
      * Opens a JSON file and parses it into a string
