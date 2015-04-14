@@ -2,7 +2,7 @@
     "parts": [
         {
             "title": "Insexsnyckel",
-            "aricleNumber": "100001",
+            "articleNumber": "100001",
             "quantity": "1",
             "quantityLeft": "1",
             "step": [
@@ -17,7 +17,7 @@
         },
         {
             "title": "Skruv",
-            "aricleNumber": "100214",
+            "articleNumber": "100214",
             "quantity": "6",
             "quantityLeft": "6",
             "step": [
@@ -32,7 +32,7 @@
         },
         {
             "title": "Plugg",
-            "aricleNumber": "101350",
+            "articleNumber": "101350",
             "quantity": "2",
             "quantityLeft": "2",
             "step": [
@@ -47,7 +47,7 @@
         },
         {
             "title": "Övre ryggstödsbräda",
-            "aricleNumber": "",
+            "articleNumber": "",
             "quantity": "1",
             "quantityLeft": "1",
             "step": [
@@ -62,7 +62,7 @@
         },
         {
             "title": "Ryggstöd",
-            "aricleNumber": "",
+            "articleNumber": "",
             "quantity": "1",
             "quantityLeft": "1",
             "step": [
@@ -77,7 +77,7 @@
         },
         {
             "title": "Sits",
-            "aricleNumber": "",
+            "articleNumber": "",
             "quantity": "1",
             "quantityLeft": "1",
             "step": [
@@ -92,7 +92,7 @@
         },
         {
             "title": "Sidsektion",
-            "aricleNumber": "",
+            "articleNumber": "",
             "quantity": "2",
             "quantityLeft": "2",
             "step": [

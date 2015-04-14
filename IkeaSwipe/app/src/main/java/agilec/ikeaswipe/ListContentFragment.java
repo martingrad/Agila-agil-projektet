@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.json.JSONException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -119,6 +121,12 @@ public class ListContentFragment extends ListFragment {
                 ImageView listImg = (ImageView) v.findViewById(R.id.icon);
                 listTopText.setText(o.content);
                 listBottomText.setText(o.count + "x");
+
+                try {
+                    Items items = new Items("kritter_parts.json", getActivity());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
                 //Ugly way of applying the correct image to the correct ListItem.
                 if(o.content == "Insexnyckel") listImg.setImageResource(R.drawable.allen_key);
