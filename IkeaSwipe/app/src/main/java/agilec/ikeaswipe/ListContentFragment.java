@@ -120,6 +120,8 @@ public class ListContentFragment extends ListFragment {
                 listTopText.setText(o.content);
                 listBottomText.setText(o.count + "x");
 
+                Items items = new Items("kritter_parts.json", getActivity());
+
                 //Ugly way of applying the correct image to the correct ListItem.
                 if(o.content == "Insexnyckel") listImg.setImageResource(R.drawable.allen_key);
                 else if(o.content == "Skruv") listImg.setImageResource(R.drawable.screw);
