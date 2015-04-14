@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.support.v4.app.Fragment;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 /**
  * Created by Emma on 15-04-14.
@@ -16,8 +15,6 @@ import android.widget.TextView;
 public class StepByStepFragment extends Fragment {
 
     private Button nextBtn, prevBtn;
-
-    private ImageView currentStepImg;
 
     private ImageView imgView;
 
