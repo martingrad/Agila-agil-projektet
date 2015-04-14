@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<results>
+	<trackingdata url="Assets/Custom/rim_tracking/Tracking.xml" />
+	<arel>tutorial.html</arel>
+	<object id="augmentation">
+		<assets3d>
+			<model>Assets/Custom/rim.obj</model>
+			<transform>
+				<translation>
+					<x>0.0</x><y>0.0</y><z>0.0</z>
+				</translation>
+				<rotation type="eulerdeg">
+					<x>0.0</x><y>0.0</y><z>0.0</z>
+				</rotation>
+				<scale>
+					<x>1.0</x><y>1.0</y><z>1.0</z>
+				</scale>
+			</transform>
+			<properties>
+				<coordinatesystemid>1</coordinatesystemid>
+			</properties>
+		</assets3d>
+	</object>
+	<object id="visualization">
+		<assets3d>
+			<model>Assets/Custom/VizAid.obj</model>
+			<transform>
+				<translation>
+					<x>0.0</x><y>0.0</y><z>0.0</z>
+				</translation>
+				<rotation type="eulerdeg">
+					<x>0.0</x><y>0.0</y><z>0.0</z>
+				</rotation>
+				<scale>
+					<x>1.0</x><y>1.0</y><z>1.0</z>
+				</scale>
+			</transform>
+			<properties>
+				<coordinatesystemid>2</coordinatesystemid>
+			</properties>
+		</assets3d>
+	</object>
+</results>
