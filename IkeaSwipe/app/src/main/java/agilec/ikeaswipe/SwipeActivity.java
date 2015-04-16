@@ -14,7 +14,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-
 public class SwipeActivity extends ActionBarActivity {
 
     /**
@@ -159,9 +158,7 @@ public class SwipeActivity extends ActionBarActivity {
         @Override
         public Fragment getItem(int position) {
             if(position == 0) {
-                return new ListContentFragment();
-            } else if(position == 1) {
-                return stepFragment;
+                return new ArticlesListFragment();
             } else if(position == 2) {
                 return new ArButtonFragment();
             } else {

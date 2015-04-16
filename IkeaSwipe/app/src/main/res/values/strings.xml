@@ -12,4 +12,7 @@
     <string name="Ar_button_find_all">Find all parts with AR</string>
     <color name="white">#FFFFFF</color>
 
+    <string name="btnReset">Reset</string>
+    <string name="btnCancel">Cancel</string>
+
 </resources>
