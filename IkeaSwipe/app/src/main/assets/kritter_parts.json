@@ -13,7 +13,7 @@
                 1,
                 1
             ],
-            "imgUrl": "R.drawable.allen_key"
+            "imgUrl": "allen_key"
         },
         {
             "title": "Skruv",
@@ -28,7 +28,7 @@
                 3,
                 3
             ],
-            "imgUrl": "R.drawable.screw"
+            "imgUrl": "screw"
         },
         {
             "title": "Plugg",
@@ -43,7 +43,7 @@
                 0,
                 0
             ],
-            "imgUrl": "R.drawable.dowel"
+            "imgUrl": "dowel"
         },
         {
             "title": "Övre ryggstödsbräda",
@@ -58,7 +58,7 @@
                 0,
                 0
             ],
-            "imgUrl": "R.drawable.upper_back_side"
+            "imgUrl": "upper_back_side"
         },
         {
             "title": "Ryggstöd",
@@ -73,7 +73,7 @@
                 0,
                 0
             ],
-            "imgUrl": "R.drawable.back_side"
+            "imgUrl": "back_side"
         },
         {
             "title": "Sits",
@@ -88,7 +88,7 @@
                 0,
                 0
             ],
-            "imgUrl": "R.drawable.seat"
+            "imgUrl": "seat"
         },
         {
             "title": "Sidsektion",
@@ -103,7 +103,7 @@
                 0,
                 0
             ],
-            "imgUrl": "R.drawable.side_section"
+            "imgUrl": "side_section"
         }
     ]
 }

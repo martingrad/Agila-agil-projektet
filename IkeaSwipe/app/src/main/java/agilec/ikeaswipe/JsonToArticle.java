@@ -18,7 +18,7 @@ import java.util.Iterator;
  * Handles the articles via loading from a JSON file and parsing
  * @user @marcusnygren @ingelhag
  */
-public class JsonToItems {
+public class JsonToArticle {
 
     private Context context;    // Context from activity
     private String jsonString;  // The jsonfile in string format
@@ -30,7 +30,7 @@ public class JsonToItems {
      * @param context activity context
      * @user @marcusnygren @ingelhag
      */
-    public JsonToItems(String filename, Context context) throws JSONException {
+    public JsonToArticle(String filename, Context context) throws JSONException {
         this.context = context;
         jsonString = loadJSONFromAsset(filename); // load the articles immediately, so we don't have to do this later
     }
@@ -79,7 +79,6 @@ public class JsonToItems {
 
         return articles;
     }
-
 
     /**
      * Opens a JSON file and parses it into a string

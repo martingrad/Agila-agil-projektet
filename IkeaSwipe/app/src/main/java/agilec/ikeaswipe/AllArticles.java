@@ -5,6 +5,7 @@ import android.content.Context;
 import org.json.JSONException;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Handles the articles
@@ -14,7 +15,7 @@ public class AllArticles {
 
     private String filename;            // Filename of the json-file
     private Context activityContext;    // Context of the activity
-    private ArrayList<Article> articles = new ArrayList<Article>(); // A List with all articles
+    private List<Article> articles = new ArrayList<Article>(); // A List with all articles
 
     /**
      * Constructor
@@ -27,17 +28,17 @@ public class AllArticles {
         this.activityContext = activityContext;
 
         // Read JSON-file ..
-        JsonToItems jsonToItems = new JsonToItems(filename, activityContext);
+        JsonToArticle jsonToArticle = new JsonToArticle(filename, activityContext);
 
         // .. and parse it into article objects and save into Arraylist
-        articles = jsonToItems.parseJSONtoItem();
+        articles = jsonToArticle.parseJSONtoItem();
     }
 
     /**
      * Get all articles
      * @return articles
      */
-    public ArrayList<Article> getArticles() {
+    public List<Article> getArticles() {
         return articles;
     }
 }
