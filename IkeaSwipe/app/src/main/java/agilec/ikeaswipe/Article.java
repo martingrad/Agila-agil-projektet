@@ -80,6 +80,4 @@ public class Article {
     public int[] getSteps() {
         return steps;
     }
-
-
 }
