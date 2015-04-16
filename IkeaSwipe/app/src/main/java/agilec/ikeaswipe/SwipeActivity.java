@@ -103,7 +103,8 @@ public class SwipeActivity extends ActionBarActivity {
         @Override
         public Fragment getItem(int position) {
             if(position == 0) {
-                return new ArticlesListFragment();
+                ArticlesListFragment alf = new ArticlesListFragment();
+                return alf;
             } else if(position == 2) {
                 return new ArButtonFragment();
             } else {
@@ -119,6 +120,10 @@ public class SwipeActivity extends ActionBarActivity {
         public int getCount() {
             // Show 3 total pages.
             return 3;
+        }
+
+        public int getItemPosition(Object object) {
+            return POSITION_NONE;
         }
 
         /**

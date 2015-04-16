@@ -49,6 +49,10 @@ public class AllArticles {
      * @return  articlesInStep - contains all articles in a step
      */
     public List<Article> getArticlesInStep(int step) {
+
+        if(step == 0) {
+            return getArticles();
+        }
         // List with Articles
         List<Article> articlesInStep = new ArrayList<Article>();
 

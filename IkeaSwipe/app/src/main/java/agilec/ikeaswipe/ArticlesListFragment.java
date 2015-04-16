@@ -3,6 +3,7 @@ package agilec.ikeaswipe;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,8 @@ import java.util.Map;
 public class ArticlesListFragment extends ListFragment {
 
     AllArticles articleHandler = null;
+    ListAdapter ourAdapter = null;
+    int step;
 
     /**
      * Creates a list view  with all the items added to the list
@@ -47,12 +50,21 @@ public class ArticlesListFragment extends ListFragment {
             e.printStackTrace();
         }
 
+        // Set our adapter
+        ourAdapter = new ListAdapter(getActivity(), R.layout.list_item, (ArrayList)articleHandler.getArticles());
+
         /**
          *  Connects the items to the list view activity, using the layout specified in the second parameter
          *  Third parameter = an ArrayList with all our articles
          */
-        setListAdapter(new ListAdapter(getActivity(), R.layout.list_item, (ArrayList)articleHandler.getArticles()));
+        setListAdapter(ourAdapter);
         return listView;
+    }
+
+    public void updateListWithStep(int i) {
+        ourAdapter.notifyDataSetChanged();
+        ourAdapter.clear();
+        ourAdapter.addAll(articleHandler.getArticlesInStep(i));
     }
 
     /**
