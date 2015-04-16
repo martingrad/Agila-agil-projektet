@@ -23,6 +23,7 @@ public class AllArticles {
      * @param filename
      * @param activityContext
      * @throws JSONException
+     * @user @ingelhag
      */
     public AllArticles(String filename, Context activityContext) throws JSONException {
         this.filename = filename;
@@ -38,6 +39,7 @@ public class AllArticles {
     /**
      * Get all articles
      * @return articles
+     * @user @ingelhag
      */
     public List<Article> getArticles() {
         return articles;
@@ -47,10 +49,13 @@ public class AllArticles {
      * Check which article belongs to each step.
      * @param step Which step we want to check
      * @return  articlesInStep - contains all articles in a step
+     * @user @ingelhag
      */
-    public List<Article> getArticlesInStep(int step) {
+    public List<Article> getArticlesInStep(int step) throws JSONException {
 
+        // If the current step is 0 - return all articles
         if(step == 0) {
+            System.out.println("Return All");
             return getArticles();
         }
         // List with Articles
@@ -68,7 +73,6 @@ public class AllArticles {
             // Add this article to the articlesInStep list
             if(article.getSteps()[step] != 0) {
                 articlesInStep.add(article);
-                // System.out.println(article.getTitle() + " finns i steg:" + (step+1));
             }
         }
         // articlesInStep - contains all articles in a step

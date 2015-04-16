@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.support.v4.app.Fragment;
 import android.widget.ImageView;
 
+import org.json.JSONException;
+
 /*
     TODO: prevBtn should not be visible at start position
     TODO: Should not be possible to increase or decrease step number
@@ -92,7 +94,12 @@ public class StepByStepFragment extends Fragment {
                 setImage(stepNumber);
 
                 // Call the setStepNumber function in SwipeActivity to change the current step number
-                ((SwipeActivity)getActivity()).setStepNumber(stepNumber);
+                try {
+                    ((SwipeActivity)getActivity()).setStepNumber(stepNumber);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
             }
         });
 
@@ -114,7 +121,11 @@ public class StepByStepFragment extends Fragment {
                 setImage(stepNumber);
 
                 // Call the setStepNumber function in SwipeActivity to change the current step number
-                ((SwipeActivity)getActivity()).setStepNumber(stepNumber);
+                try {
+                    ((SwipeActivity)getActivity()).setStepNumber(stepNumber);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
