@@ -25,33 +25,59 @@ public class SwipeActivity extends ActionBarActivity {
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
+
     SectionsPagerAdapter mSectionsPagerAdapter;
-    private int currentStep;
-    Bundle bundle;
+
+    /**
+     *  The {@link StepByStepFragment} that is displayed in the second section of the ViewPager.
+     */
     StepByStepFragment stepFragment;
 
-    public void setStep(int stepNumber){
-        System.out.println("MÖHÖHÖHÖHÖHÖHÖHÖHÖHÖHÖHÖH");
-        currentStep = stepNumber;
-    }
+    /**
+     * int currentStep is used to set and track the current step that is being displayed in
+     * stepByStepFragment.
+     */
+    private int currentStep;
+
+    /**
+     * The {@link Bundle} that is used to initialize stepByStepFragment with the current
+     * stepNumber.
+     */
+    Bundle bundle;
 
     /**
      * The {@link ViewPager} that will host the section contents.
      */
     ViewPager mViewPager;
 
+    /**
+     * setStepNumber is called to update the current step number from the StepByStepFragment
+     * @author @emmaforsling @martingrad @byggprojektledarn
+     * @param stepNumber
+     */
+    public void setStepNumber(int stepNumber){
+        currentStep = stepNumber;
+    }
+
+    /**
+     * This function is overridden to save the current step number when the activity is recreated
+     * @param outState
+     */
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt("stepNumber", currentStep);
+        super.onSaveInstanceState(outState);
+    }
+
+    /**
+     * This function is overridden to restore the previous value for currentStep,
+     * when the activity is recreated
+     * @param savedInstanceState
+     */
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         currentStep = savedInstanceState.getInt("stepNumber");
-        System.out.println("onRestoreInstanceState(), currentStep = " + currentStep);
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        outState.putInt("stepNumber", currentStep);
-        System.out.println("onSaveInstanceState(), currentStep = " + currentStep);
-        super.onSaveInstanceState(outState);
     }
 
     /** Perform initialization of all fragments and loaders.
@@ -62,7 +88,8 @@ public class SwipeActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_swipe);
 
-        // Create a bundle with the currentStep 1 as default.
+        // Create a bundle with the currentStep = 0 as default, using the key "stepNumber", and
+        // pass the arguments bundle to the stepByStepFragment
         bundle = new Bundle();
         currentStep = 0;
         bundle.putInt("stepNumber", currentStep);
@@ -76,7 +103,6 @@ public class SwipeActivity extends ActionBarActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-
     }
 
     /**
@@ -134,11 +160,12 @@ public class SwipeActivity extends ActionBarActivity {
         public Fragment getItem(int position) {
             if(position == 0) {
                 return new ListContentFragment();
+            } else if(position == 1) {
+                return stepFragment;
             } else if(position == 2) {
                 return new ArButtonFragment();
             } else {
-                return stepFragment;
-                //return PlaceholderFragment.newInstance(position + 1);
+                return PlaceholderFragment.newInstance(position + 1);
             }
         }
 

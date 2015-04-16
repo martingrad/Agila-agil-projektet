@@ -1,7 +1,6 @@
 package agilec.ikeaswipe;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,22 +9,26 @@ import android.support.v4.app.Fragment;
 import android.widget.ImageView;
 
 /**
- * Created by Emma on 15-04-14.
+ * The layout for the step by step instructions
+ * @author @emmaforsling @martingrad @byggprojektledarn
  */
 public class StepByStepFragment extends Fragment {
 
     private Button nextBtn, prevBtn;
-
     private ImageView imgView;
 
-    private int stepNumber = 1;
+    /**
+     * int stepNumber is used to track the current step and update the corresponding variable
+     * currentStep in the parent SwipeActivity.
+     */
+    private int stepNumber;
 
-
-
-    // nine patch ikoner att kolla upp!!!
-
+    /**
+     * setImage changes the image source of imgView depending on the current step
+     * @author @emmaforsling @martingrad @byggprojektledarn
+     * @param stepNumber
+     */
     private void setImage(int stepNumber){
-        System.out.println("setImage(" + stepNumber + ")" );
         switch (stepNumber){
             case 1:
                 imgView.setImageResource(R.drawable.step1_scaled);
@@ -56,58 +59,56 @@ public class StepByStepFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_step_by_step, container, false);
 
-
+        // Find the ImageView from the .xml
         imgView = (ImageView)view.findViewById(R.id.steps);
-        //txtView.setText("hej");
 
         // Extract the id for the current step
         stepNumber = getArguments().getInt("stepNumber");
-        System.out.println("getArguments().getInt('stepNumber') = " + stepNumber);
 
+        // Set the image source
         setImage(stepNumber);
-
-        //Bundle n = getArguments();
-        //int blubb = n.getInt("stepNumber");
-        //System.out.println(" " + value);
 
         prevBtn = (Button) view.findViewById(R.id.prevBtn);
         prevBtn.setOnClickListener(new View.OnClickListener() {
             /**
-             * @user @ingelhag @antonosterblad
-             * Start activity ArFindAllActivity.
+             * onClick function for the prevBtn
+             * @author @emmaforsling @martingrad @byggprojektledaren
              * @param v
              */
-            // TODO refactor class names to define differences between activities and fragments.
             @Override
             public void onClick(View v) {
-                Log.i("prevBtn", "Pushed it!");
-                //Intent ArIntent = new Intent(getActivity(), ArFindAllActivity.class);
-                //startActivity(ArIntent);
+                // TODO add if statements to check that the stepNumber is valid
+
+                // Decrement the stepNumber
                 stepNumber--;
+
+                // Change the image source
                 setImage(stepNumber);
-                System.out.println("Nu anropar vi setStep med " + stepNumber);
-                ((SwipeActivity)getActivity()).setStep(stepNumber);
+
+                // Call the setStepNumber function in SwipeActivity to change the current step number
+                ((SwipeActivity)getActivity()).setStepNumber(stepNumber);
             }
         });
 
         nextBtn = (Button) view.findViewById(R.id.nextBtn);
         nextBtn.setOnClickListener(new View.OnClickListener() {
             /**
-             * @user @ingelhag @antonosterblad
-             * Start activity ArFindAllActivity.
+             * onClick function for the nextBtn
+             * @author @emmaforsling @martingrad @byggprojektledarn
              * @param v
              */
-            // TODO refactor class names to define differences between activities and fragments.
             @Override
             public void onClick(View v) {
-                Log.i("nextBtn", "Pushed it!");
+                // TODO add if statements to check that the stepNumber is valid
 
-                //Intent ArIntent = new Intent(getActivity(), ArFindAllActivity.class);
-                //startActivity(ArIntent);
+                // Increment the stepNumber
                 stepNumber++;
+
+                // Change the image source
                 setImage(stepNumber);
-                System.out.println("Nu anropar vi setStep med " + stepNumber);
-                ((SwipeActivity)getActivity()).setStep(stepNumber);
+
+                // Call the setStepNumber function in SwipeActivity to change the current step number
+                ((SwipeActivity)getActivity()).setStepNumber(stepNumber);
             }
         });
 
