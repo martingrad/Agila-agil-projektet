@@ -72,8 +72,8 @@ public class ArFindAllActivity extends ARViewActivity {
     protected void loadContents()
     {
         // Set path for the model/file to load
-        mRimModel = loadModel("custom/rim.obj");
-        mVizAidModel = loadModel("custom/VizAid.obj");
+        mRimModel = loadModel("custom/stolsida.obj");
+        mVizAidModel = loadModel("custom/stolsida.obj");
 
         // Set id for each models individual coordinate system
         if (mRimModel != null)
@@ -115,7 +115,7 @@ public class ArFindAllActivity extends ARViewActivity {
         try
         {
             // Load model
-            // AssetsManager.extractAllAssets(this, true);
+            AssetsManager.extractAllAssets(this, true);
             final File modelPath = AssetsManager.getAssetPathAsFile(getApplicationContext(), path);
             // Log.i("info", "modelPath: " + modelPath);
             geometry = metaioSDK.createGeometry(modelPath);
