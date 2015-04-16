@@ -55,8 +55,30 @@ public class StepByStepFragment extends Fragment {
                 imgView.setImageResource(R.drawable.step6_scaled);
                 break;
             default:
-                imgView.setImageResource(R.drawable.ic_launcher);
+                imgView.setImageResource(R.drawable.kritter_not_vector);
                 break;
+        }
+    }
+
+    /**
+     * Function to enable or disable the prevBtn
+     */
+    private void checkButtonPrev(){
+        if(stepNumber == 0) {
+            prevBtn.setEnabled(false);
+        } else {
+            prevBtn.setEnabled(true);
+        }
+    }
+
+    /**
+     * Function to enable or disable the nextBtn
+     */
+    private void checkButtonNext(){
+        if(stepNumber == 6){
+            nextBtn.setEnabled(false);
+        } else {
+            nextBtn.setEnabled(true);
         }
     }
 
@@ -92,6 +114,10 @@ public class StepByStepFragment extends Fragment {
         setImage(stepNumber);
 
         prevBtn = (Button) view.findViewById(R.id.prevBtn);
+
+        // Check if the prevBtn should be enabled or not
+        checkButtonPrev();
+
         prevBtn.setOnClickListener(new View.OnClickListener() {
             /**
              * onClick function for the prevBtn
@@ -105,6 +131,10 @@ public class StepByStepFragment extends Fragment {
                 // Decrement the stepNumber
                 stepNumber--;
 
+                // Check if the nextBtn and prevBtn should be enabled or not
+                checkButtonPrev();
+                checkButtonNext();
+
                 // Change the image source
                 setImage(stepNumber);
 
@@ -114,6 +144,10 @@ public class StepByStepFragment extends Fragment {
         });
 
         nextBtn = (Button) view.findViewById(R.id.nextBtn);
+
+        // Check if the nextBtn should be enabled or not
+        checkButtonNext();
+
         nextBtn.setOnClickListener(new View.OnClickListener() {
             /**
              * onClick function for the nextBtn
@@ -122,10 +156,13 @@ public class StepByStepFragment extends Fragment {
              */
             @Override
             public void onClick(View v) {
-                // TODO add if statements to check that the stepNumber is valid
 
                 // Increment the stepNumber
                 stepNumber++;
+
+                // Check if the nextBtn and prevBtn should be enabled or not
+                checkButtonNext();
+                checkButtonPrev();
 
                 // Change the image source
                 setImage(stepNumber);
