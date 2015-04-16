@@ -60,6 +60,16 @@ public class StepByStepFragment extends Fragment {
         }
     }
 
+    /**
+     * This function is overridden to save the current step number when the activity is recreated
+     * @param outState
+     */
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putInt("stepNumber", stepNumber);
+        super.onSaveInstanceState(outState);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -69,7 +79,14 @@ public class StepByStepFragment extends Fragment {
         imgView = (ImageView)view.findViewById(R.id.steps);
 
         // Extract the id for the current step
-        stepNumber = getArguments().getInt("stepNumber");
+
+        // Check if any step has been stored, if so - remain on the last step stored.
+        if(savedInstanceState != null) {
+            stepNumber = savedInstanceState.getInt("stepNumber");
+        } else {
+            stepNumber = getArguments().getInt("stepNumber");
+        }
+
 
         // Set the image source
         setImage(stepNumber);
