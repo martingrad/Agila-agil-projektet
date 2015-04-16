@@ -15,18 +15,18 @@ import com.metaio.tools.io.AssetsManager;
 /*
     Camera environment for Metaio
     edge based tracking with 3D models
-    @author @antonosterblad
+    @author @antonosterblad @linneamalcherek
  */
 public class ArFindAllActivity extends ARViewActivity {
 
-    /**
-     * Rim model
-     */
-    private IGeometry mRimModel = null;
 
     /**
-     * Edge visualization model
+     * Instance variables for 3D geometry that can be loaded within the system
      */
+    //3D model
+    private IGeometry mRimModel = null;
+
+    //Edge visualization model
     private IGeometry mVizAidModel = null;
 
     /**
@@ -68,18 +68,20 @@ public class ArFindAllActivity extends ARViewActivity {
     @Override
     protected void loadContents()
     {
+        // Set path for the model/file to load
         mRimModel = loadModel("custom/rim.obj");
         mVizAidModel = loadModel("custom/VizAid.obj");
 
+        // Set id for each models individual coordinate system
         if (mRimModel != null)
             mRimModel.setCoordinateSystemID(1);
 
         if (mVizAidModel != null)
             mVizAidModel.setCoordinateSystemID(2);
 
+        // Tracking.xml defines how to track the model
         setTrackingConfiguration("custom/rim_tracking/Tracking.xml");
     }
-
 
     final class MetaioSDKCallbackHandler extends IMetaioSDKCallback
     {
@@ -99,15 +101,20 @@ public class ArFindAllActivity extends ARViewActivity {
         }
     }
 
+    /**
+     * Load 3D model
+     * @param path
+     * @return geometry
+     */
     private IGeometry loadModel(final String path)
     {
         IGeometry geometry = null;
-        Log.i("info", "Path: " + path);
         try
         {
             // Load model
+            // AssetsManager.extractAllAssets(this, true);
             final File modelPath = AssetsManager.getAssetPathAsFile(getApplicationContext(), path);
-            //Log.i("info", "modelPath: " + modelPath);
+            // Log.i("info", "modelPath: " + modelPath);
             geometry = metaioSDK.createGeometry(modelPath);
 
             MetaioDebug.log("Loaded geometry "+modelPath);
@@ -120,6 +127,11 @@ public class ArFindAllActivity extends ARViewActivity {
         return geometry;
     }
 
+    /**
+     * Define how to track the 3D model
+     * @param path
+     * @return result
+     */
     private boolean setTrackingConfiguration(final String path)
     {
         boolean result = false;
