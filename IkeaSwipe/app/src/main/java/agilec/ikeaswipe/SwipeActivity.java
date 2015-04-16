@@ -103,7 +103,7 @@ public class SwipeActivity extends ActionBarActivity {
         @Override
         public Fragment getItem(int position) {
             if(position == 0) {
-                return new ListContentFragment();
+                return new ArticlesListFragment();
             } else if(position == 2) {
                 return new ArButtonFragment();
             } else {

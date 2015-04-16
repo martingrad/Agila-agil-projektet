@@ -1,0 +1,109 @@
+{
+    "parts": [
+        {
+            "title": "Insexsnyckel",
+            "articleNumber": "100001",
+            "quantity": "1",
+            "quantityLeft": "1",
+            "step": [
+                0,
+                0,
+                0,
+                0,
+                1,
+                1
+            ],
+            "imgUrl": "allen_key"
+        },
+        {
+            "title": "Skruv",
+            "articleNumber": "100214",
+            "quantity": "6",
+            "quantityLeft": "6",
+            "step": [
+                0,
+                0,
+                0,
+                0,
+                3,
+                3
+            ],
+            "imgUrl": "screw"
+        },
+        {
+            "title": "Plugg",
+            "articleNumber": "101350",
+            "quantity": "2",
+            "quantityLeft": "2",
+            "step": [
+                2,
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "imgUrl": "dowel"
+        },
+        {
+            "title": "Övre ryggstödsbräda",
+            "articleNumber": "",
+            "quantity": "1",
+            "quantityLeft": "1",
+            "step": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "imgUrl": "upper_back_side"
+        },
+        {
+            "title": "Ryggstöd",
+            "articleNumber": "",
+            "quantity": "1",
+            "quantityLeft": "1",
+            "step": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "imgUrl": "back_side"
+        },
+        {
+            "title": "Sits",
+            "articleNumber": "",
+            "quantity": "1",
+            "quantityLeft": "1",
+            "step": [
+                0,
+                1,
+                0,
+                0,
+                0,
+                0
+            ],
+            "imgUrl": "seat"
+        },
+        {
+            "title": "Sidsektion",
+            "articleNumber": "",
+            "quantity": "2",
+            "quantityLeft": "2",
+            "step": [
+                0,
+                0,
+                1,
+                1,
+                0,
+                0
+            ],
+            "imgUrl": "side_section"
+        }
+    ]
+}
