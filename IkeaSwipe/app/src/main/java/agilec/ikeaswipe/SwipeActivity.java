@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.json.JSONException;
+
+// TODO: Fix bug, list + dubbelswipe updates wrong!!!
 
 public class SwipeActivity extends ActionBarActivity {
 
@@ -169,7 +170,6 @@ public class SwipeActivity extends ActionBarActivity {
                 return alf;
             } else if(position == 1) {
                 return stepFragment;
-
             } else if(position == 2) {
                 return new ArButtonFragment();
             } else {
@@ -185,10 +185,6 @@ public class SwipeActivity extends ActionBarActivity {
         public int getCount() {
             // Show 3 total pages.
             return 3;
-        }
-
-        public int getItemPosition(Object object) {
-            return POSITION_NONE;
         }
 
         /**

@@ -52,7 +52,6 @@ public class ArticlesListFragment extends ListFragment {
         }
 
         // Set our adapter
-
         ArrayList<Article> temp = new ArrayList(articleHandler.getArticles());
         ourAdapter = new ListAdapter(getActivity(), R.layout.list_item, temp);
 
@@ -136,7 +135,6 @@ public class ArticlesListFragment extends ListFragment {
                 } else {
                     listBottomText.setText(a.getSteps()[currentStep-1] + "x");
                 }
-
 
                 // Set image
                 int id = getResources().getIdentifier(a.getImgUrl(), "drawable", getActivity().getPackageName());

@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.support.v4.app.Fragment;
 import android.widget.ImageView;
-
 import org.json.JSONException;
 
 /*
