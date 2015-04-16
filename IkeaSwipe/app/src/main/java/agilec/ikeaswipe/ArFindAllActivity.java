@@ -8,14 +8,14 @@ import android.view.View;
 
 import com.metaio.sdk.ARViewActivity;
 import com.metaio.sdk.MetaioDebug;
-import com.metaio.sdk.jni.EENV_MAP_FORMAT;
 import com.metaio.sdk.jni.IGeometry;
 import com.metaio.sdk.jni.IMetaioSDKCallback;
 import com.metaio.tools.io.AssetsManager;
 
 /*
-    Creates a camera environment for Metaio
-    @author @antonosterblad @ingelhag
+    Camera environment for Metaio
+    edge based tracking with 3D models
+    @author @antonosterblad
  */
 public class ArFindAllActivity extends ARViewActivity {
 
@@ -52,7 +52,6 @@ public class ArFindAllActivity extends ARViewActivity {
 
     @Override
     protected IMetaioSDKCallback getMetaioSDKCallbackHandler() {
-        mCallbackHandler = null;
         return mCallbackHandler;
     }
 
@@ -69,39 +68,17 @@ public class ArFindAllActivity extends ARViewActivity {
     @Override
     protected void loadContents()
     {
-/*        mRimModel = loadModel("TutorialEdgeBasedInitialization/Assets/Custom/rim.obj");
-        mVizAidModel = loadModel("TutorialEdgeBasedInitialization/Assets/Custom/VizAid.obj");
-
-        final File envmapPath = AssetsManager.getAssetPathAsFile(getApplicationContext(), "TutorialEdgeBasedInitialization/Assets/Custom/env_map.png");
-        metaioSDK.loadEnvironmentMap(envmapPath, EENV_MAP_FORMAT.EEMF_LATLONG);
+        mRimModel = loadModel("custom/rim.obj");
+        mVizAidModel = loadModel("custom/VizAid.obj");
 
         if (mRimModel != null)
             mRimModel.setCoordinateSystemID(1);
 
         if (mVizAidModel != null)
-            mVizAidModel.setCoordinateSystemID(2);*/
+            mVizAidModel.setCoordinateSystemID(2);
 
-        //setTrackingConfiguration("TutorialEdgeBasedInitialization/Assets/Custom/rim_tracking/Tracking.xml");
+        setTrackingConfiguration("custom/rim_tracking/Tracking.xml");
     }
-
-/*    private IGeometry loadModel(final String path)
-    {
-        IGeometry geometry = null;
-        try
-        {
-            // Load model
-            final File modelPath = AssetsManager.getAssetPathAsFile(getApplicationContext(), path);
-            geometry = metaioSDK.createGeometry(modelPath);
-
-            MetaioDebug.log("Loaded geometry "+modelPath);
-        }
-        catch (Exception e)
-        {
-            MetaioDebug.log(Log.ERROR, "Error loading geometry: "+e.getMessage());
-            return geometry;
-        }
-        return geometry;
-    }*/
 
 
     final class MetaioSDKCallbackHandler extends IMetaioSDKCallback
@@ -122,10 +99,49 @@ public class ArFindAllActivity extends ARViewActivity {
         }
     }
 
+    private IGeometry loadModel(final String path)
+    {
+        IGeometry geometry = null;
+        Log.i("info", "Path: " + path);
+        try
+        {
+            // Load model
+            final File modelPath = AssetsManager.getAssetPathAsFile(getApplicationContext(), path);
+            //Log.i("info", "modelPath: " + modelPath);
+            geometry = metaioSDK.createGeometry(modelPath);
+
+            MetaioDebug.log("Loaded geometry "+modelPath);
+        }
+        catch (Exception e)
+        {
+            MetaioDebug.log(Log.ERROR, "Error loading geometry: "+e.getMessage());
+            return geometry;
+        }
+        return geometry;
+    }
+
+    private boolean setTrackingConfiguration(final String path)
+    {
+        boolean result = false;
+        try
+        {
+            // set tracking configuration
+            final File xmlPath = AssetsManager.getAssetPathAsFile(getApplicationContext(), path);
+            result = metaioSDK.setTrackingConfiguration(xmlPath);
+            MetaioDebug.log("Loaded tracking configuration "+xmlPath);
+        }
+        catch (Exception e)
+        {
+            MetaioDebug.log(Log.ERROR, "Error loading tracking configuration: "+ path + " " +e.getMessage());
+            return result;
+        }
+        return result;
+    }
+
     @Override
     protected int getGUILayout()
     {
-        return R.layout.tutorial_edge_based_initialization;
+        return R.layout.activity_ar_view_find_all;
     }
 
     @Override
