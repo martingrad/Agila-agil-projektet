@@ -57,17 +57,7 @@ public class ArFindAllActivity extends ARViewActivity {
 
     @Override
     protected IMetaioSDKCallback getMetaioSDKCallbackHandler() {
-        return new IMetaioSDKCallback(){
-            public void onTrackingEvent(TrackingValuesVector trackingValues)
-            {
-                for (int i=0; i<trackingValues.size(); i++)
-                {
-                    final TrackingValues v = trackingValues.get(i);
-                    System.out.println("trackingValues.get(" + i + "): " + v.getState());
-
-                }
-            }
-        };
+        return mCallbackHandler;
     }
 
     public void onButtonClick(View v)
@@ -98,21 +88,33 @@ public class ArFindAllActivity extends ARViewActivity {
         setTrackingConfiguration("custom/rim_tracking/Tracking.xml");
     }
 
-    final class MetaioSDKCallbackHandler extends IMetaioSDKCallback
-    {
+    final class MetaioSDKCallbackHandler extends IMetaioSDKCallback {
 
         @Override
-        public void onSDKReady()
-        {
+        public void onSDKReady() {
             // show GUI
-            runOnUiThread(new Runnable()
-            {
+            runOnUiThread(new Runnable() {
                 @Override
-                public void run()
-                {
+                public void run() {
                     mGUIView.setVisibility(View.VISIBLE);
                 }
             });
+        }
+
+        @Override
+        public void onTrackingEvent(TrackingValuesVector trackingValuesVector) {
+            super.onTrackingEvent(trackingValuesVector);
+            {
+                for (int i = 0; i < trackingValuesVector.size(); i++) {
+                    final TrackingValues v = trackingValuesVector.get(i);
+                    boolean foundObject = v.isTrackingState();
+                    if(foundObject) {
+                        System.out.println("Object found!");
+                    } else {
+                        System.out.println("Object lost!");
+                    }
+                }
+            }
         }
     }
 
@@ -127,7 +129,7 @@ public class ArFindAllActivity extends ARViewActivity {
         try
         {
             // Load model
-            // AssetsManager.extractAllAssets(this, true);
+            AssetsManager.extractAllAssets(this, true);
             final File modelPath = AssetsManager.getAssetPathAsFile(getApplicationContext(), path);
             // Log.i("info", "modelPath: " + modelPath);
             geometry = metaioSDK.createGeometry(modelPath);
