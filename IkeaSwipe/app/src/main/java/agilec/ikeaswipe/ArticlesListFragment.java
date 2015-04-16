@@ -46,6 +46,7 @@ public class ArticlesListFragment extends ListFragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
         /**
          *  Connects the items to the list view activity, using the layout specified in the second parameter
          *  Third parameter = an ArrayList with all our articles
