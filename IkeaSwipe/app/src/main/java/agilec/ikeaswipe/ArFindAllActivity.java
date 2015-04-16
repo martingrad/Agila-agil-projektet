@@ -18,8 +18,6 @@ import com.metaio.tools.io.AssetsManager;
     @author @antonosterblad @linneamalcherek
  */
 
-//This is going great...
-
 public class ArFindAllActivity extends ARViewActivity {
 
 
