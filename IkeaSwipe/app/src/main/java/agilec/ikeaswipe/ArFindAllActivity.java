@@ -10,6 +10,8 @@ import com.metaio.sdk.ARViewActivity;
 import com.metaio.sdk.MetaioDebug;
 import com.metaio.sdk.jni.IGeometry;
 import com.metaio.sdk.jni.IMetaioSDKCallback;
+import com.metaio.sdk.jni.TrackingValues;
+import com.metaio.sdk.jni.TrackingValuesVector;
 import com.metaio.tools.io.AssetsManager;
 
 /*
@@ -55,7 +57,17 @@ public class ArFindAllActivity extends ARViewActivity {
 
     @Override
     protected IMetaioSDKCallback getMetaioSDKCallbackHandler() {
-        return mCallbackHandler;
+        return new IMetaioSDKCallback(){
+            public void onTrackingEvent(TrackingValuesVector trackingValues)
+            {
+                for (int i=0; i<trackingValues.size(); i++)
+                {
+                    final TrackingValues v = trackingValues.get(i);
+                    System.out.println("trackingValues.get(" + i + "): " + v.getState());
+
+                }
+            }
+        };
     }
 
     public void onButtonClick(View v)
