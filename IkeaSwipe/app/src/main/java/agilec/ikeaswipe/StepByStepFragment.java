@@ -8,6 +8,12 @@ import android.widget.Button;
 import android.support.v4.app.Fragment;
 import android.widget.ImageView;
 
+/*
+    TODO: prevBtn should not be visible at start position
+    TODO: Should not be possible to increase or decrease step number
+    TODO: refactor to use array or database instead of case statements, more dynamic
+ */
+
 /**
  * The layout for the step by step instructions
  * @author @emmaforsling @martingrad @byggprojektledarn
