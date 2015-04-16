@@ -1,8 +1,10 @@
 package agilec.ikeaswipe;
 
 import android.content.Context;
+import android.graphics.ColorMatrix;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +28,8 @@ import java.util.Map;
 public class ArticlesListFragment extends ListFragment {
 
     AllArticles articleHandler = null;
+    ListAdapter ourAdapter = null;
+    private int currentStep;
 
     /**
      * Creates a list view  with all the items added to the list
@@ -47,12 +51,38 @@ public class ArticlesListFragment extends ListFragment {
             e.printStackTrace();
         }
 
+        // Set our adapter
+        ArrayList<Article> temp = new ArrayList(articleHandler.getArticles());
+        ourAdapter = new ListAdapter(getActivity(), R.layout.list_item, temp);
+
         /**
          *  Connects the items to the list view activity, using the layout specified in the second parameter
          *  Third parameter = an ArrayList with all our articles
          */
-        setListAdapter(new ListAdapter(getActivity(), R.layout.list_item, (ArrayList)articleHandler.getArticles()));
+        setListAdapter(ourAdapter);
         return listView;
+    }
+
+    /**
+     * Updates out list depending on which step is active
+     * @param step Current step in the application
+     * @throws JSONException
+     * @user @ingelhag
+     */
+    public void updateListWithStep(int step) throws JSONException {
+
+        // Set current step - needed to be done to set correct quantity in the list
+        // Set all articles that will be shown in the list depending on the current step
+        currentStep = step;
+        List<Article> theList = articleHandler.getArticlesInStep(step);
+
+        /**
+         * Notify the list something will be changed
+         * Delete all data from the list
+         */
+        ourAdapter.clear();
+        ourAdapter.addAll(theList);
+        ourAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -69,6 +99,14 @@ public class ArticlesListFragment extends ListFragment {
             this.article = article;
         }
 
+        /**
+         *
+         * @param position
+         * @param convertView
+         * @param parent
+         * @return
+         * @user @ingelhag
+         */
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             View v = convertView;
@@ -88,8 +126,15 @@ public class ArticlesListFragment extends ListFragment {
                 // Set title
                 listTopText.setText(a.getTitle());
 
-                // Set quantity
-                listBottomText.setText(a.getQuantity() + "x");
+                /**
+                 * Set quantity
+                 * If step != 0 - set quantity for each step
+                 */
+                if(currentStep == 0) {
+                    listBottomText.setText(a.getQuantity() + "x");
+                } else {
+                    listBottomText.setText(a.getSteps()[currentStep-1] + "x");
+                }
 
                 // Set image
                 int id = getResources().getIdentifier(a.getImgUrl(), "drawable", getActivity().getPackageName());

@@ -14,6 +14,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.json.JSONException;
+
+// TODO: Fix bug, list + dubbelswipe updates wrong!!!
+
 public class SwipeActivity extends ActionBarActivity {
 
     /**
@@ -24,6 +28,8 @@ public class SwipeActivity extends ActionBarActivity {
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
+
+    ArticlesListFragment alf = new ArticlesListFragment();
 
     SectionsPagerAdapter mSectionsPagerAdapter;
 
@@ -36,7 +42,7 @@ public class SwipeActivity extends ActionBarActivity {
      * int currentStep is used to set and track the current step that is being displayed in
      * stepByStepFragment.
      */
-    private int currentStep;
+    private int currentStep = 0;
 
     /**
      * The {@link Bundle} that is used to initialize stepByStepFragment with the current
@@ -54,8 +60,11 @@ public class SwipeActivity extends ActionBarActivity {
      * @author @emmaforsling @martingrad @byggprojektledarn
      * @param stepNumber
      */
-    public void setStepNumber(int stepNumber){
+    public void setStepNumber(int stepNumber) throws JSONException {
         currentStep = stepNumber;
+
+        // Update the list - Only show articles that belongs to the current step
+        alf.updateListWithStep(currentStep);
     }
 
     /**
@@ -165,7 +174,7 @@ public class SwipeActivity extends ActionBarActivity {
         @Override
         public Fragment getItem(int position) {
             if(position == 0) {
-                return new ArticlesListFragment();
+                return alf;
             } else if(position == 1) {
                 return stepFragment;
             } else if(position == 2) {
