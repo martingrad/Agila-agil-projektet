@@ -5,6 +5,7 @@ import java.io.File;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.metaio.sdk.ARViewActivity;
 import com.metaio.sdk.MetaioDebug;
@@ -101,6 +102,11 @@ public class ArFindAllActivity extends ARViewActivity {
             });
         }
 
+        /**
+         * onTrackingEvent is used to determine if an object has been identified.
+         * TODO: send feedback to SwipeActivity.
+         * @param trackingValuesVector
+         */
         @Override
         public void onTrackingEvent(TrackingValuesVector trackingValuesVector) {
             super.onTrackingEvent(trackingValuesVector);
@@ -110,8 +116,32 @@ public class ArFindAllActivity extends ARViewActivity {
                     boolean foundObject = v.isTrackingState();
                     if(foundObject) {
                         System.out.println("Object found!");
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if(v.getCoordinateSystemID() == 1)
+                                {
+                                    CharSequence text = "Look! An object! =)";
+                                    int duration = Toast.LENGTH_SHORT;
+                                    Toast toast = Toast.makeText(getApplicationContext(), text, duration);
+                                    toast.show();
+                                }
+                            }
+                        });
                     } else {
                         System.out.println("Object lost!");
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if(v.getCoordinateSystemID() == 1)
+                                {
+                                    CharSequence text = "No! It's gone! =(";
+                                    int duration = Toast.LENGTH_SHORT;
+                                    Toast toast = Toast.makeText(getApplicationContext(), text, duration);
+                                    toast.show();
+                                }
+                            }
+                        });
                     }
                 }
             }
