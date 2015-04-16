@@ -84,13 +84,20 @@ public class SwipeActivity extends ActionBarActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Check if any step has been stored, if so - remain on the last step stored.
+        if(savedInstanceState != null){
+            currentStep = savedInstanceState.getInt("stepNumber");
+        } else{
+            currentStep = 0;
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_swipe);
 
         // Create a bundle with the currentStep = 0 as default, using the key "stepNumber", and
         // pass the arguments bundle to the stepByStepFragment
         bundle = new Bundle();
-        currentStep = 0;
+        //currentStep = 0;
         bundle.putInt("stepNumber", currentStep);
         stepFragment = new StepByStepFragment();
         stepFragment.setArguments(bundle);
