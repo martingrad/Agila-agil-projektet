@@ -1,6 +1,7 @@
 package agilec.ikeaswipe;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.ColorMatrix;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -59,9 +60,12 @@ public class ArticlesListFragment extends ListFragment {
          *  Connects the items to the list view activity, using the layout specified in the second parameter
          *  Third parameter = an ArrayList with all our articles
          */
+
         setListAdapter(ourAdapter);
         return listView;
     }
+
+
 
     /**
      * Updates out list depending on which step is active
@@ -83,6 +87,14 @@ public class ArticlesListFragment extends ListFragment {
         ourAdapter.clear();
         ourAdapter.addAll(theList);
         ourAdapter.notifyDataSetChanged();
+    }
+
+    //@Override
+    public void onItemClick(ListView listview, View view, int pos, long l) {
+        Log.d("Item","Item:" + pos);
+        //Intent i = new Intent(this, ProductActivity.class);
+        //i.putExtra("item_id", manager.getItemIdAtIndex(pos));
+        //startActivity(i);
     }
 
     /**
