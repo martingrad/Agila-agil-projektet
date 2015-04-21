@@ -20,13 +20,12 @@ import com.metaio.tools.io.AssetsManager;
     edge based tracking with 3D models
     @author @antonosterblad @linneamalcherek
  */
-
 public class ArFindAllActivity extends ARViewActivity {
-
 
     /**
      * Instance variables for 3D geometry that can be loaded within the system
      */
+
     //3D model
     private IGeometry mRimModel = null;
 
