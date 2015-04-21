@@ -178,7 +178,7 @@ public class SwipeActivity extends ActionBarActivity {
             } else if(position == 1) {
                 return stepFragment;
             } else if(position == 2) {
-                return new ArButtonFragment();
+                return new View3dFragment();
             } else {
                 return PlaceholderFragment.newInstance(position + 1);
             }
