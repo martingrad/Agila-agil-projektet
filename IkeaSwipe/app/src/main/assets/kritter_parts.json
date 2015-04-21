@@ -91,19 +91,34 @@
             "imgUrl": "seat"
         },
         {
-            "title": "Sidsektion",
+            "title": "Höger sidsektion",
             "articleNumber": "",
-            "quantity": "2",
-            "quantityLeft": "2",
+            "quantity": "1",
+            "quantityLeft": "1",
             "step": [
                 0,
                 0,
                 1,
+                0,
+                0,
+                0
+            ],
+            "imgUrl": "right_side_section"
+        },
+        {
+            "title": "Vänster sidsektion",
+            "articleNumber": "",
+            "quantity": "1",
+            "quantityLeft": "1",
+            "step": [
+                0,
+                0,
+                0,
                 1,
                 0,
                 0
             ],
-            "imgUrl": "side_section"
+            "imgUrl": "left_side_section"
         }
     ]
 }
