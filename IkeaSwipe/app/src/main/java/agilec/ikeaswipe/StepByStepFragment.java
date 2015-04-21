@@ -21,7 +21,7 @@ import org.json.JSONException;
  */
 public class StepByStepFragment extends Fragment {
 
-    private Button nextBtn, prevBtn;
+    private Button nextBtn, prevBtn, completedStepBtn;
     private ImageView imgView;
 
     /**
@@ -181,6 +181,32 @@ public class StepByStepFragment extends Fragment {
                 }
             }
         });
+
+        completedStepBtn = (Button) view.findViewById(R.id.completedStepButton);
+        completedStepBtn.setOnClickListener(new View.OnClickListener() {
+            /**
+             * onClick function for the completedStepBtn
+             * @author @emmaforsling @marcusnygren
+             * @param v
+             */
+            @Override
+            public void onClick(View v) {
+                // Check if the current stepNumber is completed
+                boolean temp = ((SwipeActivity)getActivity()).getCompletedStep(stepNumber);
+
+                //
+                if(temp == true){
+                    temp = false;
+                }else{
+                    temp = true;
+                }
+
+                ((SwipeActivity)getActivity()).setCompletedStep(stepNumber, temp);
+
+            }
+        });
+
+
 
         return view;
     }

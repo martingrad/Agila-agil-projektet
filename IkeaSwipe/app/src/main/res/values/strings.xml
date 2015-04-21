@@ -19,5 +19,6 @@
     <!-- StepByStepFragment Related -->
     <string name="nextStep">Next Step</string>
     <string name="prevStep">Previous Step</string>
+    <string name="completeStep">Done</string>
 
 </resources>
