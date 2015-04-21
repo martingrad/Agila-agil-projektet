@@ -78,17 +78,6 @@ public class SwipeActivity extends ActionBarActivity {
         super.onSaveInstanceState(outState);
     }
 
-    /**
-     * This function is overridden to restore the previous value for currentStep,
-     * when the activity is recreated
-     * @param savedInstanceState
-     */
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        currentStep = savedInstanceState.getInt("stepNumber");
-    }
-
     /** Perform initialization of all fragments and loaders.
      * @param savedInstanceState
      */

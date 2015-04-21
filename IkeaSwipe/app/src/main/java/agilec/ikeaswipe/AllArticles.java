@@ -51,7 +51,7 @@ public class AllArticles {
      * @return  articlesInStep - contains all articles in a step
      * @user @ingelhag
      */
-    public List<Article> getArticlesInStep(int step) throws JSONException {
+    public List<Article> getArticlesInStep(int step) {
 
         // If the current step is 0 - return all articles
         if(step == 0) {
