@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.support.v4.app.Fragment;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import org.json.JSONException;
 
@@ -21,7 +22,8 @@ import org.json.JSONException;
  */
 public class StepByStepFragment extends Fragment {
 
-    private Button nextBtn, prevBtn, completedStepBtn;
+    private Button nextBtn, prevBtn;
+    private ImageButton completedStepBtn;
     private ImageView imgView;
 
     /**
@@ -88,9 +90,9 @@ public class StepByStepFragment extends Fragment {
      */
     private void loadIsCompletedButton(boolean temp, View view){
         if(temp == true){
-            ((Button) view.findViewById(R.id.completedStepButton)).setText("Undone");
+            ((ImageButton) view.findViewById(R.id.completedStepButton)).setImageResource(R.drawable.done_before);
         }else{
-            ((Button) view.findViewById(R.id.completedStepButton)).setText("Done");
+            ((ImageButton) view.findViewById(R.id.completedStepButton)).setImageResource(R.drawable.done_after);
         }
     }
 
@@ -151,7 +153,7 @@ public class StepByStepFragment extends Fragment {
                 setImage(stepNumber);
 
                 // Load the step completed button
-                loadIsCompletedButton(((SwipeActivity)getActivity()).getCompletedStep(stepNumber), view);
+                loadIsCompletedButton(((SwipeActivity) getActivity()).getCompletedStep(stepNumber), view);
 
                 // Call the setStepNumber function in SwipeActivity to change the current step number
                 try {
@@ -188,7 +190,7 @@ public class StepByStepFragment extends Fragment {
                 setImage(stepNumber);
 
                 // Load the step completed button
-                loadIsCompletedButton(((SwipeActivity)getActivity()).getCompletedStep(stepNumber), view);
+                loadIsCompletedButton(((SwipeActivity) getActivity()).getCompletedStep(stepNumber), view);
 
                 // Call the setStepNumber function in SwipeActivity to change the current step number
                 try {
@@ -199,7 +201,7 @@ public class StepByStepFragment extends Fragment {
             }
         });
 
-        completedStepBtn = (Button) view.findViewById(R.id.completedStepButton);
+        completedStepBtn = (ImageButton) view.findViewById(R.id.completedStepButton);
 
         completedStepBtn.setOnClickListener(new View.OnClickListener() {
             /**
