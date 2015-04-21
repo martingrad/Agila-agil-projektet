@@ -107,7 +107,7 @@ public class StepByStepFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_step_by_step, container, false);
+        final View view = inflater.inflate(R.layout.fragment_step_by_step, container, false);
 
         // Find the ImageView from the .xml
         imgView = (ImageView)view.findViewById(R.id.steps);
@@ -151,7 +151,7 @@ public class StepByStepFragment extends Fragment {
                 setImage(stepNumber);
 
                 // Load the step completed button
-                loadIsCompletedButton(((SwipeActivity)getActivity()).getCompletedStep(stepNumber), v);
+                loadIsCompletedButton(((SwipeActivity)getActivity()).getCompletedStep(stepNumber), view);
 
                 // Call the setStepNumber function in SwipeActivity to change the current step number
                 try {
@@ -188,7 +188,7 @@ public class StepByStepFragment extends Fragment {
                 setImage(stepNumber);
 
                 // Load the step completed button
-                loadIsCompletedButton(((SwipeActivity)getActivity()).getCompletedStep(stepNumber), v);
+                loadIsCompletedButton(((SwipeActivity)getActivity()).getCompletedStep(stepNumber), view);
 
                 // Call the setStepNumber function in SwipeActivity to change the current step number
                 try {
@@ -220,7 +220,7 @@ public class StepByStepFragment extends Fragment {
                 }
 
                 // Load a different button depending on if the step is completed or not
-                loadIsCompletedButton(isCompleted, v);
+                loadIsCompletedButton(isCompleted, view);
 
                 // Mark the step as done or undone
                 ((SwipeActivity)getActivity()).setCompletedStep(stepNumber, isCompleted);
