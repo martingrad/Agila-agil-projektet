@@ -1,5 +1,6 @@
 package agilec.ikeaswipe;
 
+import java.util.Arrays;
 import java.util.Locale;
 
 import android.support.v7.app.ActionBarActivity;
@@ -45,6 +46,11 @@ public class SwipeActivity extends ActionBarActivity {
      */
     private int currentStep = 0;
 
+    private int totalNumberOfSteps = 7;
+    private boolean[] completedStepsArray;
+
+
+
     /**
      * The {@link Bundle} that is used to initialize stepByStepFragment with the current
      * stepNumber.
@@ -68,6 +74,14 @@ public class SwipeActivity extends ActionBarActivity {
         alf.updateListWithStep(currentStep);
     }
 
+    public void setCompletedStep(int stepNumber, boolean isCompleted){
+        completedStepsArray[stepNumber] = isCompleted;
+    }
+
+    public boolean getCompletedStep(int stepNumber){
+        return completedStepsArray[stepNumber];
+    }
+
     /**
      * This function is overridden to save the current step number when the activity is recreated
      * @param outState
@@ -75,6 +89,7 @@ public class SwipeActivity extends ActionBarActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putInt("stepNumber", currentStep);
+        outState.putBooleanArray("completedStepsArray", completedStepsArray);
         super.onSaveInstanceState(outState);
     }
 
@@ -86,8 +101,13 @@ public class SwipeActivity extends ActionBarActivity {
         // Check if any step has been stored, if so - remain on the last step stored.
         if(savedInstanceState != null){
             currentStep = savedInstanceState.getInt("stepNumber");
+            completedStepsArray = savedInstanceState.getBooleanArray("completedStepsArray");
         } else{
             currentStep = 0;
+
+            // Instantiate the boolean array, containing the steps.
+            completedStepsArray = new boolean[totalNumberOfSteps];
+            Arrays.fill(completedStepsArray, Boolean.FALSE); // Fill the array with FALSE as default
         }
 
         super.onCreate(savedInstanceState);
