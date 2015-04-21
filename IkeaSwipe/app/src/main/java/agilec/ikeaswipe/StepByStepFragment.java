@@ -84,6 +84,17 @@ public class StepByStepFragment extends Fragment {
     }
 
     /**
+     * Check if step is completed or not
+     */
+    private void loadIsCompletedButton(boolean temp, View view){
+        if(temp == true){
+            ((Button) view.findViewById(R.id.completedStepButton)).setText("Undone");
+        }else{
+            ((Button) view.findViewById(R.id.completedStepButton)).setText("Done");
+        }
+    }
+
+    /**
      * This function is overridden to save the current step number when the activity is recreated
      * @param outState
      */
@@ -139,6 +150,9 @@ public class StepByStepFragment extends Fragment {
                 // Change the image source
                 setImage(stepNumber);
 
+                // Load the step completed button
+                loadIsCompletedButton(((SwipeActivity)getActivity()).getCompletedStep(stepNumber), v);
+
                 // Call the setStepNumber function in SwipeActivity to change the current step number
                 try {
                     ((SwipeActivity)getActivity()).setStepNumber(stepNumber);
@@ -173,6 +187,9 @@ public class StepByStepFragment extends Fragment {
                 // Change the image source
                 setImage(stepNumber);
 
+                // Load the step completed button
+                loadIsCompletedButton(((SwipeActivity)getActivity()).getCompletedStep(stepNumber), v);
+
                 // Call the setStepNumber function in SwipeActivity to change the current step number
                 try {
                     ((SwipeActivity)getActivity()).setStepNumber(stepNumber);
@@ -183,26 +200,30 @@ public class StepByStepFragment extends Fragment {
         });
 
         completedStepBtn = (Button) view.findViewById(R.id.completedStepButton);
+
         completedStepBtn.setOnClickListener(new View.OnClickListener() {
             /**
              * onClick function for the completedStepBtn
              * @author @emmaforsling @marcusnygren
-             * @param v
+             * @param v The view
              */
             @Override
             public void onClick(View v) {
                 // Check if the current stepNumber is completed
-                boolean temp = ((SwipeActivity)getActivity()).getCompletedStep(stepNumber);
+                boolean isCompleted = ((SwipeActivity)getActivity()).getCompletedStep(stepNumber);
 
-                //
-                if(temp == true){
-                    temp = false;
-                }else{
-                    temp = true;
+                // When the button is clicked, the status should be reversed
+                if(isCompleted == true){
+                    isCompleted = false;
+                } else {
+                    isCompleted = true;
                 }
 
-                ((SwipeActivity)getActivity()).setCompletedStep(stepNumber, temp);
+                // Load a different button depending on if the step is completed or not
+                loadIsCompletedButton(isCompleted, v);
 
+                // Mark the step as done or undone
+                ((SwipeActivity)getActivity()).setCompletedStep(stepNumber, isCompleted);
             }
         });
 

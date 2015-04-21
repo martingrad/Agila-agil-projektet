@@ -109,9 +109,6 @@ public class SwipeActivity extends ActionBarActivity {
             Arrays.fill(completedStepsArray, Boolean.FALSE); // Fill the array with FALSE as default
         }
 
-
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_swipe);
 
