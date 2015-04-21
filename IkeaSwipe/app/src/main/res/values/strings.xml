@@ -17,7 +17,6 @@
     <string name="btnCancel">Cancel</string>
     <string name="btnDone">Done</string>
 
-
     <!-- StepByStepFragment Related -->
     <string name="nextStep">Next Step</string>
     <string name="prevStep">Previous Step</string>
