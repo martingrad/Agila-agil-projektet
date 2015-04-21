@@ -2,6 +2,7 @@ package agilec.ikeaswipe;
 
 import java.io.File;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -30,6 +31,8 @@ public class ArFindAllActivity extends ARViewActivity {
     //Edge visualization model
     private IGeometry mVizAidModel = null;
 
+    private String articleImgUrl = "";
+
     /**
      * Metaio SDK callback handler
      */
@@ -39,6 +42,11 @@ public class ArFindAllActivity extends ARViewActivity {
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        Intent intent = getIntent();
+        articleImgUrl = intent.getStringExtra("article");
+
+        System.out.println("ART:" + articleImgUrl);
 
         mCallbackHandler = new MetaioSDKCallbackHandler();
     }
@@ -69,6 +77,7 @@ public class ArFindAllActivity extends ARViewActivity {
     @Override
     protected void loadContents()
     {
+
         // Set path for the model/file to load
         mRimModel = loadModel("custom/stolsida.obj");
         mVizAidModel = loadModel("custom/stolsida.obj");

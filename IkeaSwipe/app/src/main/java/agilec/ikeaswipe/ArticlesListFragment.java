@@ -65,7 +65,17 @@ public class ArticlesListFragment extends ListFragment {
         return listView;
     }
 
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
 
+        Article article = (Article)getListAdapter().getItem(position);
+        System.out.println(article.getTitle());
+
+        Intent arIntent = new Intent(getActivity(), ArFindAllActivity.class);
+        arIntent.putExtra("article", article.getImgUrl());
+        startActivity(arIntent);
+    }
 
     /**
      * Updates out list depending on which step is active
@@ -87,14 +97,6 @@ public class ArticlesListFragment extends ListFragment {
         ourAdapter.clear();
         ourAdapter.addAll(theList);
         ourAdapter.notifyDataSetChanged();
-    }
-
-    //@Override
-    public void onItemClick(ListView listview, View view, int pos, long l) {
-        Log.d("Item","Item:" + pos);
-        //Intent i = new Intent(this, ProductActivity.class);
-        //i.putExtra("item_id", manager.getItemIdAtIndex(pos));
-        //startActivity(i);
     }
 
     /**
