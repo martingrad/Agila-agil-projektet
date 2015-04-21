@@ -25,13 +25,14 @@ public class Article {
      * @param imgUrl
      * @param steps
      */
-    public Article(String title, String articleNumber, int quantity, int quantityLeft, String imgUrl, int[] steps) {
+    public Article(String title, String articleNumber, int quantity, int quantityLeft, String imgUrl, int[] steps, boolean checked) {
         this.title = title;
         this.articleNumber = articleNumber;
         this.quantity = quantity;
         this.quantityLeft = quantityLeft;
         this.imgUrl = imgUrl;
         this.steps = steps;
+        this.checked = checked;
     }
 
     /**

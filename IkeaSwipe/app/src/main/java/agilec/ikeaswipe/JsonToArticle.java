@@ -65,6 +65,7 @@ public class JsonToArticle {
             int quantityLeft        = obj.getInt("quantityLeft");
             String imgUrl           = obj.get("imgUrl").toString();
             JSONArray stepsJson     = obj.getJSONArray("step");
+            Boolean checked         = obj.getBoolean("checked");
 
             // JSONArray > int[] so convert the JSONArray into int[]
             int[] stepsArray        = new int[stepsJson.length()+1];
@@ -73,7 +74,7 @@ public class JsonToArticle {
             }
 
             // Define a new article and add this into the ArrayList
-            Article newArticle = new Article(title, articleNumber, quantity, quantityLeft, imgUrl, stepsArray);
+            Article newArticle = new Article(title, articleNumber, quantity, quantityLeft, imgUrl, stepsArray, checked);
             articles.add(newArticle);
         }
 

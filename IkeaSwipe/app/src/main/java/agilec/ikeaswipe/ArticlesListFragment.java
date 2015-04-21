@@ -2,6 +2,7 @@ package agilec.ikeaswipe;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.ColorMatrix;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -53,6 +54,12 @@ public class ArticlesListFragment extends ListFragment {
             articleHandler = new AllArticles("kritter_parts.json", getActivity());
         } catch (JSONException e) {
             e.printStackTrace();
+        }
+
+        Intent intent = getActivity().getIntent();
+        String articleImgUrl = intent.getStringExtra("objectFound");
+        if(articleImgUrl != null) {
+          articleHandler.updateCheckedWithImgUrl(articleImgUrl);
         }
 
         // Set our adapter with the current step
@@ -140,6 +147,11 @@ public class ArticlesListFragment extends ListFragment {
                 TextView listBottomText = (TextView) v.findViewById(R.id.bottomtext);
                 ImageView listImg = (ImageView) v.findViewById(R.id.icon);
                 Button arButton = (Button) v.findViewById(R.id.arButton);
+                Button statusButton = (Button) v.findViewById(R.id.status);
+
+                if(a.getChecked()){
+                  statusButton.setBackgroundColor(Color.GREEN);
+                }
 
                 /**
                  * If user click on Ar Button:

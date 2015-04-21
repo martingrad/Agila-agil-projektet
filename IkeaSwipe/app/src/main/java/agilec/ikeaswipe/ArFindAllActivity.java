@@ -189,7 +189,7 @@ public class ArFindAllActivity extends ARViewActivity {
                   doneButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                      returnToSwipeActivity("true");
+                      returnToSwipeActivity(articleImgUrl);
                     }
                   });
                 }

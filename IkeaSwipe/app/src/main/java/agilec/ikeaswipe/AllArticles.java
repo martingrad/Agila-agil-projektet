@@ -36,6 +36,18 @@ public class AllArticles {
         articles = jsonToArticle.parseJSONtoItem();
     }
 
+    public void updateCheckedWithImgUrl(String imgUrl) {
+      // Iterate through all articles
+      for (int i = 0; i < articles.size(); i++) {
+        //Get one article
+        Article article = articles.get(i);
+        if(article.getImgUrl().equals(imgUrl)) {
+          article.setChecked(true);
+          break;
+        }
+      }
+    }
+
     /**
      * Get all articles
      * @return articles
