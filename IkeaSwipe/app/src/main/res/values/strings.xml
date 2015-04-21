@@ -15,6 +15,7 @@
     <!-- ARview Related -->
     <string name="btnReset">Reset</string>
     <string name="btnCancel">Cancel</string>
+    <string name="btnDone">Done</string>
 
     <!-- StepByStepFragment Related -->
     <string name="nextStep">Next Step</string>
