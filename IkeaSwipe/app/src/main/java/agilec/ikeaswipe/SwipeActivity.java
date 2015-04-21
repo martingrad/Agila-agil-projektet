@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import org.json.JSONException;
 
@@ -110,6 +111,16 @@ public class SwipeActivity extends ActionBarActivity {
         bundle.putInt("stepNumber", currentStep);
         stepFragment = new StepByStepFragment();
         stepFragment.setArguments(bundle);
+
+        // Get the intent that is created in ArFindAllActivity when a user clicks the "done" button
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            String objectFound = extras.getString("objectFound");
+            CharSequence text = "Metaio har hittat något: " + objectFound;
+            int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(getApplicationContext(), text, duration);
+            toast.show();
+        }
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
