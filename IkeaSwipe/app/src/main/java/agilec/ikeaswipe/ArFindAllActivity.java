@@ -145,6 +145,7 @@ public class ArFindAllActivity extends ARViewActivity {
          * Doxygen: http://doxygen.metaio.com/metaioSDK40/classmetaio_1_1_i_metaio_s_d_k.html#1ae808bf2113950a6a17689c57fe9b4fe0
          * TODO: send feedback to SwipeActivity.
          * @param trackingValuesVector Return pose of the tracked coordinate system.
+         *                             A pose consists of a 3D translation and a 3D rotation which should act as offset.
          * @author @martingrad @antonosterblad
          */
         @Override
