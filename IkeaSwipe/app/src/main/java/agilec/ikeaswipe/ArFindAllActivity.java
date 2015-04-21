@@ -113,19 +113,19 @@ public class ArFindAllActivity extends ARViewActivity {
                     final TrackingValues v = trackingValuesVector.get(i);
                     boolean foundObject = v.isTrackingState();
                     if(foundObject) {
-                        System.out.println("Object found!");
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if(v.getCoordinateSystemID() == 1)
-                                {
-                                    CharSequence text = "Look! An object! =)";
+                        if(v.getCoordinateSystemID() == 1)
+                        {
+                            System.out.println("Object found!");
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    CharSequence text = "Object found!";
                                     int duration = Toast.LENGTH_SHORT;
                                     Toast toast = Toast.makeText(getApplicationContext(), text, duration);
                                     toast.show();
                                 }
-                            }
-                        });
+                            });
+                        }
                     } else {
                         System.out.println("Object lost!");
                         runOnUiThread(new Runnable() {
@@ -133,7 +133,7 @@ public class ArFindAllActivity extends ARViewActivity {
                             public void run() {
                                 if(v.getCoordinateSystemID() == 1)
                                 {
-                                    CharSequence text = "No! It's gone! =(";
+                                    CharSequence text = "Object lost!";
                                     int duration = Toast.LENGTH_SHORT;
                                     Toast toast = Toast.makeText(getApplicationContext(), text, duration);
                                     toast.show();
