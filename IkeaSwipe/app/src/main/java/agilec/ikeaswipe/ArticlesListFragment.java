@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -20,6 +21,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static agilec.ikeaswipe.R.id.arButton;
 
 
 /**
@@ -65,7 +68,7 @@ public class ArticlesListFragment extends ListFragment {
         return listView;
     }
 
-    @Override
+/*    @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
 
@@ -75,7 +78,7 @@ public class ArticlesListFragment extends ListFragment {
         Intent arIntent = new Intent(getActivity(), ArFindAllActivity.class);
         arIntent.putExtra("article", article.getImgUrl());
         startActivity(arIntent);
-    }
+    }*/
 
     /**
      * Updates out list depending on which step is active
@@ -130,12 +133,28 @@ public class ArticlesListFragment extends ListFragment {
             }
 
             // Get one article and print it into a view
-            Article a = article.get(position);
+            final Article a = article.get(position);
             if (a != null) {
                 //Finding the current ListItems TopText, BottomText and Image
                 TextView listTopText = (TextView) v.findViewById(R.id.toptext);
                 TextView listBottomText = (TextView) v.findViewById(R.id.bottomtext);
                 ImageView listImg = (ImageView) v.findViewById(R.id.icon);
+                Button arButton = (Button) v.findViewById(R.id.arButton);
+
+                /**
+                 * If user click on Ar Button:
+                 * 1. Creates an intent
+                 * 2. Send a string with imgUrl of the article
+                 * 3. Start activity
+                 */
+                arButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent arIntent = new Intent(getActivity(), ArFindAllActivity.class);
+                        arIntent.putExtra("article", a.getImgUrl());
+                        startActivity(arIntent);
+                    }
+                });
 
                 // Set title
                 listTopText.setText(a.getTitle());

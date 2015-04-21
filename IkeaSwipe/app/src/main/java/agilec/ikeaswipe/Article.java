@@ -7,12 +7,13 @@ package agilec.ikeaswipe;
  */
 public class Article {
 
-    private String title;           // Title of the article
-    private String articleNumber;   // Article number of the article
-    private int quantity;           // Quantity from the beginning of the article
-    private int quantityLeft;       // How many of this article remains
-    private String imgUrl;          // The image url of the article
-    private int[] steps;            // How many each step require of this article
+    private String title;               // Title of the article
+    private String articleNumber;       // Article number of the article
+    private int quantity;               // Quantity from the beginning of the article
+    private int quantityLeft;           // How many of this article remains
+    private String imgUrl;              // The image url of the article
+    private int[] steps;                // How many each step require of this article
+    private boolean checked = false;    //
 
     /**
      * Constructor
@@ -79,5 +80,21 @@ public class Article {
      */
     public int[] getSteps() {
         return steps;
+    }
+
+    /**
+     * Set checked
+     * @param newChecked
+     */
+    public void setChecked(boolean newChecked) {
+        checked = newChecked;
+    }
+
+    /**
+     * Returns a boolean if user checked the article
+     * @return checked
+     */
+    public boolean getChecked() {
+        return checked;
     }
 }
