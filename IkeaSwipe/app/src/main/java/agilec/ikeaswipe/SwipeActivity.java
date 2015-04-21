@@ -1,5 +1,6 @@
 package agilec.ikeaswipe;
 
+import java.util.Arrays;
 import java.util.Locale;
 
 import android.support.v7.app.ActionBarActivity;
@@ -13,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import org.json.JSONException;
 
@@ -44,6 +46,11 @@ public class SwipeActivity extends ActionBarActivity {
      */
     private int currentStep = 0;
 
+    private int totalNumberOfSteps = 7;
+    private boolean[] completedStepsArray;
+
+
+
     /**
      * The {@link Bundle} that is used to initialize stepByStepFragment with the current
      * stepNumber.
@@ -67,6 +74,14 @@ public class SwipeActivity extends ActionBarActivity {
         alf.updateListWithStep(currentStep);
     }
 
+    public void setCompletedStep(int stepNumber, boolean isCompleted){
+        completedStepsArray[stepNumber] = isCompleted;
+    }
+
+    public boolean getCompletedStep(int stepNumber){
+        return completedStepsArray[stepNumber];
+    }
+
     /**
      * This function is overridden to save the current step number when the activity is recreated
      * @param outState
@@ -74,18 +89,8 @@ public class SwipeActivity extends ActionBarActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putInt("stepNumber", currentStep);
+        outState.putBooleanArray("completedStepsArray", completedStepsArray);
         super.onSaveInstanceState(outState);
-    }
-
-    /**
-     * This function is overridden to restore the previous value for currentStep,
-     * when the activity is recreated
-     * @param savedInstanceState
-     */
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        currentStep = savedInstanceState.getInt("stepNumber");
     }
 
     /** Perform initialization of all fragments and loaders.
@@ -96,8 +101,13 @@ public class SwipeActivity extends ActionBarActivity {
         // Check if any step has been stored, if so - remain on the last step stored.
         if(savedInstanceState != null){
             currentStep = savedInstanceState.getInt("stepNumber");
+            completedStepsArray = savedInstanceState.getBooleanArray("completedStepsArray");
         } else{
             currentStep = 0;
+
+            // Instantiate the boolean array, containing the steps.
+            completedStepsArray = new boolean[totalNumberOfSteps];
+            Arrays.fill(completedStepsArray, Boolean.FALSE); // Fill the array with FALSE as default
         }
 
         super.onCreate(savedInstanceState);
@@ -110,6 +120,16 @@ public class SwipeActivity extends ActionBarActivity {
         bundle.putInt("stepNumber", currentStep);
         stepFragment = new StepByStepFragment();
         stepFragment.setArguments(bundle);
+
+        // Get the intent that is created in ArFindAllActivity when a user clicks the "done" button
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            String objectFound = extras.getString("objectFound");
+            CharSequence text = "Metaio har hittat något: " + objectFound;
+            int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(getApplicationContext(), text, duration);
+            toast.show();
+        }
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.

@@ -33,7 +33,7 @@ public class ArticlesListFragment extends ListFragment {
 
     AllArticles articleHandler = null;
     ListAdapter ourAdapter = null;
-    private int currentStep;
+    private int currentStep = 0;
 
     /**
      * Creates a list view  with all the items added to the list
@@ -55,9 +55,9 @@ public class ArticlesListFragment extends ListFragment {
             e.printStackTrace();
         }
 
-        // Set our adapter
-        ArrayList<Article> temp = new ArrayList(articleHandler.getArticles());
-        ourAdapter = new ListAdapter(getActivity(), R.layout.list_item, temp);
+        // Set our adapter with the current step
+        ArrayList<Article> currentList = new ArrayList(articleHandler.getArticlesInStep(currentStep));
+        ourAdapter = new ListAdapter(getActivity(), R.layout.list_item, currentList);
 
         /**
          *  Connects the items to the list view activity, using the layout specified in the second parameter
