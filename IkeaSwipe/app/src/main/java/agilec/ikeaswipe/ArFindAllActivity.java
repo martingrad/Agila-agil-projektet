@@ -2,9 +2,11 @@ package agilec.ikeaswipe;
 
 import java.io.File;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.metaio.sdk.ARViewActivity;
@@ -121,10 +123,21 @@ public class ArFindAllActivity extends ARViewActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
+                                    // Toast message that informs a user that an object has been found
                                     CharSequence text = "Object found!";
                                     int duration = Toast.LENGTH_SHORT;
                                     Toast toast = Toast.makeText(getApplicationContext(), text, duration);
                                     toast.show();
+
+                                    // Make "done button" appear when an object has been identified
+                                    Button doneButton = (Button) findViewById(R.id.btnDone);
+                                    doneButton.setVisibility(View.VISIBLE);
+                                    doneButton.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            returnToSwipeActivity("true");
+                                        }
+                                    });
                                 }
                             });
                         }
@@ -195,6 +208,17 @@ public class ArFindAllActivity extends ARViewActivity {
             return result;
         }
         return result;
+    }
+
+    /**
+     * returnToSwipeActivity starts a new SwipeActivity with information on if an object has been
+     * identified.
+     * @param objectFound
+     */
+    private void returnToSwipeActivity(String objectFound) {
+        Intent i = new Intent(getApplicationContext(), SwipeActivity.class);
+        i.putExtra("objectFound", objectFound);
+        startActivity(i);
     }
 
     @Override

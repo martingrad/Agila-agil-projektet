@@ -25,4 +25,17 @@
         android:onClick="onResetButtonClick"
         android:text="@string/btnReset" />
 
+    <Button
+        android:id="@+id/btnDone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:text="@string/btnDone"
+        android:textSize="36dp"
+        android:background="@android:color/holo_blue_bright"
+        android:gravity="center"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"/>
+
+
 </RelativeLayout>
