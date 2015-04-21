@@ -5,11 +5,14 @@ import java.io.File;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.metaio.sdk.ARViewActivity;
 import com.metaio.sdk.MetaioDebug;
 import com.metaio.sdk.jni.IGeometry;
 import com.metaio.sdk.jni.IMetaioSDKCallback;
+import com.metaio.sdk.jni.TrackingValues;
+import com.metaio.sdk.jni.TrackingValuesVector;
 import com.metaio.tools.io.AssetsManager;
 
 /*
@@ -84,21 +87,62 @@ public class ArFindAllActivity extends ARViewActivity {
         setTrackingConfiguration("custom/rim_tracking/Tracking.xml");
     }
 
-    final class MetaioSDKCallbackHandler extends IMetaioSDKCallback
-    {
+    final class MetaioSDKCallbackHandler extends IMetaioSDKCallback {
 
         @Override
-        public void onSDKReady()
-        {
+        public void onSDKReady() {
             // show GUI
-            runOnUiThread(new Runnable()
-            {
+            runOnUiThread(new Runnable() {
                 @Override
-                public void run()
-                {
+                public void run() {
                     mGUIView.setVisibility(View.VISIBLE);
                 }
             });
+        }
+
+        /**
+         * onTrackingEvent is used to determine if an object has been identified.
+         * TODO: send feedback to SwipeActivity.
+         * @param trackingValuesVector
+         */
+        @Override
+        public void onTrackingEvent(TrackingValuesVector trackingValuesVector) {
+            super.onTrackingEvent(trackingValuesVector);
+            {
+                for (int i = 0; i < trackingValuesVector.size(); i++) {
+                    final TrackingValues v = trackingValuesVector.get(i);
+                    boolean foundObject = v.isTrackingState();
+                    if(foundObject) {
+                        System.out.println("Object found!");
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if(v.getCoordinateSystemID() == 1)
+                                {
+                                    CharSequence text = "Look! An object! =)";
+                                    int duration = Toast.LENGTH_SHORT;
+                                    Toast toast = Toast.makeText(getApplicationContext(), text, duration);
+                                    toast.show();
+                                }
+                            }
+                        });
+                    } else {
+                        System.out.println("Object lost!");
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if(v.getCoordinateSystemID() == 1)
+                                {
+                                    CharSequence text = "No! It's gone! =(";
+                                    int duration = Toast.LENGTH_SHORT;
+                                    Toast toast = Toast.makeText(getApplicationContext(), text, duration);
+                                    toast.show();
+                                }
+                            }
+                        });
+                    }
+                }
+            }
         }
     }
 
