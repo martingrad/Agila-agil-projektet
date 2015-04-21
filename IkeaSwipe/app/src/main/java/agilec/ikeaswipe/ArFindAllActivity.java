@@ -29,11 +29,14 @@ public class ArFindAllActivity extends ARViewActivity {
    * Instance variables for 3D geometry that can be loaded within the system
    */
 
-  //3D model
+  // 3D model
   private IGeometry mRimModel = null;
 
-  //Edge visualization model
+  // Edge visualization model
   private IGeometry mVizAidModel = null;
+
+  // String, input from intent
+  private String articleImgUrl = "";
 
   /**
    * Metaio SDK callback handler
@@ -50,8 +53,12 @@ public class ArFindAllActivity extends ARViewActivity {
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
+    Intent intent = getIntent();
+    articleImgUrl = intent.getStringExtra("article");
+
     mCallbackHandler = new MetaioSDKCallbackHandler();
   }
+
 
   /**
    * Delete the callbackhandler on destroy.
@@ -106,8 +113,8 @@ public class ArFindAllActivity extends ARViewActivity {
   @Override
   protected void loadContents() {
     // Set path for the model/file to load
-    mRimModel = loadModel("custom/stolsida.obj");
-    mVizAidModel = loadModel("custom/stolsida.obj");
+    mRimModel = loadModel("custom/" + articleImgUrl + "/" + articleImgUrl + ".obj");
+    mVizAidModel = loadModel("custom/" + articleImgUrl + "/" + articleImgUrl + ".obj");
 
     // Set id for each models individual coordinate system
     if (mRimModel != null)
@@ -117,7 +124,7 @@ public class ArFindAllActivity extends ARViewActivity {
       mVizAidModel.setCoordinateSystemID(2);
 
     // Tracking.xml defines how to track the model
-    setTrackingConfiguration("custom/rim_tracking/Tracking.xml");
+    setTrackingConfiguration("custom/" + articleImgUrl + "/Tracking.xml");
   }
 
   /**
