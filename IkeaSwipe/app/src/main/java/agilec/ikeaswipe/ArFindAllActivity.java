@@ -79,8 +79,8 @@ public class ArFindAllActivity extends ARViewActivity {
     {
 
         // Set path for the model/file to load
-        mRimModel = loadModel("custom/stolsida.obj");
-        mVizAidModel = loadModel("custom/stolsida.obj");
+        mRimModel = loadModel("custom/"+ articleImgUrl + "/" + articleImgUrl + ".obj");
+        mVizAidModel = loadModel("custom/" + articleImgUrl + "/" + articleImgUrl + ".obj");
 
         // Set id for each models individual coordinate system
         if (mRimModel != null)
@@ -90,7 +90,7 @@ public class ArFindAllActivity extends ARViewActivity {
             mVizAidModel.setCoordinateSystemID(2);
 
         // Tracking.xml defines how to track the model
-        setTrackingConfiguration("custom/rim_tracking/Tracking.xml");
+        setTrackingConfiguration("custom/" + articleImgUrl + "/Tracking.xml");
     }
 
     final class MetaioSDKCallbackHandler extends IMetaioSDKCallback
