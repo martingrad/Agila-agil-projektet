@@ -33,4 +33,20 @@
             android:ellipsize="marquee"
             />
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="0dip"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:layout_weight="1">
+        <Button
+            android:id="@+id/arButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AR"/>
+        <Button
+            android:id="@+id/status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hej"/>
+    </LinearLayout>
 </LinearLayout>
