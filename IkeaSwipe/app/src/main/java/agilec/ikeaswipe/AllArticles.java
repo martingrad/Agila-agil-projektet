@@ -2,8 +2,12 @@ package agilec.ikeaswipe;
 
 import android.content.Context;
 
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -89,5 +93,47 @@ public class AllArticles {
         }
         // articlesInStep - contains all articles in a step
         return articlesInStep;
+    }
+
+    public void updateJson() throws JSONException {
+
+        JSONObject he = new JSONObject();
+
+        JSONArray parts = new JSONArray();
+
+        for (int i = 0; i < articles.size(); i++) {
+            Article article = articles.get(i);
+            JSONObject obj = new JSONObject();
+
+            obj.put("title", article.getTitle());
+            obj.put("articleNumber", article.getArticleNumber());
+            obj.put("quantity", article.getQuantity());
+            obj.put("quantityLeft", article.getQuantityLeft());
+            obj.put("imgUrl", article.getImgUrl());
+            obj.put("checked", article.getChecked());
+
+            JSONArray list = new JSONArray();
+            for (int j = 0; j < article.getSteps().length; j++) {
+                list.put(article.getSteps()[j]);
+            }
+
+            obj.put("step", list);
+
+            parts.put(obj);
+        }
+
+        he.put("parts", parts);
+
+/*        try {
+            FileWriter file = new FileWriter("/test.json");
+            file.write(he.toJSONString());
+            file.flush();
+            file.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+
+        System.out.print(he);
+
     }
 }
