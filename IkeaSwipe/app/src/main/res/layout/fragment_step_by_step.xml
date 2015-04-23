@@ -42,7 +42,7 @@
                 android:layout_marginBottom="3dp"
                 android:id="@+id/step1"
                 android:layout_weight="1"
-                android:background="@color/grey"/>
+                android:background="@color/greyOpacity"/>
 
             <Button
                 android:layout_width="20dp"
@@ -50,7 +50,7 @@
                 android:layout_marginBottom="3dp"
                 android:id="@+id/step2"
                 android:layout_weight="1"
-                android:background="@color/grey"/>
+                android:background="@color/greyOpacity"/>
 
             <Button
                 android:layout_width="20dp"
@@ -58,7 +58,7 @@
                 android:layout_marginBottom="3dp"
                 android:id="@+id/step3"
                 android:layout_weight="1"
-                android:background="@color/grey"/>
+                android:background="@color/greyOpacity"/>
 
             <Button
                 android:layout_width="20dp"
@@ -66,7 +66,7 @@
                 android:layout_marginBottom="3dp"
                 android:id="@+id/step4"
                 android:layout_weight="1"
-                android:background="@color/grey"/>
+                android:background="@color/greyOpacity"/>
 
             <Button
                 android:layout_width="20dp"
@@ -74,14 +74,14 @@
                 android:layout_marginBottom="3dp"
                 android:id="@+id/step5"
                 android:layout_weight="1"
-                android:background="@color/grey"/>
+                android:background="@color/greyOpacity"/>
 
             <Button
                 android:layout_width="20dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/step6"
                 android:layout_weight="1"
-                android:background="@color/grey"/>
+                android:background="@color/greyOpacity"/>
 
         </LinearLayout>
 
