@@ -13,6 +13,14 @@
         android:id="@+id/steps"
         android:layout_gravity="center"/>
 
+    <ProgressBar
+        android:id="@+id/vertical_progressbar"
+        android:layout_width="15dip"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        style="@style/Widget.ProgressBar.Vertical"
+        />
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

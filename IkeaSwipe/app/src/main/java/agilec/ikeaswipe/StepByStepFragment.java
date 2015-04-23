@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.support.v4.app.Fragment;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import org.json.JSONException;
 
@@ -25,6 +26,7 @@ public class StepByStepFragment extends Fragment {
   private Button nextBtn, prevBtn;
   private ImageButton completedStepBtn;
   private ImageView imgView;
+  private ProgressBar progressbar;
 
   /**
    * int stepNumber is used to track the current step and update the corresponding variable
@@ -116,6 +118,13 @@ public class StepByStepFragment extends Fragment {
     // Find the ImageView from the .xml
     imgView = (ImageView) view.findViewById(R.id.steps);
 
+    // Find progressbar from .xml
+    progressbar = (ProgressBar) view.findViewById(R.id.vertical_progressbar);
+
+    // Settings for progressbar
+    progressbar.setProgress(0);
+    progressbar.setMax(6);
+
     // Extract the id for the current step
 
     // Check if any step has been stored, if so - remain on the last step stored.
@@ -124,7 +133,6 @@ public class StepByStepFragment extends Fragment {
     } else {
       stepNumber = getArguments().getInt("stepNumber");
     }
-
 
     // Set the image source
     setImage(stepNumber);
@@ -145,6 +153,8 @@ public class StepByStepFragment extends Fragment {
 
         // Decrement the stepNumber
         stepNumber--;
+
+        progressbar.setProgress(stepNumber);
 
         // Check if the nextBtn and prevBtn should be enabled or not
         checkButtonPrev();
@@ -182,6 +192,8 @@ public class StepByStepFragment extends Fragment {
 
         // Increment the stepNumber
         stepNumber++;
+
+        progressbar.setProgress(stepNumber);
 
         // Check if the nextBtn and prevBtn should be enabled or not
         checkButtonNext();
