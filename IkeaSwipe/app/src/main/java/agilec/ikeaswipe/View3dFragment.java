@@ -31,7 +31,7 @@ public class View3dFragment extends Fragment {
     System.out.println("Current Step: " + currentStep);
 
     // Get the object-id
-    int id = getResources().getIdentifier("step"+currentStep, "raw", getActivity().getPackageName());
+    int id = getResources().getIdentifier("step_0"+currentStep, "raw", getActivity().getPackageName());
     // Set the model
     mGLSV.getGLRenderer().setModel(new DrawModel(getActivity(), id));
   }

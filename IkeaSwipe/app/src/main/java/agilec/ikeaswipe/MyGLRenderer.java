@@ -35,7 +35,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         this.view = view;
         this.context = context;
         // create model from specified .obj file
-        model = new DrawModel(context, R.raw.step0);
+        model = new DrawModel(context, R.raw.step_00);
     }
 
   /**
@@ -77,10 +77,10 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         gl.glLoadIdentity();
 
         // Set field of view, aspect ratio, and near and far clipping plane distances
-        GLU.gluPerspective(gl, 25.0f, (view.getWidth() * 1f) / view.getHeight(), 1, 10000);
+        GLU.gluPerspective(gl, 25.0f, (view.getWidth() * 1f) / view.getHeight(), 1, 100);
 
         // Set the eye position, origin position and define an up direction
-        GLU.gluLookAt(gl, 0f, 250f, 2000f, 0.0f, 250.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+        GLU.gluLookAt(gl, 0.f, 0.0f, 20.f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 
         gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
         gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
