@@ -1,5 +1,6 @@
 package agilec.ikeaswipe;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +27,7 @@ public class StepByStepFragment extends Fragment {
   private Button nextBtn, prevBtn;
   private ImageButton completedStepBtn;
   private ImageView imgView;
-  private ProgressBar progressbar;
+  private Button checkbarButton;
 
   /**
    * int stepNumber is used to track the current step and update the corresponding variable
@@ -91,12 +92,42 @@ public class StepByStepFragment extends Fragment {
   /**
    * Check if step is completed or not
    */
-  private void loadIsCompletedButton(boolean temp, View view) {
+  private void loadIsCompletedButton(boolean temp, View view, int stepNumber) {
     if (temp == false) {
       ((ImageButton) view.findViewById(R.id.completedStepButton)).setImageResource(R.drawable.done_before);
+      checkBarButtonView(stepNumber, view);
+      checkbarButton.setBackgroundColor(getResources().getColor(R.color.grey));
     } else {
       ((ImageButton) view.findViewById(R.id.completedStepButton)).setImageResource(R.drawable.done_after);
+      checkBarButtonView(stepNumber, view);
+      checkbarButton.setBackgroundColor(getResources().getColor(R.color.green));
     }
+  }
+
+  private void checkBarButtonView(int stepNumber, View view) {
+      switch (stepNumber) {
+          case 1:
+              checkbarButton = (Button) view.findViewById(R.id.step1);
+              break;
+          case 2:
+              checkbarButton = (Button) view.findViewById(R.id.step2);
+              break;
+          case 3:
+              checkbarButton = (Button) view.findViewById(R.id.step3);
+              break;
+          case 4:
+              checkbarButton = (Button) view.findViewById(R.id.step4);
+              break;
+          case 5:
+              checkbarButton = (Button) view.findViewById(R.id.step5);
+              break;
+          case 6:
+              checkbarButton = (Button) view.findViewById(R.id.step6);
+              break;
+          default:
+              checkbarButton = (Button) view.findViewById(R.id.step0);
+              break;
+      }
   }
 
   /**
@@ -117,13 +148,6 @@ public class StepByStepFragment extends Fragment {
 
     // Find the ImageView from the .xml
     imgView = (ImageView) view.findViewById(R.id.steps);
-
-    // Find progressbar from .xml
-    progressbar = (ProgressBar) view.findViewById(R.id.vertical_progressbar);
-
-    // Settings for progressbar
-    progressbar.setProgress(0);
-    progressbar.setMax(6);
 
     // Extract the id for the current step
 
@@ -154,8 +178,6 @@ public class StepByStepFragment extends Fragment {
         // Decrement the stepNumber
         stepNumber--;
 
-        progressbar.setProgress(stepNumber);
-
         // Check if the nextBtn and prevBtn should be enabled or not
         checkButtonPrev();
         checkButtonNext();
@@ -164,7 +186,7 @@ public class StepByStepFragment extends Fragment {
         setImage(stepNumber);
 
         // Load the step completed button
-        loadIsCompletedButton(((SwipeActivity) getActivity()).getCompletedStep(stepNumber), view);
+        loadIsCompletedButton(((SwipeActivity) getActivity()).getCompletedStep(stepNumber), view, stepNumber);
 
         // Call the setStepNumber function in SwipeActivity to change the current step number
         try {
@@ -193,8 +215,6 @@ public class StepByStepFragment extends Fragment {
         // Increment the stepNumber
         stepNumber++;
 
-        progressbar.setProgress(stepNumber);
-
         // Check if the nextBtn and prevBtn should be enabled or not
         checkButtonNext();
         checkButtonPrev();
@@ -203,7 +223,7 @@ public class StepByStepFragment extends Fragment {
         setImage(stepNumber);
 
         // Load the step completed button
-        loadIsCompletedButton(((SwipeActivity) getActivity()).getCompletedStep(stepNumber), view);
+        loadIsCompletedButton(((SwipeActivity) getActivity()).getCompletedStep(stepNumber), view, stepNumber);
 
         // Call the setStepNumber function in SwipeActivity to change the current step number
         try {
@@ -216,6 +236,7 @@ public class StepByStepFragment extends Fragment {
 
     completedStepBtn = (ImageButton) view.findViewById(R.id.completedStepButton);
 
+
     completedStepBtn.setOnClickListener(new View.OnClickListener() {
       /**
        * onClick function for the completedStepBtn
@@ -227,6 +248,8 @@ public class StepByStepFragment extends Fragment {
         // Check if the current stepNumber is completed
         boolean isCompleted = ((SwipeActivity) getActivity()).getCompletedStep(stepNumber);
 
+        checkBarButtonView(stepNumber, view);
+
         // When the button is clicked, the status should be reversed
         if (isCompleted == true) {
           isCompleted = false;
@@ -235,7 +258,7 @@ public class StepByStepFragment extends Fragment {
         }
 
         // Load a different button depending on if the step is completed or not
-        loadIsCompletedButton(isCompleted, view);
+        loadIsCompletedButton(isCompleted, view, stepNumber);
 
         // Mark the step as done or undone
         ((SwipeActivity) getActivity()).setCompletedStep(stepNumber, isCompleted);
