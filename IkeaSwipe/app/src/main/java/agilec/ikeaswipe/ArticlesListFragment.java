@@ -57,9 +57,11 @@ public class ArticlesListFragment extends ListFragment {
         }
 
         Intent intent = getActivity().getIntent();
+
         String articleImgUrl = intent.getStringExtra("objectFound");
         if(articleImgUrl != null) {
           articleHandler.updateCheckedWithImgUrl(articleImgUrl);
+          articleHandler.updateJson(getActivity());
         }
 
         // Set our adapter with the current step

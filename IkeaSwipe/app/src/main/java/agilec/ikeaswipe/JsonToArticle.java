@@ -1,14 +1,19 @@
 package agilec.ikeaswipe;
 
 import android.content.Context;
+import android.os.Environment;
 import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,9 +35,50 @@ public class JsonToArticle {
      * @param context activity context
      * @user @marcusnygren @ingelhag
      */
-    public JsonToArticle(String filename, Context context) throws JSONException {
+    public JsonToArticle(String filename, Context context) {
         this.context = context;
-        jsonString = loadJSONFromAsset(filename); // load the articles immediately, so we don't have to do this later
+
+        File file = new File("/data/data/agilec.ikeaswipe/files/kritter_parts_edit.json");
+
+        if(file.exists()) {
+            Log.d("====================== File", "file exists");
+            try {
+                InputStream is = context.openFileInput("kritter_parts_edit.json"); //checks internal storage
+                jsonString = loadJSONFromAsset(is);
+                Log.d("jsonString ******", jsonString);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+        }
+        else {
+            Log.d("====================== File", "file not found"); //checks assets folder
+            InputStream is = null;
+            try {
+                is = context.getAssets().open(filename);
+                jsonString = loadJSONFromAsset(is);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+    }
+
+    private String loadJSONFromLocalStorage(String filename) {
+        String line;
+        StringBuffer text = new StringBuffer();
+
+        try {
+            BufferedReader bReader = new BufferedReader(new InputStreamReader(context.openFileInput(filename)));
+            while ((line = bReader.readLine()) != null) {
+                text.append(line + "\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return text.toString();
     }
 
     /**
@@ -86,10 +132,9 @@ public class JsonToArticle {
      * @return a string from the JSON asset file
      * @user @marcusnygren, code from http://stackoverflow.com/questions/19945411/android-java-how-can-i-parse-a-local-json-file-from-assets-folder-into-a-listvi
      */
-    private String loadJSONFromAsset(String filename) {
+    private String loadJSONFromAsset(InputStream is) {
         String json = null;
         try {
-            InputStream is = context.getAssets().open(filename);
 
             int size = is.available();
 

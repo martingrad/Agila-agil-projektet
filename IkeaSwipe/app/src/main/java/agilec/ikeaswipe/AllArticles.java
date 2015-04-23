@@ -1,13 +1,20 @@
 package agilec.ikeaswipe;
 
 import android.content.Context;
+import android.content.res.AssetManager;
+import android.os.Environment;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -95,45 +102,51 @@ public class AllArticles {
         return articlesInStep;
     }
 
-    public void updateJson() throws JSONException {
+    public void updateJson(Context context) {
 
         JSONObject he = new JSONObject();
 
         JSONArray parts = new JSONArray();
 
-        for (int i = 0; i < articles.size(); i++) {
-            Article article = articles.get(i);
-            JSONObject obj = new JSONObject();
+        try {
+            for (int i = 0; i < articles.size(); i++) {
+                Article article = articles.get(i);
+                JSONObject obj = new JSONObject();
 
-            obj.put("title", article.getTitle());
-            obj.put("articleNumber", article.getArticleNumber());
-            obj.put("quantity", article.getQuantity());
-            obj.put("quantityLeft", article.getQuantityLeft());
-            obj.put("imgUrl", article.getImgUrl());
-            obj.put("checked", article.getChecked());
+                obj.put("title", article.getTitle());
+                obj.put("articleNumber", article.getArticleNumber());
+                obj.put("quantity", article.getQuantity());
+                obj.put("quantityLeft", article.getQuantityLeft());
+                obj.put("imgUrl", article.getImgUrl());
+                obj.put("checked", article.getChecked());
 
-            JSONArray list = new JSONArray();
-            for (int j = 0; j < article.getSteps().length; j++) {
-                list.put(article.getSteps()[j]);
+                JSONArray list = new JSONArray();
+                for (int j = 0; j < article.getSteps().length; j++) {
+                    list.put(article.getSteps()[j]);
+                }
+
+                obj.put("step", list);
+                parts.put(obj);
             }
 
-            obj.put("step", list);
-
-            parts.put(obj);
+            he.put("parts", parts);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
 
-        he.put("parts", parts);
+        //Writing to file
+        Log.d("JSON: " , he.toString());
 
-/*        try {
-            FileWriter file = new FileWriter("/test.json");
-            file.write(he.toJSONString());
-            file.flush();
-            file.close();
-        } catch (IOException e) {
+        try {
+            FileOutputStream fos = context.getApplicationContext().openFileOutput("kritter_parts_edit.json", context.MODE_PRIVATE);
+            fos.write(he.toString().getBytes());
+            fos.close();
+        } catch (Exception e) {
             e.printStackTrace();
-        }*/
+        }
 
-        System.out.print(he);
+
+
 
     }
 }
