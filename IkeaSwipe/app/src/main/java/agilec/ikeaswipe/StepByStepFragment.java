@@ -90,7 +90,7 @@ public class StepByStepFragment extends Fragment {
    * Check if step is completed or not
    */
   private void loadIsCompletedButton(boolean temp, View view) {
-    if (temp == true) {
+    if (temp == false) {
       ((ImageButton) view.findViewById(R.id.completedStepButton)).setImageResource(R.drawable.done_before);
     } else {
       ((ImageButton) view.findViewById(R.id.completedStepButton)).setImageResource(R.drawable.done_after);
