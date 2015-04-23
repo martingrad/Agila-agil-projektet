@@ -2,7 +2,7 @@ package agilec.ikeaswipe;
 
 /**
  * @author @emmaforsling @martingrad
- * Taken from http://github.com/leedavey/TextureModelDemo...
+ * Taken from http://github.com/leedavey/TextureModelDemo
  */
 
 import java.nio.ByteOrder;
@@ -45,9 +45,9 @@ public class DrawModel {
         // read in all the lines and put in their respective arraylists of strings
         // reason I do this is to get a count of the faces to be used to initialize the
         // float arrays
-        ArrayList<String> vertexes = new ArrayList<String>();
-        ArrayList<String> textures = new ArrayList<String>();
-        ArrayList<String> faces = new ArrayList<String>();
+        ArrayList<String> vertexes = new ArrayList<>();
+        ArrayList<String> textures = new ArrayList<>();
+        ArrayList<String> faces = new ArrayList<>();
 
         // Create input stream to .obj file.
         InputStream iStream = context.getResources().openRawResource(resId);
