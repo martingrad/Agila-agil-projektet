@@ -13,9 +13,10 @@ import javax.microedition.khronos.opengles.GL10;
 
 /**
  * Class MyGLRenderer
- * @author @emmaforsling @martingrad
+ * @author @emmaforsling @martingrad @ingelhag
  */
 public class MyGLRenderer implements GLSurfaceView.Renderer {
+
 
     private MyGLSurfaceView view;
     private DrawModel model;
@@ -24,17 +25,25 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     private float angleY = 0f;
     //private int[] mTexture = new int[1];
 
-    /**
-     * Constructor for the class MyGLRenderer
-     * @author @emmaforsling @martingrad
-     * @param context
-     * @param view
-     */
+  /**
+   * Constructor for the class MyGLRenderer
+   * @author @emmaforsling @martingrad
+   * @param context
+   * @param view
+   */
     public MyGLRenderer(Context context, MyGLSurfaceView view) {
         this.view = view;
         this.context = context;
         // create model from specified .obj file
         model = new DrawModel(context, R.raw.step_00);
+    }
+
+  /**
+   * Set a new model
+   * @param newModel
+   */
+    public void setModel(DrawModel newModel) {
+      model = newModel;
     }
 
     /**
