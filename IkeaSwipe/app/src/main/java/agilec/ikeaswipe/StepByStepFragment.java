@@ -22,7 +22,6 @@ import org.json.JSONException;
  */
 public class StepByStepFragment extends Fragment {
 
-  private Button nextBtn, prevBtn;
   private ImageButton completedStepBtn;
   private ImageView imgView;
 
@@ -65,28 +64,6 @@ public class StepByStepFragment extends Fragment {
   }
 
   /**
-   * Function to enable or disable the prevBtn
-   */
-  private void checkButtonPrev() {
-    if (stepNumber == 0) {
-      prevBtn.setEnabled(false);
-    } else {
-      prevBtn.setEnabled(true);
-    }
-  }
-
-  /**
-   * Function to enable or disable the nextBtn
-   */
-  private void checkButtonNext() {
-    if (stepNumber == 6) {
-      nextBtn.setEnabled(false);
-    } else {
-      nextBtn.setEnabled(true);
-    }
-  }
-
-  /**
    * Check if step is completed or not
    */
   private void loadIsCompletedButton(boolean temp, View view) {
@@ -115,13 +92,11 @@ public class StepByStepFragment extends Fragment {
 
     // Set listener to the view
     view.setOnTouchListener(new OnSwipeTouchListener(getActivity()) {
+      // If user swipe down -> up
       public void onSwipeTop() {
+        if(stepNumber !=6)
         // Increment the stepNumber
         stepNumber++;
-
-        // Check if the nextBtn and prevBtn should be enabled or not
-        checkButtonNext();
-        checkButtonPrev();
 
         // Change the image source
         setImage(stepNumber);
@@ -136,25 +111,24 @@ public class StepByStepFragment extends Fragment {
           e.printStackTrace();
         }
       }
+      // If user swipe up -> down
       public void onSwipeBottom() {
-        // Decrement the stepNumber
-        stepNumber--;
+        if(stepNumber != 0) {
+          // Decrement the stepNumber
+          stepNumber--;
 
-        // Check if the nextBtn and prevBtn should be enabled or not
-        checkButtonPrev();
-        checkButtonNext();
+          // Change the image source
+          setImage(stepNumber);
 
-        // Change the image source
-        setImage(stepNumber);
+          // Load the step completed button
+          loadIsCompletedButton(((SwipeActivity) getActivity()).getCompletedStep(stepNumber), view);
 
-        // Load the step completed button
-        loadIsCompletedButton(((SwipeActivity) getActivity()).getCompletedStep(stepNumber), view);
-
-        // Call the setStepNumber function in SwipeActivity to change the current step number
-        try {
-          ((SwipeActivity) getActivity()).setStepNumber(stepNumber);
-        } catch (JSONException e) {
-          e.printStackTrace();
+          // Call the setStepNumber function in SwipeActivity to change the current step number
+          try {
+            ((SwipeActivity) getActivity()).setStepNumber(stepNumber);
+          } catch (JSONException e) {
+            e.printStackTrace();
+          }
         }
       }
     });
@@ -171,82 +145,8 @@ public class StepByStepFragment extends Fragment {
       stepNumber = getArguments().getInt("stepNumber");
     }
 
-
     // Set the image source
     setImage(stepNumber);
-
-    prevBtn = (Button) view.findViewById(R.id.prevBtn);
-
-    // Check if the prevBtn should be enabled or not
-    checkButtonPrev();
-
-    prevBtn.setOnClickListener(new View.OnClickListener() {
-      /**
-       * onClick function for the prevBtn
-       * @author @emmaforsling @martingrad @byggprojektledaren
-       * @param v
-       */
-      @Override
-      public void onClick(View v) {
-
-        // Decrement the stepNumber
-        stepNumber--;
-
-        // Check if the nextBtn and prevBtn should be enabled or not
-        checkButtonPrev();
-        checkButtonNext();
-
-        // Change the image source
-        setImage(stepNumber);
-
-        // Load the step completed button
-        loadIsCompletedButton(((SwipeActivity) getActivity()).getCompletedStep(stepNumber), view);
-
-        // Call the setStepNumber function in SwipeActivity to change the current step number
-        try {
-          ((SwipeActivity) getActivity()).setStepNumber(stepNumber);
-        } catch (JSONException e) {
-          e.printStackTrace();
-        }
-
-      }
-    });
-
-    nextBtn = (Button) view.findViewById(R.id.nextBtn);
-
-    // Check if the nextBtn should be enabled or not
-    checkButtonNext();
-
-    nextBtn.setOnClickListener(new View.OnClickListener() {
-      /**
-       * onClick function for the nextBtn
-       * @author @emmaforsling @martingrad @byggprojektledarn
-       * @param v
-       */
-      @Override
-      public void onClick(View v) {
-
-        // Increment the stepNumber
-        stepNumber++;
-
-        // Check if the nextBtn and prevBtn should be enabled or not
-        checkButtonNext();
-        checkButtonPrev();
-
-        // Change the image source
-        setImage(stepNumber);
-
-        // Load the step completed button
-        loadIsCompletedButton(((SwipeActivity) getActivity()).getCompletedStep(stepNumber), view);
-
-        // Call the setStepNumber function in SwipeActivity to change the current step number
-        try {
-          ((SwipeActivity) getActivity()).setStepNumber(stepNumber);
-        } catch (JSONException e) {
-          e.printStackTrace();
-        }
-      }
-    });
 
     completedStepBtn = (ImageButton) view.findViewById(R.id.completedStepButton);
 
