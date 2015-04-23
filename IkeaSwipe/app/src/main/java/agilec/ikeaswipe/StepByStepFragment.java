@@ -116,10 +116,46 @@ public class StepByStepFragment extends Fragment {
     // Set listener to the view
     view.setOnTouchListener(new OnSwipeTouchListener(getActivity()) {
       public void onSwipeTop() {
-        System.out.println("Upp");
+        // Increment the stepNumber
+        stepNumber++;
+
+        // Check if the nextBtn and prevBtn should be enabled or not
+        checkButtonNext();
+        checkButtonPrev();
+
+        // Change the image source
+        setImage(stepNumber);
+
+        // Load the step completed button
+        loadIsCompletedButton(((SwipeActivity) getActivity()).getCompletedStep(stepNumber), view);
+
+        // Call the setStepNumber function in SwipeActivity to change the current step number
+        try {
+          ((SwipeActivity) getActivity()).setStepNumber(stepNumber);
+        } catch (JSONException e) {
+          e.printStackTrace();
+        }
       }
       public void onSwipeBottom() {
-        System.out.println("Ner");
+        // Decrement the stepNumber
+        stepNumber--;
+
+        // Check if the nextBtn and prevBtn should be enabled or not
+        checkButtonPrev();
+        checkButtonNext();
+
+        // Change the image source
+        setImage(stepNumber);
+
+        // Load the step completed button
+        loadIsCompletedButton(((SwipeActivity) getActivity()).getCompletedStep(stepNumber), view);
+
+        // Call the setStepNumber function in SwipeActivity to change the current step number
+        try {
+          ((SwipeActivity) getActivity()).setStepNumber(stepNumber);
+        } catch (JSONException e) {
+          e.printStackTrace();
+        }
       }
     });
 
