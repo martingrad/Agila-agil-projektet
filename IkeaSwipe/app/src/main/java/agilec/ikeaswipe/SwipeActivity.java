@@ -32,7 +32,7 @@ public class SwipeActivity extends ActionBarActivity {
    */
 
   ArticlesListFragment alf = new ArticlesListFragment();
-  View3dFragment v3DF       = new View3dFragment();
+  View3dFragment v3DF = new View3dFragment();
 
   SectionsPagerAdapter mSectionsPagerAdapter;
 
@@ -73,8 +73,6 @@ public class SwipeActivity extends ActionBarActivity {
 
     // Update the list - Only show articles that belongs to the current step
     alf.updateListWithStep(currentStep);
-
-    // Update the 3D view with the correct object
     v3DF.changeObject(currentStep);
   }
 
@@ -188,6 +186,7 @@ public class SwipeActivity extends ActionBarActivity {
   public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     public SectionsPagerAdapter(FragmentManager fm) {
+
       super(fm);
     }
 
@@ -258,6 +257,7 @@ public class SwipeActivity extends ActionBarActivity {
      * Returns a new instance of this fragment for the given section
      * number.
      */
+
     public static PlaceholderFragment newInstance(int sectionNumber) {
       PlaceholderFragment fragment = new PlaceholderFragment();
       Bundle args = new Bundle();
@@ -267,7 +267,6 @@ public class SwipeActivity extends ActionBarActivity {
     }
 
     public PlaceholderFragment() {
-
     }
 
     /**
