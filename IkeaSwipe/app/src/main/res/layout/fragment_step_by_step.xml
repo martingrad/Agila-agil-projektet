@@ -24,9 +24,16 @@
             android:text="@string/prevStep"
             android:id="@+id/prevBtn"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentBottom="true"
+            android:layout_alignParentBottom="true" />
 
-            />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/done_before"
+            android:id="@+id/completedStepButton"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@android:color/transparent" />
 
         <Button
             android:layout_width="wrap_content"

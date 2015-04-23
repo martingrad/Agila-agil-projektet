@@ -1,0 +1,255 @@
+<?xml version="1.0"?>
+<TrackingData>
+	<Sensors>
+		<Sensor type="ParallelEdgeAndFeatureTrackingSensor">
+			<SensorID>Parallel</SensorID>
+			<Parameters>
+				<!-- Hybrid tracking parameters -->
+				<HybridTracking>
+					<!-- Hybrid configuration -->
+
+					<!-- Execute single or multi-threaded: "0"/"sequential" or "1"/"parallel" (default) -->
+					<Execution>parallel</Execution>
+					<!-- Debug visualization of features (for edge, see EdgeTracker\Parameters\EdgeAlignment\DebugRendering) -->
+					<DrawFeatures>off</DrawFeatures>
+
+					<!-- Mode
+						"hybrid" (default) : executes both edge and feature tracking continuously and supports each where possible; use for models that are reliably edge-trackable from all views
+						"initialize_once"  : initializes only once with edge initialization, then continue with feature tracking; use for incomplete models, 2D models or other models not reliably trackable with edges
+						"edge_only"        : Initialize and track only with edges only. Same behavior as EdgeBasedTrackingSensor. Use for model centered tracking with highly dynamic environment.
+						-->
+					<Mode>initialize_once</Mode>
+					<!-- Result configuration 
+						"edge" (default)	: prefer edge pose when edge tracking succeeded; choose for poorly textured environments and good edge model
+						"edge_if_good"		: prefer edge pose only when edge tracking was good, feature result otherwise; use when tracking quality varies strongly from different angles or EdgeTracking\MinQuality threshold has to be set very low
+						"feature" 			: prefer feature result when available, uses edge only for reinitialization; jitters less but may jump from time to time
+						-->
+					<PreferredResult>feature</PreferredResult>
+					
+					<!-- Advanced Parameters -->
+					
+					<!-- Number of desired features to initialize feature tracking with from edge based initialization -->
+					<NumDesiredInitialFeatures>128</NumDesiredInitialFeatures>
+					 <!-- Quality value in ]0.0, 1.0] at which edge results are considered "good" and used for map recreation.Default: Uses (InitMinQuality^0.85), 0: uses default -->
+					<!--<EBSMapCreationQualityThreshold>0</EBSMapCreationQualityThreshold>-->
+					<!-- Quality value in ]0.0, 1.0] at which edge results are considered "close" and do not trigger full reset. Default: Uses (TrackingMinQuality^1.25), 0: uses default -->
+					<!--<EBSVerificationQualityThreshold>0</EBSVerificationQualityThreshold>-->
+					<!-- Part of model that needs to be visible for edge tracking pose to be considered as result. Prevents losing pose when only part of the model is visible. -->
+					<EBSRequiredModelVisibilityRatio>1.0</EBSRequiredModelVisibilityRatio>
+					 <!-- Part of model that needs to be visible for edge tracking pose to be considered good enough for feature map creation. -->
+					<EBSMapCreationRequiredModelVisibilityRatio>1.0</EBSMapCreationRequiredModelVisibilityRatio>
+					<!-- Restart Configuration: threshold for counter of unsuccessful consecutive edge based tracking poses, until complete restart. Should be equal to or higher than EdgeTracking/NumFramesToReinit -->
+					<LostLocalTrackingRestartThreshold>120</LostLocalTrackingRestartThreshold>
+					<!-- Restart Configuration: threshold in pixels for difference between edge/feature poses to trigger reinitialization. Default: 10 -->
+					<ReprojectionErrorThreshold>10</ReprojectionErrorThreshold>
+				</HybridTracking>
+				<!-- Edge based tracking parameters -->
+				<EdgeTracker>
+					<!-- Parameters for EdgeBasedTrackingSensor -->
+					<Parameters>
+						<!-- Basic edge parameters -->
+
+						<!-- Initialization Mode. 0: snapping only, 1: snap and switch to pure feature tracking after successful snap (do not use for parallel or pure edge tracking! -->
+						<MapCreationActive>0</MapCreationActive>
+						<!-- Edge Tracking Mode. 0: do only edge initialization, 1: do edge tracking after initialization (do not use with MapCreationActive -->
+						<EdgeBasedTracking>1</EdgeBasedTracking> 
+			
+						<!-- Specifies which sensors are used to create initial pose:
+							"off",				<=> Use given tracking configuration and neither of GPS, gravity or compass
+							"gravity",			<=> Use gravity/accelerometer if available
+							"gravity_compass"	<=> Use gravity/accelerometer and compass if available
+							"all"				<=> Use gravity, compass and GPS if available
+						-->
+						<UseSensorsForPoseCreation>off</UseSensorsForPoseCreation>			
+						
+						<!-- Surface model wavefront-obj file to use for occlusion and initialization of feature tracking -->
+						<TriangleMesh>SurfaceModel.obj</TriangleMesh>
+						
+						<!-- Initial Pose Configuration -->
+						<InitialPose>InitialPose.xml</InitialPose>	  			
+						
+						<!-- <Latitude> and <Longitude> for GPS based initialization -->
+						<!-- <OriginCoordinates/> -->
+						
+						<!-- Pose space exploration for distant initialization (may be costly!) -->
+						<AutoInit>
+							<PresetType>off</PresetType>	<!-- "off", "custom", "indoor" or "outdoor" -->
+						</AutoInit>
+			
+						<!-- Edge snapping parameters (general & initialization) -->
+						<EdgeAlignment>
+							<!-- General parameters -->
+							
+							<!-- Line model .obj file -->
+							<LineModel>LineModel.obj</LineModel>
+							
+							<!-- Renders internal values to screen. Useful to tune parameters
+								"off", "model", "normals", "normals_and_matches", "points", "points_tested", "bounding_boxes" -->
+							<DebugRendering>off</DebugRendering>
+							
+							<!-- Snapping Parameters (initialization) -->
+							
+							<!-- Pose acceptance threshold in [0.0, 1.0] (default 0.6) -->
+							<MinQuality>0.82</MinQuality>
+							<!-- Absolute distance to search edges in image for (in [mm] world scale!) Should be ~30% of the model size. Only one of SearchRange and SearchRangeRelative should be set. Only one of SearchRange and SearchRangeRelative is used. Relative is preferred during execution. -->
+							<!--<SearchRange>50</SearchRange>-->
+							<!-- Relative distance to search edges in image for (in multiple of line model sizes). Default: ~30% of the model size. Only one of SearchRange and SearchRangeRelative should be set. Only one of SearchRange and SearchRangeRelative is used. Relative is preferred during execution. -->
+							<SearchRangeRelative>0.2</SearchRangeRelative>
+							<!-- Number of features to be used. More features increase accuracy but reduce framerate. Should be no less than 100. Default: 200 -->
+							<NumFeatures>250</NumFeatures>
+							<!-- The amount of iterations determines the possible total search range and accuracy but reduces framerate.
+								Default: 20-->
+							<NumIterations>30</NumIterations>
+							
+							<!-- Visibility testing parameters -->
+							<VisibilityTest>
+								<!-- If "true" points are checked for self-occlusion with the surface model. Use for full line models that may have occluded lines. Warning: Expensive for complex surface models. -->
+								<Enabled>false</Enabled>
+								<!-- Test rate for visibility test in [0.001, 1.0]. A Reduction of 90% (0.1) comes at ~ 95% accuracy. -->
+								<TestRate>0.1</TestRate>
+								<!-- Multiplicative depth offset for visibility test around 1.0 (no offset) in relative distance-to-point. A value bigger than 1.0 will make points visible that are further behind an occluding surface. -->
+								<DepthBias>1.03</DepthBias>
+							</VisibilityTest>
+						
+							<!-- Advanced parameters -->
+							<!-- Initial Edge sampling in pixels (if NumFeatures != 0 the resulting feature points are adjusted to match the number) The closer the initial guess, the more efficient. 0: use default -->
+							<EdgeSampling>0</EdgeSampling>
+							<!-- As EdgeSampling, but for final score computation. -->
+							<EdgeSamplingForScore>0</EdgeSamplingForScore>
+							<!-- As NumFeatures, but for final score computation. 0: Use NumFeatures -->
+							<NumFeaturesForScore>0</NumFeaturesForScore>
+							<!-- In which degrees of freedom to search for correct pose: "4" or "6" DoF; default = "6" (use "4" only for gravity aligned cases like buildings) -->
+							<PoseOptimization>6</PoseOptimization>
+							<!-- Boundaries for SearchRange in different scales -->
+							<SearchRangeBounds>
+								<!-- Min/max search range in relative image size [0.0, 1.0] -->
+								<ImageSize min="0.05" max="0.4"/>
+								<!-- Min/max search range in pixels [0, inf[ -->
+								<Pixel min="5.0"/>
+							</SearchRangeBounds>
+							
+							<!-- How to match point correspondences: 
+								"point_magnitude_based"			: use strongest gradient, good for clear textureless objects
+								"point_angle_based" 			: use best gradient angle, more reliable in complex environments but jitters more (good for pure outdoor initialization)
+								"point_magnitude_angle_based"	: use both (default)
+								-->
+							<SnappingMethod>point_magnitude_angle_based</SnappingMethod>
+							<!-- Minimum required visibility of search normals in ]0, 1]. Causes points too close to image border to be neglected -->
+							<MinNormalVisibilityRatio>0.8f</MinNormalVisibilityRatio>
+						</EdgeAlignment>
+						<EdgeTracking>
+							<!-- General parameters 
+								All parameters not specified here are used from <EdgeAlignment> (e.g. optimization, visibility test, line model)
+							-->
+							
+							<!-- Number of frames (>= 0) that the tracking is assumed successful after losing it. Alleviates motion blur and camera refocus. Use higher values only with pose estimation. Default: 2 -->
+							<NumFramesToHold>1</NumFramesToHold>
+							<!-- Number of frames that the last known pose is held after losing tracking before reverting to initial pose. 0: infinite -->
+							<NumFramesToReinit>60</NumFramesToReinit>
+							
+							<!-- Snapping Parameters (tracking) -->
+							
+							<!-- Pose acceptance threshold in [0.0, 1.0]. Should be lower than for initialization. (default 0.45) -->
+							<MinQuality>0.70</MinQuality>
+							<!-- Absolute distance to search edges in image for (in [mm] world scale!) Should be ~30% of the initialization range. Only one of SearchRange and SearchRangeRelative is used. Relative is preferred during execution. -->
+							<!--<SearchRange>20</SearchRange>-->
+							<!-- Relative distance to search edges in image for (in multiple of line model sizes). Should be ~30% of the initialization range. Only one of SearchRange and SearchRangeRelative is used. Relative is preferred during execution. -->
+							<SearchRangeRelative>0.16</SearchRangeRelative>
+							<!-- Determines total search range and accuracy but reduces framerate. Should be significantly lower than for initialization
+								Default: 4-->
+							<NumIterations>5</NumIterations>
+
+							<!-- Fixed number of features. Should be 0 (to use <EdgeSampling> or significantly higher than for initialization. -->
+							<NumFeatures>0</NumFeatures>
+							<!-- Edge sampling in pixels (as NumFeatures should be 0 this determines the number of features). Default: 4 -->
+							<EdgeSampling>4</EdgeSampling>
+
+							<!-- Advanced parameters -->
+							<!-- Estimate pose of next frame by using device sensor information if available -->
+							<PoseEstimation>
+								<Rotation>sensors</Rotation> <!-- "off", "sensors" -->
+							</PoseEstimation>
+							<!-- As NumFeatures but for score computation. 0: use NumFeatures (default)--> 
+							<NumFeaturesForScore>0</NumFeaturesForScore>
+							<!-- As EdgeSampling but for score computation. 0: use EdgeSampling (default) --> 
+							<EdgeSamplingForScore>0</EdgeSamplingForScore>
+
+							<!-- Boundaries for SearchRange in different scales. Should be smaller than for initialization. -->
+							<SearchRangeBounds>
+								<!-- Min/max search range in relative image size [0.0, 1.0]. Default: [0.0, 0.3] -->
+								<ImageSize min="0.0" max="0.1"/>
+								<!-- Min/max search range in pixels [0, inf[. Default: [5.0, inf[ -->
+								<Pixel min="10.0"/>
+							</SearchRangeBounds>
+						</EdgeTracking>
+					</Parameters>
+				</EdgeTracker>
+				<!-- Parameters for SLAM feature tracking -->
+				<SLAM version="2">
+					<Parameters>
+					</Parameters>
+					<SensorCOS>
+						<SensorCosID>SLAM</SensorCosID>
+						<Parameters>
+							<Learning enabled="true">
+								<!-- How often a point has to be seen from different keyframes to triangulate it. Decreasing improves map creation speed but reduces quality. Default: 3 -->
+								<MinNumberOfObservations>3</MinNumberOfObservations>
+								<!-- Minimum required angle in degree that a potential new 3D point has to span w.r.t. camera centers so that it is added to the map. Decreasing reduces required movement but reduces quality. Default: 5.0  -->
+								<MinTriangulationAngle>5</MinTriangulationAngle>
+								<!-- Minimal similarity treshold used for the individual feature correspondences in [0..1]. Higher (stricter) values reduce map filling speed but increase quality. Default: 0.7 -->
+								<SimilarityThreshold>0.7</SimilarityThreshold>
+							</Learning>
+						</Parameters>
+					</SensorCOS>
+				</SLAM>
+			</Parameters>
+
+			<!-- COS 1 Name -->
+			<SensorCOS>
+				<SensorCosID>TrackingPose</SensorCosID>
+			</SensorCOS>
+			<!-- COS 2 Name -->
+			<SensorCOS>
+				<SensorCosID>InitialPose</SensorCosID>
+			</SensorCOS>
+		</Sensor>
+	</Sensors>
+
+	<Connections>
+		<!-- COS 1 contains the tracking pose -->
+		<COS>
+			<Fuser Type="SmoothingFuser">
+				<Parameters>
+					<!-- After all is lost, old pose is kept for this number of frames -->
+					<KeepPoseForNumberOfFrames>4</KeepPoseForNumberOfFrames>
+					<!-- If set, resulting pose is aligned with gravity (usually not recommended for model tracking) -->
+					<GravityAssistance>0</GravityAssistance>
+					<!-- If set, lost tracking is continued with device Orientation sensors. Recommendable -->
+					<ContinueLostTrackingWithOrientationSensor>1</ContinueLostTrackingWithOrientationSensor>
+
+					<!-- Alpha is in the range [0...1] and determines how strong a new pose is compared to the last.
+						alpha = 0.9: less smoothing
+						alpha = 0.1: alot smoothing
+						Values other than 1.0 reduce jitter but allow only slower movement for edge tracking -->
+					<AlphaTranslation>1</AlphaTranslation>
+					<GammaTranslation>1</GammaTranslation>
+					<AlphaRotation>1</AlphaRotation>
+					<GammaRotation>1</GammaRotation>
+				</Parameters>
+			</Fuser>
+			<Name>TrackingPose</Name>
+			<SensorSource>
+				<SensorID>HybridTracking</SensorID>
+				<SensorCosID>TrackingPose</SensorCosID>
+			</SensorSource>
+		</COS>
+		<!-- COS 2 contains the initial pose -->
+		<COS>
+			<Name>InitialPose</Name>
+			<SensorSource>
+				<SensorID>HybridTracking</SensorID>
+				<SensorCosID>InitialPose</SensorCosID>
+			</SensorSource>
+		</COS>
+	</Connections>
+</TrackingData>

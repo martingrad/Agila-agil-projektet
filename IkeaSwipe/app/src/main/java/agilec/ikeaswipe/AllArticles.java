@@ -5,7 +5,6 @@ import android.content.Context;
 import org.json.JSONException;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -14,68 +13,71 @@ import java.util.List;
  */
 public class AllArticles {
 
-    private String filename;            // Filename of the json-file
-    private Context activityContext;    // Context of the activity
-    private List<Article> articles = new ArrayList<Article>(); // A List with all articles
+  private String filename;            // Filename of the json-file
+  private Context activityContext;    // Context of the activity
+  private List<Article> articles = new ArrayList<Article>(); // A List with all articles
 
-    /**
-     * Constructor
-     * @param filename
-     * @param activityContext
-     * @throws JSONException
-     * @user @ingelhag
-     */
-    public AllArticles(String filename, Context activityContext) throws JSONException {
-        this.filename = filename;
-        this.activityContext = activityContext;
+  /**
+   * Constructor
+   *
+   * @param filename
+   * @param activityContext
+   * @throws JSONException
+   * @user @ingelhag
+   */
+  public AllArticles(String filename, Context activityContext) throws JSONException {
+    this.filename = filename;
+    this.activityContext = activityContext;
 
-        // Read JSON-file ..
-        JsonToArticle jsonToArticle = new JsonToArticle(filename, activityContext);
+    // Read JSON-file ..
+    JsonToArticle jsonToArticle = new JsonToArticle(filename, activityContext);
 
-        // .. and parse it into article objects and save into Arraylist
-        articles = jsonToArticle.parseJSONtoItem();
+    // .. and parse it into article objects and save into Arraylist
+    articles = jsonToArticle.parseJSONtoItem();
+  }
+
+  /**
+   * Get all articles
+   *
+   * @return articles
+   * @user @ingelhag
+   */
+  public List<Article> getArticles() {
+    return articles;
+  }
+
+  /**
+   * Check which article belongs to each step.
+   *
+   * @param step Which step we want to check
+   * @return articlesInStep - contains all articles in a step
+   * @user @ingelhag
+   */
+  public List<Article> getArticlesInStep(int step) {
+
+    // If the current step is 0 - return all articles
+    if (step == 0) {
+      System.out.println("Return All");
+      return getArticles();
     }
+    // List with Articles
+    List<Article> articlesInStep = new ArrayList<Article>();
 
-    /**
-     * Get all articles
-     * @return articles
-     * @user @ingelhag
-     */
-    public List<Article> getArticles() {
-        return articles;
+    // Decrease step by one - get in correct step in the step array
+    step--;
+
+    // Iterate through all articles
+    for (int i = 0; i < articles.size(); i++) {
+      //Get one article
+      Article article = articles.get(i);
+
+      // If the articles step array is not equal to zero in the right step
+      // Add this article to the articlesInStep list
+      if (article.getSteps()[step] != 0) {
+        articlesInStep.add(article);
+      }
     }
-
-    /**
-     * Check which article belongs to each step.
-     * @param step Which step we want to check
-     * @return  articlesInStep - contains all articles in a step
-     * @user @ingelhag
-     */
-    public List<Article> getArticlesInStep(int step) {
-
-        // If the current step is 0 - return all articles
-        if(step == 0) {
-            System.out.println("Return All");
-            return getArticles();
-        }
-        // List with Articles
-        List<Article> articlesInStep = new ArrayList<Article>();
-
-        // Decrease step by one - get in correct step in the step array
-        step--;
-
-        // Iterate through all articles
-        for (int i = 0; i < articles.size(); i++) {
-            //Get one article
-            Article article = articles.get(i);
-
-            // If the articles step array is not equal to zero in the right step
-            // Add this article to the articlesInStep list
-            if(article.getSteps()[step] != 0) {
-                articlesInStep.add(article);
-            }
-        }
-        // articlesInStep - contains all articles in a step
-        return articlesInStep;
-    }
+    // articlesInStep - contains all articles in a step
+    return articlesInStep;
+  }
 }
