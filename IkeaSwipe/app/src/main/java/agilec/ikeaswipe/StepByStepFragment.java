@@ -113,6 +113,16 @@ public class StepByStepFragment extends Fragment {
     // Inflate the layout for this fragment
     final View view = inflater.inflate(R.layout.fragment_step_by_step, container, false);
 
+    // Set listener to the view
+    view.setOnTouchListener(new OnSwipeTouchListener(getActivity()) {
+      public void onSwipeTop() {
+        System.out.println("Upp");
+      }
+      public void onSwipeBottom() {
+        System.out.println("Ner");
+      }
+    });
+
     // Find the ImageView from the .xml
     imgView = (ImageView) view.findViewById(R.id.steps);
 
