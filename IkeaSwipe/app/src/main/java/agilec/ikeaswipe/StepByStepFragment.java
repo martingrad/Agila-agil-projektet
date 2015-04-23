@@ -24,7 +24,6 @@ import org.json.JSONException;
  */
 public class StepByStepFragment extends Fragment {
 
-  private Button nextBtn, prevBtn;
   private ImageButton completedStepBtn;
   private ImageView imgView;
   private Button checkbarButton;
@@ -68,28 +67,6 @@ public class StepByStepFragment extends Fragment {
       default:
         imgView.setImageResource(R.drawable.kritter_not_vector);
         break;
-    }
-  }
-
-  /**
-   * Function to enable or disable the prevBtn
-   */
-  private void checkButtonPrev() {
-    if (stepNumber == 0) {
-      prevBtn.setEnabled(false);
-    } else {
-      prevBtn.setEnabled(true);
-    }
-  }
-
-  /**
-   * Function to enable or disable the nextBtn
-   */
-  private void checkButtonNext() {
-    if (stepNumber == 6) {
-      nextBtn.setEnabled(false);
-    } else {
-      nextBtn.setEnabled(true);
     }
   }
 
@@ -181,6 +158,68 @@ public class StepByStepFragment extends Fragment {
     // Inflate the layout for this fragment
     final View view = inflater.inflate(R.layout.fragment_step_by_step, container, false);
 
+    // Set listener to the view
+    view.setOnTouchListener(new OnSwipeTouchListener(getActivity()) {
+      // If user swipe down -> up
+      public void onSwipeTop() {
+        if(stepNumber !=6) {
+          // Increment the stepNumber
+          stepNumber++;
+
+          //Number for previous step
+          prevStep = stepNumber-1;
+
+          //To see if the step is completed
+          prevIsCompleted = ((SwipeActivity) getActivity()).getCompletedStep(stepNumber-1);
+
+          //Set opacity of background color for previous button
+          setDefaultColorButtons(view, prevIsCompleted, prevStep);
+
+          // Change the image source
+          setImage(stepNumber);
+
+          // Load the step completed button
+          loadIsCompletedButton(((SwipeActivity) getActivity()).getCompletedStep(stepNumber), view, stepNumber);
+
+          // Call the setStepNumber function in SwipeActivity to change the current step number
+          try {
+            ((SwipeActivity) getActivity()).setStepNumber(stepNumber);
+          } catch (JSONException e) {
+            e.printStackTrace();
+          }
+        }
+      }
+      // If user swipe up -> down
+      public void onSwipeBottom() {
+        if(stepNumber != 0) {
+          // Decrement the stepNumber
+          stepNumber--;
+
+          //Number for previous step
+          prevStep = stepNumber+1;
+
+          //To see if the step is completed
+          prevIsCompleted = ((SwipeActivity) getActivity()).getCompletedStep(stepNumber+1);
+
+          //Set opacity of background color for previous button
+          setDefaultColorButtons(view, prevIsCompleted, prevStep);
+
+          // Change the image source
+          setImage(stepNumber);
+
+          // Load the step completed button
+          loadIsCompletedButton(((SwipeActivity) getActivity()).getCompletedStep(stepNumber), view, stepNumber);
+
+          // Call the setStepNumber function in SwipeActivity to change the current step number
+          try {
+            ((SwipeActivity) getActivity()).setStepNumber(stepNumber);
+          } catch (JSONException e) {
+            e.printStackTrace();
+          }
+        }
+      }
+    });
+
     // Find the ImageView from the .xml
     imgView = (ImageView) view.findViewById(R.id.steps);
 
@@ -195,97 +234,6 @@ public class StepByStepFragment extends Fragment {
 
     // Set the image source
     setImage(stepNumber);
-
-    prevBtn = (Button) view.findViewById(R.id.prevBtn);
-
-    // Check if the prevBtn should be enabled or not
-    checkButtonPrev();
-
-    prevBtn.setOnClickListener(new View.OnClickListener() {
-      /**
-       * onClick function for the prevBtn
-       * @author @emmaforsling @martingrad @byggprojektledaren
-       * @param v
-       */
-      @Override
-      public void onClick(View v) {
-
-        // Decrement the stepNumber
-        stepNumber--;
-
-        //Number for previous step
-        prevStep = stepNumber+1;
-
-        //To see if the step is completed
-        prevIsCompleted = ((SwipeActivity) getActivity()).getCompletedStep(stepNumber+1);
-
-        //Set opacity of background color for previous button
-        setDefaultColorButtons(view, prevIsCompleted, prevStep);
-
-        // Check if the nextBtn and prevBtn should be enabled or not
-        checkButtonPrev();
-        checkButtonNext();
-
-        // Change the image source
-        setImage(stepNumber);
-
-        // Load the step completed button
-        loadIsCompletedButton(((SwipeActivity) getActivity()).getCompletedStep(stepNumber), view, stepNumber);
-
-        // Call the setStepNumber function in SwipeActivity to change the current step number
-        try {
-          ((SwipeActivity) getActivity()).setStepNumber(stepNumber);
-        } catch (JSONException e) {
-          e.printStackTrace();
-        }
-
-      }
-    });
-
-    nextBtn = (Button) view.findViewById(R.id.nextBtn);
-
-    // Check if the nextBtn should be enabled or not
-    checkButtonNext();
-
-    nextBtn.setOnClickListener(new View.OnClickListener() {
-      /**
-       * onClick function for the nextBtn
-       * @author @emmaforsling @martingrad @byggprojektledarn
-       * @param v
-       */
-      @Override
-      public void onClick(View v) {
-
-        // Increment the stepNumber
-        stepNumber++;
-
-        //Number for previous step
-        prevStep = stepNumber-1;
-
-        //To see if the step is completed
-        prevIsCompleted = ((SwipeActivity) getActivity()).getCompletedStep(stepNumber-1);
-
-        //Set opacity of background color for previous button
-        setDefaultColorButtons(view, prevIsCompleted, prevStep);
-
-        // Check if the nextBtn and prevBtn should be enabled or not
-        checkButtonNext();
-        checkButtonPrev();
-
-        // Change the image source
-        setImage(stepNumber);
-
-        // Load the step completed button
-        loadIsCompletedButton(((SwipeActivity) getActivity()).getCompletedStep(stepNumber), view, stepNumber);
-
-        // Call the setStepNumber function in SwipeActivity to change the current step number
-        try {
-          ((SwipeActivity) getActivity()).setStepNumber(stepNumber);
-        } catch (JSONException e) {
-          e.printStackTrace();
-        }
-      }
-    });
 
     completedStepBtn = (ImageButton) view.findViewById(R.id.completedStepButton);
 
@@ -315,7 +263,6 @@ public class StepByStepFragment extends Fragment {
         ((SwipeActivity) getActivity()).setCompletedStep(stepNumber, isCompleted);
       }
     });
-
 
     return view;
   }

@@ -177,7 +177,6 @@ public class SwipeActivity extends ActionBarActivity {
     return super.onOptionsItemSelected(item);
   }
 
-
   /**
    * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
    * one of the sections/tabs/pages.
@@ -204,7 +203,7 @@ public class SwipeActivity extends ActionBarActivity {
       } else if (position == 1) {
         return stepFragment;
       } else if (position == 2) {
-        return new ArButtonFragment();
+        return new View3dFragment();
       } else {
         return PlaceholderFragment.newInstance(position + 1);
       }
@@ -256,6 +255,7 @@ public class SwipeActivity extends ActionBarActivity {
      * Returns a new instance of this fragment for the given section
      * number.
      */
+
     public static PlaceholderFragment newInstance(int sectionNumber) {
       PlaceholderFragment fragment = new PlaceholderFragment();
       Bundle args = new Bundle();
