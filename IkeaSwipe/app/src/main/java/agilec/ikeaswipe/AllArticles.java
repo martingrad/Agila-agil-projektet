@@ -1,22 +1,14 @@
 package agilec.ikeaswipe;
 
 import android.content.Context;
-import android.content.res.AssetManager;
-import android.os.Environment;
 import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -30,7 +22,7 @@ public class AllArticles {
     private List<Article> articles = new ArrayList<Article>(); // A List with all articles
 
     /**
-     * Constructor
+     * Constructor for creating and parsing the JSON data into articles
      * @param filename
      * @param activityContext
      * @throws JSONException
@@ -40,19 +32,23 @@ public class AllArticles {
         this.filename = filename;
         this.activityContext = activityContext;
 
-        // Read JSON-file ..
+        // When first creating the articles, read the JSON-file..
         JsonToArticle jsonToArticle = new JsonToArticle(filename, activityContext);
 
         // .. and parse it into article objects and save into Arraylist
-        articles = jsonToArticle.parseJSONtoItem();
+        articles = jsonToArticle.parseJSONtoArticle();
     }
 
-    public void updateCheckedWithImgUrl(String imgUrl) {
+    /**
+     * Method used to update an article to checked when identified
+     * @param imageName name of the image in drawable, without file extension
+     */
+    public void updateCheckedFromArActivity(String imageName) {
       // Iterate through all articles
       for (int i = 0; i < articles.size(); i++) {
         //Get one article
         Article article = articles.get(i);
-        if(article.getImgUrl().equals(imgUrl)) {
+        if(article.getImgUrl().equals(imageName)) {
           article.setChecked(true);
           break;
         }
@@ -102,51 +98,56 @@ public class AllArticles {
         return articlesInStep;
     }
 
-    public void updateJson(Context context) {
+    /**
+     * Whenever the JSON data should change, use this method to create the new JSON file
+     * @user @marcusnygren @jacobselg @hannesingelhag
+     * @param context A context (e.g. an activity) is needed in order to write to a file
+     */
+    public void updateAndSaveJson(Context context) {
+        JSONObject newJson = new JSONObject(); // the JSON to replace the existing JSON with
 
-        JSONObject he = new JSONObject();
-
-        JSONArray parts = new JSONArray();
+        JSONArray parts = new JSONArray(); // an array to store a JSON object for each part
 
         try {
+            // For each article, create a new JSON object which stores information about the article
             for (int i = 0; i < articles.size(); i++) {
                 Article article = articles.get(i);
-                JSONObject obj = new JSONObject();
+                JSONObject part = new JSONObject();
 
-                obj.put("title", article.getTitle());
-                obj.put("articleNumber", article.getArticleNumber());
-                obj.put("quantity", article.getQuantity());
-                obj.put("quantityLeft", article.getQuantityLeft());
-                obj.put("imgUrl", article.getImgUrl());
-                obj.put("checked", article.getChecked());
+                part.put("title", article.getTitle());
+                part.put("articleNumber", article.getArticleNumber());
+                part.put("quantity", article.getQuantity());
+                part.put("quantityLeft", article.getQuantityLeft());
+                part.put("imgUrl", article.getImgUrl());
+                part.put("checked", article.getChecked());
 
+                // If an array should be stored, parse the article values and add in to a new array
                 JSONArray list = new JSONArray();
                 for (int j = 0; j < article.getSteps().length; j++) {
                     list.put(article.getSteps()[j]);
                 }
+                part.put("step", list);
 
-                obj.put("step", list);
-                parts.put(obj);
+                // Finally, add the part object to the parts array
+                parts.put(part);
             }
 
-            he.put("parts", parts);
+            // When all parts are stored, add the parts to the new JSON object
+            newJson.put("parts", parts);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         //Writing to file
-        Log.d("JSON: " , he.toString());
+        Log.d("JSON: ", newJson.toString());
 
+        // Replace the existing file with the new JSON data
         try {
-            FileOutputStream fos = context.getApplicationContext().openFileOutput("kritter_parts_edit.json", context.MODE_PRIVATE);
-            fos.write(he.toString().getBytes());
-            fos.close();
+            FileOutputStream fos = context.getApplicationContext().openFileOutput("kritter_parts_edit.json", context.MODE_PRIVATE); // MODE_PRIVATES gives access to replace the private app storage with our new data. For appending, use MODE_APPEND
+            fos.write(newJson.toString().getBytes()); //convert the new JSON to a string and write it to the file
+            fos.close(); //close the file
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-
-
     }
 }

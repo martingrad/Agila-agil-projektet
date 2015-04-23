@@ -3,10 +3,8 @@ package agilec.ikeaswipe;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.ColorMatrix;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +17,7 @@ import android.widget.TextView;
 import org.json.JSONException;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import static agilec.ikeaswipe.R.id.arButton;
 
 
 /**
@@ -60,8 +54,8 @@ public class ArticlesListFragment extends ListFragment {
 
         String articleImgUrl = intent.getStringExtra("objectFound");
         if(articleImgUrl != null) {
-          articleHandler.updateCheckedWithImgUrl(articleImgUrl);
-          articleHandler.updateJson(getActivity());
+          articleHandler.updateCheckedFromArActivity(articleImgUrl); // set the article to true
+          articleHandler.updateAndSaveJson(getActivity()); // notify the database of the change
         }
 
         // Set our adapter with the current step
@@ -72,22 +66,9 @@ public class ArticlesListFragment extends ListFragment {
          *  Connects the items to the list view activity, using the layout specified in the second parameter
          *  Third parameter = an ArrayList with all our articles
          */
-
         setListAdapter(ourAdapter);
         return listView;
     }
-
-/*    @Override
-    public void onListItemClick(ListView l, View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);
-
-        Article article = (Article)getListAdapter().getItem(position);
-        System.out.println(article.getTitle());
-
-        Intent arIntent = new Intent(getActivity(), ArFindAllActivity.class);
-        arIntent.putExtra("article", article.getImgUrl());
-        startActivity(arIntent);
-    }*/
 
     /**
      * Updates out list depending on which step is active
@@ -126,11 +107,11 @@ public class ArticlesListFragment extends ListFragment {
         }
 
         /**
-         *
-         * @param position
-         * @param convertView
-         * @param parent
-         * @return
+         * Display a single article
+         * @param position The position of the item within the list
+         * @param convertView The old view to reuse, if possible.
+         * @param parent The list view containing all the articles, see docs for ArrayAdapter
+         * @return view for a single article
          * @user @ingelhag
          */
         @Override
