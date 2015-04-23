@@ -94,21 +94,22 @@ public class StepByStepFragment extends Fragment {
     view.setOnTouchListener(new OnSwipeTouchListener(getActivity()) {
       // If user swipe down -> up
       public void onSwipeTop() {
-        if(stepNumber !=6)
-        // Increment the stepNumber
-        stepNumber++;
+        if(stepNumber !=6) {
+          // Increment the stepNumber
+          stepNumber++;
 
-        // Change the image source
-        setImage(stepNumber);
+          // Change the image source
+          setImage(stepNumber);
 
-        // Load the step completed button
-        loadIsCompletedButton(((SwipeActivity) getActivity()).getCompletedStep(stepNumber), view);
+          // Load the step completed button
+          loadIsCompletedButton(((SwipeActivity) getActivity()).getCompletedStep(stepNumber), view);
 
-        // Call the setStepNumber function in SwipeActivity to change the current step number
-        try {
-          ((SwipeActivity) getActivity()).setStepNumber(stepNumber);
-        } catch (JSONException e) {
-          e.printStackTrace();
+          // Call the setStepNumber function in SwipeActivity to change the current step number
+          try {
+            ((SwipeActivity) getActivity()).setStepNumber(stepNumber);
+          } catch (JSONException e) {
+            e.printStackTrace();
+          }
         }
       }
       // If user swipe up -> down
@@ -175,7 +176,6 @@ public class StepByStepFragment extends Fragment {
         ((SwipeActivity) getActivity()).setCompletedStep(stepNumber, isCompleted);
       }
     });
-
 
     return view;
   }
