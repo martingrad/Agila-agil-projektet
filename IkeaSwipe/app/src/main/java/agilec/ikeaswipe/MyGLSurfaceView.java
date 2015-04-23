@@ -32,7 +32,16 @@ public class MyGLSurfaceView extends GLSurfaceView {
 
         mRenderer = new MyGLRenderer(context, this);
 
+
         // Set the Renderer for drawing on the GLSurfaceView
         setRenderer(mRenderer);
+    }
+
+  /**
+   * Returns the a MyGlRenderer class
+   * @return
+   */
+    public MyGLRenderer getGLRenderer(){
+      return mRenderer;
     }
 }

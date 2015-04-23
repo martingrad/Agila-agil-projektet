@@ -30,7 +30,8 @@ public class SwipeActivity extends ActionBarActivity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
 
-    ArticlesListFragment alf = new ArticlesListFragment();
+    ArticlesListFragment alf  = new ArticlesListFragment();
+    View3dFragment v3DF       = new View3dFragment();
 
     SectionsPagerAdapter mSectionsPagerAdapter;
 
@@ -66,6 +67,9 @@ public class SwipeActivity extends ActionBarActivity {
 
         // Update the list - Only show articles that belongs to the current step
         alf.updateListWithStep(currentStep);
+
+        // Update the 3D view with the correct object
+        v3DF.changeObject(currentStep);
     }
 
     /**
@@ -178,7 +182,7 @@ public class SwipeActivity extends ActionBarActivity {
             } else if(position == 1) {
                 return stepFragment;
             } else if(position == 2) {
-                return new View3dFragment();
+                return v3DF;
             } else {
                 return PlaceholderFragment.newInstance(position + 1);
             }
