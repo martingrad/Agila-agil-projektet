@@ -33,6 +33,7 @@ public class DrawModel {
     private final ShortBuffer mIndexBuffer;
     private final FloatBuffer mTexBuffer;
 
+
     /**
      * DrawModel creates arrays for vertices, textures and faces.
      * It loads an .obj file and stores the information in the corresponding arrays.
@@ -160,6 +161,8 @@ public class DrawModel {
         gl.glFrontFace(GL10.GL_CCW);
         gl.glVertexPointer(NUM_VERTEX_COORDS, GL10.GL_FLOAT, 0, mVertexBuffer);
         gl.glTexCoordPointer(NUM_TEX_COORDS, GL10.GL_FLOAT, 0, mTexBuffer);
+
+
         //gl.glColor4f(0.f, 0.f, 0.f, 1.f);
         gl.glDrawElements(GL10.GL_TRIANGLES, mIndexBuffer.remaining(), GL10.GL_UNSIGNED_SHORT, mIndexBuffer);
     }

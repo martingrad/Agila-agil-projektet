@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.opengl.GLES30;
+import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLU;
 import android.opengl.GLUtils;
@@ -35,7 +36,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         this.view = view;
         this.context = context;
         // create model from specified .obj file
-        model = new DrawModel(context, R.raw.teststol8);
+        model = new DrawModel(context, R.raw.step00);
     }
 
   /**
@@ -44,7 +45,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
    */
     public void setModel(DrawModel newModel) {
       //model = newModel;
-      model = new DrawModel(context, R.raw.teststol8);
+      model = new DrawModel(context, R.raw.step00);
     }
 
     /**
@@ -87,12 +88,14 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
         gl.glEnable(GL10.GL_DEPTH_TEST);
         gl.glEnable(GL10.GL_TEXTURE_2D);
+        gl.glEnable(GL10.GL_STENCIL_BITS);
 
         // load the chosen texture
-        loadTexture(gl, context, R.drawable.teststol7);
+        loadTexture(gl, context, R.drawable.step00);
 
         gl.glTexParameterx(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_LINEAR);
         gl.glTexParameterx(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_LINEAR);
+
 
         // To show the texture on a nexus device
         gl.glTexParameterx(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_S, GL10.GL_CLAMP_TO_EDGE);
