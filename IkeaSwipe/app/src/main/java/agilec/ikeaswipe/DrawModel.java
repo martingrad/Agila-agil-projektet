@@ -31,7 +31,7 @@ public class DrawModel {
     // Define buffers for the vertex, texture and index.
     private final FloatBuffer mVertexBuffer;
     private final ShortBuffer mIndexBuffer;
-    //private final FloatBuffer mTexBuffer;
+    private final FloatBuffer mTexBuffer;
 
     /**
      * DrawModel creates arrays for vertices, textures and faces.
@@ -47,7 +47,7 @@ public class DrawModel {
         // float arrays
 
         ArrayList<String> vertexes = new ArrayList<String>();
-        //ArrayList<String> textures = new ArrayList<String>();
+        ArrayList<String> textures = new ArrayList<String>();
         ArrayList<String> faces = new ArrayList<String>();
 
         // Create input stream to .obj file.
@@ -61,7 +61,7 @@ public class DrawModel {
             while ((line = bReader.readLine()) != null) {
                 // do not read in the leading v, vt or f
                 if (line.startsWith("v ")) vertexes.add(line.substring(2));
-                //if (line.startsWith("vt ")) textures.add(line.substring(3));
+                if (line.startsWith("vt ")) textures.add(line.substring(3));
                 if (line.startsWith("f ")) faces.add(line.substring(2));
             }
         } catch (IOException e) {
@@ -74,7 +74,7 @@ public class DrawModel {
         // tCoords - texture coordinates, will be [u1, v1, u2, v2, ...]
         // iCoords - indices,             will be [0, 1, 2, 3, ...]
         float[] vCoords = new float[faces.size() * NUM_FACE_VERTICES * NUM_VERTEX_COORDS];
-        //float[] tCoords = new float[faces.size() * NUM_FACE_VERTICES * NUM_TEX_COORDS];
+        float[] tCoords = new float[faces.size() * NUM_FACE_VERTICES * NUM_TEX_COORDS];
         short[] iCoords = new short[faces.size() * NUM_FACE_VERTICES];
 
         int vertexIndex = 0;
@@ -94,11 +94,11 @@ public class DrawModel {
 
                 // Use the element to the right of "/" to retrieve a 2D texture coordinate and store
                 // it as a String (-1 to start at 0 in the array)
-                //String texture = textures.get(Integer.parseInt(faceComponent[1]) - 1);
+                String texture = textures.get(Integer.parseInt(faceComponent[1]) - 1);
 
                 // Split the Strings and store them as arrays
                 String vertexComp[] = vertex.split(" ");
-                //String textureComp[] = texture.split(" ");
+                String textureComp[] = texture.split(" ");
 
                 // Loop through the arrays and parse the values to floats and store them
                 // in vCoords and tCoords.
@@ -106,16 +106,16 @@ public class DrawModel {
                     vCoords[vertexIndex++] = Float.parseFloat(v);
                 }
 
-                //for (String t : textureComp) {
-                //    tCoords[textureIndex++] = Float.parseFloat(t);
-                //}
+                for (String t : textureComp) {
+                    tCoords[textureIndex++] = Float.parseFloat(t);
+                }
             }
         }
 
         // create the final buffers
         mVertexBuffer = makeFloatBuffer(vCoords);
         mIndexBuffer = makeShortBuffer(iCoords);
-        //mTexBuffer = makeFloatBuffer(tCoords);
+        mTexBuffer = makeFloatBuffer(tCoords);
 
     }
 
@@ -157,8 +157,8 @@ public class DrawModel {
     public void draw(GL10 gl) {
         gl.glFrontFace(GL10.GL_CCW);
         gl.glVertexPointer(NUM_VERTEX_COORDS, GL10.GL_FLOAT, 0, mVertexBuffer);
-        //gl.glTexCoordPointer(NUM_TEX_COORDS, GL10.GL_FLOAT, 0, mTexBuffer);
-        gl.glColor4f(0.f, 0.f, 0.f, 1.f);
+        gl.glTexCoordPointer(NUM_TEX_COORDS, GL10.GL_FLOAT, 0, mTexBuffer);
+        //gl.glColor4f(0.f, 0.f, 0.f, 1.f);
         gl.glDrawElements(GL10.GL_TRIANGLES, mIndexBuffer.remaining(), GL10.GL_UNSIGNED_SHORT, mIndexBuffer);
     }
 }

@@ -23,7 +23,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
     private Context context;
     private float angleY = 0f;
-    //private int[] mTexture = new int[1];
+    private int[] mTexture = new int[1];
 
   /**
    * Constructor for the class MyGLRenderer
@@ -35,7 +35,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         this.view = view;
         this.context = context;
         // create model from specified .obj file
-        model = new DrawModel(context, R.raw.step_00);
+        model = new DrawModel(context, R.raw.teststol4);
     }
 
   /**
@@ -43,7 +43,8 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
    * @param newModel
    */
     public void setModel(DrawModel newModel) {
-      model = newModel;
+      //model = newModel;
+      model = new DrawModel(context, R.raw.teststol4);
     }
 
     /**
@@ -52,7 +53,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
      * @param mContext
      * @param mTex
      */
-    /*private void loadTexture(GL10 gl, Context mContext, int mTex) {
+    private void loadTexture(GL10 gl, Context mContext, int mTex) {
         // generate and bind a texture
         gl.glGenTextures(1, mTexture, 0);
         gl.glBindTexture(GL10.GL_TEXTURE_2D, mTexture[0]);
@@ -62,7 +63,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         bitmap = BitmapFactory.decodeResource(mContext.getResources(), mTex);
         GLUtils.texImage2D(GL10.GL_TEXTURE_2D, 0, bitmap, 0);
         bitmap.recycle();
-    }*/
+    }
 
     /**
      * onSurfaceCreated function
@@ -88,11 +89,11 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         gl.glEnable(GL10.GL_TEXTURE_2D);
 
         // load the chosen texture
-        //loadTexture(gl, context, R.drawable.rock);
+        loadTexture(gl, context, R.drawable.teststol4);
 
-        //gl.glTexParameterx(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_LINEAR);
-        //gl.glTexParameterx(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_LINEAR);
-        //gl.glTexEnvx(GL10.GL_TEXTURE_ENV, GL10.GL_TEXTURE_ENV_MODE, GL10.GL_MODULATE);
+        gl.glTexParameterx(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_LINEAR);
+        gl.glTexParameterx(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_LINEAR);
+        gl.glTexEnvx(GL10.GL_TEXTURE_ENV, GL10.GL_TEXTURE_ENV_MODE, GL10.GL_MODULATE);
 
     }
 
