@@ -24,7 +24,7 @@
 						"edge_if_good"		: prefer edge pose only when edge tracking was good, feature result otherwise; use when tracking quality varies strongly from different angles or EdgeTracking\MinQuality threshold has to be set very low
 						"feature" 			: prefer feature result when available, uses edge only for reinitialization; jitters less but may jump from time to time
 						-->
-					<PreferredResult>feature</PreferredResult>
+					<PreferredResult>edge</PreferredResult>
 					
 					<!-- Advanced Parameters -->
 					
@@ -35,9 +35,9 @@
 					<!-- Quality value in ]0.0, 1.0] at which edge results are considered "close" and do not trigger full reset. Default: Uses (TrackingMinQuality^1.25), 0: uses default -->
 					<!--<EBSVerificationQualityThreshold>0</EBSVerificationQualityThreshold>-->
 					<!-- Part of model that needs to be visible for edge tracking pose to be considered as result. Prevents losing pose when only part of the model is visible. -->
-					<EBSRequiredModelVisibilityRatio>1.0</EBSRequiredModelVisibilityRatio>
+					<EBSRequiredModelVisibilityRatio>0.45</EBSRequiredModelVisibilityRatio>
 					 <!-- Part of model that needs to be visible for edge tracking pose to be considered good enough for feature map creation. -->
-					<EBSMapCreationRequiredModelVisibilityRatio>1.0</EBSMapCreationRequiredModelVisibilityRatio>
+					<EBSMapCreationRequiredModelVisibilityRatio>0.7</EBSMapCreationRequiredModelVisibilityRatio>
 					<!-- Restart Configuration: threshold for counter of unsuccessful consecutive edge based tracking poses, until complete restart. Should be equal to or higher than EdgeTracking/NumFramesToReinit -->
 					<LostLocalTrackingRestartThreshold>120</LostLocalTrackingRestartThreshold>
 					<!-- Restart Configuration: threshold in pixels for difference between edge/feature poses to trigger reinitialization. Default: 10 -->
@@ -90,25 +90,25 @@
 							<!-- Snapping Parameters (initialization) -->
 							
 							<!-- Pose acceptance threshold in [0.0, 1.0] (default 0.6) -->
-							<MinQuality>0.82</MinQuality>
+							<MinQuality>0.6</MinQuality>
 							<!-- Absolute distance to search edges in image for (in [mm] world scale!) Should be ~30% of the model size. Only one of SearchRange and SearchRangeRelative should be set. Only one of SearchRange and SearchRangeRelative is used. Relative is preferred during execution. -->
 							<!--<SearchRange>50</SearchRange>-->
 							<!-- Relative distance to search edges in image for (in multiple of line model sizes). Default: ~30% of the model size. Only one of SearchRange and SearchRangeRelative should be set. Only one of SearchRange and SearchRangeRelative is used. Relative is preferred during execution. -->
-							<SearchRangeRelative>0.2</SearchRangeRelative>
+							<SearchRangeRelative>0.23</SearchRangeRelative>
 							<!-- Number of features to be used. More features increase accuracy but reduce framerate. Should be no less than 100. Default: 200 -->
-							<NumFeatures>250</NumFeatures>
+							<NumFeatures>200</NumFeatures>
 							<!-- The amount of iterations determines the possible total search range and accuracy but reduces framerate.
 								Default: 20-->
-							<NumIterations>30</NumIterations>
+							<NumIterations>25</NumIterations>
 							
 							<!-- Visibility testing parameters -->
 							<VisibilityTest>
 								<!-- If "true" points are checked for self-occlusion with the surface model. Use for full line models that may have occluded lines. Warning: Expensive for complex surface models. -->
-								<Enabled>false</Enabled>
+								<Enabled>true</Enabled>
 								<!-- Test rate for visibility test in [0.001, 1.0]. A Reduction of 90% (0.1) comes at ~ 95% accuracy. -->
 								<TestRate>0.1</TestRate>
 								<!-- Multiplicative depth offset for visibility test around 1.0 (no offset) in relative distance-to-point. A value bigger than 1.0 will make points visible that are further behind an occluding surface. -->
-								<DepthBias>1.03</DepthBias>
+								<DepthBias>1.02</DepthBias>
 							</VisibilityTest>
 						
 							<!-- Advanced parameters -->
@@ -123,7 +123,7 @@
 							<!-- Boundaries for SearchRange in different scales -->
 							<SearchRangeBounds>
 								<!-- Min/max search range in relative image size [0.0, 1.0] -->
-								<ImageSize min="0.05" max="0.4"/>
+								<ImageSize min="0.025" max="0.5"/>
 								<!-- Min/max search range in pixels [0, inf[ -->
 								<Pixel min="5.0"/>
 							</SearchRangeBounds>
@@ -135,7 +135,7 @@
 								-->
 							<SnappingMethod>point_magnitude_angle_based</SnappingMethod>
 							<!-- Minimum required visibility of search normals in ]0, 1]. Causes points too close to image border to be neglected -->
-							<MinNormalVisibilityRatio>0.8f</MinNormalVisibilityRatio>
+							<MinNormalVisibilityRatio>0.4f</MinNormalVisibilityRatio>
 						</EdgeAlignment>
 						<EdgeTracking>
 							<!-- General parameters 
@@ -143,21 +143,21 @@
 							-->
 							
 							<!-- Number of frames (>= 0) that the tracking is assumed successful after losing it. Alleviates motion blur and camera refocus. Use higher values only with pose estimation. Default: 2 -->
-							<NumFramesToHold>1</NumFramesToHold>
+							<NumFramesToHold>2</NumFramesToHold>
 							<!-- Number of frames that the last known pose is held after losing tracking before reverting to initial pose. 0: infinite -->
 							<NumFramesToReinit>60</NumFramesToReinit>
 							
 							<!-- Snapping Parameters (tracking) -->
 							
 							<!-- Pose acceptance threshold in [0.0, 1.0]. Should be lower than for initialization. (default 0.45) -->
-							<MinQuality>0.70</MinQuality>
+							<MinQuality>0.40</MinQuality>
 							<!-- Absolute distance to search edges in image for (in [mm] world scale!) Should be ~30% of the initialization range. Only one of SearchRange and SearchRangeRelative is used. Relative is preferred during execution. -->
 							<!--<SearchRange>20</SearchRange>-->
 							<!-- Relative distance to search edges in image for (in multiple of line model sizes). Should be ~30% of the initialization range. Only one of SearchRange and SearchRangeRelative is used. Relative is preferred during execution. -->
-							<SearchRangeRelative>0.16</SearchRangeRelative>
+							<SearchRangeRelative>0.05</SearchRangeRelative>
 							<!-- Determines total search range and accuracy but reduces framerate. Should be significantly lower than for initialization
 								Default: 4-->
-							<NumIterations>5</NumIterations>
+							<NumIterations>4</NumIterations>
 
 							<!-- Fixed number of features. Should be 0 (to use <EdgeSampling> or significantly higher than for initialization. -->
 							<NumFeatures>0</NumFeatures>
@@ -172,14 +172,14 @@
 							<!-- As NumFeatures but for score computation. 0: use NumFeatures (default)--> 
 							<NumFeaturesForScore>0</NumFeaturesForScore>
 							<!-- As EdgeSampling but for score computation. 0: use EdgeSampling (default) --> 
-							<EdgeSamplingForScore>0</EdgeSamplingForScore>
+							<EdgeSamplingForScore>4</EdgeSamplingForScore>
 
 							<!-- Boundaries for SearchRange in different scales. Should be smaller than for initialization. -->
 							<SearchRangeBounds>
 								<!-- Min/max search range in relative image size [0.0, 1.0]. Default: [0.0, 0.3] -->
-								<ImageSize min="0.0" max="0.1"/>
+								<ImageSize min="0.0" max="0.25"/>
 								<!-- Min/max search range in pixels [0, inf[. Default: [5.0, inf[ -->
-								<Pixel min="10.0"/>
+								<Pixel min="5.0"/>
 							</SearchRangeBounds>
 						</EdgeTracking>
 					</Parameters>
@@ -221,7 +221,7 @@
 			<Fuser Type="SmoothingFuser">
 				<Parameters>
 					<!-- After all is lost, old pose is kept for this number of frames -->
-					<KeepPoseForNumberOfFrames>4</KeepPoseForNumberOfFrames>
+					<KeepPoseForNumberOfFrames>0</KeepPoseForNumberOfFrames>
 					<!-- If set, resulting pose is aligned with gravity (usually not recommended for model tracking) -->
 					<GravityAssistance>0</GravityAssistance>
 					<!-- If set, lost tracking is continued with device Orientation sensors. Recommendable -->
