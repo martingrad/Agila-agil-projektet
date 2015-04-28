@@ -85,7 +85,9 @@ public class MyGLSurfaceView extends GLSurfaceView {
 
     switch (maskedAction) {
 
-      case MotionEvent.ACTION_DOWN:
+      case MotionEvent.ACTION_DOWN: {
+        mRenderer.setDistanceZ(30f);
+      }
       case MotionEvent.ACTION_POINTER_DOWN: {
         // We have a new pointer. Lets add it to the list of pointers
         System.out.println("MYGLSurfaceView::onTouchEvent(), ACTION_POINTER_DOWN, pointer count: " + event.getPointerCount());
@@ -109,6 +111,7 @@ public class MyGLSurfaceView extends GLSurfaceView {
             point.x = event.getX(i);
             point.y = event.getY(i);
           }
+          mRenderer.setDistanceZ(3f);
         }
         break;
       }
