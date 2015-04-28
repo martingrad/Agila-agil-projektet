@@ -19,7 +19,6 @@ public class View3dFragment extends Fragment {
     // Inflate the layout for this fragment
     View view = inflater.inflate(R.layout.fragment_view3d, container, false);
     mGLSV = (MyGLSurfaceView)view.findViewById(R.id.mGLSV);
-
     return view;
   }
 
