@@ -11,20 +11,20 @@
                     <!-- Execute single or multi-threaded: "0"/"sequential" or "1"/"parallel" (default) -->
                     <Execution>parallel</Execution>
                     <!-- Debug visualization of features (for edge, see EdgeTracker\Parameters\EdgeAlignment\DebugRendering) -->
-                    <DrawFeatures>off</DrawFeatures>
+                    <DrawFeatures>on</DrawFeatures>
 
                     <!-- Mode
                         "hybrid" (default) : executes both edge and feature tracking continuously and supports each where possible; use for models that are reliably edge-trackable from all views
                         "initialize_once"  : initializes only once with edge initialization, then continue with feature tracking; use for incomplete models, 2D models or other models not reliably trackable with edges
                         "edge_only"        : Initialize and track only with edges only. Same behavior as EdgeBasedTrackingSensor. Use for model centered tracking with highly dynamic environment.
                         -->
-                    <Mode>initialize_once</Mode>
+                    <Mode>edge_only</Mode>
                     <!-- Result configuration
                         "edge" (default)	: prefer edge pose when edge tracking succeeded; choose for poorly textured environments and good edge model
                         "edge_if_good"		: prefer edge pose only when edge tracking was good, feature result otherwise; use when tracking quality varies strongly from different angles or EdgeTracking\MinQuality threshold has to be set very low
                         "feature" 			: prefer feature result when available, uses edge only for reinitialization; jitters less but may jump from time to time
                         -->
-                    <PreferredResult>edge</PreferredResult>
+                    <PreferredResult>edge_if_good</PreferredResult>
 
                     <!-- Advanced Parameters -->
 
@@ -35,9 +35,9 @@
                     <!-- Quality value in ]0.0, 1.0] at which edge results are considered "close" and do not trigger full reset. Default: Uses (TrackingMinQuality^1.25), 0: uses default -->
                     <!--<EBSVerificationQualityThreshold>0</EBSVerificationQualityThreshold>-->
                     <!-- Part of model that needs to be visible for edge tracking pose to be considered as result. Prevents losing pose when only part of the model is visible. -->
-                    <EBSRequiredModelVisibilityRatio>0.45</EBSRequiredModelVisibilityRatio>
+                    <EBSRequiredModelVisibilityRatio>0.85</EBSRequiredModelVisibilityRatio>
                     <!-- Part of model that needs to be visible for edge tracking pose to be considered good enough for feature map creation. -->
-                    <EBSMapCreationRequiredModelVisibilityRatio>0.7</EBSMapCreationRequiredModelVisibilityRatio>
+                    <EBSMapCreationRequiredModelVisibilityRatio>0.85</EBSMapCreationRequiredModelVisibilityRatio>
                     <!-- Restart Configuration: threshold for counter of unsuccessful consecutive edge based tracking poses, until complete restart. Should be equal to or higher than EdgeTracking/NumFramesToReinit -->
                     <LostLocalTrackingRestartThreshold>120</LostLocalTrackingRestartThreshold>
                     <!-- Restart Configuration: threshold in pixels for difference between edge/feature poses to trigger reinitialization. Default: 10 -->
@@ -85,21 +85,21 @@
 
                             <!-- Renders internal values to screen. Useful to tune parameters
                                 "off", "model", "normals", "normals_and_matches", "points", "points_tested", "bounding_boxes" -->
-                            <DebugRendering>off</DebugRendering>
+                            <DebugRendering>points</DebugRendering>
 
                             <!-- Snapping Parameters (initialization) -->
 
                             <!-- Pose acceptance threshold in [0.0, 1.0] (default 0.6) -->
-                            <MinQuality>0.6</MinQuality>
+                            <MinQuality>0.8</MinQuality>
                             <!-- Absolute distance to search edges in image for (in [mm] world scale!) Should be ~30% of the model size. Only one of SearchRange and SearchRangeRelative should be set. Only one of SearchRange and SearchRangeRelative is used. Relative is preferred during execution. -->
                             <!--<SearchRange>50</SearchRange>-->
                             <!-- Relative distance to search edges in image for (in multiple of line model sizes). Default: ~30% of the model size. Only one of SearchRange and SearchRangeRelative should be set. Only one of SearchRange and SearchRangeRelative is used. Relative is preferred during execution. -->
-                            <SearchRangeRelative>0.23</SearchRangeRelative>
+                            <SearchRangeRelative>0.29</SearchRangeRelative>
                             <!-- Number of features to be used. More features increase accuracy but reduce framerate. Should be no less than 100. Default: 200 -->
                             <NumFeatures>200</NumFeatures>
                             <!-- The amount of iterations determines the possible total search range and accuracy but reduces framerate.
                                 Default: 20-->
-                            <NumIterations>25</NumIterations>
+                            <NumIterations>20</NumIterations>
 
                             <!-- Visibility testing parameters -->
                             <VisibilityTest>
@@ -108,7 +108,7 @@
                                 <!-- Test rate for visibility test in [0.001, 1.0]. A Reduction of 90% (0.1) comes at ~ 95% accuracy. -->
                                 <TestRate>0.1</TestRate>
                                 <!-- Multiplicative depth offset for visibility test around 1.0 (no offset) in relative distance-to-point. A value bigger than 1.0 will make points visible that are further behind an occluding surface. -->
-                                <DepthBias>1.02</DepthBias>
+                                <DepthBias>1.7</DepthBias>
                             </VisibilityTest>
 
                             <!-- Advanced parameters -->
@@ -135,7 +135,7 @@
                                 -->
                             <SnappingMethod>point_magnitude_angle_based</SnappingMethod>
                             <!-- Minimum required visibility of search normals in ]0, 1]. Causes points too close to image border to be neglected -->
-                            <MinNormalVisibilityRatio>0.4f</MinNormalVisibilityRatio>
+                            <MinNormalVisibilityRatio>0.6f</MinNormalVisibilityRatio>
                         </EdgeAlignment>
                         <EdgeTracking>
                             <!-- General parameters
@@ -150,7 +150,7 @@
                             <!-- Snapping Parameters (tracking) -->
 
                             <!-- Pose acceptance threshold in [0.0, 1.0]. Should be lower than for initialization. (default 0.45) -->
-                            <MinQuality>0.40</MinQuality>
+                            <MinQuality>0.80</MinQuality>
                             <!-- Absolute distance to search edges in image for (in [mm] world scale!) Should be ~30% of the initialization range. Only one of SearchRange and SearchRangeRelative is used. Relative is preferred during execution. -->
                             <!--<SearchRange>20</SearchRange>-->
                             <!-- Relative distance to search edges in image for (in multiple of line model sizes). Should be ~30% of the initialization range. Only one of SearchRange and SearchRangeRelative is used. Relative is preferred during execution. -->
@@ -167,7 +167,7 @@
                             <!-- Advanced parameters -->
                             <!-- Estimate pose of next frame by using device sensor information if available -->
                             <PoseEstimation>
-                                <Rotation>sensors</Rotation> <!-- "off", "sensors" -->
+                                <Rotation>off</Rotation> <!-- "off", "sensors" -->
                             </PoseEstimation>
                             <!-- As NumFeatures but for score computation. 0: use NumFeatures (default)-->
                             <NumFeaturesForScore>0</NumFeaturesForScore>
@@ -195,7 +195,7 @@
                                 <!-- How often a point has to be seen from different keyframes to triangulate it. Decreasing improves map creation speed but reduces quality. Default: 3 -->
                                 <MinNumberOfObservations>3</MinNumberOfObservations>
                                 <!-- Minimum required angle in degree that a potential new 3D point has to span w.r.t. camera centers so that it is added to the map. Decreasing reduces required movement but reduces quality. Default: 5.0  -->
-                                <MinTriangulationAngle>5</MinTriangulationAngle>
+                                <MinTriangulationAngle>50</MinTriangulationAngle>
                                 <!-- Minimal similarity treshold used for the individual feature correspondences in [0..1]. Higher (stricter) values reduce map filling speed but increase quality. Default: 0.7 -->
                                 <SimilarityThreshold>0.7</SimilarityThreshold>
                             </Learning>
