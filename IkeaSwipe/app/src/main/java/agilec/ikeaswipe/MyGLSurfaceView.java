@@ -51,7 +51,6 @@ public class MyGLSurfaceView extends GLSurfaceView {
 
     mRenderer = new MyGLRenderer(context, this);
 
-
     // Set the Renderer for drawing on the GLSurfaceView
     setRenderer(mRenderer);
   }
@@ -86,6 +85,7 @@ public class MyGLSurfaceView extends GLSurfaceView {
     switch (maskedAction) {
 
       case MotionEvent.ACTION_DOWN:
+        //System.out.println("pointerId: " + pointerId);
       case MotionEvent.ACTION_POINTER_DOWN: {
         // We have a new pointer. Lets add it to the list of pointers
         System.out.println("MYGLSurfaceView::onTouchEvent(), ACTION_POINTER_DOWN, pointer count: " + event.getPointerCount());
@@ -115,6 +115,7 @@ public class MyGLSurfaceView extends GLSurfaceView {
       case MotionEvent.ACTION_UP:
       case MotionEvent.ACTION_POINTER_UP:
       case MotionEvent.ACTION_CANCEL: {
+        System.out.println("pointerId: " + pointerId);
         mActivePointers.remove(pointerId);
         break;
       }
@@ -134,7 +135,6 @@ public class MyGLSurfaceView extends GLSurfaceView {
     return mRenderer;
   }
 
-
   @Override
   protected void onDraw(Canvas canvas) {
     super.onDraw(canvas);
@@ -148,5 +148,9 @@ public class MyGLSurfaceView extends GLSurfaceView {
       canvas.drawCircle(point.x, point.y, SIZE, mPaint);
     }
     canvas.drawText("Total pointers: " + mActivePointers.size(), 10, 40 , textPaint);
+  }
+
+  public SparseArray getActivePointers() {
+    return mActivePointers;
   }
 }

@@ -33,7 +33,7 @@ public class SwipeActivity extends ActionBarActivity {
    */
 
   ArticlesListFragment alf = new ArticlesListFragment();
-  View3dFragment v3DF       = new View3dFragment();
+  View3dFragment v3DF      = new View3dFragment();
 
   SectionsPagerAdapter mSectionsPagerAdapter;
 
@@ -61,7 +61,7 @@ public class SwipeActivity extends ActionBarActivity {
   /**
    * The {@link ViewPager} that will host the section contents.
    */
-  ViewPager mViewPager;
+  SingleSwipeViewPager mViewPager;
 
   /**
    * setStepNumber is called to update the current step number from the StepByStepFragment
@@ -144,7 +144,7 @@ public class SwipeActivity extends ActionBarActivity {
     mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
     // Set up the ViewPager with the sections adapter.
-    mViewPager = (ViewPager) findViewById(R.id.pager);
+    mViewPager = (SingleSwipeViewPager) findViewById(R.id.pager);
     mViewPager.setAdapter(mSectionsPagerAdapter);
   }
 
@@ -181,6 +181,25 @@ public class SwipeActivity extends ActionBarActivity {
 
     return super.onOptionsItemSelected(item);
   }
+
+  /**
+   * dispatchTouchEvent in SwipeActivity is a library function that is the first function that is
+   * called when a MotionEvent has been registered. When a multitouch gesture is used, the event
+   * should be canceled, in order to allow two-finger gestures in MyGLSurfaceView without any
+   * conflicts. This avoids accidental swiping when trying to rotate the 3D view.
+   * @param ev
+   * @return
+   */
+  /*
+  @Override
+  public boolean dispatchTouchEvent(MotionEvent ev) {
+    if (ev.getPointerCount() == 2) {    // if one finger -> send
+      return super.dispatchTouchEvent(ev);
+    } else {                            // if multiple fingers -> cancel
+      return false;
+    }
+  }
+  */
 
   /**
    * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
