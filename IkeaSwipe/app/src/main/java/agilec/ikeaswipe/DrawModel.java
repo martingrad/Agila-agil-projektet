@@ -104,10 +104,12 @@ public class DrawModel {
                 // in vCoords and tCoords.
                 for (String v : vertexComp) {
                     vCoords[vertexIndex++] = Float.parseFloat(v);
+                  //System.out.println("vertex: " + v);
                 }
 
                 for (String t : textureComp) {
                     tCoords[textureIndex++] = Float.parseFloat(t);
+                    //System.out.println("texture: " + t);
                 }
             }
         }

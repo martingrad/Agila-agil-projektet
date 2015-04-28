@@ -35,7 +35,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         this.view = view;
         this.context = context;
         // create model from specified .obj file
-        model = new DrawModel(context, R.raw.teststol4);
+        model = new DrawModel(context, R.raw.teststol8);
     }
 
   /**
@@ -44,7 +44,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
    */
     public void setModel(DrawModel newModel) {
       //model = newModel;
-      model = new DrawModel(context, R.raw.teststol4);
+      model = new DrawModel(context, R.raw.teststol8);
     }
 
     /**
@@ -89,10 +89,13 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         gl.glEnable(GL10.GL_TEXTURE_2D);
 
         // load the chosen texture
-        loadTexture(gl, context, R.drawable.teststol4);
+        loadTexture(gl, context, R.drawable.teststol7);
 
         gl.glTexParameterx(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_LINEAR);
         gl.glTexParameterx(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_LINEAR);
+        gl.glTexParameterx(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_S, GL10.GL_CLAMP_TO_EDGE);
+        gl.glTexParameterx(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_T, GL10.GL_CLAMP_TO_EDGE);
+
         gl.glTexEnvx(GL10.GL_TEXTURE_ENV, GL10.GL_TEXTURE_ENV_MODE, GL10.GL_MODULATE);
 
     }
