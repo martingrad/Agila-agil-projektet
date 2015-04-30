@@ -20,6 +20,10 @@ public class MyGLSurfaceView extends GLSurfaceView {
   private SparseArray<PointF> mActivePointers;
   private final MyGLRenderer mRenderer;
 
+  private float xPrev, x; // X Position
+  private float yPrev, y; // Y Position
+  private float density;  // Density for the device
+
   private Paint mPaint;
   private int[] colors = { Color.BLUE, Color.GREEN, Color.MAGENTA,
           Color.BLACK, Color.CYAN, Color.GRAY, Color.RED, Color.DKGRAY,
@@ -57,6 +61,9 @@ public class MyGLSurfaceView extends GLSurfaceView {
   }
 
   private void initView() {
+    // Set the density depending on the device
+    density = getResources().getDisplayMetrics().density;
+
     mActivePointers = new SparseArray<PointF>();
     mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     // set painter color to a color you like
@@ -83,10 +90,13 @@ public class MyGLSurfaceView extends GLSurfaceView {
     // get masked (not specific to a pointer) action
     int maskedAction = event.getActionMasked();
 
+    x = event.getX();
+    y = event.getY();
+
     switch (maskedAction) {
 
       case MotionEvent.ACTION_DOWN: {
-        mRenderer.setDistanceZ(30f);
+        //mRenderer.setDistanceZ(30f);
       }
       case MotionEvent.ACTION_POINTER_DOWN: {
         // We have a new pointer. Lets add it to the list of pointers
@@ -104,15 +114,25 @@ public class MyGLSurfaceView extends GLSurfaceView {
         break;
       }
       case MotionEvent.ACTION_MOVE: { // a pointer was moved
-        System.out.println("MYGLSurfaceView::onTouchEvent(), ACTION_MOVE, pointer count: " + event.getPointerCount());
-        for (int size = event.getPointerCount(), i = 0; i < size; i++) {
-          PointF point = mActivePointers.get(event.getPointerId(i));
-          if (point != null) {
-            point.x = event.getX(i);
-            point.y = event.getY(i);
-          }
-          mRenderer.setDistanceZ(3f);
+
+        // Set Dx and Dy depending on density and prev
+        float dx = (x - xPrev) / density / 2.0f;
+        float dy = (y - yPrev) / density / 2.0f;
+
+        // reverse direction of rotation above the mid-line
+        if (y > getHeight() / 2) {
+          dx = dx * -1 ;
         }
+
+        // reverse direction of rotation to left of the mid-line
+        if (x < getWidth() / 2) {
+          dy = dy * -1 ;
+        }
+
+        // Set rotation to our model
+        mRenderer.setDxRotation(dx);
+        mRenderer.setDyRotation(dy);
+
         break;
       }
       case MotionEvent.ACTION_UP:
@@ -122,6 +142,10 @@ public class MyGLSurfaceView extends GLSurfaceView {
         break;
       }
     }
+
+    xPrev = x;
+    yPrev = y;
+
     invalidate();
     requestRender(); // why you no working? =(
 
@@ -136,6 +160,8 @@ public class MyGLSurfaceView extends GLSurfaceView {
   public MyGLRenderer getGLRenderer(){
     return mRenderer;
   }
+
+
 
 
   @Override

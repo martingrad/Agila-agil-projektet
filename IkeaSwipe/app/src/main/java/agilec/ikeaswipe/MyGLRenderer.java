@@ -3,6 +3,7 @@ package agilec.ikeaswipe;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.opengl.GLES30;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLU;
@@ -24,7 +25,8 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     private Context context;
     private float angleY = 0f;
     //private int[] mTexture = new int[1];
-    private float distanceZ = 30f;
+    private float dx = 0.0f;
+    private float dy = 0.0f;
 
   /**
    * Constructor for the class MyGLRenderer
@@ -112,7 +114,8 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
         // Set rotation around the y axis
         gl.glPushMatrix();
-        gl.glRotatef(distanceZ, 0f, 1f, 0f);
+        gl.glRotatef(dx, 0f, 1f, 0f);
+        gl.glRotatef(dy, 1f, 0f, 0f);
         model.draw(gl);
         gl.glPopMatrix();
 
@@ -131,7 +134,11 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         gl.glViewport(0, 0, width, height);
     }
 
-  public void setDistanceZ(float z) {
-    distanceZ += z;
+  public void setDxRotation(float newValue) {
+    this.dx += newValue;
+  }
+
+  public void setDyRotation(float newValue) {
+    this.dy += newValue;
   }
 }
