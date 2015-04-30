@@ -20,19 +20,27 @@ public class SingleSwipeViewPager extends ViewPager {
 
   @Override
   public boolean onTouchEvent(MotionEvent event) {
-    if (event.getPointerCount() == 1) {
-      System.out.println("Swipe 1 finger");
-      return super.onTouchEvent(event);
+    if (event.getPointerCount() == 1 && event.getPointerCount() <= 10) {
+      //System.out.println("Swipe 1 finger");
+      try {
+        return super.onTouchEvent(event);
+      } catch (Exception e) {
+        return true;
+      }
     } else {
-      System.out.println("No swipe, more than one finger");
-      return true;
+      //System.out.println("No swipe, more than one finger");
+      return false;
     }
   }
 
   @Override
   public boolean onInterceptTouchEvent(MotionEvent event) {
-    if (event.getPointerCount() == 1) {
-      return super.onInterceptTouchEvent(event);
+    if (event.getPointerCount() == 1 && event.getPointerCount() <= 10) {
+      try {
+        return super.onInterceptTouchEvent(event);
+      } catch (Exception e) {
+        return true;
+      }
     } else {
       return false;
     }
