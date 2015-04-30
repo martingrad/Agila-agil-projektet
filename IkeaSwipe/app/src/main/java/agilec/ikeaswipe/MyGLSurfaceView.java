@@ -21,7 +21,6 @@ public class MyGLSurfaceView extends GLSurfaceView {
   private float yPrev, y; // Y Position
   private float density;  // Density for the device
 
-
   public MyGLSurfaceView(Context context){
     super(context);
     // Initialize variables
