@@ -36,7 +36,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         this.view = view;
         this.context = context;
         // create model from specified .obj file
-        model = new DrawModel(context, R.raw.step00);
+        model = new DrawModel(context, R.raw.step_00);
     }
 
   /**
@@ -44,8 +44,8 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
    * @param newModel
    */
     public void setModel(DrawModel newModel) {
-      //model = newModel;
-      model = new DrawModel(context, R.raw.step00);
+      model = newModel;
+      //model = new DrawModel(context, R.raw.step00);
     }
 
     /**
@@ -73,8 +73,6 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
      * @param config
      */
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-        // Set the background frame color
-        // GLES30.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
         gl.glLoadIdentity();
 
@@ -95,7 +93,6 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
         gl.glTexParameterx(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_LINEAR);
         gl.glTexParameterx(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_LINEAR);
-
 
         // To show the texture on a nexus device
         gl.glTexParameterx(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_S, GL10.GL_CLAMP_TO_EDGE);
