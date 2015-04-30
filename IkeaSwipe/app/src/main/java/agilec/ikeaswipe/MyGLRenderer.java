@@ -24,6 +24,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     private Context context;
     private float angleY = 0f;
     //private int[] mTexture = new int[1];
+    private float distanceZ = 30f;
 
   /**
    * Constructor for the class MyGLRenderer
@@ -111,7 +112,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
         // Set rotation around the y axis
         gl.glPushMatrix();
-        gl.glRotatef(angleY, 0f, 1f, 0f);
+        gl.glRotatef(distanceZ, 0f, 1f, 0f);
         model.draw(gl);
         gl.glPopMatrix();
 
@@ -129,4 +130,8 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         //GLES30.glViewport(0, 0, width, height);
         gl.glViewport(0, 0, width, height);
     }
+
+  public void setDistanceZ(float z) {
+    distanceZ += z;
+  }
 }
