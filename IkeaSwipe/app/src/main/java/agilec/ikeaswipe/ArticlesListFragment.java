@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -154,7 +155,7 @@ public class ArticlesListFragment extends ListFragment {
                 TextView listTopText = (TextView) v.findViewById(R.id.toptext);
                 TextView listBottomText = (TextView) v.findViewById(R.id.bottomtext);
                 ImageView listImg = (ImageView) v.findViewById(R.id.icon);
-                Button arButton = (Button) v.findViewById(R.id.arButton);
+                ImageButton arButton = (ImageButton) v.findViewById(R.id.arButton);
                 Button statusButton = (Button) v.findViewById(R.id.status);
 
                 if(a.getChecked()){

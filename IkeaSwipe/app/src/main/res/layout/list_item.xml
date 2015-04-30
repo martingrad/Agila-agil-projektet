@@ -41,20 +41,21 @@
         android:layout_height="300px"
         android:layout_weight="1"
         android:weightSum="2">
-        <Button
+        <ImageButton
             android:id="@+id/arButton"
-            android:layout_width="100px"
-            android:layout_height="100px"
+            android:layout_width="200px"
+            android:layout_height="200px"
             android:layout_weight="1"
             android:layout_marginRight="10px"
             android:layout_gravity="center"
-            android:text="AR"/>
+            android:background="#00000000"
+            android:src="@drawable/icon_3d_scan" />
         <Button
             android:id="@+id/status"
-            android:layout_width="100px"
-            android:layout_height="100px"
+            android:layout_width="200px"
+            android:layout_height="200px"
             android:layout_weight="1"
             android:layout_gravity="center"
-            android:text="Hej"/>
+            android:text="1/10"/>
     </LinearLayout>
 </LinearLayout>
