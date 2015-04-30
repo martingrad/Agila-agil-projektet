@@ -16,8 +16,74 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true">
+        android:layout_alignParentBottom="true">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_alignParentRight="true"
+            android:weightSum="7"
+            tools:context=".StepByStepFragment">
+
+            <Button
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:id="@+id/step0"
+                android:layout_gravity="fill_vertical"
+                android:layout_weight="1"
+                android:background="@color/grey" />
+
+            <Button
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:id="@+id/step1"
+                android:layout_weight="1"
+                android:background="@color/greyOpacity"/>
+
+            <Button
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:id="@+id/step2"
+                android:layout_weight="1"
+                android:background="@color/greyOpacity"/>
+
+            <Button
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:id="@+id/step3"
+                android:layout_weight="1"
+                android:background="@color/greyOpacity"/>
+
+            <Button
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:id="@+id/step4"
+                android:layout_weight="1"
+                android:background="@color/greyOpacity"/>
+
+            <Button
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:id="@+id/step5"
+                android:layout_weight="1"
+                android:background="@color/greyOpacity"/>
+
+            <Button
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/step6"
+                android:layout_weight="1"
+                android:background="@color/greyOpacity"/>
+
+        </LinearLayout>
 
         <ImageButton
             android:layout_width="wrap_content"
