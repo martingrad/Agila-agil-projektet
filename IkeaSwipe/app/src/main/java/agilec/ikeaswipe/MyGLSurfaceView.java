@@ -1,9 +1,6 @@
 package agilec.ikeaswipe;
 
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.PointF;
 import android.opengl.GLSurfaceView;
 import android.util.AttributeSet;
@@ -11,73 +8,48 @@ import android.util.SparseArray;
 import android.view.MotionEvent;
 
 /**
- * Class MyGLSurfaceView
+ * MyGLSurfaceView draws a 3D representation of the current step of the instructions.
  * @author @emmaforsling @martingrad
  */
 public class MyGLSurfaceView extends GLSurfaceView {
 
   private static final int SIZE = 60;
   private SparseArray<PointF> mActivePointers;
-  private final MyGLRenderer mRenderer;
+  private MyGLRenderer mRenderer;
 
   private float xPrev, x; // X Position
   private float yPrev, y; // Y Position
   private float density;  // Density for the device
 
-  private Paint mPaint;
-  private int[] colors = { Color.BLUE, Color.GREEN, Color.MAGENTA,
-          Color.BLACK, Color.CYAN, Color.GRAY, Color.RED, Color.DKGRAY,
-          Color.LTGRAY, Color.YELLOW };
-
-  private Paint textPaint;
 
   public MyGLSurfaceView(Context context){
     super(context);
-
-    initView();
-
-    // Create an OpenGL ES 3.0 context
-    // setEGLContextClientVersion(3);
-    //mRenderer = new MyGLRenderer();
-    mRenderer = new MyGLRenderer(context, this);
-
-    // Set the Renderer for drawing on the GLSurfaceView
-    setRenderer(mRenderer);
+    // Initialize variables
+    init(context);
   }
 
   public MyGLSurfaceView(Context context, AttributeSet attrs) {
     super(context, attrs);
+    // Initialize variables
+    init(context);
+  }
 
-    initView();
-
-    // Create an OpenGL ES 3.0 context
-    // setEGLContextClientVersion(3);
-
+  private void init(Context context) {
+    // Set the density depending on the device
+    density = getResources().getDisplayMetrics().density;
+    // Initialize pointers array
+    mActivePointers = new SparseArray<PointF>();
+    // Initialize renderer for the GlSurfaceView
     mRenderer = new MyGLRenderer(context, this);
-
-
     // Set the Renderer for drawing on the GLSurfaceView
     setRenderer(mRenderer);
   }
 
-  private void initView() {
-    // Set the density depending on the device
-    density = getResources().getDisplayMetrics().density;
-
-    mActivePointers = new SparseArray<PointF>();
-    mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    // set painter color to a color you like
-    mPaint.setColor(Color.BLUE);
-    mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-    textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    textPaint.setTextSize(20);
-  }
-
   /**
-   * Handles touch event for interact with the model in the View3DFragment
+   * Handles touch events for interaction with the model in the View3DFragment.
    * @param event
    * @return
-   * @auther @ingelhag @marcusnygren
+   * @author @ingelhag @marcusnygren @martingrad
    */
   @Override
   public boolean onTouchEvent(MotionEvent event) {
@@ -106,7 +78,7 @@ public class MyGLSurfaceView extends GLSurfaceView {
         break;
       }
       case MotionEvent.ACTION_MOVE: { // a pointer was moved
-        calcDxAndDy(); // Call and set Dx and Dy depending on the x, y, xPrev and yPrev position
+        calcDxAndDy(); // Call and set Dx and Dy depending on the x, y, xPrev and yPrev positions
         break;
       }
       case MotionEvent.ACTION_UP:
@@ -125,7 +97,7 @@ public class MyGLSurfaceView extends GLSurfaceView {
   }
 
   /**
-  * Returns the a MyGlRenderer class
+  * Returns the MyGlRenderer instance
   * @return
   */
   public MyGLRenderer getGLRenderer(){
@@ -133,8 +105,8 @@ public class MyGLSurfaceView extends GLSurfaceView {
   }
 
   /**
-   * Calculate Dx and Dy for rotating the model correct!
-   * Call mRenderer to set new values for the angle in vertical and horizontal axis
+   * Calculate Dx and Dy for rotating the model correctly!
+   * Call mRenderer to set new values for the angle in vertical and horizontal axes
    */
   private void calcDxAndDy() {
     if(mActivePointers.size() == 2) {
@@ -156,20 +128,5 @@ public class MyGLSurfaceView extends GLSurfaceView {
       mRenderer.setDxRotation(dx);
       mRenderer.setDyRotation(dy);
     }
-  }
-
-  @Override
-  protected void onDraw(Canvas canvas) {
-    super.onDraw(canvas);
-
-    System.out.println("Nu målar jag!");
-    // draw all pointers
-    for (int size = mActivePointers.size(), i = 0; i < size; i++) {
-      PointF point = mActivePointers.valueAt(i);
-      if (point != null)
-        mPaint.setColor(colors[i % 9]);
-      canvas.drawCircle(point.x, point.y, SIZE, mPaint);
-    }
-    canvas.drawText("Total pointers: " + mActivePointers.size(), 10, 40 , textPaint);
   }
 }
