@@ -8,6 +8,7 @@ import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLU;
 import android.opengl.GLUtils;
+import android.util.Log;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -18,13 +19,16 @@ import javax.microedition.khronos.opengles.GL10;
  */
 public class MyGLRenderer implements GLSurfaceView.Renderer {
 
-
     private MyGLSurfaceView view;
     private DrawModel model;
 
     private Context context;
     private float angleY = 0f;
-    private int[] mTexture = new int[1];
+
+    private int mTextureId; // Unique texture id
+    private Bitmap mBitmap; // Bitmap being used by the renderer
+    private int resourceTextureId = R.drawable.step00;  // Set the initial texture
+    private boolean mShouldLoadTexture = false; // Variable to trigger texture reload
 
   /**
    * Constructor for the class MyGLRenderer
@@ -40,40 +44,53 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     }
 
   /**
-   * Set a new model
+   * Set a new model and texture
+   * @author @jacobselg
    * @param newModel
    */
-    public void setModel(DrawModel newModel) {
-      model = newModel;
-      //model = new DrawModel(context, R.raw.step00);
+    public void setModel(DrawModel newModel, int id) {
+        model = newModel;
+        mShouldLoadTexture = true;
+        resourceTextureId = id;
     }
 
     /**
      * loadTexture,
+     * @author @emmaforsling @jacobselg
      * @param gl
-     * @param mContext
-     * @param mTex
      */
-    private void loadTexture(GL10 gl, Context mContext, int mTex) {
+    private void loadTexture(GL10 gl) {
         // generate and bind a texture
-        gl.glGenTextures(1, mTexture, 0);
-        gl.glBindTexture(GL10.GL_TEXTURE_2D, mTexture[0]);
+        int[] textures = new int[1];
+        gl.glGenTextures(1, textures, 0);
+        mTextureId = textures[0];
 
-        // Create a bitmap from image file, and create the texture from it
+        // ...and bind it to our array
+        gl.glBindTexture(GL10.GL_TEXTURE_2D, mTextureId);
+
+        // Create Nearest Filtered Texture
+        gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER,GL10.GL_LINEAR);
+        gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MAG_FILTER,GL10.GL_LINEAR);
+
+        // Different possible texture parameters, e.g. GL10.GL_CLAMP_TO_EDGE
+        gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_S,GL10.GL_CLAMP_TO_EDGE);
+        gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_T,GL10.GL_REPEAT);
+
+        // Use the Android GLUtils to specify a two-dimensional texture image
+        // from our bitmap
         Bitmap bitmap;
-        bitmap = BitmapFactory.decodeResource(mContext.getResources(), mTex);
+        bitmap = BitmapFactory.decodeResource(context.getResources(), resourceTextureId);
         GLUtils.texImage2D(GL10.GL_TEXTURE_2D, 0, bitmap, 0);
         bitmap.recycle();
     }
 
     /**
      * onSurfaceCreated function
-     * @author @emmaforsling @martingrad
+     * @author @emmaforsling @martingrad @jacobselg
      * @param gl
      * @param config
      */
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-
         gl.glLoadIdentity();
 
         // Set field of view, aspect ratio, and near and far clipping plane distances
@@ -89,7 +106,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         gl.glEnable(GL10.GL_STENCIL_BITS);
 
         // load the chosen texture
-        loadTexture(gl, context, R.drawable.step00);
+        loadTexture(gl);
 
         gl.glTexParameterx(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_LINEAR);
         gl.glTexParameterx(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_LINEAR);
@@ -99,28 +116,33 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         gl.glTexParameterx(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_T, GL10.GL_CLAMP_TO_EDGE);
 
         gl.glTexEnvx(GL10.GL_TEXTURE_ENV, GL10.GL_TEXTURE_ENV_MODE, GL10.GL_MODULATE);
-
     }
 
     /**
      * onDrawFrame function
-     * @author @emmaforsling @martingrad
+     * @author @emmaforsling @martingrad @jacobselg
      * @param gl
      */
     public void onDrawFrame(GL10 gl) {
-        // Redraw background color
-        // GLES30.glClear(GLES30.GL_COLOR_BUFFER_BIT);
-
         // Set background color to white
         gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
         gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
+
+        if (mShouldLoadTexture) { // Check if a texture reload is needed
+            loadTexture(gl);
+            mShouldLoadTexture = false;
+        }
+        if (mTextureId != -1) {
+            gl.glEnable(GL10.GL_TEXTURE_2D);
+            gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
+            gl.glBindTexture(GL10.GL_TEXTURE_2D, mTextureId);
+        }
 
         // Set rotation around the y axis
         gl.glPushMatrix();
         gl.glRotatef(angleY, 0f, 1f, 0f);
         model.draw(gl);
         gl.glPopMatrix();
-
         angleY += 0.4f;
     }
 
@@ -132,7 +154,6 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
      * @param height
      */
     public void onSurfaceChanged(GL10 gl, int width, int height) {
-        //GLES30.glViewport(0, 0, width, height);
         gl.glViewport(0, 0, width, height);
     }
 }
