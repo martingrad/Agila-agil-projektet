@@ -74,13 +74,13 @@ public class MyGLSurfaceView extends GLSurfaceView {
   }
 
   /**
-   * Based on http://www.vogella.com/tutorials/AndroidTouch/article.html#touch_multi
+   * Handles touch event for interact with the model in the View3DFragment
    * @param event
    * @return
+   * @auther @ingelhag @marcusnygren
    */
   @Override
   public boolean onTouchEvent(MotionEvent event) {
-
     // get pointer index from the event object
     int pointerIndex = event.getActionIndex();
 
@@ -90,49 +90,23 @@ public class MyGLSurfaceView extends GLSurfaceView {
     // get masked (not specific to a pointer) action
     int maskedAction = event.getActionMasked();
 
+    // Set x and y
     x = event.getX();
     y = event.getY();
 
     switch (maskedAction) {
 
-      case MotionEvent.ACTION_DOWN: {
-        //mRenderer.setDistanceZ(30f);
-      }
+      case MotionEvent.ACTION_DOWN:
       case MotionEvent.ACTION_POINTER_DOWN: {
-        // We have a new pointer. Lets add it to the list of pointers
-        System.out.println("MYGLSurfaceView::onTouchEvent(), ACTION_POINTER_DOWN, pointer count: " + event.getPointerCount());
-        System.out.println("pointerId: " + pointerId);
+        // Make empty Point
         PointF f = new PointF();
-        f.x = event.getX(pointerIndex);
-        f.y = event.getY(pointerIndex);
-        System.out.println("PointF f: " + f);
-        for(int i = 0; i < mActivePointers.size(); ++i) {
-          System.out.println("mActivePointers.valueAt(" + i + "): " + mActivePointers.valueAt(i));
-        }
-        mActivePointers.put(pointerId, f);
-        System.out.println("MYGLSurfaceView::onTouchEvent(), mActivePointers.size(): " + mActivePointers.size());
+
+        // Put the empty point into mActivePointers
+        mActivePointers.put(pointerId, f); // Used to count the number of touches
         break;
       }
       case MotionEvent.ACTION_MOVE: { // a pointer was moved
-
-        // Set Dx and Dy depending on density and prev
-        float dx = (x - xPrev) / density / 2.0f;
-        float dy = (y - yPrev) / density / 2.0f;
-
-        // reverse direction of rotation above the mid-line
-        if (y > getHeight() / 2) {
-          dx = dx * -1 ;
-        }
-
-        // reverse direction of rotation to left of the mid-line
-        if (x < getWidth() / 2) {
-          dy = dy * -1 ;
-        }
-
-        // Set rotation to our model
-        mRenderer.setDxRotation(dx);
-        mRenderer.setDyRotation(dy);
-
+        calcDxAndDy(); // Call and set Dx and Dy depending on the x, y, xPrev and yPrev position
         break;
       }
       case MotionEvent.ACTION_UP:
@@ -143,14 +117,11 @@ public class MyGLSurfaceView extends GLSurfaceView {
       }
     }
 
+    // Set prev values
     xPrev = x;
     yPrev = y;
 
-    invalidate();
-    requestRender(); // why you no working? =(
-
-    return true;      // Remember to return true at the end of the method to inform the SO that we have handle correctly the event. - See more at: http://www.survivingwithandroid.com/2012/08/multitouch-in-android.html#sthash.9HTAB7hI.dpuf
-    //super.onTouchEvent(event);
+    return true; // Remember to return true at the end of the method to inform the SO that we have handle correctly the event. - See more at: http://www.survivingwithandroid.com/2012/08/multitouch-in-android.html#sthash.9HTAB7hI.dpuf
   }
 
   /**
@@ -161,8 +132,31 @@ public class MyGLSurfaceView extends GLSurfaceView {
     return mRenderer;
   }
 
+  /**
+   * Calculate Dx and Dy for rotating the model correct!
+   * Call mRenderer to set new values for the angle in vertical and horizontal axis
+   */
+  private void calcDxAndDy() {
+    if(mActivePointers.size() == 2) {
+      // Set Dx and Dy depending on density and prev
+      float dx = (x - xPrev) / density / 2.0f;
+      float dy = (y - yPrev) / density / 2.0f;
 
+      // reverse direction of rotation above the mid-line
+      if (y > getHeight() / 2) {
+        dx = dx * -1 ;
+      }
 
+      // reverse direction of rotation to left of the mid-line
+      if (x < getWidth() / 2) {
+        dy = dy * -1 ;
+      }
+
+      // Set rotation to our model
+      mRenderer.setDxRotation(dx);
+      mRenderer.setDyRotation(dy);
+    }
+  }
 
   @Override
   protected void onDraw(Canvas canvas) {
