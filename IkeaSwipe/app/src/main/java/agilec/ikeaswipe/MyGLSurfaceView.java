@@ -130,9 +130,9 @@ public class MyGLSurfaceView extends GLSurfaceView {
   }
 
   /**
-  * Returns the a MyGlRenderer class
-  * @return
-  */
+   * Returns the a MyGlRenderer class
+   * @return
+   */
   public MyGLRenderer getGLRenderer(){
     return mRenderer;
   }
