@@ -96,9 +96,9 @@ public class MyGLSurfaceView extends GLSurfaceView {
   }
 
   /**
-  * Returns the MyGlRenderer instance
-  * @return
-  */
+   * Returns the MyGlRenderer instance
+   * @return
+   */
   public MyGLRenderer getGLRenderer(){
     return mRenderer;
   }
@@ -112,16 +112,6 @@ public class MyGLSurfaceView extends GLSurfaceView {
       // Set Dx and Dy depending on density and prev
       float dx = (x - xPrev) / density / 2.0f;
       float dy = (y - yPrev) / density / 2.0f;
-
-      // reverse direction of rotation above the mid-line
-      if (y > getHeight() / 2) {
-        dx = dx * -1 ;
-      }
-
-      // reverse direction of rotation to left of the mid-line
-      if (x < getWidth() / 2) {
-        dy = dy * -1 ;
-      }
 
       // Set rotation to our model
       mRenderer.setDxRotation(dx);
