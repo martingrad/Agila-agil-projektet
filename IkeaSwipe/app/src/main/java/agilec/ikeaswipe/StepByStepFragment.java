@@ -50,22 +50,22 @@ public class StepByStepFragment extends Fragment {
         imgView.setImageResource(R.drawable.step1_scaled);
         break;
       case 2:
-        imgView.setImageResource(R.drawable.step2_scaled);
+        imgView.setImageResource(R.drawable.step2_lowres);
         break;
       case 3:
-        imgView.setImageResource(R.drawable.step3_scaled);
+        imgView.setImageResource(R.drawable.step3_lowres);
         break;
       case 4:
-        imgView.setImageResource(R.drawable.step4_scaled);
+        imgView.setImageResource(R.drawable.step4_lowres);
         break;
       case 5:
-        imgView.setImageResource(R.drawable.step5_scaled);
+        imgView.setImageResource(R.drawable.step5_lowres);
         break;
       case 6:
-        imgView.setImageResource(R.drawable.step6_scaled);
+        imgView.setImageResource(R.drawable.step6_lowres);
         break;
       default:
-        imgView.setImageResource(R.drawable.kritter_not_vector);
+        imgView.setImageResource(R.drawable.kritter_lowres);
         break;
     }
   }
