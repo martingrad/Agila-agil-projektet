@@ -3,7 +3,6 @@ package agilec.ikeaswipe;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.opengl.GLES30;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLU;
 import android.opengl.GLUtils;
@@ -17,14 +16,16 @@ import javax.microedition.khronos.opengles.GL10;
  */
 public class MyGLRenderer implements GLSurfaceView.Renderer {
 
-
   private MyGLSurfaceView view;
   private DrawModel model;
 
   private Context context;
   private float angleY = 0f;
-  //private int[] mTexture = new int[1];
-  private float distanceZ = 30f;
+
+  private float dx = 0.0f;
+  private float dy = 0.0f;
+
+  private int[] mTexture = new int[1];
 
   /**
    * Constructor for the class MyGLRenderer
@@ -45,6 +46,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
    */
   public void setModel(DrawModel newModel) {
     model = newModel;
+    //model = new DrawModel(context, R.raw.step00);
   }
 
   /**
@@ -53,17 +55,17 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
    * @param mContext
    * @param mTex
    */
-    /*private void loadTexture(GL10 gl, Context mContext, int mTex) {
-        // generate and bind a texture
-        gl.glGenTextures(1, mTexture, 0);
-        gl.glBindTexture(GL10.GL_TEXTURE_2D, mTexture[0]);
+  private void loadTexture(GL10 gl, Context mContext, int mTex) {
+    // generate and bind a texture
+    gl.glGenTextures(1, mTexture, 0);
+    gl.glBindTexture(GL10.GL_TEXTURE_2D, mTexture[0]);
 
-        // Create a bitmap from image file, and create the texture from it
-        Bitmap bitmap;
-        bitmap = BitmapFactory.decodeResource(mContext.getResources(), mTex);
-        GLUtils.texImage2D(GL10.GL_TEXTURE_2D, 0, bitmap, 0);
-        bitmap.recycle();
-    }*/
+    // Create a bitmap from image file, and create the texture from it
+    Bitmap bitmap;
+    bitmap = BitmapFactory.decodeResource(mContext.getResources(), mTex);
+    GLUtils.texImage2D(GL10.GL_TEXTURE_2D, 0, bitmap, 0);
+    bitmap.recycle();
+  }
 
   /**
    * onSurfaceCreated function
@@ -72,8 +74,6 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
    * @param config
    */
   public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-    // Set the background frame color
-    // GLES30.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
     gl.glLoadIdentity();
 
@@ -87,13 +87,19 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
     gl.glEnable(GL10.GL_DEPTH_TEST);
     gl.glEnable(GL10.GL_TEXTURE_2D);
+    gl.glEnable(GL10.GL_STENCIL_BITS);
 
     // load the chosen texture
-    //loadTexture(gl, context, R.drawable.rock);
+    loadTexture(gl, context, R.drawable.step00);
 
-    //gl.glTexParameterx(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_LINEAR);
-    //gl.glTexParameterx(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_LINEAR);
-    //gl.glTexEnvx(GL10.GL_TEXTURE_ENV, GL10.GL_TEXTURE_ENV_MODE, GL10.GL_MODULATE);
+    gl.glTexParameterx(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_LINEAR);
+    gl.glTexParameterx(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_LINEAR);
+
+    // To show the texture on a nexus device
+    gl.glTexParameterx(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_S, GL10.GL_CLAMP_TO_EDGE);
+    gl.glTexParameterx(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_T, GL10.GL_CLAMP_TO_EDGE);
+
+    gl.glTexEnvx(GL10.GL_TEXTURE_ENV, GL10.GL_TEXTURE_ENV_MODE, GL10.GL_MODULATE);
 
   }
 
@@ -103,8 +109,6 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
    * @param gl
    */
   public void onDrawFrame(GL10 gl) {
-    // Redraw background color
-    // GLES30.glClear(GLES30.GL_COLOR_BUFFER_BIT);
 
     // Set background color to white
     gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
@@ -112,7 +116,8 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
     // Set rotation around the y axis
     gl.glPushMatrix();
-    gl.glRotatef(distanceZ, 0f, 1f, 0f);
+    gl.glRotatef(dx, 0f, 1f, 0f);
+    gl.glRotatef(dy, 1f, 0f, 0f);
     model.draw(gl);
     gl.glPopMatrix();
 
@@ -127,11 +132,14 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
    * @param height
    */
   public void onSurfaceChanged(GL10 gl, int width, int height) {
-    //GLES30.glViewport(0, 0, width, height);
     gl.glViewport(0, 0, width, height);
   }
 
-  public void setDistanceZ(float z) {
-    distanceZ += z;
+  public void setDxRotation(float newValue) {
+    this.dx += newValue;
+  }
+
+  public void setDyRotation(float newValue) {
+    this.dy += newValue;
   }
 }
