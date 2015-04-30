@@ -57,7 +57,7 @@ public class MyGLSurfaceView extends GLSurfaceView {
   }
 
   private void initView() {
-    mActivePointers = new SparseArray<PointF>();
+    mActivePointers = new SparseArray<>();
     mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     // set painter color to a color you like
     mPaint.setColor(Color.BLUE);
@@ -142,7 +142,6 @@ public class MyGLSurfaceView extends GLSurfaceView {
   protected void onDraw(Canvas canvas) {
     super.onDraw(canvas);
 
-    System.out.println("Nu målar jag!");
     // draw all pointers
     for (int size = mActivePointers.size(), i = 0; i < size; i++) {
       PointF point = mActivePointers.valueAt(i);

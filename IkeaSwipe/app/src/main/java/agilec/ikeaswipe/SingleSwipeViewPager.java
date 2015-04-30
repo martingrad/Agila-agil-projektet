@@ -9,6 +9,7 @@ import android.view.MotionEvent;
  * Created by martingrad on 28/04/15.
  */
 public class SingleSwipeViewPager extends ViewPager {
+
   public SingleSwipeViewPager(Context context) {
     super(context);
   }
@@ -19,12 +20,22 @@ public class SingleSwipeViewPager extends ViewPager {
 
   @Override
   public boolean onTouchEvent(MotionEvent event) {
-    if(event.getPointerCount() == 1) {
-      System.out.println("Swipe:a på!");
+    if (event.getPointerCount() == 1) {
+      System.out.println("Swipe 1 finger");
       return super.onTouchEvent(event);
     } else {
-      System.out.println("Nä du, inge swipe här inte!");
+      System.out.println("No swipe, more than one finger");
       return true;
     }
   }
+
+  @Override
+  public boolean onInterceptTouchEvent(MotionEvent event) {
+    if (event.getPointerCount() == 1) {
+      return super.onInterceptTouchEvent(event);
+    } else {
+      return false;
+    }
+  }
+
 }
