@@ -10,6 +10,7 @@
     <string name="action_settings">Settings</string>
 
     <!-- ARview Related -->
+    <string name="title_activity_ar_view">Find item with AR</string>
     <string name="btnReset">Reset</string>
     <string name="btnCancel">Cancel</string>
     <string name="btnDone">Done</string>
