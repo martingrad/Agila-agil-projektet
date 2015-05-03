@@ -1,6 +1,5 @@
 package agilec.ikeaswipe;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,18 +8,11 @@ import android.widget.Button;
 import android.support.v4.app.Fragment;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 
 import org.json.JSONException;
 
 /**
- * TODO: steps should be unchecked as start value
- */
-
-/**
  * The layout for the step by step instructions
- *
- * @author @emmaforsling @martingrad @byggprojektledarn
  */
 public class StepByStepFragment extends Fragment {
 
@@ -90,21 +82,20 @@ public class StepByStepFragment extends Fragment {
   }
 
   /**
-  * Sets the background color for the checkbar-buttons that are not the current one to a color with opacity
-  *
-  * @param view
-  * @param prevIsCompleted check if previous step is checked
-  * @param prevStep number for the previous step
-  * @author LinneaMalcherek
-  */
+   * Sets the background color for the checkbar-buttons that are not the current one to a color with opacity
+   *
+   * @param view
+   * @param prevIsCompleted check if previous step is checked
+   * @param prevStep        number for the previous step
+   * @author LinneaMalcherek
+   */
   private void setDefaultColorButtons(View view, boolean prevIsCompleted, int prevStep) {
     //Get view
     checkBarButtonView(prevStep, view);
 
-    if(prevIsCompleted == true){
+    if (prevIsCompleted == true) {
       checkbarButton.setBackgroundColor(getResources().getColor(R.color.greenOpacity));
-    }
-    else{
+    } else {
       checkbarButton.setBackgroundColor(getResources().getColor(R.color.greyOpacity));
     }
   }
@@ -119,26 +110,26 @@ public class StepByStepFragment extends Fragment {
   private void checkBarButtonView(int stepNumber, View view) {
     switch (stepNumber) {
       case 1:
-          checkbarButton = (Button) view.findViewById(R.id.step1);
-          break;
+        checkbarButton = (Button) view.findViewById(R.id.step1);
+        break;
       case 2:
-          checkbarButton = (Button) view.findViewById(R.id.step2);
-          break;
+        checkbarButton = (Button) view.findViewById(R.id.step2);
+        break;
       case 3:
-          checkbarButton = (Button) view.findViewById(R.id.step3);
-          break;
+        checkbarButton = (Button) view.findViewById(R.id.step3);
+        break;
       case 4:
-          checkbarButton = (Button) view.findViewById(R.id.step4);
-          break;
+        checkbarButton = (Button) view.findViewById(R.id.step4);
+        break;
       case 5:
-          checkbarButton = (Button) view.findViewById(R.id.step5);
-          break;
+        checkbarButton = (Button) view.findViewById(R.id.step5);
+        break;
       case 6:
-          checkbarButton = (Button) view.findViewById(R.id.step6);
-          break;
+        checkbarButton = (Button) view.findViewById(R.id.step6);
+        break;
       default:
-          checkbarButton = (Button) view.findViewById(R.id.step0);
-          break;
+        checkbarButton = (Button) view.findViewById(R.id.step0);
+        break;
     }
   }
 
@@ -162,15 +153,15 @@ public class StepByStepFragment extends Fragment {
     view.setOnTouchListener(new OnSwipeTouchListener(getActivity()) {
       // If user swipe down -> up
       public void onSwipeTop() {
-        if(stepNumber !=6) {
+        if (stepNumber != 6) {
           // Increment the stepNumber
           stepNumber++;
 
           //Number for previous step
-          prevStep = stepNumber-1;
+          prevStep = stepNumber - 1;
 
           //To see if the step is completed
-          prevIsCompleted = ((SwipeActivity) getActivity()).getCompletedStep(stepNumber-1);
+          prevIsCompleted = ((SwipeActivity) getActivity()).getCompletedStep(stepNumber - 1);
 
           //Set opacity of background color for previous button
           setDefaultColorButtons(view, prevIsCompleted, prevStep);
@@ -189,17 +180,18 @@ public class StepByStepFragment extends Fragment {
           }
         }
       }
+
       // If user swipe up -> down
       public void onSwipeBottom() {
-        if(stepNumber != 0) {
+        if (stepNumber != 0) {
           // Decrement the stepNumber
           stepNumber--;
 
           //Number for previous step
-          prevStep = stepNumber+1;
+          prevStep = stepNumber + 1;
 
           //To see if the step is completed
-          prevIsCompleted = ((SwipeActivity) getActivity()).getCompletedStep(stepNumber+1);
+          prevIsCompleted = ((SwipeActivity) getActivity()).getCompletedStep(stepNumber + 1);
 
           //Set opacity of background color for previous button
           setDefaultColorButtons(view, prevIsCompleted, prevStep);

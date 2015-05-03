@@ -12,6 +12,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 /**
  * Class MyGLRenderer
+ *
  * @author @emmaforsling @martingrad @ingelhag
  */
 public class MyGLRenderer implements GLSurfaceView.Renderer {
@@ -29,9 +30,10 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
   /**
    * Constructor for the class MyGLRenderer
-   * @author @emmaforsling @martingrad
+   *
    * @param context
    * @param view
+   * @author @emmaforsling @martingrad
    */
   public MyGLRenderer(Context context, MyGLSurfaceView view) {
     this.view = view;
@@ -42,6 +44,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
   /**
    * Set a new model
+   *
    * @param newModel
    */
   public void setModel(DrawModel newModel) {
@@ -51,6 +54,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
   /**
    * loadTexture,
+   *
    * @param gl
    * @param mContext
    * @param mTex
@@ -69,9 +73,10 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
   /**
    * onSurfaceCreated function
-   * @author @emmaforsling @martingrad
+   *
    * @param gl
    * @param config
+   * @author @emmaforsling @martingrad
    */
   public void onSurfaceCreated(GL10 gl, EGLConfig config) {
 
@@ -105,8 +110,9 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
   /**
    * onDrawFrame function
-   * @author @emmaforsling @martingrad
+   *
    * @param gl
+   * @author @emmaforsling @martingrad
    */
   public void onDrawFrame(GL10 gl) {
 
@@ -126,10 +132,11 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
   /**
    * onSurfaceChanged function
-   * @author @emmaforsling @martingrad
+   *
    * @param gl
    * @param width
    * @param height
+   * @author @emmaforsling @martingrad
    */
   public void onSurfaceChanged(GL10 gl, int width, int height) {
     gl.glViewport(0, 0, width, height);
