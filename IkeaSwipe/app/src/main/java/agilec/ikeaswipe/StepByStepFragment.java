@@ -15,11 +15,11 @@ import org.json.JSONException;
 import static java.lang.System.*;
 
 /**
- * The layout for the step by step instructions
+ * Functionality and layout for Step by step
  */
 public class StepByStepFragment extends Fragment {
 
-  private AllSteps stepHandler;
+  private AllSteps stepHandler;         // Handles all steps
   private ImageButton completedStepBtn;
   private ImageView imgView;
   private Button checkbarButton;
@@ -41,9 +41,9 @@ public class StepByStepFragment extends Fragment {
    * @author @emmaforsling @martingrad @byggprojektledarn
    */
   private void setImage(int stepNumber) {
-
-    int id = getResources().getIdentifier(stepHandler.getSteps().get(stepNumber).getImgUrl(), "drawable", getActivity().getPackageName());
-    imgView.setImageResource(id);
+    String imgUrl = stepHandler.getSteps().get(stepNumber).getImgUrl(); // Get the image url for the instruction image
+    int id = getResources().getIdentifier(imgUrl, "drawable", getActivity().getPackageName()); // Get the id
+    imgView.setImageResource(id); // Set the correct image using id
   }
 
   /**
@@ -92,9 +92,9 @@ public class StepByStepFragment extends Fragment {
    * @author LinneaMalcherek
    */
   private void checkBarButtonView(int stepNumber, View view) {
-    System.out.println(stepHandler.getSteps().get(stepNumber).getCheckbarButtonUrl());
-    int id = getResources().getIdentifier(stepHandler.getSteps().get(stepNumber).getCheckbarButtonUrl(), "id", getActivity().getPackageName());
-    checkbarButton = (Button) view.findViewById(id);
+    String checkbarButtonUrl = stepHandler.getSteps().get(stepNumber).getCheckbarButtonUrl();  // Get the checkbar button url for the instruction image
+    int id = getResources().getIdentifier(checkbarButtonUrl, "id", getActivity().getPackageName()); // Get the id from res
+    checkbarButton = (Button) view.findViewById(id); // Set the correct Button using id
   }
 
   /**

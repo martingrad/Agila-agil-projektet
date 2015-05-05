@@ -13,8 +13,14 @@ import java.util.List;
 public class AllSteps {
   private String filename;            // Filename of the json-file
   private Context activityContext;    // Context of the activity
-  private List<Step> steps = new ArrayList<Step>();
+  private List<Step> steps = new ArrayList<Step>(); // All steps collected in an arrayList
 
+  /**
+   * Constructor
+   * @param filename
+   * @param activityContext
+   * @throws JSONException
+   */
   public AllSteps(String filename, Context activityContext) throws JSONException {
     this.filename = filename;
     this.activityContext = activityContext;
@@ -30,4 +36,29 @@ public class AllSteps {
     return steps;
   }
 
+  /**
+   * (( Not in use - maybe in the future? ))
+   * Get the current step
+   * @return
+   */
+  public int getCurrentStep() {
+    for(int i=0;i<steps.size();i++){
+      if(steps.get(i).getCurrentStep()){
+        return steps.get(i).getStep();
+      }
+    }
+    return 0;
+  }
+
+  /**
+   * (( Not in use - maybe in the future? ))
+   * Set the current step
+   * @param theStep
+   */
+  public void setCurrentStep(int theStep) {
+    for(int i=0;i<steps.size();i++){
+      steps.get(i).setCurrentStep(false);
+    }
+    steps.get(theStep).setCurrentStep(true);
+  }
 }

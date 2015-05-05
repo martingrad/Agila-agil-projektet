@@ -19,18 +19,29 @@ public class JsonToStep {
   private String jsonString;  // The jsonfile in string format
   private JSONObject jObject; // The JSON object
 
+  /**
+   * Constructor
+   * @param filename
+   * @param context
+   * @throws JSONException
+   */
   public JsonToStep(String filename, Context context) throws JSONException {
     this.context = context;
 
     InputStream is = null;
     try {
       is = context.getAssets().open(filename); //open specified JSON file from assets folder
-      jsonString = loadJSONFromFile(is);
+      jsonString = loadJSONFromFile(is); // load the Inputstream into a string
     } catch (IOException e) {
       e.printStackTrace();
     }
   }
 
+  /**
+   * Load string from file
+   * @param is
+   * @return A string with json info
+   */
   private String loadJSONFromFile(InputStream is) {
     String json = null;
     try {
@@ -51,6 +62,11 @@ public class JsonToStep {
     return json;
   }
 
+  /**
+   * Parse the JSON-ovject into steps. The steps will be saved into an Arraylist.
+   * @return An Arraylist with steps
+   * @throws JSONException
+   */
   public ArrayList<Step> parseJSONtoStep() throws JSONException {
 
     // A List with all steps
@@ -75,8 +91,12 @@ public class JsonToStep {
       String checkbarButtonUrl  = obj.get("checkbarButtonUrl").toString();
       String completeModelUrl   = obj.get("completeModelUrl").toString();
       Boolean checked           = obj.getBoolean("checked");
+      Boolean currentStep       = obj.getBoolean("currentStep");
 
-      Step newStep = new Step(step, title, imgUrl, checkbarButtonUrl, completeModelUrl, checked);
+      // Create a new step
+      Step newStep = new Step(step, title, imgUrl, checkbarButtonUrl, completeModelUrl, checked, currentStep);
+
+      // Add the new step into the arraylist
       steps.add(newStep);
     }
 
