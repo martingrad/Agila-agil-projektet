@@ -1,6 +1,7 @@
 package agilec.ikeaswipe;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +12,14 @@ import android.widget.ImageView;
 
 import org.json.JSONException;
 
+import static java.lang.System.*;
+
 /**
- * The layout for the step by step instructions
+ * Functionality and layout for Step by step
  */
 public class StepByStepFragment extends Fragment {
 
+  private AllSteps stepHandler;         // Handles all steps
   private ImageButton completedStepBtn;
   private ImageView imgView;
   private Button checkbarButton;
@@ -37,29 +41,9 @@ public class StepByStepFragment extends Fragment {
    * @author @emmaforsling @martingrad @byggprojektledarn
    */
   private void setImage(int stepNumber) {
-    switch (stepNumber) {
-      case 1:
-        imgView.setImageResource(R.drawable.step1_scaled);
-        break;
-      case 2:
-        imgView.setImageResource(R.drawable.step2_lowres);
-        break;
-      case 3:
-        imgView.setImageResource(R.drawable.step3_lowres);
-        break;
-      case 4:
-        imgView.setImageResource(R.drawable.step4_lowres);
-        break;
-      case 5:
-        imgView.setImageResource(R.drawable.step5_lowres);
-        break;
-      case 6:
-        imgView.setImageResource(R.drawable.step6_lowres);
-        break;
-      default:
-        imgView.setImageResource(R.drawable.kritter_lowres);
-        break;
-    }
+    String imgUrl = stepHandler.getSteps().get(stepNumber).getImgUrl(); // Get the image url for the instruction image
+    int id = getResources().getIdentifier(imgUrl, "drawable", getActivity().getPackageName()); // Get the id
+    imgView.setImageResource(id); // Set the correct image using id
   }
 
   /**
@@ -108,29 +92,9 @@ public class StepByStepFragment extends Fragment {
    * @author LinneaMalcherek
    */
   private void checkBarButtonView(int stepNumber, View view) {
-    switch (stepNumber) {
-      case 1:
-        checkbarButton = (Button) view.findViewById(R.id.step1);
-        break;
-      case 2:
-        checkbarButton = (Button) view.findViewById(R.id.step2);
-        break;
-      case 3:
-        checkbarButton = (Button) view.findViewById(R.id.step3);
-        break;
-      case 4:
-        checkbarButton = (Button) view.findViewById(R.id.step4);
-        break;
-      case 5:
-        checkbarButton = (Button) view.findViewById(R.id.step5);
-        break;
-      case 6:
-        checkbarButton = (Button) view.findViewById(R.id.step6);
-        break;
-      default:
-        checkbarButton = (Button) view.findViewById(R.id.step0);
-        break;
-    }
+    String checkbarButtonUrl = stepHandler.getSteps().get(stepNumber).getCheckbarButtonUrl();  // Get the checkbar button url for the instruction image
+    int id = getResources().getIdentifier(checkbarButtonUrl, "id", getActivity().getPackageName()); // Get the id from res
+    checkbarButton = (Button) view.findViewById(id); // Set the correct Button using id
   }
 
   /**
@@ -148,6 +112,12 @@ public class StepByStepFragment extends Fragment {
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     // Inflate the layout for this fragment
     final View view = inflater.inflate(R.layout.fragment_step_by_step, container, false);
+
+    try {
+      stepHandler = new AllSteps("kritter_steps.json", getActivity());
+    } catch (JSONException e) {
+      e.printStackTrace();
+    }
 
     // Set listener to the view
     view.setOnTouchListener(new OnSwipeTouchListener(getActivity()) {
