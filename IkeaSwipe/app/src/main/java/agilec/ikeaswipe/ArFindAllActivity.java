@@ -394,17 +394,9 @@ public class ArFindAllActivity extends ARViewActivity {
 
     // Set rotation of the model.
     // TODO: Explain this: For correct rotation, the rotation around x axis is set using -dy instead of dx, and the rotation around the y axis is set using -dx instead of dy... :S
-    mVizAidModel.setRotation(new Rotation(-dy, -dx, dz), true);
-   // mVizAidModel.setRotation(new Rotation(0, -dx, 0), true);
-   // mVizAidModel.setRotation(new Rotation(0, 0, dz), true);
 
-    cosXRotationOffset += dx;
-    cosYRotationOffset += dy;
-    cosZRotationOffset += dz;
-    TrackingValues pose = new TrackingValues();
-    pose.setRotation(new Rotation(-cosYRotationOffset, -cosXRotationOffset, cosZRotationOffset));
-    metaioSDK.setCosOffset(2, pose);
-
+    metaioSDK.sensorCommand("rotateInitialPoseWorldRad", "" + (dy) + " " + (-dx) + " " + dz);
+    metaioSDK.sensorCommand()
     //System.out.println("cosOffset = " + metaioSDK.getCosOffset(2).getRotation().getEulerAngleDegrees());
 
     // Set scale of the model.
