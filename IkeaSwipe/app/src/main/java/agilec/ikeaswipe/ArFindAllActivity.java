@@ -38,6 +38,11 @@ public class ArFindAllActivity extends ARViewActivity {
   private float yPrev, y; // Y Position
   private float density;  // Density for the device
 
+  // Tracking coordinate system rotation offsets
+  private float cosXRotationOffset = 0.f;
+  private float cosYRotationOffset = 0.f;
+  private float cosZRotationOffset = 0.f;
+
   // 3D model
   private IGeometry mRimModel = null;
 
@@ -99,7 +104,7 @@ public class ArFindAllActivity extends ARViewActivity {
    * @author @antonosterblad @linneamalcherek
    */
   public void onButtonClick(View v){
-          finish();
+    finish();
   }
 
   /**
@@ -133,7 +138,7 @@ public class ArFindAllActivity extends ARViewActivity {
     mVizAidModel.setCoordinateSystemID(2);
 
     // Tracking.xml defines how to track the model
-    setTrackingConfiguration("custom/"+articleImgUrl+"/Tracking.xml");
+    setTrackingConfiguration("custom/" + articleImgUrl + "/Tracking.xml");
   }
 
   /**
@@ -389,9 +394,18 @@ public class ArFindAllActivity extends ARViewActivity {
 
     // Set rotation of the model.
     // TODO: Explain this: For correct rotation, the rotation around x axis is set using -dy instead of dx, and the rotation around the y axis is set using -dx instead of dy... :S
-    mVizAidModel.setRotation(new Rotation(-dy, 0, 0), true);
-    mVizAidModel.setRotation(new Rotation(0, -dx, 0), true);
-    mVizAidModel.setRotation(new Rotation(0, 0, dz), true);
+    mVizAidModel.setRotation(new Rotation(-dy, -dx, dz), true);
+   // mVizAidModel.setRotation(new Rotation(0, -dx, 0), true);
+   // mVizAidModel.setRotation(new Rotation(0, 0, dz), true);
+
+    cosXRotationOffset += dx;
+    cosYRotationOffset += dy;
+    cosZRotationOffset += dz;
+    TrackingValues pose = new TrackingValues();
+    pose.setRotation(new Rotation(-cosYRotationOffset, -cosXRotationOffset, cosZRotationOffset));
+    metaioSDK.setCosOffset(2, pose);
+
+    //System.out.println("cosOffset = " + metaioSDK.getCosOffset(2).getRotation().getEulerAngleDegrees());
 
     // Set scale of the model.
     mVizAidModel.setScale(scale, true);
