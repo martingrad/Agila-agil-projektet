@@ -2,7 +2,7 @@
     "steps": [
         {
             "step":                 "0",
-            "title":                "Bruksanvising för Kritter",
+            "title":                "Kritter",
             "imgUrl":               "kritter_lowres",
             "checkbarButtonUrl":    "step0",
             "completeModelUrl":     "cmStep0",

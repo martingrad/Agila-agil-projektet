@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.support.v4.app.Fragment;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import org.json.JSONException;
 
@@ -21,6 +22,7 @@ public class StepByStepFragment extends Fragment {
 
   private AllSteps stepHandler;         // Handles all steps
   private ImageButton completedStepBtn;
+  private TextView header;
   private ImageView imgView;
   private Button checkbarButton;
 
@@ -44,6 +46,11 @@ public class StepByStepFragment extends Fragment {
     String imgUrl = stepHandler.getSteps().get(stepNumber).getImgUrl(); // Get the image url for the instruction image
     int id = getResources().getIdentifier(imgUrl, "drawable", getActivity().getPackageName()); // Get the id
     imgView.setImageResource(id); // Set the correct image using id
+  }
+
+  private void setHeader(int stepNumber) {
+    String title = stepHandler.getSteps().get(stepNumber).getTitle(); // Get the image url for the instruction image
+    header.setText(title); // Set the correct image using id
   }
 
   /**
@@ -110,8 +117,9 @@ public class StepByStepFragment extends Fragment {
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    // Inflate the layout for this fragment
-    final View view = inflater.inflate(R.layout.fragment_step_by_step, container, false);
+
+    final View view = inflater.inflate(R.layout.fragment_step_by_step, container, false); // Inflate the layout for this fragment
+    header = (TextView) view.findViewById(R.id.stepByStepHeader); // Define header id connection
 
     try {
       stepHandler = new AllSteps("kritter_steps.json", getActivity());
@@ -138,6 +146,9 @@ public class StepByStepFragment extends Fragment {
 
           // Change the image source
           setImage(stepNumber);
+
+          // Change header
+          setHeader(stepNumber);
 
           // Load the step completed button
           loadIsCompletedButton(((SwipeActivity) getActivity()).getCompletedStep(stepNumber), view, stepNumber);
@@ -168,6 +179,9 @@ public class StepByStepFragment extends Fragment {
 
           // Change the image source
           setImage(stepNumber);
+
+          // Change header
+          setHeader(stepNumber);
 
           // Load the step completed button
           loadIsCompletedButton(((SwipeActivity) getActivity()).getCompletedStep(stepNumber), view, stepNumber);
