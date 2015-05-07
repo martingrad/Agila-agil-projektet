@@ -17,5 +17,7 @@
 
     <!-- StepByStepFragment Related -->
     <string name="sbsTitle">Kritter</string>
+    <string name="checkButton">Check Button</string>
+    <string name="helpButton">Help Button</string>
 
 </resources>

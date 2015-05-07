@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -142,6 +143,18 @@ public class SwipeActivity extends ActionBarActivity {
     // Set up the ViewPager with the sections adapter.
     mViewPager = (SingleSwipeViewPager) findViewById(R.id.pager);
     mViewPager.setAdapter(mSectionsPagerAdapter);
+
+  }
+
+  /**
+   *
+   * @param hasFocus
+   */
+  @Override
+  public void onWindowFocusChanged(boolean hasFocus) {
+    if(hasFocus) {
+      stepFragment.findPos();
+    }
   }
 
   /**

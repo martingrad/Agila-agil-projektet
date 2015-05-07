@@ -69,13 +69,13 @@ public class StepByStepFragment extends Fragment {
    */
   private void loadIsCompletedButton(boolean isCompleted, View view, int stepNumber) {
     if (isCompleted == false) {
-      ((ImageButton) view.findViewById(R.id.completedStepButton)).setImageResource(R.drawable.done_before);
+      ((ImageButton) view.findViewById(R.id.completedStepButton)).setImageResource(R.drawable.ic_action_done_before);
       //To get the right button
       checkBarButtonView(stepNumber, view);
       //Change color of the button
       checkbarButton.setBackgroundColor(getResources().getColor(R.color.grey));
     } else {
-      ((ImageButton) view.findViewById(R.id.completedStepButton)).setImageResource(R.drawable.done_after);
+      ((ImageButton) view.findViewById(R.id.completedStepButton)).setImageResource(R.drawable.ic_action_done_after);
       //To get the right button
       checkBarButtonView(stepNumber, view);
       //Change color of the button
@@ -255,11 +255,6 @@ public class StepByStepFragment extends Fragment {
     helpBtn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        System.out.print("--Pop--");
-        //Open popup window
-        p = new Point();
-        p.x = 100;
-        p.y = 100;
         showPopup(getActivity(), p);
       }
 
@@ -268,11 +263,34 @@ public class StepByStepFragment extends Fragment {
     return view;
   }
 
+  /**
+   * Get the x and y position after the button is draw on screen
+   * (It's important to note that we can't get the position in the onCreate(),
+   * because at that stage most probably the view isn't drawn yet, so it will return (0, 0))
+   *
+   * The function will be run from SwipeActivity when onWindowFocusChanged return true
+   */
+  public void findPos() {
+
+    int[] location = new int[2];
+    helpBtn = (ImageButton) getView().findViewById(R.id.stepByStepHelpButton);
+
+    // Get the x, y location and store it in the location[] array
+    // location[0] = x, location[1] = y.
+    helpBtn.getLocationOnScreen(location);
+
+    //Initialize the Point with x, and y positions
+    p = new Point();
+    p.x = location[0] - 320;
+    p.y = location[1] + 20;
+
+  }
+
   // The method that displays the popup.
   private void showPopup(final Activity context, Point p) {
-    System.out.print("--Poped--");
-    int popupWidth = 200;
-    int popupHeight = 150;
+    findPos();
+    int popupWidth = 400;
+    int popupHeight = 300;
 
     // Inflate the popup_layout.xml
     LinearLayout viewGroup = (LinearLayout) context.findViewById(R.id.popup);

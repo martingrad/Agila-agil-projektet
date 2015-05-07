@@ -13,34 +13,43 @@
 
         <TextView
             android:id="@+id/stepByStepHeader"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
+            android:fontFamily="Verdana"
             android:gravity="center_vertical"
+            android:paddingBottom="10dp"
             android:paddingLeft="15dp"
             android:singleLine="false"
             android:text="@string/sbsTitle"
             android:textColor="@color/black"
             android:textIsSelectable="true"
-            android:textSize="40dp"/>
-
-        <ImageButton
-            android:id="@+id/completedStepButton"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:background="@android:color/transparent"
-            android:padding="10dp"
-            android:src="@drawable/done_before"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"/>
+            android:textSize="35sp"
+            android:textStyle="bold"/>
 
         <ImageButton
             android:id="@+id/stepByStepHelpButton"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:padding="10dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"/>
+            android:layout_marginRight="10dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/helpButton"
+            android:paddingBottom="10dp"
+            android:src="@drawable/ic_action_help"/>
+
+        <ImageButton
+            android:id="@+id/completedStepButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginStart="10dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/checkButton"
+            android:paddingBottom="10dp"
+            android:src="@drawable/ic_action_done_before"/>
 
     </LinearLayout>
 
