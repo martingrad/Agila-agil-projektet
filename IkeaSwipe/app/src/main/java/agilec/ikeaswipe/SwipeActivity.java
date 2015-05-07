@@ -31,7 +31,7 @@ public class SwipeActivity extends ActionBarActivity {
    * {@link android.support.v4.app.FragmentStatePagerAdapter}.
    */
 
-  ArticlesListFragment alf = new ArticlesListFragment();
+  ArticlesListFragment alf;
   View3dFragment v3DF = new View3dFragment();
 
   SectionsPagerAdapter mSectionsPagerAdapter;
@@ -118,23 +118,26 @@ public class SwipeActivity extends ActionBarActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_swipe);
 
-    // Create a bundle with the currentStep = 0 as default, using the key "stepNumber", and
-    // pass the arguments bundle to the stepByStepFragment
-    bundle = new Bundle();
-    //currentStep = 0;
-    bundle.putInt("stepNumber", currentStep);
-    stepFragment = new StepByStepFragment();
-    stepFragment.setArguments(bundle);
+    // From the beginning the application will show tha StepByStep Fragment
+    int currentTab = 1;
 
     // Get the intent that is created in ArFindAllActivity when a user clicks the "done" button
     Bundle extras = getIntent().getExtras();
     if (extras != null) {
-      String objectFound = extras.getString("objectFound");
-      CharSequence text = "Metaio har hittat något: " + objectFound;
-      int duration = Toast.LENGTH_SHORT;
-      Toast toast = Toast.makeText(getApplicationContext(), text, duration);
-      toast.show();
+      // Set which tab and step that will be shown
+      currentTab = extras.getInt("currentTab");
+      currentStep = extras.getInt("currentStep");
     }
+
+    // Create the Article List Fragment using the current step
+    alf = new ArticlesListFragment(currentStep);
+
+    // Create a bundle with the currentStep = 0 as default, using the key "stepNumber", and
+    // pass the arguments bundle to the stepByStepFragment
+    bundle = new Bundle();
+    bundle.putInt("stepNumber", currentStep);
+    stepFragment = new StepByStepFragment();
+    stepFragment.setArguments(bundle);
 
     // Create the adapter that will return a fragment for each of the three
     // primary sections of the activity.
@@ -143,10 +146,13 @@ public class SwipeActivity extends ActionBarActivity {
     // Set up the ViewPager with the sections adapter.
     mViewPager = (SingleSwipeViewPager) findViewById(R.id.pager);
     mViewPager.setAdapter(mSectionsPagerAdapter);
-
+    mViewPager.setCurrentItem(currentTab); // Set which tab that will be shown
   }
 
   /**
+   * When the view is completely loaded,
+   * this function will run and return the method findPos
+   * which runs in StepByStepFragment to getLocationOnScreen.
    *
    * @param hasFocus
    */
@@ -216,10 +222,8 @@ public class SwipeActivity extends ActionBarActivity {
         return alf;
       } else if (position == 1) {
         return stepFragment;
-      } else if (position == 2) {
+      } else { // Position == 2
         return v3DF;
-      } else {
-        return PlaceholderFragment.newInstance(position + 1);
       }
     }
 
@@ -252,48 +256,6 @@ public class SwipeActivity extends ActionBarActivity {
           return getString(R.string.title_section3).toUpperCase(l);
       }
       return null;
-    }
-  }
-
-  /**
-   * A placeholder fragment containing a simple view.
-   */
-  public static class PlaceholderFragment extends Fragment {
-    /**
-     * The fragment argument representing the section number for this
-     * fragment.
-     */
-    private static final String ARG_SECTION_NUMBER = "section_number";
-
-    /**
-     * Returns a new instance of this fragment for the given section
-     * number.
-     */
-
-    public static PlaceholderFragment newInstance(int sectionNumber) {
-      PlaceholderFragment fragment = new PlaceholderFragment();
-      Bundle args = new Bundle();
-      args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-      fragment.setArguments(args);
-      return fragment;
-    }
-
-    public PlaceholderFragment() {
-    }
-
-    /**
-     * Called to have the fragment instantiate its user interface view.
-     *
-     * @param inflater
-     * @param container
-     * @param savedInstanceState
-     * @return rootView
-     */
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-      View rootView = inflater.inflate(R.layout.fragment_swipe, container, false); // if no other layout is loaded for a position, this is the layout which is used
-      return rootView;
     }
   }
 }

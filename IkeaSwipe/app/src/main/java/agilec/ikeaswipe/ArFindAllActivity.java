@@ -35,7 +35,10 @@ public class ArFindAllActivity extends ARViewActivity {
   // Edge visualization model
   private IGeometry mVizAidModel = null;
 
+  // Variables for SwipeActivity
   private String articleImgUrl = "";
+  private int currentTab;
+  private int currentStep;
 
   /**
    * Metaio SDK callback handler
@@ -53,7 +56,9 @@ public class ArFindAllActivity extends ARViewActivity {
     super.onCreate(savedInstanceState);
 
     Intent intent = getIntent();
-    articleImgUrl = intent.getStringExtra("article");
+    articleImgUrl = intent.getStringExtra("article");   // Get the current modelUrl
+    currentTab = intent.getIntExtra("currentTab", 0);   // Get the current tab
+    currentStep = intent.getIntExtra("currentStep", 0); // Get the current step
     mCallbackHandler = new MetaioSDKCallbackHandler();
   }
 
@@ -270,7 +275,14 @@ public class ArFindAllActivity extends ARViewActivity {
    */
   private void returnToSwipeActivity(String objectFound) {
     Intent i = new Intent(getApplicationContext(), SwipeActivity.class);
-    i.putExtra("objectFound", objectFound);
+    if(currentTab == 0) { // If the user comes from ArticlesListFragment
+      i.putExtra("objectFound", objectFound);
+    } else { // If the user comes from StepByStepFragment
+      i.putExtra("completeModel", objectFound);
+    }
+
+    i.putExtra("currentStep", currentStep); // Send back the current step
+    i.putExtra("currentTab", currentTab);   // Send back the current tab
     startActivity(i);
   }
 

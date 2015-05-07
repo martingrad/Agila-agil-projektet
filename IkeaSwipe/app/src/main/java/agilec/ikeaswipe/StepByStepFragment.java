@@ -2,6 +2,7 @@ package agilec.ikeaswipe;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -138,6 +139,20 @@ public class StepByStepFragment extends Fragment {
       e.printStackTrace();
     }
 
+    // If ArFindAllActivity was the last active Activity
+    Intent intent = getActivity().getIntent();
+    String completeModelUrl = intent.getStringExtra("completeModel"); // Get the completeModelUrl
+    int currentStep = intent.getIntExtra("currentStep", 0);           // Get the current step
+    if (completeModelUrl != null) { // If the step was correct and found in the AR Activity
+      // Mark the step as done
+
+      // Load a different button depending on if the step is completed or not
+      loadIsCompletedButton(true, view, stepNumber);
+
+      // Mark the step as done or undone
+      ((SwipeActivity) getActivity()).setCompletedStep(stepNumber, true);
+    }
+
     // Set listener to the view
     view.setOnTouchListener(new OnSwipeTouchListener(getActivity()) {
       // If user swipe down -> up
@@ -221,6 +236,7 @@ public class StepByStepFragment extends Fragment {
 
     // Set the image source
     setImage(stepNumber);
+    setHeader(stepNumber);
 
     completedStepBtn = (ImageButton) view.findViewById(R.id.completedStepButton);
 
@@ -236,11 +252,7 @@ public class StepByStepFragment extends Fragment {
         boolean isCompleted = ((SwipeActivity) getActivity()).getCompletedStep(stepNumber);
 
         // When the button is clicked, the status should be reversed
-        if (isCompleted == true) {
-          isCompleted = false;
-        } else {
-          isCompleted = true;
-        }
+        isCompleted = !isCompleted;
 
         // Load a different button depending on if the step is completed or not
         loadIsCompletedButton(isCompleted, view, stepNumber);
@@ -257,7 +269,6 @@ public class StepByStepFragment extends Fragment {
       public void onClick(View v) {
         showPopup(getActivity(), p);
       }
-
     });
 
     return view;
@@ -292,6 +303,7 @@ public class StepByStepFragment extends Fragment {
     int popupWidth = 400;
     int popupHeight = 300;
 
+
     // Inflate the popup_layout.xml
     LinearLayout viewGroup = (LinearLayout) context.findViewById(R.id.popup);
     LayoutInflater layoutInflater = (LayoutInflater) context
@@ -315,14 +327,38 @@ public class StepByStepFragment extends Fragment {
     // Displaying the popup at the specified location, + offsets.
     popup.showAtLocation(layout, Gravity.NO_GRAVITY, p.x + OFFSET_X, p.y + OFFSET_Y);
 
-    // Getting a reference to Close button, and close the popup when clicked.
-    ImageButton close = (ImageButton) layout.findViewById(R.id.close);
-    close.setOnClickListener(new View.OnClickListener() {
+    // Getting a reference to ARHelp button, and send to new activity when clicked
+    ImageButton ARHelp = (ImageButton) layout.findViewById(R.id.ARHelp);
+    ARHelp.setOnClickListener(new View.OnClickListener() {
 
       @Override
       public void onClick(View v) {
-        popup.dismiss();
+        System.out.println("Open AR Help");
       }
     });
+
+    // Displaying the popup at the specified location, + offsets.
+    popup.showAtLocation(layout, Gravity.NO_GRAVITY, p.x + OFFSET_X, p.y + OFFSET_Y);
+
+    // Getting a reference to ARHelp button, and send to new activity when clicked
+    ImageButton ARCheckComplete = (ImageButton) layout.findViewById(R.id.ARCheckComplete);
+    ARCheckComplete.setOnClickListener(new View.OnClickListener() {
+
+      @Override
+      public void onClick(View v) {
+        System.out.println("Open AR Check Complete step");
+        Intent arIntent = new Intent(getActivity(), ArFindAllActivity.class);
+        Step currentStep = stepHandler.getSteps().get(stepNumber);
+
+        System.out.println("Open step:" + currentStep.getTitle());
+
+        arIntent.putExtra("article", currentStep.getCompleteModelUrl());
+        arIntent.putExtra("currentTab", 1);
+        arIntent.putExtra("currentStep", currentStep.getStep());
+        startActivity(arIntent);
+      }
+    });
+
+
   }
 }

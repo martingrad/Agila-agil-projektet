@@ -8,7 +8,7 @@
               android:weightSum="1">
 
     <ImageButton
-        android:id="@+id/close"
+        android:id="@+id/ARHelp"
         android:layout_width="40dp"
         android:layout_height="67dp"
         android:background="@android:color/transparent"
@@ -18,7 +18,7 @@
         android:layout_margin="20dp"/>
 
     <ImageButton
-        android:id="@+id/checkCompleteStep"
+        android:id="@+id/ARCheckComplete"
         android:layout_width="40dp"
         android:layout_height="67dp"
         android:background="@android:color/transparent"
