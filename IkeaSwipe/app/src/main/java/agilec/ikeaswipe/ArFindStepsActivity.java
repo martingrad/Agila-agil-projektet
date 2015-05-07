@@ -1,4 +1,7 @@
+// Copyright 2007-2014 metaio GmbH. All rights reserved.
 package agilec.ikeaswipe;
+
+import java.io.File;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -8,24 +11,17 @@ import com.metaio.sdk.ARViewActivity;
 import com.metaio.sdk.MetaioDebug;
 import com.metaio.sdk.jni.IGeometry;
 import com.metaio.sdk.jni.IMetaioSDKCallback;
-import com.metaio.sdk.jni.TrackingValues;
 import com.metaio.sdk.jni.TrackingValuesVector;
-import com.metaio.sdk.jni.Vector3d;
 import com.metaio.tools.io.AssetsManager;
 
-import java.io.File;
-
-/**
- * Show 3d object when step image is identified
- * @user @marcusnygren @emmaforsling
- */
 public class ArFindStepsActivity extends ARViewActivity
 {
 
   /**
    * Reference to loaded metaioman geometry
    */
-  private IGeometry mMetaioMan;
+  private IGeometry mMetaioStep2;
+  private IGeometry mMetaioStep3;
 
   /**
    * Currently loaded tracking configuration file
@@ -53,7 +49,7 @@ public class ArFindStepsActivity extends ARViewActivity
   @Override
   protected int getGUILayout()
   {
-    return R.layout.activity_ar_view_find_all;
+    return R.layout.tutorial_tracking_samples;
   }
 
   public void onButtonClick(View v)
@@ -61,61 +57,48 @@ public class ArFindStepsActivity extends ARViewActivity
     finish();
   }
 
-  public void onIdButtonClick(View v)
-  {
-    trackingConfigFile = AssetsManager.getAssetPathAsFile(getApplicationContext(), "TutorialTrackingSamples/Assets/TrackingData_Marker.xml");
-    MetaioDebug.log("Tracking Config path = " + trackingConfigFile);
-
-    boolean result = metaioSDK.setTrackingConfiguration(trackingConfigFile);
-    MetaioDebug.log("Id Marker tracking data loaded: " + result);
-    mMetaioMan.setScale(new Vector3d(2f, 2f, 2f));
-  }
-
-  public void onPictureButtonClick(View v)
-  {
-    trackingConfigFile = AssetsManager.getAssetPathAsFile(getApplicationContext(), "custom/steps/Tracking.xml");
-    MetaioDebug.log("Tracking Config path = "+trackingConfigFile);
-
-    boolean result = metaioSDK.setTrackingConfiguration(trackingConfigFile);
-    MetaioDebug.log("Picture Marker tracking data loaded: " + result);
-    mMetaioMan.setScale(new Vector3d(8f, 8f, 8f));
-
-  }
-
-  public void onMarkerlessButtonClick(View v)
-  {
-    trackingConfigFile = AssetsManager.getAssetPathAsFile(getApplicationContext(), "custom/steps/Tracking.xml");
-    MetaioDebug.log("Tracking Config path = "+trackingConfigFile);
-
-    boolean result = metaioSDK.setTrackingConfiguration(trackingConfigFile);
-    MetaioDebug.log("Markerless tracking data loaded: " + result);
-    mMetaioMan.setScale(new Vector3d(4f, 4f, 4f));
-  }
-
   @Override
   protected void loadContents()
   {
     try
     {
-
       // Load the desired tracking configuration
-      trackingConfigFile = AssetsManager.getAssetPathAsFile(getApplicationContext(), "custom/steps/Tracking.xml");
+      trackingConfigFile = AssetsManager.getAssetPathAsFile(getApplicationContext(), "TutorialTrackingSamples/Assets/TrackingData_MarkerlessFast.xml");
       final boolean result = metaioSDK.setTrackingConfiguration(trackingConfigFile);
       MetaioDebug.log("Tracking configuration loaded: " + result);
 
       // Load all the geometries. First - Model
-      final File metaioManModel = AssetsManager.getAssetPathAsFile(getApplicationContext(), "custom/right_side_section/right_side_section.obj");
-      if (metaioManModel != null)
+      final File metaioObject2 = AssetsManager.getAssetPathAsFile(getApplicationContext(), "TutorialTrackingSamples/Assets/step_00.obj");
+      final File metaioObject3 = AssetsManager.getAssetPathAsFile(getApplicationContext(), "TutorialTrackingSamples/Assets/step_01.obj");
+
+      // For step 2
+      if (metaioObject2 != null)
       {
-        mMetaioMan = metaioSDK.createGeometry(metaioManModel);
-        if (mMetaioMan != null)
+        mMetaioStep2 = metaioSDK.createGeometry(metaioObject2);
+        mMetaioStep2.setTexture(AssetsManager.getAssetPathAsFile(getApplicationContext(),"TutorialTrackingSamples/Assets/step00.png"));
+        if (mMetaioStep2 != null)
         {
           // Set geometry properties
-          mMetaioMan.setScale(4f);
-          MetaioDebug.log("Loaded geometry "+metaioManModel);
+          mMetaioStep2.setScale(50f);
+          MetaioDebug.log("Loaded geometry "+mMetaioStep2);
         }
         else
-          MetaioDebug.log(Log.ERROR, "Error loading geometry: "+metaioManModel);
+          MetaioDebug.log(Log.ERROR, "Error loading geometry: "+mMetaioStep2);
+      }
+
+      // For step 3
+      if (metaioObject3 != null)
+      {
+        mMetaioStep3 = metaioSDK.createGeometry(metaioObject3);
+        //mMetaioStep2.setTexture(AssetsManager.getAssetPathAsFile(getApplicationContext(),"TutorialTrackingSamples/Assets/step00.png"));
+        if (mMetaioStep3 != null)
+        {
+          // Set geometry properties
+          mMetaioStep3.setScale(50f);
+          MetaioDebug.log("Loaded geometry "+metaioObject3);
+        }
+        else
+          MetaioDebug.log(Log.ERROR, "Error loading geometry: "+metaioObject3);
       }
 
 
@@ -126,7 +109,6 @@ public class ArFindStepsActivity extends ARViewActivity
       MetaioDebug.printStackTrace(Log.ERROR, e);
     }
   }
-
 
   @Override
   protected void onGeometryTouched(IGeometry geometry)
@@ -161,18 +143,23 @@ public class ArFindStepsActivity extends ARViewActivity
     public void onTrackingEvent(TrackingValuesVector trackingValues)
     {
       // if we detect any target, we bind the loaded geometry to this target
-      if(mMetaioMan != null)
+      if(mMetaioStep2 != null)
       {
-        for (int i=0; i<trackingValues.size(); i++)
-        {
-          final TrackingValues tv = trackingValues.get(i);
-          if (tv.isTrackingState())
-          {
-            mMetaioMan.setCoordinateSystemID(tv.getCoordinateSystemID());
-            break;
-          }
-        }
+        //for (int i=0; i<trackingValues.size(); i++)
+        //{
+        //final TrackingValues tv = trackingValues.get(i);
+        //if (tv.isTrackingState())
+        //{
+        //mMetaioStep2.setCoordinateSystemID(tv.getCoordinateSystemID());
+        mMetaioStep2.setCoordinateSystemID(1);
+//						break;
+//					}
+//				}
       }
+      if(mMetaioStep3!=null){
+        mMetaioStep3.setCoordinateSystemID(2);
+      }
+
 
     }
   }
