@@ -20,6 +20,7 @@ import com.metaio.sdk.jni.IMetaioSDKCallback;
 import com.metaio.sdk.jni.Rotation;
 import com.metaio.sdk.jni.TrackingValues;
 import com.metaio.sdk.jni.TrackingValuesVector;
+import com.metaio.sdk.jni.Vector3d;
 import com.metaio.tools.io.AssetsManager;
 
 /**
@@ -366,40 +367,25 @@ public class ArFindAllActivity extends ARViewActivity {
    * rotateAndScaleModel rotates and scales the visualization aid model. One finger is used to
    * rotate around the x and y axes, and two fingers are used to rotate around the z axis (using
    * horizontal gestures) and to scale the model (using vertical gestures).
+   * TODO: Implement scaling. No sensor commands seem to achieve this...
    * @param pointerCount
    * @author @martingrad, @byggprojektledarn
    */
   private void rotateAndScaleModel(int pointerCount) {
-    // Get the screen size.
-    Display display = getWindowManager().getDefaultDisplay();
-    Point size = new Point();
-    display.getSize(size);
-
     // Initialize transformation variables.
-    float dx = 0, dy = 0, dz = 0, scale = 1.f;
-    float scaleSpeed = 4.f;
-    // TODO: density is incorrect (very small)... :S Here, the density is multiplied by 100 before
-    // use to account for this.
+    float dx = 0, dy = 0, dz = 0;
+    // The density is multiplied by 100 before use to account for incorrect values. (possible bug?)
     float tempDensity = density * 100.f;
 
-    // Set dx and dy depending on density and the current and previous pointer/finger positions.
+    // Set dx and dy depending on density and the current and previous pointer (finger) positions.
     if(pointerCount == 1) {                         // One finger -> Rotate around x and y axes.
       dx = (x - xPrev) / tempDensity / 2.0f;
       dy = (y - yPrev) / tempDensity / 2.0f;
     } else if(pointerCount == 2) {                  // Two fingers -> Rotate around z axis and scale.
       dz = (x - xPrev) / tempDensity / 2.0f;
-      // Set scale to differ from 1.0 with a small value that depends on dy (vertical swipe gesture).
-      scale = 1.f + (y - yPrev) / (tempDensity * scaleSpeed);
     }
 
-    // Set rotation of the model.
-    // TODO: Explain this: For correct rotation, the rotation around x axis is set using -dy instead of dx, and the rotation around the y axis is set using -dx instead of dy... :S
-
+    // Set rotation of the model (dx and dy have been swapped to achieve correct rotation).
     metaioSDK.sensorCommand("rotateInitialPoseWorldRad", "" + (dy) + " " + (-dx) + " " + dz);
-    metaioSDK.sensorCommand()
-    //System.out.println("cosOffset = " + metaioSDK.getCosOffset(2).getRotation().getEulerAngleDegrees());
-
-    // Set scale of the model.
-    mVizAidModel.setScale(scale, true);
   }
 }
