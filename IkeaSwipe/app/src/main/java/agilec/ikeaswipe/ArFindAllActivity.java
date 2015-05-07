@@ -80,11 +80,11 @@ public class ArFindAllActivity extends ARViewActivity {
    * @author @antonosterblad @linneamalcherek
    */
   @Override
-  protected void onDestroy(){
-          super.onDestroy();
-          mCallbackHandler.delete();
-          mCallbackHandler=null;
-          }
+  protected void onDestroy() {
+    super.onDestroy();
+    mCallbackHandler.delete();
+    mCallbackHandler = null;
+  }
 
   /**
    * getMetaioSDKCallbackHandler() is called in metaioSDKViewActivity.
@@ -94,7 +94,7 @@ public class ArFindAllActivity extends ARViewActivity {
    * @author @antonosterblad @linneamalcherek
    */
   @Override
-  protected IMetaioSDKCallback getMetaioSDKCallbackHandler(){
+  protected IMetaioSDKCallback getMetaioSDKCallbackHandler() {
     return mCallbackHandler;
   }
 
@@ -104,7 +104,7 @@ public class ArFindAllActivity extends ARViewActivity {
    * @param v View
    * @author @antonosterblad @linneamalcherek
    */
-  public void onButtonClick(View v){
+  public void onButtonClick(View v) {
     finish();
   }
 
@@ -114,9 +114,9 @@ public class ArFindAllActivity extends ARViewActivity {
    * @param v View
    * @author @antonosterblad @linneamalcherek
    */
-  public void onResetButtonClick(View v){
+  public void onResetButtonClick(View v) {
     metaioSDK.sensorCommand("reset");
-   }
+  }
 
   /**
    * Set paths to which files to load.
@@ -125,18 +125,18 @@ public class ArFindAllActivity extends ARViewActivity {
    * @author @antonosterblad @linneamalcherek @jacobselg
    */
   @Override
-  protected void loadContents(){
+  protected void loadContents() {
     // Set path for the model/file to load
 
     mRimModel = loadModel("custom/" + articleImgUrl + "/" + articleImgUrl + ".obj");
     mVizAidModel = loadModel("custom/" + articleImgUrl + "/" + articleImgUrl + ".obj");
 
     // Set id for each models individual coordinate system
-    if(mRimModel!=null)
-    mRimModel.setCoordinateSystemID(1);
+    if (mRimModel != null)
+      mRimModel.setCoordinateSystemID(1);
 
-    if(mVizAidModel!=null)
-    mVizAidModel.setCoordinateSystemID(2);
+    if (mVizAidModel != null)
+      mVizAidModel.setCoordinateSystemID(2);
 
     // Tracking.xml defines how to track the model
     setTrackingConfiguration("custom/" + articleImgUrl + "/Tracking.xml");
@@ -172,7 +172,7 @@ public class ArFindAllActivity extends ARViewActivity {
      * Doxygen: http://doxygen.metaio.com/metaioSDK40/classmetaio_1_1_i_metaio_s_d_k.html#1ae808bf2113950a6a17689c57fe9b4fe0
      *
      * @param trackingValuesVector Return pose of the tracked coordinate system.
-     * A pose consists of a 3D translation and a 3D rotation which should act as offset.
+     *                             A pose consists of a 3D translation and a 3D rotation which should act as offset.
      * @author @martingrad @antonosterblad
      */
     @Override
@@ -313,6 +313,7 @@ public class ArFindAllActivity extends ARViewActivity {
 
   /**
    * OnTouch is overridden in order to use swipe gestures to rotate the visualization aid model.
+   *
    * @param v
    * @param event
    * @return
@@ -368,6 +369,7 @@ public class ArFindAllActivity extends ARViewActivity {
    * rotate around the x and y axes, and two fingers are used to rotate around the z axis (using
    * horizontal gestures) and to scale the model (using vertical gestures).
    * TODO: Implement scaling. No sensor commands seem to achieve this...
+   *
    * @param pointerCount
    * @author @martingrad, @byggprojektledarn
    */
@@ -378,10 +380,10 @@ public class ArFindAllActivity extends ARViewActivity {
     float tempDensity = density * 100.f;
 
     // Set dx and dy depending on density and the current and previous pointer (finger) positions.
-    if(pointerCount == 1) {                         // One finger -> Rotate around x and y axes.
+    if (pointerCount == 1) {                         // One finger -> Rotate around x and y axes.
       dx = (x - xPrev) / tempDensity / 2.0f;
       dy = (y - yPrev) / tempDensity / 2.0f;
-    } else if(pointerCount == 2) {                  // Two fingers -> Rotate around z axis and scale.
+    } else if (pointerCount == 2) {                  // Two fingers -> Rotate around z axis and scale.
       dz = (x - xPrev) / tempDensity / 2.0f;
     }
 

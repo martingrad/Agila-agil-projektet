@@ -9,11 +9,11 @@ import android.view.MotionEvent;
 
 /**
  * MyGLSurfaceView draws a 3D representation of the current step of the instructions.
+ *
  * @author @emmaforsling @martingrad
  */
 public class MyGLSurfaceView extends GLSurfaceView {
 
-  private static final int SIZE = 60;
   private SparseArray<PointF> mActivePointers;
   private MyGLRenderer mRenderer;
 
@@ -21,7 +21,7 @@ public class MyGLSurfaceView extends GLSurfaceView {
   private float yPrev, y; // Y Position
   private float density;  // Density for the device
 
-  public MyGLSurfaceView(Context context){
+  public MyGLSurfaceView(Context context) {
     super(context);
     // Initialize variables
     init(context);
@@ -37,7 +37,7 @@ public class MyGLSurfaceView extends GLSurfaceView {
     // Set the density depending on the device
     density = getResources().getDisplayMetrics().density;
     // Initialize pointers array
-    mActivePointers = new SparseArray<PointF>();
+    mActivePointers = new SparseArray<>();
     // Initialize renderer for the GlSurfaceView
     mRenderer = new MyGLRenderer(context, this);
     // Set the Renderer for drawing on the GLSurfaceView
@@ -46,6 +46,7 @@ public class MyGLSurfaceView extends GLSurfaceView {
 
   /**
    * Handles touch events for interaction with the model in the View3DFragment.
+   *
    * @param event
    * @return
    * @author @ingelhag @marcusnygren @martingrad
@@ -97,9 +98,10 @@ public class MyGLSurfaceView extends GLSurfaceView {
 
   /**
    * Returns the MyGlRenderer instance
+   *
    * @return
    */
-  public MyGLRenderer getGLRenderer(){
+  public MyGLRenderer getGLRenderer() {
     return mRenderer;
   }
 
@@ -108,7 +110,7 @@ public class MyGLSurfaceView extends GLSurfaceView {
    * Call mRenderer to set new values for the angle in vertical and horizontal axes
    */
   private void calcDxAndDy() {
-    if(mActivePointers.size() == 2) {
+    if (mActivePointers.size() == 2) {
       // Set Dx and Dy depending on density and prev
       float dx = (x - xPrev) / density / 2.0f;
       float dy = (y - yPrev) / density / 2.0f;

@@ -8,7 +8,7 @@ import android.support.v4.app.Fragment;
 
 
 /**
- * Created by martingrad on 21/04/15.
+ * @author martingrad
  */
 public class View3dFragment extends Fragment {
 
@@ -18,21 +18,22 @@ public class View3dFragment extends Fragment {
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     // Inflate the layout for this fragment
     View view = inflater.inflate(R.layout.fragment_view3d, container, false);
-    mGLSV = (MyGLSurfaceView)view.findViewById(R.id.mGLSV);
+    mGLSV = (MyGLSurfaceView) view.findViewById(R.id.mGLSV);
     return view;
   }
 
   /**
-   * Change an object in the fragmenrt
+   * changeObject changes objects and textures depending on the current.
    * @param currentStep is the current step in the instructions
    */
   public void changeObject(int currentStep) {
     System.out.println("Current Step: " + currentStep);
 
-    // Get the object-id
-    int id = getResources().getIdentifier("step_0"+currentStep, "raw", getActivity().getPackageName());
-    // Set the model
-    mGLSV.getGLRenderer().setModel(new DrawModel(getActivity(), id));
-  }
+    // Get the object-id & the texture-id
+    int objectId = getResources().getIdentifier("step_0"+currentStep, "raw", getActivity().getPackageName());
+    int textureId = getResources().getIdentifier("step0"+currentStep, "drawable", getActivity().getPackageName());
 
+    // Set the model and texture
+    mGLSV.getGLRenderer().setModel(new DrawModel(getActivity(), objectId),textureId);
+  }
 }

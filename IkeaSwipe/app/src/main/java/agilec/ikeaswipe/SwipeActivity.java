@@ -12,14 +12,12 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import org.json.JSONException;
 
-// TODO: Fix bug, list + dubbelswipe updates wrong!!!
 
 public class SwipeActivity extends ActionBarActivity {
 
@@ -179,25 +177,6 @@ public class SwipeActivity extends ActionBarActivity {
 
     return super.onOptionsItemSelected(item);
   }
-
-  /**
-   * dispatchTouchEvent in SwipeActivity is a library function that is the first function that is
-   * called when a MotionEvent has been registered. When a multitouch gesture is used, the event
-   * should be canceled, in order to allow two-finger gestures in MyGLSurfaceView without any
-   * conflicts. This avoids accidental swiping when trying to rotate the 3D view.
-   * @param ev
-   * @return
-   */
-  /*
-  @Override
-  public boolean dispatchTouchEvent(MotionEvent ev) {
-    if (ev.getPointerCount() == 2) {    // if one finger -> send
-      return super.dispatchTouchEvent(ev);
-    } else {                            // if multiple fingers -> cancel
-      return false;
-    }
-  }
-  */
 
   /**
    * A {@link FragmentPagerAdapter} that returns a fragment corresponding to

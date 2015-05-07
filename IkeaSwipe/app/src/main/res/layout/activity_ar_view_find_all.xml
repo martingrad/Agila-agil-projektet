@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:visibility="gone">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
 
     <ImageButton
         android:id="@+id/button1"
@@ -12,7 +12,10 @@
         android:layout_alignParentRight="true"
         android:background="@android:color/transparent"
         android:onClick="onButtonClick"
-        android:src="@drawable/cancel" />
+        android:src="@drawable/return_btn"
+        android:layout_margin="10dp"
+
+        />
 
     <Button
         android:id="@+id/resetButton"
@@ -23,7 +26,7 @@
         android:layout_alignParentRight="true"
         android:layout_margin="20dp"
         android:onClick="onResetButtonClick"
-        android:text="@string/btnReset" />
+        android:text="@string/btnReset"/>
 
     <Button
         android:id="@+id/btnDone"
@@ -35,7 +38,7 @@
         android:gravity="center"
         android:text="@string/btnDone"
         android:textSize="36dp"
-        android:visibility="invisible" />
+        android:visibility="invisible"/>
 
 
 </RelativeLayout>

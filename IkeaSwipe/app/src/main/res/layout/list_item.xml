@@ -1,61 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- TODO: avoid to use px, use dp instead! -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:orientation="horizontal"
-    android:layout_height="600px"
-    android:padding="3dip"
-    android:weightSum="3">
+              android:layout_width="fill_parent"
+              android:layout_height="600px"
+              android:orientation="horizontal"
+              android:padding="3dip"
+              android:weightSum="3">
+
     <ImageView
         android:id="@+id/icon"
         android:layout_width="300px"
         android:layout_height="300px"
         android:layout_marginRight="3dip"
         android:layout_weight="1"
-        android:src="@drawable/upper_back_side" />
+        android:src="@drawable/upper_back_side"/>
+
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="150px"
         android:layout_height="300px"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:orientation="vertical">
+
         <TextView
             android:id="@+id/toptext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="60px"
-            android:textSize="20sp"
             android:gravity="center_vertical"
+            android:textSize="20sp"
             />
+
         <TextView
+            android:id="@+id/bottomtext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="30sp"
-            android:textColor="#000"
-            android:id="@+id/bottomtext"
-            android:singleLine="true"
             android:ellipsize="marquee"
+            android:singleLine="true"
+            android:textColor="#000"
+            android:textSize="30sp"
             />
     </LinearLayout>
+
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="150px"
         android:layout_height="300px"
         android:layout_weight="1"
+        android:orientation="horizontal"
         android:weightSum="2">
+
         <ImageButton
             android:id="@+id/arButton"
             android:layout_width="200px"
             android:layout_height="200px"
-            android:layout_weight="1"
-            android:layout_marginRight="10px"
             android:layout_gravity="center"
+            android:layout_marginRight="10px"
+            android:layout_weight="1"
             android:background="#00000000"
-            android:src="@drawable/icon_3d_scan" />
+            android:src="@drawable/icon_3d_scan"/>
+
         <Button
             android:id="@+id/status"
             android:layout_width="200px"
             android:layout_height="200px"
-            android:layout_weight="1"
             android:layout_gravity="center"
+            android:layout_weight="1"
             android:text="1/10"/>
     </LinearLayout>
 </LinearLayout>

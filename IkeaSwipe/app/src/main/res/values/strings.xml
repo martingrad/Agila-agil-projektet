@@ -8,11 +8,9 @@
     <string name="hello_world">Hello world!</string>
 
     <string name="action_settings">Settings</string>
-    <string name="title_activity_ar_view_find_all">ArViewFindAll</string>
-    <string name="push_the_button">Push the button. Push it!</string>
-    <string name="Ar_button_find_all">Find all parts with AR</string>
 
     <!-- ARview Related -->
+    <string name="title_activity_ar_view">Find item with AR</string>
     <string name="btnReset">Reset</string>
     <string name="btnCancel">Cancel</string>
     <string name="btnDone">Done</string>
