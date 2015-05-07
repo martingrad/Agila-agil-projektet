@@ -333,7 +333,12 @@ public class StepByStepFragment extends Fragment {
 
       @Override
       public void onClick(View v) {
+        // testing to do some stuff
+        // @author emmaforsling
         System.out.println("Open AR Help");
+        Intent arIntent = new Intent(getActivity(), ArFindStepsActivity.class);
+        startActivity(arIntent);
+
       }
     });
 
@@ -358,7 +363,6 @@ public class StepByStepFragment extends Fragment {
         startActivity(arIntent);
       }
     });
-
 
   }
 }

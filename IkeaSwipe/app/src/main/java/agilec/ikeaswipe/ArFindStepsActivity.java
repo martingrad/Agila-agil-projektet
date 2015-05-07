@@ -3,6 +3,7 @@ package agilec.ikeaswipe;
 
 import java.io.File;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -28,12 +29,17 @@ public class ArFindStepsActivity extends ARViewActivity
    */
   File trackingConfigFile;
 
+  /**
+   * Metaio SDK callback handler
+   */
   private MetaioSDKCallbackHandler mCallbackHandler;
 
   @Override
   public void onCreate(Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
+    System.out.println("***** I oncreate");
+    Intent intent = getIntent();
     mCallbackHandler = new MetaioSDKCallbackHandler();
   }
 
@@ -59,22 +65,27 @@ public class ArFindStepsActivity extends ARViewActivity
   @Override
   protected void loadContents()
   {
+    System.out.println("***** I loadContents");
+
     try
     {
       // Load the desired tracking configuration
-      trackingConfigFile = AssetsManager.getAssetPathAsFile(getApplicationContext(), "TutorialTrackingSamples/Assets/TrackingData_MarkerlessFast.xml");
+      System.out.println("******* Försöker läsa in trackingCongigFile");
+      trackingConfigFile = AssetsManager.getAssetPathAsFile(getApplicationContext(), "scanningsteps/TrackingData_MarkerlessFast.xml");
+      System.out.println("****** Misslyckades jag????????");
       final boolean result = metaioSDK.setTrackingConfiguration(trackingConfigFile);
+      System.out.println("*******  kallar på trackingConfigFile !!!!!");
       MetaioDebug.log("Tracking configuration loaded: " + result);
 
       // Load all the geometries. First - Model
-      final File metaioObject2 = AssetsManager.getAssetPathAsFile(getApplicationContext(), "TutorialTrackingSamples/Assets/step_00.obj");
-      final File metaioObject3 = AssetsManager.getAssetPathAsFile(getApplicationContext(), "TutorialTrackingSamples/Assets/step_01.obj");
+      final File metaioObject2 = AssetsManager.getAssetPathAsFile(getApplicationContext(), "scanningsteps/step_00.obj");
+      final File metaioObject3 = AssetsManager.getAssetPathAsFile(getApplicationContext(), "scanningsteps/step_01.obj");
 
       // For step 2
       if (metaioObject2 != null)
       {
         mMetaioStep2 = metaioSDK.createGeometry(metaioObject2);
-        mMetaioStep2.setTexture(AssetsManager.getAssetPathAsFile(getApplicationContext(),"TutorialTrackingSamples/Assets/step00.png"));
+        mMetaioStep2.setTexture(AssetsManager.getAssetPathAsFile(getApplicationContext(), "scanningsteps/step00.png"));
         if (mMetaioStep2 != null)
         {
           // Set geometry properties
@@ -114,6 +125,7 @@ public class ArFindStepsActivity extends ARViewActivity
   {
     // TODO Auto-generated method stub
   }
+
 
   @Override
   protected IMetaioSDKCallback getMetaioSDKCallbackHandler()
@@ -161,6 +173,29 @@ public class ArFindStepsActivity extends ARViewActivity
 
 
     }
+
+  }
+
+
+  /**
+   * Define how to track the 3D model
+   *
+   * @param path Path to which object will be used to track.
+   * @return result
+   * @author @antonosterblad @linneamalcherek @jacobselg
+   */
+  private boolean setTrackingConfiguration(final String path) {
+    boolean result = false;
+    try {
+      // Set tracking configuration
+      final File xmlPath = AssetsManager.getAssetPathAsFile(getApplicationContext(), path);
+      result = metaioSDK.setTrackingConfiguration(xmlPath);
+      MetaioDebug.log("Loaded tracking configuration " + xmlPath);
+    } catch (Exception e) {
+      MetaioDebug.log(Log.ERROR, "Error loading tracking configuration: " + path + " " + e.getMessage());
+      return result;
+    }
+    return result;
   }
 
 }
