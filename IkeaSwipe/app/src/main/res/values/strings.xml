@@ -16,8 +16,8 @@
     <string name="btnDone">Done</string>
 
     <!-- StepByStepFragment Related -->
-    <string name="nextStep">Next Step</string>
-    <string name="prevStep">Previous Step</string>
-    <string name="completeStep">Done</string>
+    <string name="sbsTitle">Kritter</string>
+    <string name="checkButton">Check Button</string>
+    <string name="helpButton">Help Button</string>
 
 </resources>

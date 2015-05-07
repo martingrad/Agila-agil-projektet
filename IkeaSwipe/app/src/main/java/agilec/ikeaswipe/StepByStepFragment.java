@@ -1,7 +1,13 @@
 package agilec.ikeaswipe;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Point;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +15,9 @@ import android.widget.Button;
 import android.support.v4.app.Fragment;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import org.json.JSONException;
 
@@ -21,8 +30,13 @@ public class StepByStepFragment extends Fragment {
 
   private AllSteps stepHandler;         // Handles all steps
   private ImageButton completedStepBtn;
+  private ImageButton helpBtn;
+  private TextView header;
   private ImageView imgView;
   private Button checkbarButton;
+
+  //The "x" and "y" position of the "Show Button" on screen.
+  private Point p;
 
   /**
    * int stepNumber is used to track the current step and update the corresponding variable
@@ -46,18 +60,23 @@ public class StepByStepFragment extends Fragment {
     imgView.setImageResource(id); // Set the correct image using id
   }
 
+  private void setHeader(int stepNumber) {
+    String title = stepHandler.getSteps().get(stepNumber).getTitle(); // Get the image url for the instruction image
+    header.setText(title); // Set the correct image using id
+  }
+
   /**
    * Check if step is completed or not
    */
   private void loadIsCompletedButton(boolean isCompleted, View view, int stepNumber) {
     if (isCompleted == false) {
-      ((ImageButton) view.findViewById(R.id.completedStepButton)).setImageResource(R.drawable.done_before);
+      ((ImageButton) view.findViewById(R.id.completedStepButton)).setImageResource(R.drawable.ic_action_done_before);
       //To get the right button
       checkBarButtonView(stepNumber, view);
       //Change color of the button
       checkbarButton.setBackgroundColor(getResources().getColor(R.color.grey));
     } else {
-      ((ImageButton) view.findViewById(R.id.completedStepButton)).setImageResource(R.drawable.done_after);
+      ((ImageButton) view.findViewById(R.id.completedStepButton)).setImageResource(R.drawable.ic_action_done_after);
       //To get the right button
       checkBarButtonView(stepNumber, view);
       //Change color of the button
@@ -110,13 +129,28 @@ public class StepByStepFragment extends Fragment {
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    // Inflate the layout for this fragment
-    final View view = inflater.inflate(R.layout.fragment_step_by_step, container, false);
+
+    final View view = inflater.inflate(R.layout.fragment_step_by_step, container, false); // Inflate the layout for this fragment
+    header = (TextView) view.findViewById(R.id.stepByStepHeader); // Define header id connection
 
     try {
       stepHandler = new AllSteps("kritter_steps.json", getActivity());
     } catch (JSONException e) {
       e.printStackTrace();
+    }
+
+    // If ArFindAllActivity was the last active Activity
+    Intent intent = getActivity().getIntent();
+    String completeModelUrl = intent.getStringExtra("completeModel"); // Get the completeModelUrl
+    stepNumber = intent.getIntExtra("currentStep", 0);           // Get the current step
+    if (completeModelUrl != null) { // If the step was correct and found in the AR Activity
+      // Mark the step as done
+
+      // Load a different button depending on if the step is completed or not
+      loadIsCompletedButton(true, view, stepNumber);
+
+      // Mark the step as done or undone
+      ((SwipeActivity) getActivity()).setCompletedStep(stepNumber, true);
     }
 
     // Set listener to the view
@@ -138,6 +172,9 @@ public class StepByStepFragment extends Fragment {
 
           // Change the image source
           setImage(stepNumber);
+
+          // Change header
+          setHeader(stepNumber);
 
           // Load the step completed button
           loadIsCompletedButton(((SwipeActivity) getActivity()).getCompletedStep(stepNumber), view, stepNumber);
@@ -169,6 +206,9 @@ public class StepByStepFragment extends Fragment {
           // Change the image source
           setImage(stepNumber);
 
+          // Change header
+          setHeader(stepNumber);
+
           // Load the step completed button
           loadIsCompletedButton(((SwipeActivity) getActivity()).getCompletedStep(stepNumber), view, stepNumber);
 
@@ -196,9 +236,9 @@ public class StepByStepFragment extends Fragment {
 
     // Set the image source
     setImage(stepNumber);
+    setHeader(stepNumber);
 
     completedStepBtn = (ImageButton) view.findViewById(R.id.completedStepButton);
-
 
     completedStepBtn.setOnClickListener(new View.OnClickListener() {
       /**
@@ -212,11 +252,7 @@ public class StepByStepFragment extends Fragment {
         boolean isCompleted = ((SwipeActivity) getActivity()).getCompletedStep(stepNumber);
 
         // When the button is clicked, the status should be reversed
-        if (isCompleted == true) {
-          isCompleted = false;
-        } else {
-          isCompleted = true;
-        }
+        isCompleted = !isCompleted;
 
         // Load a different button depending on if the step is completed or not
         loadIsCompletedButton(isCompleted, view, stepNumber);
@@ -226,6 +262,103 @@ public class StepByStepFragment extends Fragment {
       }
     });
 
+    helpBtn = (ImageButton) view.findViewById(R.id.stepByStepHelpButton);
+
+    helpBtn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        showPopup(getActivity(), p);
+      }
+    });
+
     return view;
+  }
+
+  /**
+   * Get the x and y position after the button is draw on screen
+   * (It's important to note that we can't get the position in the onCreate(),
+   * because at that stage most probably the view isn't drawn yet, so it will return (0, 0))
+   *
+   * The function will be run from SwipeActivity when onWindowFocusChanged return true
+   */
+  public void findPos() {
+
+    int[] location = new int[2];
+    helpBtn = (ImageButton) getView().findViewById(R.id.stepByStepHelpButton);
+
+    // Get the x, y location and store it in the location[] array
+    // location[0] = x, location[1] = y.
+    helpBtn.getLocationOnScreen(location);
+
+    //Initialize the Point with x, and y positions
+    p = new Point();
+    p.x = location[0] - 320;
+    p.y = location[1] + 20;
+
+  }
+
+  // The method that displays the popup.
+  private void showPopup(final Activity context, Point p) {
+    findPos();
+    int popupWidth = 400;
+    int popupHeight = 300;
+
+
+    // Inflate the popup_layout.xml
+    LinearLayout viewGroup = (LinearLayout) context.findViewById(R.id.popup);
+    LayoutInflater layoutInflater = (LayoutInflater) context
+            .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    View layout = layoutInflater.inflate(R.layout.help_popup_layout, viewGroup);
+
+    // Creating the PopupWindow
+    final PopupWindow popup = new PopupWindow(context);
+    popup.setContentView(layout);
+    popup.setWidth(popupWidth);
+    popup.setHeight(popupHeight);
+    popup.setFocusable(true);
+
+    // Some offset to align the popup a bit to the right, and a bit down, relative to button's position.
+    int OFFSET_X = 30;
+    int OFFSET_Y = 30;
+
+    // Clear the default translucent background
+    popup.setBackgroundDrawable(new BitmapDrawable());
+
+    // Displaying the popup at the specified location, + offsets.
+    popup.showAtLocation(layout, Gravity.NO_GRAVITY, p.x + OFFSET_X, p.y + OFFSET_Y);
+
+    // Getting a reference to ARHelp button, and send to new activity when clicked
+    ImageButton ARHelp = (ImageButton) layout.findViewById(R.id.ARHelp);
+    ARHelp.setOnClickListener(new View.OnClickListener() {
+
+      @Override
+      public void onClick(View v) {
+        System.out.println("Open AR Help");
+      }
+    });
+
+    // Displaying the popup at the specified location, + offsets.
+    popup.showAtLocation(layout, Gravity.NO_GRAVITY, p.x + OFFSET_X, p.y + OFFSET_Y);
+
+    // Getting a reference to ARHelp button, and send to new activity when clicked
+    ImageButton ARCheckComplete = (ImageButton) layout.findViewById(R.id.ARCheckComplete);
+    ARCheckComplete.setOnClickListener(new View.OnClickListener() {
+
+      @Override
+      public void onClick(View v) {
+        System.out.println("Open AR Check Complete step");
+        Intent arIntent = new Intent(getActivity(), ArFindAllActivity.class);
+        Step currentStep = stepHandler.getSteps().get(stepNumber);
+
+        System.out.println("Open step:" + currentStep.getTitle());
+
+        arIntent.putExtra("article", currentStep.getCompleteModelUrl());
+        arIntent.putExtra("currentTab", 1);
+        arIntent.putExtra("currentStep", currentStep.getStep());
+        startActivity(arIntent);
+      }
+    });
+
+
   }
 }
