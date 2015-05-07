@@ -38,7 +38,6 @@ public class ArFindStepsActivity extends ARViewActivity
   public void onCreate(Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-
     mCallbackHandler = new MetaioSDKCallbackHandler();
   }
 
