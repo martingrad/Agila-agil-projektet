@@ -142,7 +142,7 @@ public class StepByStepFragment extends Fragment {
     // If ArFindAllActivity was the last active Activity
     Intent intent = getActivity().getIntent();
     String completeModelUrl = intent.getStringExtra("completeModel"); // Get the completeModelUrl
-    int currentStep = intent.getIntExtra("currentStep", 0);           // Get the current step
+    stepNumber = intent.getIntExtra("currentStep", 0);           // Get the current step
     if (completeModelUrl != null) { // If the step was correct and found in the AR Activity
       // Mark the step as done
 
