@@ -113,7 +113,7 @@
                                                 These parameters are not required and are intended
                                                 for expert use only.
                     -->
-                    <ReferenceImage>../../../res/drawable-hdpi/step2_lowres.png</ReferenceImage>
+                    <ReferenceImage>step2_lowres.png</ReferenceImage>
                     <!--
                      <ReferenceImage WidthMM="100" HeightMM="100">metaioman.png</ReferenceImage>
                     -->
@@ -132,7 +132,7 @@
             <SensorCOS>
                 <SensorCosID>Patch2</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>../../../res/drawable-hdpi/step3_lowres.png</ReferenceImage>
+                    <ReferenceImage>step3_lowres.png</ReferenceImage>
                     <SimilarityThreshold>0.7</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
