@@ -2,10 +2,10 @@
     "steps": [
         {
             "step":                 "0",
-            "title":                "Bruksanvising för Kritter",
+            "title":                "Kritter",
             "imgUrl":               "kritter_lowres",
             "checkbarButtonUrl":    "step0",
-            "completeModelUrl":     "cmStep0",
+            "completeModelUrl":     "upper_back_side",
             "checked":              "false",
             "parts":                [],
             "currentStep":          "true"
@@ -15,7 +15,7 @@
             "title":                "Steg 1",
             "imgUrl":               "step1_scaled",
             "checkbarButtonUrl":    "step1",
-            "completeModelUrl":     "cmStep1",
+            "completeModelUrl":     "upper_back_side",
             "checked":              "false",
             "parts":                [],
             "currentStep":          "false"
@@ -25,7 +25,7 @@
             "title":                "Steg 2",
             "imgUrl":               "step2_lowres",
             "checkbarButtonUrl":    "step2",
-            "completeModelUrl":     "cmStep2",
+            "completeModelUrl":     "upper_back_side",
             "checked":              "false",
             "parts":                [],
             "currentStep":          "false"
@@ -35,7 +35,7 @@
             "title":                "Steg 3",
             "imgUrl":               "step3_lowres",
             "checkbarButtonUrl":    "step3",
-            "completeModelUrl":     "cmStep3",
+            "completeModelUrl":     "upper_back_side",
             "checked":              "false",
             "parts":                [],
             "currentStep":          "false"
@@ -45,7 +45,7 @@
             "title":                "Steg 4",
             "imgUrl":               "step4_lowres",
             "checkbarButtonUrl":    "step4",
-            "completeModelUrl":     "cmStep4",
+            "completeModelUrl":     "upper_back_side",
             "checked":              "false",
             "parts":                [],
             "currentStep":          "false"
@@ -55,7 +55,7 @@
             "title":                "Steg 5",
             "imgUrl":               "step5_lowres",
             "checkbarButtonUrl":    "step5",
-            "completeModelUrl":     "cmStep5",
+            "completeModelUrl":     "upper_back_side",
             "checked":              "false",
             "parts":                [],
             "currentStep":          "false"
@@ -65,7 +65,7 @@
             "title":                "Steg 6",
             "imgUrl":               "step6_lowres",
             "checkbarButtonUrl":    "step6",
-            "completeModelUrl":     "cmStep6",
+            "completeModelUrl":     "upper_back_side",
             "checked":              "false",
             "parts":                [],
             "currentStep":          "false"

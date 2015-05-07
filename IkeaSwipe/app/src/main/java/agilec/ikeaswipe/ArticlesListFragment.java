@@ -30,6 +30,10 @@ public class ArticlesListFragment extends ListFragment {
   ListAdapter ourAdapter = null;
   private int currentStep = 0;
 
+  public ArticlesListFragment(int theCurrentStep) {
+    currentStep = theCurrentStep;
+  }
+
   /**
    * Creates a list view  with all the items added to the list
    *
@@ -171,7 +175,8 @@ public class ArticlesListFragment extends ListFragment {
           @Override
           public void onClick(View v) {
             Intent arIntent = new Intent(getActivity(), ArFindAllActivity.class);
-            arIntent.putExtra("article", a.getImgUrl());
+            arIntent.putExtra("article", a.getImgUrl());    // Add the image url for the article
+            arIntent.putExtra("currentStep", currentStep);  // Add which the current step
             startActivity(arIntent);
           }
         });
