@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -146,6 +147,20 @@ public class SwipeActivity extends ActionBarActivity {
     mViewPager = (SingleSwipeViewPager) findViewById(R.id.pager);
     mViewPager.setAdapter(mSectionsPagerAdapter);
     mViewPager.setCurrentItem(currentTab); // Set which tab that will be shown
+  }
+
+  /**
+   * When the view is completely loaded,
+   * this function will run and return the method findPos
+   * which runs in StepByStepFragment to getLocationOnScreen.
+   *
+   * @param hasFocus
+   */
+  @Override
+  public void onWindowFocusChanged(boolean hasFocus) {
+    if(hasFocus) {
+      stepFragment.findPos();
+    }
   }
 
   /**
