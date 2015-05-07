@@ -1,7 +1,12 @@
 package agilec.ikeaswipe;
 
+import android.app.Activity;
+import android.content.Context;
+import android.graphics.Point;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +14,8 @@ import android.widget.Button;
 import android.support.v4.app.Fragment;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -22,9 +29,13 @@ public class StepByStepFragment extends Fragment {
 
   private AllSteps stepHandler;         // Handles all steps
   private ImageButton completedStepBtn;
+  private ImageButton helpBtn;
   private TextView header;
   private ImageView imgView;
   private Button checkbarButton;
+
+  //The "x" and "y" position of the "Show Button" on screen.
+  private Point p;
 
   /**
    * int stepNumber is used to track the current step and update the corresponding variable
@@ -213,7 +224,6 @@ public class StepByStepFragment extends Fragment {
 
     completedStepBtn = (ImageButton) view.findViewById(R.id.completedStepButton);
 
-
     completedStepBtn.setOnClickListener(new View.OnClickListener() {
       /**
        * onClick function for the completedStepBtn
@@ -240,6 +250,61 @@ public class StepByStepFragment extends Fragment {
       }
     });
 
+    helpBtn = (ImageButton) view.findViewById(R.id.stepByStepHelpButton);
+
+    helpBtn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        System.out.print("--Pop--");
+        //Open popup window
+        p = new Point();
+        p.x = 100;
+        p.y = 100;
+        showPopup(getActivity(), p);
+      }
+
+    });
+
     return view;
+  }
+
+  // The method that displays the popup.
+  private void showPopup(final Activity context, Point p) {
+    System.out.print("--Poped--");
+    int popupWidth = 200;
+    int popupHeight = 150;
+
+    // Inflate the popup_layout.xml
+    LinearLayout viewGroup = (LinearLayout) context.findViewById(R.id.popup);
+    LayoutInflater layoutInflater = (LayoutInflater) context
+            .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    View layout = layoutInflater.inflate(R.layout.help_popup_layout, viewGroup);
+
+    // Creating the PopupWindow
+    final PopupWindow popup = new PopupWindow(context);
+    popup.setContentView(layout);
+    popup.setWidth(popupWidth);
+    popup.setHeight(popupHeight);
+    popup.setFocusable(true);
+
+    // Some offset to align the popup a bit to the right, and a bit down, relative to button's position.
+    int OFFSET_X = 30;
+    int OFFSET_Y = 30;
+
+    // Clear the default translucent background
+    popup.setBackgroundDrawable(new BitmapDrawable());
+
+    // Displaying the popup at the specified location, + offsets.
+    popup.showAtLocation(layout, Gravity.NO_GRAVITY, p.x + OFFSET_X, p.y + OFFSET_Y);
+
+    // Getting a reference to Close button, and close the popup when clicked.
+    ImageButton close = (ImageButton) layout.findViewById(R.id.close);
+    close.setOnClickListener(new View.OnClickListener() {
+
+      @Override
+      public void onClick(View v) {
+        popup.dismiss();
+      }
+    });
   }
 }
