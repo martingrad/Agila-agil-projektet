@@ -12,7 +12,10 @@
         android:layout_alignParentRight="true"
         android:background="@android:color/transparent"
         android:onClick="onButtonClick"
-        android:src="@drawable/cancel"/>
+        android:src="@drawable/return_btn"
+        android:layout_margin="10dp"
+
+        />
 
     <Button
         android:id="@+id/resetButton"
