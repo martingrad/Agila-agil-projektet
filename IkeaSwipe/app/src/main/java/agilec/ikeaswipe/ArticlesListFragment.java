@@ -170,7 +170,7 @@ public class ArticlesListFragment extends ListFragment {
         arButton.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
-            Intent arIntent = new Intent(getActivity(), ArFindAllActivity.class);
+            Intent arIntent = new Intent(getActivity(), ArFindStepsActivity.class);
             arIntent.putExtra("article", a.getImgUrl());
             startActivity(arIntent);
           }

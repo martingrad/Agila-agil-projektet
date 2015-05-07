@@ -36,6 +36,11 @@
             android:name=".ArFindAllActivity"
             android:label="@string/title_activity_ar_view" >
         </activity>
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".ArFindStepsActivity"
+            android:label="@string/title_activity_ar_steps_view" >
+        </activity>
     </application>
 
 </manifest>
