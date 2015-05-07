@@ -1,7 +1,6 @@
 package agilec.ikeaswipe;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,5 +37,4 @@ public class View3dFragment extends Fragment {
       // Set the model and texture
        mGLSV.getGLRenderer().setModel(new DrawModel(getActivity(), objectId),textureId);
   }
-
 }

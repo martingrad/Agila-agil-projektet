@@ -3,12 +3,9 @@ package agilec.ikeaswipe;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.opengl.GLES30;
-import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLU;
 import android.opengl.GLUtils;
-import android.util.Log;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -60,12 +57,12 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
      * @param gl
      */
     private void loadTexture(GL10 gl) {
-        // generate and bind a texture
+        // Generate and bind a texture...
         int[] textures = new int[1];
         gl.glGenTextures(1, textures, 0);
         mTextureId = textures[0];
 
-        // ...and bind it to our array
+        // ... And bind it to our array
         gl.glBindTexture(GL10.GL_TEXTURE_2D, mTextureId);
 
         // Create Nearest Filtered Texture
@@ -78,10 +75,9 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
         // Use the Android GLUtils to specify a two-dimensional texture image
         // from our bitmap
-        Bitmap bitmap;
-        bitmap = BitmapFactory.decodeResource(context.getResources(), resourceTextureId);
-        GLUtils.texImage2D(GL10.GL_TEXTURE_2D, 0, bitmap, 0);
-        bitmap.recycle();
+        mBitmap = BitmapFactory.decodeResource(context.getResources(), resourceTextureId);
+        GLUtils.texImage2D(GL10.GL_TEXTURE_2D, 0, mBitmap, 0);
+        mBitmap.recycle();
     }
 
     /**
