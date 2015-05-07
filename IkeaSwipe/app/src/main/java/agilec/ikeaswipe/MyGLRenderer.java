@@ -12,33 +12,42 @@ import javax.microedition.khronos.opengles.GL10;
 
 /**
  * Class MyGLRenderer
+ *
  * @author @emmaforsling @martingrad @ingelhag
  */
 public class MyGLRenderer implements GLSurfaceView.Renderer {
 
-    private MyGLSurfaceView view;
-    private DrawModel model;
+  private MyGLSurfaceView view;
+  private DrawModel model;
 
-    private Context context;
-    private float angleY = 0f;
+  // Texture variables
+  private int mTextureId; // Unique texture id
+  private Bitmap mBitmap; // Bitmap being used by the renderer
+  private int resourceTextureId = R.drawable.step00;  // Set the initial texture
+  private boolean mShouldLoadTexture = false; // Variable to trigger texture reload
+  private int[] mTexture = new int[1];
 
-    private int mTextureId; // Unique texture id
-    private Bitmap mBitmap; // Bitmap being used by the renderer
-    private int resourceTextureId = R.drawable.step00;  // Set the initial texture
-    private boolean mShouldLoadTexture = false; // Variable to trigger texture reload
+  // Rotation/interaction variables
+  private float dx = 0.0f;
+  private float dy = 0.0f;
+
+  private Context context;
+  private float angleY = 0f;
+
 
   /**
    * Constructor for the class MyGLRenderer
-   * @author @emmaforsling @martingrad
+   *
    * @param context
    * @param view
+   * @author @emmaforsling @martingrad
    */
-    public MyGLRenderer(Context context, MyGLSurfaceView view) {
-        this.view = view;
-        this.context = context;
-        // create model from specified .obj file
-        model = new DrawModel(context, R.raw.step_00);
-    }
+  public MyGLRenderer(Context context, MyGLSurfaceView view) {
+    this.view = view;
+    this.context = context;
+    // create model from specified .obj file
+    model = new DrawModel(context, R.raw.step_00);
+  }
 
   /**
    * Set a new model and texture
@@ -134,12 +143,14 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
             gl.glBindTexture(GL10.GL_TEXTURE_2D, mTextureId);
         }
 
-        // Set rotation around the y axis
-        gl.glPushMatrix();
-        gl.glRotatef(angleY, 0f, 1f, 0f);
-        model.draw(gl);
-        gl.glPopMatrix();
-        angleY += 0.4f;
+      // Set rotation around the y axis
+      gl.glPushMatrix();
+      gl.glRotatef(dx, 0f, 1f, 0f);
+      gl.glRotatef(dy, 1f, 0f, 0f);
+      model.draw(gl);
+      gl.glPopMatrix();
+
+      angleY += 0.4f;
     }
 
     /**
@@ -152,4 +163,12 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     public void onSurfaceChanged(GL10 gl, int width, int height) {
         gl.glViewport(0, 0, width, height);
     }
+
+  public void setDxRotation(float newValue) {
+    this.dx += newValue;
+  }
+
+  public void setDyRotation(float newValue) {
+    this.dy += newValue;
+  }
 }

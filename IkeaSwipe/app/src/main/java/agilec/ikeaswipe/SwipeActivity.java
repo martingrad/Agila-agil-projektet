@@ -18,7 +18,6 @@ import android.widget.Toast;
 
 import org.json.JSONException;
 
-// TODO: Fix bug, list + dubbelswipe updates wrong!!!
 
 public class SwipeActivity extends ActionBarActivity {
 
@@ -60,7 +59,7 @@ public class SwipeActivity extends ActionBarActivity {
   /**
    * The {@link ViewPager} that will host the section contents.
    */
-  ViewPager mViewPager;
+  SingleSwipeViewPager mViewPager;
 
   /**
    * setStepNumber is called to update the current step number from the StepByStepFragment
@@ -141,7 +140,7 @@ public class SwipeActivity extends ActionBarActivity {
     mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
     // Set up the ViewPager with the sections adapter.
-    mViewPager = (ViewPager) findViewById(R.id.pager);
+    mViewPager = (SingleSwipeViewPager) findViewById(R.id.pager);
     mViewPager.setAdapter(mSectionsPagerAdapter);
   }
 

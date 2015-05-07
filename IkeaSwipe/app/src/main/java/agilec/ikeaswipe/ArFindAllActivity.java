@@ -2,7 +2,6 @@ package agilec.ikeaswipe;
 
 import java.io.File;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -65,11 +64,11 @@ public class ArFindAllActivity extends ARViewActivity {
    * @author @antonosterblad @linneamalcherek
    */
   @Override
-  protected void onDestroy(){
-          super.onDestroy();
-          mCallbackHandler.delete();
-          mCallbackHandler=null;
-          }
+  protected void onDestroy() {
+    super.onDestroy();
+    mCallbackHandler.delete();
+    mCallbackHandler = null;
+  }
 
   /**
    * getMetaioSDKCallbackHandler() is called in metaioSDKViewActivity.
@@ -79,9 +78,9 @@ public class ArFindAllActivity extends ARViewActivity {
    * @author @antonosterblad @linneamalcherek
    */
   @Override
-  protected IMetaioSDKCallback getMetaioSDKCallbackHandler(){
-          return mCallbackHandler;
-          }
+  protected IMetaioSDKCallback getMetaioSDKCallbackHandler() {
+    return mCallbackHandler;
+  }
 
   /**
    * Perform when onButtonClick.
@@ -89,9 +88,9 @@ public class ArFindAllActivity extends ARViewActivity {
    * @param v View
    * @author @antonosterblad @linneamalcherek
    */
-  public void onButtonClick(View v){
-          finish();
-          }
+  public void onButtonClick(View v) {
+    finish();
+  }
 
   /**
    * Reset the tracking.
@@ -99,9 +98,9 @@ public class ArFindAllActivity extends ARViewActivity {
    * @param v View
    * @author @antonosterblad @linneamalcherek
    */
-  public void onResetButtonClick(View v){
+  public void onResetButtonClick(View v) {
     metaioSDK.sensorCommand("reset");
-   }
+  }
 
   /**
    * Set paths to which files to load.
@@ -110,21 +109,21 @@ public class ArFindAllActivity extends ARViewActivity {
    * @author @antonosterblad @linneamalcherek @jacobselg
    */
   @Override
-  protected void loadContents(){
+  protected void loadContents() {
     // Set path for the model/file to load
 
     mRimModel = loadModel("custom/" + articleImgUrl + "/" + articleImgUrl + ".obj");
     mVizAidModel = loadModel("custom/" + articleImgUrl + "/" + articleImgUrl + ".obj");
 
     // Set id for each models individual coordinate system
-    if(mRimModel!=null)
-    mRimModel.setCoordinateSystemID(1);
+    if (mRimModel != null)
+      mRimModel.setCoordinateSystemID(1);
 
-    if(mVizAidModel!=null)
-    mVizAidModel.setCoordinateSystemID(2);
+    if (mVizAidModel != null)
+      mVizAidModel.setCoordinateSystemID(2);
 
     // Tracking.xml defines how to track the model
-    setTrackingConfiguration("custom/"+articleImgUrl+"/Tracking.xml");
+    setTrackingConfiguration("custom/" + articleImgUrl + "/Tracking.xml");
 
   }
 
