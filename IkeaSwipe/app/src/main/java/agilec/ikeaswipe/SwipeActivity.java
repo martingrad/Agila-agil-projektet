@@ -130,7 +130,7 @@ public class SwipeActivity extends ActionBarActivity {
     }
 
     // Create the Article List Fragment using the current step
-    alf = new ArticlesListFragment(currentStep);
+    alf = ArticlesListFragment.createArticlesListFragment(currentStep);
 
     // Create a bundle with the currentStep = 0 as default, using the key "stepNumber", and
     // pass the arguments bundle to the stepByStepFragment
