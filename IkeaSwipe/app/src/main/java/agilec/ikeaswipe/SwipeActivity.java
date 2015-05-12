@@ -3,6 +3,7 @@ package agilec.ikeaswipe;
 import java.util.Arrays;
 import java.util.Locale;
 
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -118,6 +119,13 @@ public class SwipeActivity extends ActionBarActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_swipe);
 
+    if (savedInstanceState == null) {
+      FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+      SlidingTabsBasicFragment fragment = new SlidingTabsBasicFragment();
+      transaction.replace(R.id.sample_content_fragment, fragment);
+      transaction.commit();
+    }
+
     // From the beginning the application will show tha StepByStep Fragment
     int currentTab = 1;
 
@@ -144,9 +152,9 @@ public class SwipeActivity extends ActionBarActivity {
     mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
     // Set up the ViewPager with the sections adapter.
-    mViewPager = (SingleSwipeViewPager) findViewById(R.id.pager);
-    mViewPager.setAdapter(mSectionsPagerAdapter);
-    mViewPager.setCurrentItem(currentTab); // Set which tab that will be shown
+    //mViewPager = (SingleSwipeViewPager) findViewById(R.id.pager);
+    //mViewPager.setAdapter(mSectionsPagerAdapter);
+    //mViewPager.setCurrentItem(currentTab); // Set which tab that will be shown
   }
 
   /**

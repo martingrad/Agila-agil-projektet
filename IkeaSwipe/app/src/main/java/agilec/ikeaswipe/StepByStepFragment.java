@@ -38,6 +38,8 @@ public class StepByStepFragment extends Fragment {
   //The "x" and "y" position of the "Show Button" on screen.
   private Point p;
 
+  View view;
+
   /**
    * int stepNumber is used to track the current step and update the corresponding variable
    * currentStep in the parent SwipeActivity.
@@ -130,7 +132,7 @@ public class StepByStepFragment extends Fragment {
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-    final View view = inflater.inflate(R.layout.fragment_step_by_step, container, false); // Inflate the layout for this fragment
+    view = inflater.inflate(R.layout.fragment_step_by_step, container, false); // Inflate the layout for this fragment
     header = (TextView) view.findViewById(R.id.stepByStepHeader); // Define header id connection
 
     try {
@@ -284,7 +286,7 @@ public class StepByStepFragment extends Fragment {
   public void findPos() {
 
     int[] location = new int[2];
-    helpBtn = (ImageButton) getView().findViewById(R.id.stepByStepHelpButton);
+    helpBtn = (ImageButton) view.findViewById(R.id.stepByStepHelpButton);
 
     // Get the x, y location and store it in the location[] array
     // location[0] = x, location[1] = y.
