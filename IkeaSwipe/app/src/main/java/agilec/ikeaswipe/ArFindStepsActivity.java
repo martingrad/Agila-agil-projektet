@@ -2,6 +2,7 @@
 package agilec.ikeaswipe;
 
 import java.io.File;
+import java.util.Vector;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,9 +11,12 @@ import android.view.View;
 
 import com.metaio.sdk.ARViewActivity;
 import com.metaio.sdk.MetaioDebug;
+import com.metaio.sdk.jni.Camera;
+import com.metaio.sdk.jni.CameraVector;
 import com.metaio.sdk.jni.IGeometry;
 import com.metaio.sdk.jni.IMetaioSDKCallback;
 import com.metaio.sdk.jni.TrackingValuesVector;
+import com.metaio.sdk.jni.Vector2di;
 import com.metaio.tools.io.AssetsManager;
 
 public class ArFindStepsActivity extends ARViewActivity
@@ -24,6 +28,7 @@ public class ArFindStepsActivity extends ARViewActivity
    */
   private IGeometry mMetaioStep1;
   private IGeometry mMetaioStep2;
+  private IGeometry mMetaioStep3;
 
   /**
    * Metaio SDK callback handler
@@ -67,20 +72,13 @@ public class ArFindStepsActivity extends ARViewActivity
   protected void loadContents()
   {
     // Load all the geometries with its corresponding texture
-    mMetaioStep1 = loadModel("scanningsteps/objects/step_01.obj", "scanningsteps/textures/step00.png");
-    mMetaioStep2 = loadModel("scanningsteps/objects/step_02.obj", "scanningsteps/textures/step00.png");
+    mMetaioStep1 = loadModel("scanningsteps/objects/step_02.obj", "scanningsteps/textures/step00.png");
+    mMetaioStep2 = loadModel("scanningsteps/objects/step_03.obj", "scanningsteps/textures/step00.png");
+    mMetaioStep3 = loadModel("scanningsteps/objects/step_04.obj", "scanningsteps/textures/step00.png");
+
 
     //Connect a geometry to a tracking marker.
     // The coordinate ID corresponds to the patches in the XML file.
-
-    // Set id for each models individual coordinate system
-    if(mMetaioStep1 != null) {
-      mMetaioStep1.setCoordinateSystemID(1); //bind the loaded geometry to this target
-    }
-
-    if(mMetaioStep2 != null) {
-      mMetaioStep2.setCoordinateSystemID(2); //bind the loaded geometry to this target
-    }
 
     // Tracking.xml defines how to track the model
     setTrackingConfiguration("scanningsteps/TrackingData_MarkerlessFast.xml");
@@ -157,7 +155,17 @@ public class ArFindStepsActivity extends ARViewActivity
     @Override
     public void onTrackingEvent(TrackingValuesVector trackingValues)
     {
+      if(mMetaioStep1 != null) {
+        mMetaioStep1.setCoordinateSystemID(1); //bind the loaded geometry to this target
+      }
 
+      if(mMetaioStep2 != null) {
+        mMetaioStep2.setCoordinateSystemID(2); //bind the loaded geometry to this target
+      }
+
+      if(mMetaioStep3 != null) {
+        mMetaioStep3.setCoordinateSystemID(3); //bind the loaded geometry to this target
+      }
     }
 
   }
@@ -189,7 +197,27 @@ public class ArFindStepsActivity extends ARViewActivity
    */
   @Override
   protected void startCamera() {
-    super.startCamera();
-    
+    CameraVector cameras = metaioSDK.getCameraList();
+    if (!cameras.isEmpty())
+    {
+      com.metaio.sdk.jni.Camera camera = cameras.get(0);
+
+      // Try to choose the front facing camera
+      for (int i = 0; i < cameras.size(); i++)
+      {
+        if (cameras.get(i).getFacing() == Camera.FACE_BACK)
+        {
+          camera = cameras.get(i);
+          camera.setResolution(new Vector2di(1280,720)); // Use this to decide the resolution of the camera
+          break;
+        }
+      }
+
+      metaioSDK.startCamera(camera);
+    }
+    else
+    {
+      MetaioDebug.log(Log.WARN, "No camera found on the device!");
+    }
   }
 }
