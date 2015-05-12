@@ -24,6 +24,10 @@ public class ArFindStepsActivity extends ARViewActivity
    */
   private IGeometry mMetaioStep1;
   private IGeometry mMetaioStep2;
+  private IGeometry mMetaioStep3;
+  private IGeometry mMetaioStep4;
+  private IGeometry mMetaioStep5;
+  private IGeometry mMetaioStep6;
 
   /**
    * Metaio SDK callback handler
@@ -69,6 +73,10 @@ public class ArFindStepsActivity extends ARViewActivity
     // Load all the geometries with its corresponding texture
     mMetaioStep1 = loadModel("scanningsteps/objects/step_01.obj", "scanningsteps/textures/step00.png");
     mMetaioStep2 = loadModel("scanningsteps/objects/step_02.obj", "scanningsteps/textures/step00.png");
+    mMetaioStep3 = loadModel("scanningsteps/objects/step_03.obj", "scanningsteps/textures/step00.png");
+    mMetaioStep4 = loadModel("scanningsteps/objects/step_04.obj", "scanningsteps/textures/step00.png");
+    mMetaioStep5 = loadModel("scanningsteps/objects/step_05.obj", "scanningsteps/textures/step00.png");
+    mMetaioStep6 = loadModel("scanningsteps/objects/step_06.obj", "scanningsteps/textures/step00.png");
 
     //Connect a geometry to a tracking marker.
     // The coordinate ID corresponds to the patches in the XML file.
@@ -77,9 +85,20 @@ public class ArFindStepsActivity extends ARViewActivity
     if(mMetaioStep1 != null) {
       mMetaioStep1.setCoordinateSystemID(1); //bind the loaded geometry to this target
     }
-
     if(mMetaioStep2 != null) {
       mMetaioStep2.setCoordinateSystemID(2); //bind the loaded geometry to this target
+    }
+    if(mMetaioStep3 != null) {
+      mMetaioStep3.setCoordinateSystemID(3); //bind the loaded geometry to this target
+    }
+    if(mMetaioStep4 != null) {
+      mMetaioStep4.setCoordinateSystemID(4); //bind the loaded geometry to this target
+    }
+    if(mMetaioStep5 != null) {
+      mMetaioStep5.setCoordinateSystemID(5); //bind the loaded geometry to this target
+    }
+    if(mMetaioStep6 != null) {
+      mMetaioStep6.setCoordinateSystemID(6); //bind the loaded geometry to this target
     }
 
     // Tracking.xml defines how to track the model
