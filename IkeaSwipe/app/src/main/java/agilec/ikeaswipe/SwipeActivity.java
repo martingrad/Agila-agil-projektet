@@ -3,24 +3,20 @@ package agilec.ikeaswipe;
 import java.util.Arrays;
 import java.util.Locale;
 
-import android.support.v7.app.ActionBarActivity;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.widget.Toast;
+
 
 import org.json.JSONException;
 
 
-public class SwipeActivity extends ActionBarActivity {
+public class SwipeActivity extends FragmentActivity {
 
   /**
    * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -61,6 +57,7 @@ public class SwipeActivity extends ActionBarActivity {
    * The {@link ViewPager} that will host the section contents.
    */
   SingleSwipeViewPager mViewPager;
+  private SlidingTabLayout mSlidingTabLayout;
 
   /**
    * setStepNumber is called to update the current step number from the StepByStepFragment
@@ -100,6 +97,7 @@ public class SwipeActivity extends ActionBarActivity {
    * Perform initialization of all fragments and loaders.
    *
    * @param savedInstanceState
+   * @author @martingrad
    */
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -118,7 +116,7 @@ public class SwipeActivity extends ActionBarActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_swipe);
 
-    // From the beginning the application will show tha StepByStep Fragment
+    // From the beginning the application will show the StepByStep Fragment
     int currentTab = 1;
 
     // Get the intent that is created in ArFindAllActivity when a user clicks the "done" button
@@ -147,6 +145,12 @@ public class SwipeActivity extends ActionBarActivity {
     mViewPager = (SingleSwipeViewPager) findViewById(R.id.pager);
     mViewPager.setAdapter(mSectionsPagerAdapter);
     mViewPager.setCurrentItem(currentTab); // Set which tab that will be shown
+
+    // Set the sliding tabs layout from the xml and bind the viewPager to it.
+    mSlidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
+    mSlidingTabLayout.setViewPager(mViewPager);
+    // TODO: Set the color of selectedIndicator. The line below does not seem to do... =(
+    //mSlidingTabLayout.setSelectedIndicatorColors(R.color.blue);
   }
 
   /**
