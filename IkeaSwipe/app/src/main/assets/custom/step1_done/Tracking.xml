@@ -106,9 +106,9 @@
                                 <!-- If "true" points are checked for self-occlusion with the surface model. Use for full line models that may have occluded lines. Warning: Expensive for complex surface models. -->
                                 <Enabled>true</Enabled>
                                 <!-- Test rate for visibility test in [0.001, 1.0]. A Reduction of 90% (0.1) comes at ~ 95% accuracy. -->
-                                <TestRate>0.2</TestRate>
+                                <TestRate>0.1</TestRate>
                                 <!-- Multiplicative depth offset for visibility test around 1.0 (no offset) in relative distance-to-point. A value bigger than 1.0 will make points visible that are further behind an occluding surface. -->
-                                <!-- <DepthBias>1.7</DepthBias> -->
+                                <DepthBias>1.7</DepthBias>
                             </VisibilityTest>
 
                             <!-- Advanced parameters -->
