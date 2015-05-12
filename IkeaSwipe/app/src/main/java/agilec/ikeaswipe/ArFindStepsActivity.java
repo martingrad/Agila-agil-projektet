@@ -85,8 +85,8 @@ public class ArFindStepsActivity extends ARViewActivity
       mMetaioStep1 = loadModel("scanningsteps/objects/step_01.obj", "scanningsteps/textures/step00.png");
       mMetaioStep2 = loadModel("scanningsteps/objects/step_02.obj", "scanningsteps/textures/step00.png");
       mMetaioStep3 = loadModel("scanningsteps/objects/step_03.obj", "scanningsteps/textures/step00.png");
-      mMetaioStep4 = loadModel("scanningsteps/objects/step_02.obj", "scanningsteps/textures/step00.png");
-      mMetaioStep5 = loadModel("scanningsteps/objects/step_02.obj", "scanningsteps/textures/step00.png");
+      mMetaioStep4 = loadModel("scanningsteps/objects/step_04.obj", "scanningsteps/textures/step00.png");
+      mMetaioStep5 = loadModel("scanningsteps/objects/step_05.obj", "scanningsteps/textures/step00.png");
       mMetaioStep6 = loadModel("scanningsteps/objects/step_02.obj", "scanningsteps/textures/step00.png");
 
       System.out.println("****** Application context????????" + trackingConfigFile);
