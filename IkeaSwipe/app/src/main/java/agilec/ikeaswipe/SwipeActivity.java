@@ -95,6 +95,7 @@ public class SwipeActivity extends FragmentActivity {
 
   /**
    * Perform initialization of all fragments and loaders.
+   *
    * @param savedInstanceState
    * @author @martingrad
    */
@@ -161,7 +162,7 @@ public class SwipeActivity extends FragmentActivity {
    */
   @Override
   public void onWindowFocusChanged(boolean hasFocus) {
-    if(hasFocus) {
+    if (hasFocus) {
       stepFragment.findPos();
     }
   }
