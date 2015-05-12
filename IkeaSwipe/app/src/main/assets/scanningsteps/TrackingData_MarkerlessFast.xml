@@ -133,8 +133,8 @@
 			<SensorCOS>
 				<SensorCosID>Patch2</SensorCosID>
 				<Parameters>
-                    <!-- OBS step3_blur.png-->
-					<ReferenceImage>step3_blur.png</ReferenceImage>
+                    <!-- OBS step3_blur2.png-->
+					<ReferenceImage>step3_blur2.png</ReferenceImage>
 					<SimilarityThreshold>0.3</SimilarityThreshold>
 				</Parameters>
 			</SensorCOS>

@@ -25,11 +25,6 @@ public class ArFindStepsActivity extends ARViewActivity
   private IGeometry mMetaioStep3;
 
   /**
-   * Currently loaded tracking configuration file
-   */
-  File trackingConfigFile;
-
-  /**
    * Metaio SDK callback handler
    */
   private MetaioSDKCallbackHandler mCallbackHandler;
@@ -72,9 +67,9 @@ public class ArFindStepsActivity extends ARViewActivity
       // Load the desired tracking configuration
       AssetsManager.extractAllAssets(this, true);
       System.out.println("******* Försöker läsa in trackingCongigFile");
-      trackingConfigFile = AssetsManager.getAssetPathAsFile(getApplicationContext(), "scanningsteps/TrackingData_MarkerlessFast.xml");
-      String temp = AssetsManager.getAssetPath(getApplicationContext(),"scanningsteps/TrackingData_MarkerlessFast.xml");
+      final File trackingConfigFile = AssetsManager.getAssetPathAsFile(getApplicationContext(), "scanningsteps/TrackingData_MarkerlessFast.xml");
 
+      System.out.println("****** Application context????????" + trackingConfigFile);
       System.out.println("****** Misslyckades jag????????");
       final boolean result = metaioSDK.setTrackingConfiguration(trackingConfigFile);
       System.out.println("*******  kallar på trackingConfigFile !!!!!");
@@ -83,6 +78,8 @@ public class ArFindStepsActivity extends ARViewActivity
       // Load all the geometries. First - Model
       final File metaioObject2 = AssetsManager.getAssetPathAsFile(getApplicationContext(), "scanningsteps/step_00.obj");
       final File metaioObject3 = AssetsManager.getAssetPathAsFile(getApplicationContext(), "scanningsteps/step_01.obj");
+
+      System.out.println("****** Application context????????" + trackingConfigFile);
 
       // For step 2
       if (metaioObject2 != null)
