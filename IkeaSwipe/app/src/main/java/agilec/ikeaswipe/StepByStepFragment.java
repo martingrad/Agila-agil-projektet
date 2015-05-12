@@ -130,7 +130,6 @@ public class StepByStepFragment extends Fragment {
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-    System.out.println("**********I oncreateView in stepBystepFragment");
     final View view = inflater.inflate(R.layout.fragment_step_by_step, container, false); // Inflate the layout for this fragment
     header = (TextView) view.findViewById(R.id.stepByStepHeader); // Define header id connection
 
@@ -281,6 +280,7 @@ public class StepByStepFragment extends Fragment {
    * because at that stage most probably the view isn't drawn yet, so it will return (0, 0))
    *
    * The function will be run from SwipeActivity when onWindowFocusChanged return true
+   * @author @antonosterblad
    */
   public void findPos() {
 
@@ -298,6 +298,13 @@ public class StepByStepFragment extends Fragment {
 
   }
 
+  /**
+   * Displays pop up and it's contents
+   * @param context Context
+   * @param p Point for help buttons position
+   *
+   * @author @antonosterblad @ingelhag @emmaforsling
+   */
   // The method that displays the popup.
   private void showPopup(final Activity context, Point p) {
     findPos();
@@ -334,9 +341,6 @@ public class StepByStepFragment extends Fragment {
 
       @Override
       public void onClick(View v) {
-        // testing to do some stuff
-        // @author emmaforsling
-        System.out.println("Open AR Help");
         Intent arIntent = new Intent(getActivity(), ArFindStepsActivity.class);
         arIntent.putExtra("currentTab",1);
         startActivity(arIntent);
@@ -353,11 +357,8 @@ public class StepByStepFragment extends Fragment {
 
       @Override
       public void onClick(View v) {
-        System.out.println("Open AR Check Complete step");
         Intent arIntent = new Intent(getActivity(), ArFindAllActivity.class);
         Step currentStep = stepHandler.getSteps().get(stepNumber);
-
-        System.out.println("Open step:" + currentStep.getTitle());
 
         arIntent.putExtra("article", currentStep.getCompleteModelUrl());
         arIntent.putExtra("currentTab", 1);

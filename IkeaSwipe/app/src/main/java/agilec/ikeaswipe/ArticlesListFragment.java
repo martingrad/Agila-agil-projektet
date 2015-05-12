@@ -32,12 +32,15 @@ public class ArticlesListFragment extends ListFragment {
 
   /**
    * Default constructor, fragment constructor should always be empty
+   *
    * @author @marcusnygren
    */
-  public ArticlesListFragment() { }
+  public ArticlesListFragment() {
+  }
 
   /**
    * onCreate method is executed before onCreateView, used to save default data
+   *
    * @param savedInstanceState bundle created from createArticlesListFragment
    * @author @marcusnygren
    */
@@ -50,6 +53,7 @@ public class ArticlesListFragment extends ListFragment {
   /**
    * Factory method to create an ArticleListFragment, with theCurrentStep passed in.
    * Saves the current step into a bundle which is then used when creating the new fragment.
+   *
    * @param theCurrentStep
    * @return
    */

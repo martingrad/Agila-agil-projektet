@@ -15,8 +15,7 @@ import com.metaio.sdk.jni.IMetaioSDKCallback;
 import com.metaio.sdk.jni.TrackingValuesVector;
 import com.metaio.tools.io.AssetsManager;
 
-public class ArFindStepsActivity extends ARViewActivity
-{
+public class ArFindStepsActivity extends ARViewActivity {
 
 
   /**
@@ -31,16 +30,14 @@ public class ArFindStepsActivity extends ARViewActivity
   private MetaioSDKCallbackHandler mCallbackHandler;
 
   @Override
-  public void onCreate(Bundle savedInstanceState)
-  {
+  public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     Intent intent = getIntent();
     mCallbackHandler = new MetaioSDKCallbackHandler();
   }
 
   @Override
-  protected void onDestroy()
-  {
+  protected void onDestroy() {
     super.onDestroy();
     mCallbackHandler.delete();
     mCallbackHandler = null;
@@ -48,24 +45,22 @@ public class ArFindStepsActivity extends ARViewActivity
 
 
   @Override
-  protected int getGUILayout()
-  {
+  protected int getGUILayout() {
     return R.layout.activity_ar_view_find_steps;
   }
 
-  public void onButtonClick(View v)
-  {
+  public void onButtonClick(View v) {
     finish();
   }
 
   /**
    * This function loads the tracking file, which contains the images which are used as trackers.
    * This function then loads the geometries which shall be used for each tracker.
+   *
    * @author @emmaforsling @marcusnygren
    */
   @Override
-  protected void loadContents()
-  {
+  protected void loadContents() {
     // Load all the geometries with its corresponding texture
     mMetaioStep1 = loadModel("scanningsteps/objects/step_01.obj", "scanningsteps/textures/step00.png");
     mMetaioStep2 = loadModel("scanningsteps/objects/step_02.obj", "scanningsteps/textures/step00.png");
@@ -74,11 +69,11 @@ public class ArFindStepsActivity extends ARViewActivity
     // The coordinate ID corresponds to the patches in the XML file.
 
     // Set id for each models individual coordinate system
-    if(mMetaioStep1 != null) {
+    if (mMetaioStep1 != null) {
       mMetaioStep1.setCoordinateSystemID(1); //bind the loaded geometry to this target
     }
 
-    if(mMetaioStep2 != null) {
+    if (mMetaioStep2 != null) {
       mMetaioStep2.setCoordinateSystemID(2); //bind the loaded geometry to this target
     }
 
@@ -117,33 +112,26 @@ public class ArFindStepsActivity extends ARViewActivity
   }
 
   @Override
-  protected void onGeometryTouched(IGeometry geometry)
-  {
+  protected void onGeometryTouched(IGeometry geometry) {
     // TODO Auto-generated method stub
   }
 
   /**
-   *
    * @return
    */
   @Override
-  protected IMetaioSDKCallback getMetaioSDKCallbackHandler()
-  {
+  protected IMetaioSDKCallback getMetaioSDKCallbackHandler() {
     return mCallbackHandler;
   }
 
-  final class MetaioSDKCallbackHandler extends IMetaioSDKCallback
-  {
+  final class MetaioSDKCallbackHandler extends IMetaioSDKCallback {
 
     @Override
-    public void onSDKReady()
-    {
+    public void onSDKReady() {
       // show GUI
-      runOnUiThread(new Runnable()
-      {
+      runOnUiThread(new Runnable() {
         @Override
-        public void run()
-        {
+        public void run() {
           mGUIView.setVisibility(View.VISIBLE);
         }
       });
@@ -151,12 +139,12 @@ public class ArFindStepsActivity extends ARViewActivity
 
     /**
      * onTrackingEvent can be used to determine if an object has been identified
+     *
      * @param trackingValues
      * @author @emmaforsling @marcusnygren
      */
     @Override
-    public void onTrackingEvent(TrackingValuesVector trackingValues)
-    {
+    public void onTrackingEvent(TrackingValuesVector trackingValues) {
 
     }
 
@@ -185,11 +173,12 @@ public class ArFindStepsActivity extends ARViewActivity
 
   /**
    * This function can be used to manipulate the camera in Metaio
+   *
    * @user @marcusnygren
    */
   @Override
   protected void startCamera() {
     super.startCamera();
-    
+
   }
 }

@@ -192,7 +192,6 @@ public class ArFindAllActivity extends ARViewActivity {
           if (foundObject) {
             // If the object is found this is displayed on the screen with toast.
             if (v.getCoordinateSystemID() == 1) {
-              System.out.println("Object found!");
               runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -217,7 +216,6 @@ public class ArFindAllActivity extends ARViewActivity {
             }
           } else {
             // If the object is lost this is displayed on the screen with toast.
-            System.out.println("Object lost!");
             runOnUiThread(new Runnable() {
               @Override
               public void run() {
@@ -289,7 +287,7 @@ public class ArFindAllActivity extends ARViewActivity {
    */
   private void returnToSwipeActivity(String objectFound) {
     Intent i = new Intent(getApplicationContext(), SwipeActivity.class);
-    if(currentTab == 0) { // If the user comes from ArticlesListFragment
+    if (currentTab == 0) { // If the user comes from ArticlesListFragment
       i.putExtra("objectFound", objectFound);
     } else { // If the user comes from StepByStepFragment
       i.putExtra("completeModel", objectFound);

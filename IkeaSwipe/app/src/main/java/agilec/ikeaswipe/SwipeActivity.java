@@ -158,7 +158,7 @@ public class SwipeActivity extends ActionBarActivity {
    */
   @Override
   public void onWindowFocusChanged(boolean hasFocus) {
-    if(hasFocus) {
+    if (hasFocus) {
       stepFragment.findPos();
     }
   }
