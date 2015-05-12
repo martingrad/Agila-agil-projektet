@@ -338,6 +338,7 @@ public class StepByStepFragment extends Fragment {
         // @author emmaforsling
         System.out.println("Open AR Help");
         Intent arIntent = new Intent(getActivity(), ArFindStepsActivity.class);
+        arIntent.putExtra("currentTab",1);
         startActivity(arIntent);
 
       }
