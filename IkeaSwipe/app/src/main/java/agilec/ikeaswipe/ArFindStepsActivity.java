@@ -91,7 +91,7 @@ public class ArFindStepsActivity extends ARViewActivity
       mMetaioStep3 = loadModel("scanningsteps/objects/step_03.obj", "scanningsteps/textures/step00.png");
       mMetaioStep4 = loadModel("scanningsteps/objects/step_02.obj", "scanningsteps/textures/step00.png");
       mMetaioStep5 = loadModel("scanningsteps/objects/step_02.obj", "scanningsteps/textures/step00.png");
-      mMetaioStep6 = loadModel("scanningsteps/objects/step_02.obj", "scanningsteps/textures/step00.png");
+      mMetaioStep6 = loadModel("scanningsteps/objects/step_06.obj", "scanningsteps/textures/step00.png");
 
       System.out.println("****** Application context????????" + trackingConfigFile);
 
@@ -169,21 +169,14 @@ public class ArFindStepsActivity extends ARViewActivity
       // if we detect any target, we bind the loaded geometry to this target
       if(mMetaioStep2 != null)
       {
-        //for (int i=0; i<trackingValues.size(); i++)
-        //{
-        //final TrackingValues tv = trackingValues.get(i);
-        //if (tv.isTrackingState())
-        //{
-        //mMetaioStep2.setCoordinateSystemID(tv.getCoordinateSystemID());
         mMetaioStep2.setCoordinateSystemID(1);
-//						break;
-//					}
-//				}
       }
       if(mMetaioStep3!=null){
         mMetaioStep3.setCoordinateSystemID(2);
       }
-
+      if(mMetaioStep6!=null){
+        mMetaioStep6.setCoordinateSystemID(3);
+      }
 
     }
 
