@@ -13,7 +13,7 @@
         {
             "step":                 "1",
             "title":                "Steg 1",
-            "imgUrl":               "step1_scaled",
+            "imgUrl":               "step1_lowres",
             "checkbarButtonUrl":    "step1",
             "completeModelUrl":     "step1_done",
             "checked":              "false",
