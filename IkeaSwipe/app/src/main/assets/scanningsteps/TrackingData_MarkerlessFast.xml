@@ -122,7 +122,7 @@
 							specified for the sensor. 
 							This parameter is for expert usage only. In general 
 							it is advised to leave the value unchanged. -->
-					<SimilarityThreshold>0.5</SimilarityThreshold>
+					<SimilarityThreshold>0.3</SimilarityThreshold>
 
 				</Parameters>
 			</SensorCOS>
@@ -135,7 +135,7 @@
 				<Parameters>
                     <!-- OBS step3_blur.png-->
 					<ReferenceImage>step3_blur.png</ReferenceImage>
-					<SimilarityThreshold>0.5</SimilarityThreshold>
+					<SimilarityThreshold>0.3</SimilarityThreshold>
 				</Parameters>
 			</SensorCOS>
 
