@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +21,6 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * List containing all the IKEA items. Used in the ListView.
  */
@@ -30,8 +30,41 @@ public class ArticlesListFragment extends ListFragment {
   ListAdapter ourAdapter = null;
   private int currentStep = 0;
 
-  public ArticlesListFragment(int theCurrentStep) {
-    currentStep = theCurrentStep;
+  /**
+   * Default constructor, fragment constructor should always be empty
+   *
+   * @author @marcusnygren
+   */
+  public ArticlesListFragment() {
+  }
+
+  /**
+   * onCreate method is executed before onCreateView, used to save default data
+   *
+   * @param savedInstanceState bundle created from createArticlesListFragment
+   * @author @marcusnygren
+   */
+  @Override
+  public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    currentStep = getArguments().getInt("theCurrentStep");
+  }
+
+  /**
+   * Factory method to create an ArticleListFragment, with theCurrentStep passed in.
+   * Saves the current step into a bundle which is then used when creating the new fragment.
+   *
+   * @param theCurrentStep
+   * @return
+   */
+  public static ArticlesListFragment createArticlesListFragment(int theCurrentStep) {
+    Bundle bundle = new Bundle();
+    bundle.putInt("theCurrentStep", theCurrentStep);
+
+    ArticlesListFragment newFragment = new ArticlesListFragment();
+    newFragment.setArguments(bundle);
+
+    return newFragment;
   }
 
   /**
