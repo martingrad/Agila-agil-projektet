@@ -3,6 +3,8 @@ package agilec.ikeaswipe;
 import java.util.Arrays;
 import java.util.Locale;
 
+import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,11 +15,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.ImageButton;
 
 import org.json.JSONException;
 
 
-public class SplashActivity extends ActionBarActivity {
+public class SplashActivity extends FragmentActivity {
 
 
   SectionsPagerAdapter mSectionsPagerAdapter;
@@ -41,9 +46,9 @@ public class SplashActivity extends ActionBarActivity {
    */
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_splash);
+
 
     // Create the adapter that will return a fragment for each of the three
     // primary sections of the activity.
@@ -52,41 +57,9 @@ public class SplashActivity extends ActionBarActivity {
     // Set up the ViewPager with the sections adapter.
     mViewPager = (SingleSwipeViewPager) findViewById(R.id.pagerSplash);
     mViewPager.setAdapter(mSectionsPagerAdapter);
+    mViewPager.setCurrentItem(1);
   }
 
-  /**
-   * Initialize the contents of the Activity's standard options menu.
-   *
-   * @param menu
-   * @return true
-   */
-  @Override
-  public boolean onCreateOptionsMenu(Menu menu) {
-    // Inflate the menu; this adds items to the action bar if it is present.
-    getMenuInflater().inflate(R.menu.menu_swipe, menu);
-    return true;
-  }
-
-  /**
-   * This hook is called whenever an item in your options menu is selected.
-   *
-   * @param item
-   * @return
-   */
-  @Override
-  public boolean onOptionsItemSelected(MenuItem item) {
-    // Handle action bar item clicks here. The action bar will
-    // automatically handle clicks on the Home/Up button, so long
-    // as you specify a parent activity in AndroidManifest.xml.
-    int id = item.getItemId();
-
-    //noinspection SimplifiableIfStatement
-    if (id == R.id.action_settings) {
-      return true;
-    }
-
-    return super.onOptionsItemSelected(item);
-  }
 
   /**
    * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -126,27 +99,7 @@ public class SplashActivity extends ActionBarActivity {
     @Override
     public int getCount() {
       // Show 3 total pages.
-      return 2;
-    }
-
-    /**
-     * This method may be called by the ViewPager to obtain a title string to describe the specified page.
-     *
-     * @param position
-     * @return
-     */
-    @Override
-    public CharSequence getPageTitle(int position) {
-      Locale l = Locale.getDefault();
-      switch (position) {
-        case 0:
-          return getString(R.string.title_section1).toUpperCase(l);
-        case 1:
-          return getString(R.string.title_section2).toUpperCase(l);
-        case 2:
-          return getString(R.string.title_section3).toUpperCase(l);
-      }
-      return null;
+      return 3;
     }
   }
 
@@ -154,16 +107,59 @@ public class SplashActivity extends ActionBarActivity {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+      final View view = inflater.inflate(R.layout.splash_screen_1, container, false); // Inflate the layout for this fragment
+
+      ImageButton button = (ImageButton) view.findViewById(R.id.backToSwipe1);
+      button.setOnClickListener(new View.OnClickListener() {
+        public void onClick(View v) {
+          System.out.println("Go to swipe from step 1");
+          Intent i = new Intent(getApplicationContext(), SwipeActivity.class);
+          startActivity(i);
+        }
+      });
+
       // Inflate the layout for this fragment
-      return inflater.inflate(R.layout.splash_screen_1, container, false);
+      return view;
     }
   }
+
   private class SplashScreenTwo extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+      final View view = inflater.inflate(R.layout.splash_screen_2, container, false); // Inflate the layout for this fragment
+
+      ImageButton button = (ImageButton) view.findViewById(R.id.backToSwipe2);
+      button.setOnClickListener(new View.OnClickListener() {
+        public void onClick(View v) {
+          System.out.println("Go to swipe from step 2");
+          Intent i = new Intent(getApplicationContext(), SwipeActivity.class);
+          startActivity(i);
+        }
+      });
+
       // Inflate the layout for this fragment
-      return inflater.inflate(R.layout.splash_screen_2, container, false);
+      return view;
+    }
+  }
+
+  private class SplashScreenThree extends Fragment {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+      final View view = inflater.inflate(R.layout.splash_screen_3, container, false); // Inflate the layout for this fragment
+
+      ImageButton button = (ImageButton) view.findViewById(R.id.backToSwipe3);
+      button.setOnClickListener(new View.OnClickListener() {
+        public void onClick(View v) {
+          System.out.println("Go to swipe from step 3");
+          Intent i = new Intent(getApplicationContext(), SwipeActivity.class);
+          startActivity(i);
+        }
+      });
+
+      // Inflate the layout for this fragment
+      return view;
     }
   }
 }
