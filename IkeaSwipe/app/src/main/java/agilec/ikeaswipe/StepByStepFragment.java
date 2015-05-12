@@ -130,6 +130,7 @@ public class StepByStepFragment extends Fragment {
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+    System.out.println("**********I oncreateView in stepBystepFragment");
     final View view = inflater.inflate(R.layout.fragment_step_by_step, container, false); // Inflate the layout for this fragment
     header = (TextView) view.findViewById(R.id.stepByStepHeader); // Define header id connection
 

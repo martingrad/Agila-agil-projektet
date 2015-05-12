@@ -114,7 +114,7 @@
 							image. 
 							These parameters are not required and are intended 
 							for expert use only. -->
-					<ReferenceImage>step2_blur3.png</ReferenceImage>
+					<ReferenceImage>step2_blur4.png</ReferenceImage>
 					<!-- <ReferenceImage WidthMM="100" HeightMM="100">metaioman_target.png</ReferenceImage> -->
 
 					<!--	Another similarity threshold can be specified here. 

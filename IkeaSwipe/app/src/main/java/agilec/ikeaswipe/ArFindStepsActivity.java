@@ -72,6 +72,7 @@ public class ArFindStepsActivity extends ARViewActivity
       // Load the desired tracking configuration
       System.out.println("******* Försöker läsa in trackingCongigFile");
       trackingConfigFile = AssetsManager.getAssetPathAsFile(getApplicationContext(), "scanningsteps/TrackingData_MarkerlessFast.xml");
+
       System.out.println("****** Misslyckades jag????????");
       final boolean result = metaioSDK.setTrackingConfiguration(trackingConfigFile);
       System.out.println("*******  kallar på trackingConfigFile !!!!!");
