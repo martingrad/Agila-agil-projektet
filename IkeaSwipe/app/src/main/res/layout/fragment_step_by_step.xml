@@ -4,6 +4,65 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="8dp">
+
+        <TextView
+            android:id="@+id/stepByStepHeader"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:fontFamily="Verdana"
+            android:gravity="center_vertical"
+            android:paddingBottom="10dp"
+            android:paddingLeft="15dp"
+            android:singleLine="false"
+            android:text="@string/sbsTitle"
+            android:textColor="@color/black"
+            android:textIsSelectable="true"
+            android:textSize="35sp"
+            android:textStyle="bold"/>
+
+        <ImageButton
+            android:id="@+id/stepByStepHelpButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/helpButton"
+            android:paddingBottom="10dp"
+            android:src="@drawable/ic_action_help"/>
+
+        <ImageButton
+            android:id="@+id/completedStepButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginStart="10dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/checkButton"
+            android:paddingBottom="10dp"
+            android:src="@drawable/ic_action_done_before"/>
+
+    </LinearLayout>
+
+
+    <View
+        android:id="@+id/linearLayout2"
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/linearLayout"
+        android:background="@color/black"
+        android:paddingBottom="8dp"/>
+
+
     <ImageView
         android:id="@+id/steps"
         android:layout_width="match_parent"
@@ -13,87 +72,74 @@
         android:scaleType="fitCenter"
         android:src="@drawable/kritter_not_vector"/>
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                      xmlns:tools="http://schemas.android.com/tools"
-                      android:layout_width="wrap_content"
-                      android:layout_height="match_parent"
-                      android:layout_alignParentRight="true"
-                      android:orientation="vertical"
-                      android:weightSum="7"
-                      tools:context=".StepByStepFragment">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:tools="http://schemas.android.com/tools"
+                  android:layout_width="wrap_content"
+                  android:layout_height="match_parent"
+                  android:layout_alignParentEnd="true"
+                  android:layout_alignParentRight="true"
+                  android:layout_below="@+id/linearLayout2"
+                  android:orientation="vertical"
+                  android:weightSum="7"
+                  tools:context=".StepByStepFragment">
 
-            <Button
-                android:id="@+id/step0"
-                android:layout_width="20dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="fill_vertical"
-                android:layout_marginBottom="3dp"
-                android:layout_weight="1"
-                android:background="@color/grey"/>
-
-            <Button
-                android:id="@+id/step1"
-                android:layout_width="20dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="3dp"
-                android:layout_weight="1"
-                android:background="@color/greyOpacity"/>
-
-            <Button
-                android:id="@+id/step2"
-                android:layout_width="20dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="3dp"
-                android:layout_weight="1"
-                android:background="@color/greyOpacity"/>
-
-            <Button
-                android:id="@+id/step3"
-                android:layout_width="20dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="3dp"
-                android:layout_weight="1"
-                android:background="@color/greyOpacity"/>
-
-            <Button
-                android:id="@+id/step4"
-                android:layout_width="20dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="3dp"
-                android:layout_weight="1"
-                android:background="@color/greyOpacity"/>
-
-            <Button
-                android:id="@+id/step5"
-                android:layout_width="20dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="3dp"
-                android:layout_weight="1"
-                android:background="@color/greyOpacity"/>
-
-            <Button
-                android:id="@+id/step6"
-                android:layout_width="20dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@color/greyOpacity"/>
-
-        </LinearLayout>
-
-        <ImageButton
-            android:id="@+id/completedStepButton"
-            android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/step0"
+            android:layout_width="20dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:background="@android:color/transparent"
-            android:src="@drawable/done_before"/>
+            android:layout_gravity="fill_vertical"
+            android:layout_marginBottom="3dp"
+            android:layout_weight="1"
+            android:background="@color/grey"/>
 
-    </RelativeLayout>
+        <Button
+            android:id="@+id/step1"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:layout_weight="1"
+            android:background="@color/greyOpacity"/>
+
+        <Button
+            android:id="@+id/step2"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:layout_weight="1"
+            android:background="@color/greyOpacity"/>
+
+        <Button
+            android:id="@+id/step3"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:layout_weight="1"
+            android:background="@color/greyOpacity"/>
+
+        <Button
+            android:id="@+id/step4"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:layout_weight="1"
+            android:background="@color/greyOpacity"/>
+
+        <Button
+            android:id="@+id/step5"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:layout_weight="1"
+            android:background="@color/greyOpacity"/>
+
+        <Button
+            android:id="@+id/step6"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/greyOpacity"/>
+
+    </LinearLayout>
 
 </RelativeLayout>
