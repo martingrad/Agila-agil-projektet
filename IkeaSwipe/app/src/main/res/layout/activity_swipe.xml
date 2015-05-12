@@ -5,32 +5,17 @@
     android:layout_height="match_parent"
     android:id="@+id/sample_main_layout">
 
-    <ViewAnimator
-        android:id="@+id/sample_output"
+    <agilec.ikeaswipe.SlidingTabLayout
         android:layout_width="match_parent"
-        android:layout_height="0px"
-        android:layout_weight="1">
+        android:layout_height="48dp"
+        android:id="@+id/sliding_tabs"/>
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"></TextView>
-        </ScrollView>
-
-    </ViewAnimator>
-
-    <View
+    <agilec.ikeaswipe.SingleSwipeViewPager
+        android:id="@+id/pager"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray" />
-
-    <FrameLayout
-        android:id="@+id/sample_content_fragment"
-        android:layout_weight="2"
-        android:layout_width="match_parent"
-        android:layout_height="0px" />
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        tools:context=".SwipeActivity"/>
 
 </LinearLayout>

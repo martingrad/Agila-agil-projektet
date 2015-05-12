@@ -34,7 +34,6 @@ import android.widget.TextView;
  * when scrolling.
  */
 public class SlidingTabsBasicFragment extends Fragment {
-
   static final String LOG_TAG = "SlidingTabsBasicFragment";
 
   /**
@@ -77,6 +76,8 @@ public class SlidingTabsBasicFragment extends Fragment {
     // it's PagerAdapter set.
     mSlidingTabLayout = (SlidingTabLayout) view.findViewById(R.id.sliding_tabs);
     mSlidingTabLayout.setViewPager(mViewPager);
+    System.out.println("Nu har jag satt viewpager till " + mViewPager);
+
   }
 
   /**
@@ -92,7 +93,7 @@ public class SlidingTabsBasicFragment extends Fragment {
      */
     @Override
     public int getCount() {
-      return 10;
+      return 3;
     }
 
     /**

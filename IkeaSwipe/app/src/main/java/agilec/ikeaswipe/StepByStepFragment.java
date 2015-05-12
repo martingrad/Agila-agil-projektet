@@ -284,7 +284,7 @@ public class StepByStepFragment extends Fragment {
   public void findPos() {
 
     int[] location = new int[2];
-    helpBtn = (ImageButton) getView().findViewById(R.id.stepByStepHelpButton);
+    helpBtn = (ImageButton) getActivity().findViewById(R.id.stepByStepHelpButton);
 
     // Get the x, y location and store it in the location[] array
     // location[0] = x, location[1] = y.
