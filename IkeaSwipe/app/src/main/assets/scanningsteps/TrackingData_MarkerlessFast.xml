@@ -123,7 +123,7 @@
 							specified for the sensor. 
 							This parameter is for expert usage only. In general 
 							it is advised to leave the value unchanged. -->
-					<SimilarityThreshold>0.3</SimilarityThreshold>
+					<SimilarityThreshold>0.5</SimilarityThreshold>
 
 				</Parameters>
 			</SensorCOS>
@@ -428,7 +428,7 @@
             <Fuser Type="BestQualityFuser">
                 <Parameters>
                     <KeepPoseForNumberOfFrames>2</KeepPoseForNumberOfFrames>
-                    x	<GravityAssistance></GravityAssistance>
+                    <GravityAssistance></GravityAssistance>
                     <AlphaTranslation>0.8</AlphaTranslation>
                     <GammaTranslation>0.8</GammaTranslation>
                     <AlphaRotation>0.5</AlphaRotation>
@@ -522,7 +522,7 @@
             <Fuser Type="BestQualityFuser">
                 <Parameters>
                     <KeepPoseForNumberOfFrames>2</KeepPoseForNumberOfFrames>
-                    x	<GravityAssistance></GravityAssistance>
+                    <GravityAssistance></GravityAssistance>
                     <AlphaTranslation>0.8</AlphaTranslation>
                     <GammaTranslation>0.8</GammaTranslation>
                     <AlphaRotation>0.5</AlphaRotation>
