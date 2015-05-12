@@ -114,7 +114,7 @@
 							image. 
 							These parameters are not required and are intended 
 							for expert use only. -->
-					<ReferenceImage>step2_blur4.png</ReferenceImage>
+					<ReferenceImage>markers/step2_blur4.png</ReferenceImage>
 					<!-- <ReferenceImage WidthMM="100" HeightMM="100">metaioman_target.png</ReferenceImage> -->
 
 					<!--	Another similarity threshold can be specified here. 
@@ -134,7 +134,7 @@
 				<SensorCosID>Patch2</SensorCosID>
 				<Parameters>
                     <!-- OBS step3_blur2.png-->
-					<ReferenceImage>step3_blur2.png</ReferenceImage>
+					<ReferenceImage>markers/step3_blur2.png</ReferenceImage>
 					<SimilarityThreshold>0.3</SimilarityThreshold>
 				</Parameters>
 			</SensorCOS>

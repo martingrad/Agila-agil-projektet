@@ -18,11 +18,16 @@ import com.metaio.tools.io.AssetsManager;
 public class ArFindStepsActivity extends ARViewActivity
 {
 
+
   /**
    * Reference to loaded metaioman geometry
    */
+  private IGeometry mMetaioStep1;
   private IGeometry mMetaioStep2;
   private IGeometry mMetaioStep3;
+  private IGeometry mMetaioStep4;
+  private IGeometry mMetaioStep5;
+  private IGeometry mMetaioStep6;
 
   /**
    * Metaio SDK callback handler
@@ -46,6 +51,7 @@ public class ArFindStepsActivity extends ARViewActivity
     mCallbackHandler = null;
   }
 
+
   @Override
   protected int getGUILayout()
   {
@@ -57,6 +63,10 @@ public class ArFindStepsActivity extends ARViewActivity
     finish();
   }
 
+  /**
+   * This functin loads the tracking file, which contains the images which are used as trackers.
+   * This function then loads the geometries which shall be used for each tracker.
+   */
   @Override
   protected void loadContents()
   {
@@ -66,51 +76,20 @@ public class ArFindStepsActivity extends ARViewActivity
     {
       // Load the desired tracking configuration
       AssetsManager.extractAllAssets(this, true);
-      System.out.println("******* Försöker läsa in trackingCongigFile");
       final File trackingConfigFile = AssetsManager.getAssetPathAsFile(getApplicationContext(), "scanningsteps/TrackingData_MarkerlessFast.xml");
 
-      System.out.println("****** Application context????????" + trackingConfigFile);
-      System.out.println("****** Misslyckades jag????????");
       final boolean result = metaioSDK.setTrackingConfiguration(trackingConfigFile);
-      System.out.println("*******  kallar på trackingConfigFile !!!!!");
       MetaioDebug.log("Tracking configuration loaded: " + result);
 
-      // Load all the geometries. First - Model
-      final File metaioObject2 = AssetsManager.getAssetPathAsFile(getApplicationContext(), "scanningsteps/step_00.obj");
-      final File metaioObject3 = AssetsManager.getAssetPathAsFile(getApplicationContext(), "scanningsteps/step_01.obj");
+      // Load all the geometries with its corresponding texture
+      mMetaioStep1 = loadModel("scanningsteps/objects/step_01.obj", "scanningsteps/textures/step00.png");
+      mMetaioStep2 = loadModel("scanningsteps/objects/step_02.obj", "scanningsteps/textures/step00.png");
+      mMetaioStep3 = loadModel("scanningsteps/objects/step_03.obj", "scanningsteps/textures/step00.png");
+      mMetaioStep4 = loadModel("scanningsteps/objects/step_02.obj", "scanningsteps/textures/step00.png");
+      mMetaioStep5 = loadModel("scanningsteps/objects/step_02.obj", "scanningsteps/textures/step00.png");
+      mMetaioStep6 = loadModel("scanningsteps/objects/step_02.obj", "scanningsteps/textures/step00.png");
 
       System.out.println("****** Application context????????" + trackingConfigFile);
-
-      // For step 2
-      if (metaioObject2 != null)
-      {
-        mMetaioStep2 = metaioSDK.createGeometry(metaioObject2);
-        mMetaioStep2.setTexture(AssetsManager.getAssetPathAsFile(getApplicationContext(), "scanningsteps/step00.png"));
-        if (mMetaioStep2 != null)
-        {
-          // Set geometry properties
-          mMetaioStep2.setScale(50f);
-          MetaioDebug.log("Loaded geometry "+mMetaioStep2);
-        }
-        else
-          MetaioDebug.log(Log.ERROR, "Error loading geometry: "+mMetaioStep2);
-      }
-
-      // For step 3
-      if (metaioObject3 != null)
-      {
-        mMetaioStep3 = metaioSDK.createGeometry(metaioObject3);
-        //mMetaioStep2.setTexture(AssetsManager.getAssetPathAsFile(getApplicationContext(),"TutorialTrackingSamples/Assets/step00.png"));
-        if (mMetaioStep3 != null)
-        {
-          // Set geometry properties
-          mMetaioStep3.setScale(50f);
-          MetaioDebug.log("Loaded geometry "+metaioObject3);
-        }
-        else
-          MetaioDebug.log(Log.ERROR, "Error loading geometry: "+metaioObject3);
-      }
-
 
     }
     catch (Exception e)
@@ -118,6 +97,36 @@ public class ArFindStepsActivity extends ARViewActivity
       MetaioDebug.log(Log.ERROR, "Error loading contents!");
       MetaioDebug.printStackTrace(Log.ERROR, e);
     }
+  }
+
+  /**
+   * Load 3D model
+   *
+   * @param path Path to object to load
+   * @return geometry
+   * @author @antonosterblad @linneamalcherek @jacobselg
+   */
+  private IGeometry loadModel(final String path, final String texturepath) {
+    IGeometry geometry = null;
+    try {
+      // Load model
+      AssetsManager.extractAllAssets(this, true);
+      final File modelPath = AssetsManager.getAssetPathAsFile(getApplicationContext(), path);
+      // Log.i("info", "modelPath: " + modelPath);
+      geometry = metaioSDK.createGeometry(modelPath);
+      geometry.setTexture(AssetsManager.getAssetPathAsFile(getApplicationContext(), texturepath));
+      if (geometry != null) {
+        // Set geometry properties
+        geometry.setScale(30f);
+        MetaioDebug.log("Loaded geometry " + modelPath);
+      } else {
+        MetaioDebug.log(Log.ERROR, "Error loading geometry: " + geometry);
+      }
+    } catch (Exception e) {
+      MetaioDebug.log(Log.ERROR, "Error loading geometry: " + e.getMessage());
+      return geometry;
+    }
+    return geometry;
   }
 
   @Override
