@@ -123,7 +123,7 @@
 							specified for the sensor. 
 							This parameter is for expert usage only. In general 
 							it is advised to leave the value unchanged. -->
-					<SimilarityThreshold>0.3</SimilarityThreshold>
+					<SimilarityThreshold>0.5</SimilarityThreshold>
 
 				</Parameters>
 			</SensorCOS>
@@ -133,7 +133,7 @@
 				<SensorCosID>Patch2</SensorCosID>
 				<Parameters>
 					<ReferenceImage>markers/step3_blur2.png</ReferenceImage>
-					<SimilarityThreshold>0.3</SimilarityThreshold>
+					<SimilarityThreshold>0.5</SimilarityThreshold>
 				</Parameters>
 			</SensorCOS>
 
@@ -142,7 +142,7 @@
                 <SensorCosID>Patch3</SensorCosID>
                 <Parameters>
                     <ReferenceImage>markers/step3_blur2.png</ReferenceImage>
-                    <SimilarityThreshold>0.3</SimilarityThreshold>
+                    <SimilarityThreshold>0.5</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
 
@@ -151,7 +151,7 @@
                 <SensorCosID>Patch4</SensorCosID>
                 <Parameters>
                     <ReferenceImage>markers/step3_blur2.png</ReferenceImage>
-                    <SimilarityThreshold>0.3</SimilarityThreshold>
+                    <SimilarityThreshold>0.5</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
 
@@ -160,7 +160,7 @@
                 <SensorCosID>Patch5</SensorCosID>
                 <Parameters>
                     <ReferenceImage>markers/step3_blur2.png</ReferenceImage>
-                    <SimilarityThreshold>0.3</SimilarityThreshold>
+                    <SimilarityThreshold>0.5</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
 
@@ -169,7 +169,7 @@
                 <SensorCosID>Patch6</SensorCosID>
                 <Parameters>
                     <ReferenceImage>markers/step3_blur2.png</ReferenceImage>
-                    <SimilarityThreshold>0.3</SimilarityThreshold>
+                    <SimilarityThreshold>0.5</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
 
