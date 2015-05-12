@@ -60,7 +60,7 @@
 						deprecated and should not be used any more. 
 						This parameter is for expert usage only. In general it 
 						is advised to leave the value unchanged. -->
-				<MaxObjectsToDetectPerFrame>5</MaxObjectsToDetectPerFrame>
+				<MaxObjectsToDetectPerFrame>3</MaxObjectsToDetectPerFrame>
 				
 				<!--	The maximum number of objects that should be tracked in 
 						parallel. Tracking many objects in parallel is quite 
@@ -94,7 +94,8 @@
 			<!--	Define a "SensorCOS" for this sensor. This is essentially a 
 					coordinate system associated with a template image that is 
 					to be tracked. -->
-			<SensorCOS>
+			<!-- Marker 1 -->
+            <SensorCOS>
 			
 				<!--	An ID that this COS is associated with. -->
 				<SensorCosID>Patch1</SensorCosID>
@@ -127,9 +128,7 @@
 				</Parameters>
 			</SensorCOS>
 
-			<!--	The commented lines below show how another COS can be 
-					added to the configuration. -->
-
+            <!-- Marker 2 -->
 			<SensorCOS>
 				<SensorCosID>Patch2</SensorCosID>
 				<Parameters>
@@ -139,6 +138,34 @@
 				</Parameters>
 			</SensorCOS>
 
+            <!-- Marker 3 -->
+            <SensorCOS>
+                <SensorCosID>Patch3</SensorCosID>
+                <Parameters>
+                    <ReferenceImage>markers/step6_blur.png</ReferenceImage>
+                    <SimilarityThreshold>0.3</SimilarityThreshold>
+                </Parameters>
+            </SensorCOS>
+
+            <!-- Marker 4 -->
+            <SensorCOS>
+                <SensorCosID>Patch3</SensorCosID>
+                <Parameters>
+                    <ReferenceImage>markers/step6_blur.png</ReferenceImage>
+                    <SimilarityThreshold>0.3</SimilarityThreshold>
+                </Parameters>
+            </SensorCOS>
+
+            <!-- Marker 5 -->
+            <SensorCOS>
+                <SensorCosID>Patch3</SensorCosID>
+                <Parameters>
+                    <ReferenceImage>markers/step6_blur.png</ReferenceImage>
+                    <SimilarityThreshold>0.3</SimilarityThreshold>
+                </Parameters>
+            </SensorCOS>
+
+            <!-- Marker 6 -->
             <SensorCOS>
                 <SensorCosID>Patch3</SensorCosID>
                 <Parameters>
@@ -163,6 +190,7 @@
 			- A hand-eye calibration can be applied. 
 			-->
 	<Connections>
+        <!-- Connections for Marker 1 -->
 		<COS>
 
 			<!--	A descriptive name for this COS. -->
@@ -302,7 +330,7 @@
 				track multiple objects in parallel, it will always only track 
 				one of the defined objects at the same time. 
 				-->
-
+        <!-- Connections for Marker 2 -->
 		<COS>
 			<Name>MarkerlessCOS2</Name>
 			<Fuser Type="BestQualityFuser">
@@ -349,6 +377,148 @@
 			</SensorSource>
 		</COS>
 
+        <!-- Connections for Marker 3 -->
+        <COS>
+            <Name>MarkerlessCOS3</Name>
+            <Fuser Type="BestQualityFuser">
+                <Parameters>
+                    <KeepPoseForNumberOfFrames>2</KeepPoseForNumberOfFrames>
+                    x	<GravityAssistance></GravityAssistance>
+                    <AlphaTranslation>0.8</AlphaTranslation>
+                    <GammaTranslation>0.8</GammaTranslation>
+                    <AlphaRotation>0.5</AlphaRotation>
+                    <GammaRotation>0.5</GammaRotation>
+                    <ContinueLostTrackingWithOrientationSensor>false</ContinueLostTrackingWithOrientationSensor>
+                </Parameters>
+            </Fuser>
+
+            <SensorSource>
+                <SensorID>FeatureTracking1</SensorID>
+                <SensorCosID>Patch2</SensorCosID>
+                <HandEyeCalibration>
+                    <TranslationOffset>
+                        <X>0</X>
+                        <Y>0</Y>
+                        <Z>0</Z>
+                    </TranslationOffset>
+                    <RotationOffset>
+                        <X>0</X>
+                        <Y>0</Y>
+                        <Z>0</Z>
+                        <W>1</W>
+                    </RotationOffset>
+                </HandEyeCalibration>
+                <COSOffset>
+                    <TranslationOffset>
+                        <X>0</X>
+                        <Y>0</Y>
+                        <Z>0</Z>
+                    </TranslationOffset>
+                    <RotationOffset>
+                        <X>0</X>
+                        <Y>0</Y>
+                        <Z>0</Z>
+                        <W>1</W>
+                    </RotationOffset>
+                </COSOffset>
+            </SensorSource>
+        </COS>
+
+        <!-- Connections for Marker 4 -->
+        <COS>
+            <Name>MarkerlessCOS3</Name>
+            <Fuser Type="BestQualityFuser">
+                <Parameters>
+                    <KeepPoseForNumberOfFrames>2</KeepPoseForNumberOfFrames>
+                    x	<GravityAssistance></GravityAssistance>
+                    <AlphaTranslation>0.8</AlphaTranslation>
+                    <GammaTranslation>0.8</GammaTranslation>
+                    <AlphaRotation>0.5</AlphaRotation>
+                    <GammaRotation>0.5</GammaRotation>
+                    <ContinueLostTrackingWithOrientationSensor>false</ContinueLostTrackingWithOrientationSensor>
+                </Parameters>
+            </Fuser>
+
+            <SensorSource>
+                <SensorID>FeatureTracking1</SensorID>
+                <SensorCosID>Patch2</SensorCosID>
+                <HandEyeCalibration>
+                    <TranslationOffset>
+                        <X>0</X>
+                        <Y>0</Y>
+                        <Z>0</Z>
+                    </TranslationOffset>
+                    <RotationOffset>
+                        <X>0</X>
+                        <Y>0</Y>
+                        <Z>0</Z>
+                        <W>1</W>
+                    </RotationOffset>
+                </HandEyeCalibration>
+                <COSOffset>
+                    <TranslationOffset>
+                        <X>0</X>
+                        <Y>0</Y>
+                        <Z>0</Z>
+                    </TranslationOffset>
+                    <RotationOffset>
+                        <X>0</X>
+                        <Y>0</Y>
+                        <Z>0</Z>
+                        <W>1</W>
+                    </RotationOffset>
+                </COSOffset>
+            </SensorSource>
+        </COS>
+
+        <!-- Connections for Marker 5 -->
+        <COS>
+            <Name>MarkerlessCOS3</Name>
+            <Fuser Type="BestQualityFuser">
+                <Parameters>
+                    <KeepPoseForNumberOfFrames>2</KeepPoseForNumberOfFrames>
+                    x	<GravityAssistance></GravityAssistance>
+                    <AlphaTranslation>0.8</AlphaTranslation>
+                    <GammaTranslation>0.8</GammaTranslation>
+                    <AlphaRotation>0.5</AlphaRotation>
+                    <GammaRotation>0.5</GammaRotation>
+                    <ContinueLostTrackingWithOrientationSensor>false</ContinueLostTrackingWithOrientationSensor>
+                </Parameters>
+            </Fuser>
+
+            <SensorSource>
+                <SensorID>FeatureTracking1</SensorID>
+                <SensorCosID>Patch2</SensorCosID>
+                <HandEyeCalibration>
+                    <TranslationOffset>
+                        <X>0</X>
+                        <Y>0</Y>
+                        <Z>0</Z>
+                    </TranslationOffset>
+                    <RotationOffset>
+                        <X>0</X>
+                        <Y>0</Y>
+                        <Z>0</Z>
+                        <W>1</W>
+                    </RotationOffset>
+                </HandEyeCalibration>
+                <COSOffset>
+                    <TranslationOffset>
+                        <X>0</X>
+                        <Y>0</Y>
+                        <Z>0</Z>
+                    </TranslationOffset>
+                    <RotationOffset>
+                        <X>0</X>
+                        <Y>0</Y>
+                        <Z>0</Z>
+                        <W>1</W>
+                    </RotationOffset>
+                </COSOffset>
+            </SensorSource>
+        </COS>
+
+        <!-- Connections for Marker 6 -->
         <COS>
             <Name>MarkerlessCOS3</Name>
             <Fuser Type="BestQualityFuser">

@@ -59,7 +59,7 @@ public class ArFindStepsActivity extends ARViewActivity
   @Override
   protected int getGUILayout()
   {
-    return R.layout.tutorial_tracking_samples;
+    return R.layout.activity_ar_view_find_steps;
   }
 
   public void onButtonClick(View v)
@@ -167,15 +167,23 @@ public class ArFindStepsActivity extends ARViewActivity
     public void onTrackingEvent(TrackingValuesVector trackingValues)
     {
       // if we detect any target, we bind the loaded geometry to this target
-      if(mMetaioStep2 != null)
-      {
-        mMetaioStep2.setCoordinateSystemID(1);
+      if(mMetaioStep1!=null) {
+        mMetaioStep1.setCoordinateSystemID(1);
       }
-      if(mMetaioStep3!=null){
-        mMetaioStep3.setCoordinateSystemID(2);
+      if(mMetaioStep2 != null) {
+        mMetaioStep2.setCoordinateSystemID(2);
+      }
+      if(mMetaioStep3!=null) {
+        mMetaioStep3.setCoordinateSystemID(3);
+      }
+      if(mMetaioStep4!=null) {
+        mMetaioStep4.setCoordinateSystemID(4);
+      }
+      if(mMetaioStep5!=null) {
+        mMetaioStep5.setCoordinateSystemID(5);
       }
       if(mMetaioStep6!=null){
-        mMetaioStep6.setCoordinateSystemID(3);
+        mMetaioStep6.setCoordinateSystemID(6);
       }
 
     }
