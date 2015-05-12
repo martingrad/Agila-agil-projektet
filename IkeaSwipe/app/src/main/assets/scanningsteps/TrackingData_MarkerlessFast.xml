@@ -334,7 +334,7 @@
 			<Fuser Type="BestQualityFuser">
 				<Parameters>
 					<KeepPoseForNumberOfFrames>2</KeepPoseForNumberOfFrames>
-				x	<GravityAssistance></GravityAssistance>
+					<GravityAssistance></GravityAssistance>
 					<AlphaTranslation>0.8</AlphaTranslation>
 					<GammaTranslation>0.8</GammaTranslation>
 					<AlphaRotation>0.5</AlphaRotation>
@@ -381,7 +381,7 @@
             <Fuser Type="BestQualityFuser">
                 <Parameters>
                     <KeepPoseForNumberOfFrames>2</KeepPoseForNumberOfFrames>
-                    x	<GravityAssistance></GravityAssistance>
+                    <GravityAssistance></GravityAssistance>
                     <AlphaTranslation>0.8</AlphaTranslation>
                     <GammaTranslation>0.8</GammaTranslation>
                     <AlphaRotation>0.5</AlphaRotation>
@@ -428,7 +428,7 @@
             <Fuser Type="BestQualityFuser">
                 <Parameters>
                     <KeepPoseForNumberOfFrames>2</KeepPoseForNumberOfFrames>
-                    x	<GravityAssistance></GravityAssistance>
+                    <GravityAssistance></GravityAssistance>
                     <AlphaTranslation>0.8</AlphaTranslation>
                     <GammaTranslation>0.8</GammaTranslation>
                     <AlphaRotation>0.5</AlphaRotation>
@@ -475,7 +475,7 @@
             <Fuser Type="BestQualityFuser">
                 <Parameters>
                     <KeepPoseForNumberOfFrames>2</KeepPoseForNumberOfFrames>
-                    x	<GravityAssistance></GravityAssistance>
+                    <GravityAssistance></GravityAssistance>
                     <AlphaTranslation>0.8</AlphaTranslation>
                     <GammaTranslation>0.8</GammaTranslation>
                     <AlphaRotation>0.5</AlphaRotation>
@@ -522,7 +522,7 @@
             <Fuser Type="BestQualityFuser">
                 <Parameters>
                     <KeepPoseForNumberOfFrames>2</KeepPoseForNumberOfFrames>
-                    x	<GravityAssistance></GravityAssistance>
+                    <GravityAssistance></GravityAssistance>
                     <AlphaTranslation>0.8</AlphaTranslation>
                     <GammaTranslation>0.8</GammaTranslation>
                     <AlphaRotation>0.5</AlphaRotation>
