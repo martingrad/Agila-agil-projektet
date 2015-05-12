@@ -4,6 +4,7 @@ package agilec.ikeaswipe;
 import java.io.File;
 
 import android.content.Intent;
+import android.hardware.Camera;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,7 +12,10 @@ import android.view.View;
 import com.metaio.sdk.ARViewActivity;
 import com.metaio.sdk.MetaioDebug;
 import com.metaio.sdk.jni.IGeometry;
+import com.metaio.sdk.jni.IMetaioSDKAndroid;
 import com.metaio.sdk.jni.IMetaioSDKCallback;
+import com.metaio.sdk.jni.MetaioSDK;
+import com.metaio.sdk.jni.MetaioSDKJNI;
 import com.metaio.sdk.jni.TrackingValuesVector;
 import com.metaio.tools.io.AssetsManager;
 
@@ -66,11 +70,8 @@ public class ArFindStepsActivity extends ARViewActivity
     {
       // Load the desired tracking configuration
       AssetsManager.extractAllAssets(this, true);
-      System.out.println("******* Försöker läsa in trackingCongigFile");
       final File trackingConfigFile = AssetsManager.getAssetPathAsFile(getApplicationContext(), "scanningsteps/TrackingData_MarkerlessFast.xml");
 
-      System.out.println("****** Application context????????" + trackingConfigFile);
-      System.out.println("****** Misslyckades jag????????");
       final boolean result = metaioSDK.setTrackingConfiguration(trackingConfigFile);
       System.out.println("*******  kallar på trackingConfigFile !!!!!");
       MetaioDebug.log("Tracking configuration loaded: " + result);
@@ -176,7 +177,6 @@ public class ArFindStepsActivity extends ARViewActivity
 
   }
 
-
   /**
    * Define how to track the 3D model
    *
@@ -198,4 +198,9 @@ public class ArFindStepsActivity extends ARViewActivity
     return result;
   }
 
+  @Override
+  protected void startCamera() {
+    super.startCamera();
+    
+  }
 }
