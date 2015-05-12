@@ -1,9 +1,5 @@
 package agilec.ikeaswipe;
 
-/**
- * Created by martingrad on 12/05/15.
- */
-
 /*
  * Copyright (C) 2013 The Android Open Source Project
  *
@@ -21,15 +17,18 @@ package agilec.ikeaswipe;
  */
 
 import android.content.Context;
+import android.graphics.Point;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.HorizontalScrollView;
 import android.widget.TextView;
 
@@ -159,14 +158,10 @@ public class SlidingTabLayout extends HorizontalScrollView {
    * (number of tabs and tab titles) does not change after this call has been made.
    */
   public void setViewPager(ViewPager viewPager) {
-    System.out.println("Nu sätter jag viewpager till " + viewPager);
-
     mTabStrip.removeAllViews();
-
     mViewPager = viewPager;
     if (viewPager != null) {
       viewPager.setOnPageChangeListener(new InternalViewPagerListener());
-      System.out.println("Nu ska jag populera tabStrip!");
       populateTabStrip();
     }
   }
@@ -197,6 +192,22 @@ public class SlidingTabLayout extends HorizontalScrollView {
 
     int padding = (int) (TAB_VIEW_PADDING_DIPS * getResources().getDisplayMetrics().density);
     textView.setPadding(padding, padding, padding, padding);
+
+    /*
+     * TODO: Use setCustomTabView(int, int) instead of this modification to createDefaultTabView.
+     */
+    // Get the screen size.
+    WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+    Display display = wm.getDefaultDisplay();
+    Point size = new Point();
+    display.getSize(size);
+    int width = size.x;
+
+    // Get the number of tabs in the viewPager.
+    final PagerAdapter adapter = mViewPager.getAdapter();
+
+    // Set the width of the textViews to fill up the entire screen.
+    textView.setWidth(width/adapter.getCount());
 
     return textView;
   }

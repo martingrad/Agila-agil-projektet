@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.Locale;
 
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -116,14 +115,6 @@ public class SwipeActivity extends FragmentActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_swipe);
 
-    //if (savedInstanceState == null) {
-      //FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-      //System.out.println("Nu skapar jag fragment!");
-      //SlidingTabsBasicFragment fragment = new SlidingTabsBasicFragment();
-      //transaction.replace(R.id.sample_content_fragment, fragment);
-      //transaction.commit();
-    //}
-
     // From the beginning the application will show tha StepByStep Fragment
     int currentTab = 1;
 
@@ -154,6 +145,7 @@ public class SwipeActivity extends FragmentActivity {
     mViewPager.setAdapter(mSectionsPagerAdapter);
     mViewPager.setCurrentItem(currentTab); // Set which tab that will be shown
 
+    // Set the sliding tabs layout from the xml and bind the viewPager to it.
     mSlidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
     mSlidingTabLayout.setViewPager(mViewPager);
   }
@@ -168,7 +160,7 @@ public class SwipeActivity extends FragmentActivity {
   @Override
   public void onWindowFocusChanged(boolean hasFocus) {
     if(hasFocus) {
-      //stepFragment.findPos();
+      stepFragment.findPos();
     }
   }
 
