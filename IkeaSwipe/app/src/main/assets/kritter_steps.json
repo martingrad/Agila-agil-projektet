@@ -14,8 +14,8 @@
             "step":                 "1",
             "title":                "Steg 1",
             "imgUrl":               "step1_scaled",
-            "checkbarButtonUrl":    "step1_done",
-            "completeModelUrl":     "upper_back_side",
+            "checkbarButtonUrl":    "step1",
+            "completeModelUrl":     "step1_done",
             "checked":              "false",
             "parts":                [],
             "currentStep":          "false"
