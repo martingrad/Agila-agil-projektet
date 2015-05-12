@@ -95,8 +95,8 @@ public class SwipeActivity extends FragmentActivity {
 
   /**
    * Perform initialization of all fragments and loaders.
-   *
    * @param savedInstanceState
+   * @author @martingrad
    */
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -115,7 +115,7 @@ public class SwipeActivity extends FragmentActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_swipe);
 
-    // From the beginning the application will show tha StepByStep Fragment
+    // From the beginning the application will show the StepByStep Fragment
     int currentTab = 1;
 
     // Get the intent that is created in ArFindAllActivity when a user clicks the "done" button
@@ -148,6 +148,8 @@ public class SwipeActivity extends FragmentActivity {
     // Set the sliding tabs layout from the xml and bind the viewPager to it.
     mSlidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
     mSlidingTabLayout.setViewPager(mViewPager);
+    // TODO: Set the color of selectedIndicator. The line below does not seem to do... =(
+    //mSlidingTabLayout.setSelectedIndicatorColors(R.color.blue);
   }
 
   /**

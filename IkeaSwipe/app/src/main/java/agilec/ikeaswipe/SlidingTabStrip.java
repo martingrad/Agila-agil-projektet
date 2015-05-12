@@ -1,9 +1,3 @@
-package agilec.ikeaswipe;
-
-/**
- * Created by martingrad on 12/05/15.
- */
-
 /*
  * Copyright (C) 2013 The Android Open Source Project
  *
@@ -19,6 +13,8 @@ package agilec.ikeaswipe;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+package agilec.ikeaswipe;
 
 import android.R;
 import android.content.Context;

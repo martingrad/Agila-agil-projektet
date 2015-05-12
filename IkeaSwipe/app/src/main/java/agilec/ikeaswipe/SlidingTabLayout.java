@@ -1,5 +1,3 @@
-package agilec.ikeaswipe;
-
 /*
  * Copyright (C) 2013 The Android Open Source Project
  *
@@ -15,6 +13,8 @@ package agilec.ikeaswipe;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+package agilec.ikeaswipe;
 
 import android.content.Context;
 import android.graphics.Point;
@@ -107,7 +107,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
   /**
    * Set the custom {@link TabColorizer} to be used.
    *
-   * If you only require simple custmisation then you can use
+   * If you only require simple customization then you can use
    * {@link #setSelectedIndicatorColors(int...)} and {@link #setDividerColors(int...)} to achieve
    * similar effects.
    */
@@ -193,9 +193,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
     int padding = (int) (TAB_VIEW_PADDING_DIPS * getResources().getDisplayMetrics().density);
     textView.setPadding(padding, padding, padding, padding);
 
-    /*
-     * TODO: Use setCustomTabView(int, int) instead of this modification to createDefaultTabView.
-     */
+    // TODO: Use setCustomTabView(int, int) instead of the following modification to createDefaultTabView.
     // Get the screen size.
     WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
     Display display = wm.getDefaultDisplay();
