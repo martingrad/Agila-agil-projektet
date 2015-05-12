@@ -82,29 +82,6 @@ public class ArFindStepsActivity extends ARViewActivity
     mMetaioStep5 = loadModel("scanningsteps/objects/step_05.obj", "scanningsteps/textures/step05.png");
     mMetaioStep6 = loadModel("scanningsteps/objects/step_06.obj", "scanningsteps/textures/step06.png");
 
-    //Connect a geometry to a tracking marker.
-    // The coordinate ID corresponds to the patches in the XML file.
-
-    // Set id for each models individual coordinate system
-    if(mMetaioStep1 != null) {
-      mMetaioStep1.setCoordinateSystemID(1); //bind the loaded geometry to this target
-    }
-    if(mMetaioStep2 != null) {
-      mMetaioStep2.setCoordinateSystemID(2); //bind the loaded geometry to this target
-    }
-    if(mMetaioStep3 != null) {
-      mMetaioStep3.setCoordinateSystemID(3); //bind the loaded geometry to this target
-    }
-    if(mMetaioStep4 != null) {
-      mMetaioStep4.setCoordinateSystemID(4); //bind the loaded geometry to this target
-    }
-    if(mMetaioStep5 != null) {
-      mMetaioStep5.setCoordinateSystemID(5); //bind the loaded geometry to this target
-    }
-    if(mMetaioStep6 != null) {
-      mMetaioStep6.setCoordinateSystemID(6); //bind the loaded geometry to this target
-    }
-
     // Tracking.xml defines how to track the model
     setTrackingConfiguration("scanningsteps/TrackingData_MarkerlessFast.xml");
   }
@@ -180,6 +157,8 @@ public class ArFindStepsActivity extends ARViewActivity
     @Override
     public void onTrackingEvent(TrackingValuesVector trackingValues)
     {
+      //Connect a geometry to a tracking marker.
+      // The coordinate ID corresponds to the patches in the XML file.
       if(mMetaioStep1 != null) {
         mMetaioStep1.setCoordinateSystemID(1); //bind the loaded geometry to this target
       }
