@@ -1,4 +1,4 @@
-package agilec.ikeaswipe;
+package agilec.ikeaswipe.views;
 
 import android.app.Activity;
 import android.content.Context;
@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +20,13 @@ import android.widget.TextView;
 
 import org.json.JSONException;
 
-import static java.lang.System.*;
+import agilec.ikeaswipe.models.AllSteps;
+import agilec.ikeaswipe.activities.ArFindActivity;
+import agilec.ikeaswipe.activities.ArStepsActivity;
+import agilec.ikeaswipe.utils.OnSwipeTouchListener;
+import agilec.ikeaswipe.R;
+import agilec.ikeaswipe.models.Step;
+import agilec.ikeaswipe.activities.SwipeActivity;
 
 /**
  * Functionality and layout for Step by step
@@ -341,7 +346,7 @@ public class StepByStepFragment extends Fragment {
 
       @Override
       public void onClick(View v) {
-        Intent arIntent = new Intent(getActivity(), ArFindStepsActivity.class);
+        Intent arIntent = new Intent(getActivity(), ArStepsActivity.class);
         arIntent.putExtra("currentTab",1);
         startActivity(arIntent);
 
@@ -357,7 +362,7 @@ public class StepByStepFragment extends Fragment {
 
       @Override
       public void onClick(View v) {
-        Intent arIntent = new Intent(getActivity(), ArFindAllActivity.class);
+        Intent arIntent = new Intent(getActivity(), ArFindActivity.class);
         Step currentStep = stepHandler.getSteps().get(stepNumber);
 
         arIntent.putExtra("article", currentStep.getCompleteModelUrl());

@@ -1,4 +1,4 @@
-package agilec.ikeaswipe;
+package agilec.ikeaswipe.models;
 
 import android.content.Context;
 
@@ -6,6 +6,9 @@ import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import agilec.ikeaswipe.json.JsonToStep;
+import agilec.ikeaswipe.models.Step;
 
 /**
  * Created by Ingelhag on 05/05/15.

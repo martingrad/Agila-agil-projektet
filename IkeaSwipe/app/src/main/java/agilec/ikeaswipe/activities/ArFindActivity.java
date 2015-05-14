@@ -1,13 +1,11 @@
-package agilec.ikeaswipe;
+package agilec.ikeaswipe.activities;
 
 import java.io.File;
 
 import android.content.Intent;
-import android.graphics.Point;
 import android.graphics.PointF;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -17,11 +15,11 @@ import com.metaio.sdk.ARViewActivity;
 import com.metaio.sdk.MetaioDebug;
 import com.metaio.sdk.jni.IGeometry;
 import com.metaio.sdk.jni.IMetaioSDKCallback;
-import com.metaio.sdk.jni.Rotation;
 import com.metaio.sdk.jni.TrackingValues;
 import com.metaio.sdk.jni.TrackingValuesVector;
-import com.metaio.sdk.jni.Vector3d;
 import com.metaio.tools.io.AssetsManager;
+
+import agilec.ikeaswipe.R;
 
 /**
  * Camera environment for Metaio
@@ -29,7 +27,7 @@ import com.metaio.tools.io.AssetsManager;
  * Based on code from metaioSDK tutorials https://dev.metaio.com/sdk/tutorials
  */
 
-public class ArFindAllActivity extends ARViewActivity {
+public class ArFindActivity extends ARViewActivity {
 
   /**
    * Instance variables for 3D geometry that can be loaded within the system
@@ -301,12 +299,12 @@ public class ArFindAllActivity extends ARViewActivity {
   /**
    * Add xml layout on top of the camera view.
    *
-   * @return activity_ar_view_find_all
+   * @return activity_ar_view_find
    * @author @antonosterblad @linneamalcherek
    */
   @Override
   protected int getGUILayout() {
-    return R.layout.activity_ar_view_find_all;
+    return R.layout.activity_ar_view_find;
   }
 
   /**

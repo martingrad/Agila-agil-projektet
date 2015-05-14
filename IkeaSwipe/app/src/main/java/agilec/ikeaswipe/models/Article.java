@@ -1,4 +1,4 @@
-package agilec.ikeaswipe;
+package agilec.ikeaswipe.models;
 
 /**
  * An Article is one part. It could be a dowel, a screw or a allen key

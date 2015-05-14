@@ -1,4 +1,4 @@
-package agilec.ikeaswipe;
+package agilec.ikeaswipe.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -10,6 +10,8 @@ import android.opengl.GLUtils;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+import agilec.ikeaswipe.R;
+
 /**
  * Class MyGLRenderer
  *
@@ -18,7 +20,7 @@ import javax.microedition.khronos.opengles.GL10;
 public class MyGLRenderer implements GLSurfaceView.Renderer {
 
   private MyGLSurfaceView view;
-  private DrawModel model;
+  private MyGLDrawModel model;
 
   // Texture variables
   private int mTextureId; // Unique texture id
@@ -46,7 +48,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     this.view = view;
     this.context = context;
     // create model from specified .obj file
-    model = new DrawModel(context, R.raw.step_00);
+    model = new MyGLDrawModel(context, R.raw.step_00);
   }
 
   /**
@@ -54,7 +56,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
    * @author @jacobselg
    * @param newModel
    */
-    public void setModel(DrawModel newModel, int id) {
+    public void setModel(MyGLDrawModel newModel, int id) {
         model = newModel;
         mShouldLoadTexture = true;
         resourceTextureId = id;

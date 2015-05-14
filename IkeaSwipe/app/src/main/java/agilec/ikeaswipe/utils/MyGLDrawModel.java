@@ -1,4 +1,4 @@
-package agilec.ikeaswipe;
+package agilec.ikeaswipe.utils;
 
 /**
  * @author @emmaforsling @martingrad
@@ -23,7 +23,7 @@ import javax.microedition.khronos.opengles.GL10;
 /**
  * Class DrawModel
  */
-public class DrawModel {
+public class MyGLDrawModel {
   private final int NUM_FACE_VERTICES = 3;            // three vertices for one face
   private final int NUM_VERTEX_COORDS = 3;            // x,y,z for one vertex
   private final int NUM_TEX_COORDS = 2;               // u,v (2D texture)
@@ -41,7 +41,7 @@ public class DrawModel {
    * @param resId
    * @author @emmaforsling @martingrad
    */
-  public DrawModel(Context context, int resId) {
+  public MyGLDrawModel(Context context, int resId) {
 
     // read in all the lines and put in their respective arraylists of strings
     // reason I do this is to get a count of the faces to be used to initialize the

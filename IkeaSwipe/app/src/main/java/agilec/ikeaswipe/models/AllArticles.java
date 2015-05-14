@@ -1,4 +1,4 @@
-package agilec.ikeaswipe;
+package agilec.ikeaswipe.models;
 
 import android.content.Context;
 import android.util.Log;
@@ -11,6 +11,9 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import agilec.ikeaswipe.json.JsonToArticle;
+import agilec.ikeaswipe.models.Article;
+
 /**
  * Handles the articles
  */
@@ -18,7 +21,7 @@ public class AllArticles {
 
   private String filename;            // Filename of the json-file
   private Context activityContext;    // Context of the activity
-  private List<Article> articles = new ArrayList<Article>(); // A List with all articles
+  private List<Article> articles = new ArrayList<>(); // A List with all articles
 
   /**
    * Constructor for creating and parsing the JSON data into articles

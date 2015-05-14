@@ -1,10 +1,14 @@
-package agilec.ikeaswipe;
+package agilec.ikeaswipe.views;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.app.Fragment;
+
+import agilec.ikeaswipe.utils.MyGLDrawModel;
+import agilec.ikeaswipe.utils.MyGLSurfaceView;
+import agilec.ikeaswipe.R;
 
 
 /**
@@ -34,6 +38,6 @@ public class View3dFragment extends Fragment {
     int textureId = getResources().getIdentifier("step0"+currentStep, "drawable", getActivity().getPackageName());
 
     // Set the model and texture
-    mGLSV.getGLRenderer().setModel(new DrawModel(getActivity(), objectId),textureId);
+    mGLSV.getGLRenderer().setModel(new MyGLDrawModel(getActivity(), objectId),textureId);
   }
 }

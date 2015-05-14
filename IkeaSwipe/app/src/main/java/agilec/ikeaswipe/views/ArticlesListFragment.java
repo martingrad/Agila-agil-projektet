@@ -1,10 +1,9 @@
-package agilec.ikeaswipe;
+package agilec.ikeaswipe.views;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +19,11 @@ import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import agilec.ikeaswipe.models.AllArticles;
+import agilec.ikeaswipe.activities.ArFindActivity;
+import agilec.ikeaswipe.models.Article;
+import agilec.ikeaswipe.R;
 
 /**
  * List containing all the IKEA items. Used in the ListView.
@@ -125,7 +129,7 @@ public class ArticlesListFragment extends ListFragment {
     Article article = (Article) getListAdapter().getItem(position);
     System.out.println(article.getTitle());
 
-    Intent arIntent = new Intent(getActivity(), ArFindAllActivity.class);
+    Intent arIntent = new Intent(getActivity(), ArFindActivity.class);
     arIntent.putExtra("article", article.getImgUrl());
     startActivity(arIntent);
   }
@@ -207,7 +211,7 @@ public class ArticlesListFragment extends ListFragment {
         arButton.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
-            Intent arIntent = new Intent(getActivity(), ArFindAllActivity.class);
+            Intent arIntent = new Intent(getActivity(), ArFindActivity.class);
             arIntent.putExtra("article", a.getImgUrl());    // Add the image url for the article
             arIntent.putExtra("currentStep", currentStep);  // Add which the current step
             startActivity(arIntent);

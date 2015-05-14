@@ -1,4 +1,4 @@
-package agilec.ikeaswipe;
+package agilec.ikeaswipe.activities;
 
 import java.util.Arrays;
 import java.util.Locale;
@@ -14,6 +14,13 @@ import android.view.MenuItem;
 
 
 import org.json.JSONException;
+
+import agilec.ikeaswipe.R;
+import agilec.ikeaswipe.utils.SingleSwipeViewPager;
+import agilec.ikeaswipe.utils.SlidingTabLayout;
+import agilec.ikeaswipe.views.ArticlesListFragment;
+import agilec.ikeaswipe.views.StepByStepFragment;
+import agilec.ikeaswipe.views.View3dFragment;
 
 
 public class SwipeActivity extends FragmentActivity {
@@ -33,7 +40,7 @@ public class SwipeActivity extends FragmentActivity {
   SectionsPagerAdapter mSectionsPagerAdapter;
 
   /**
-   * The {@link StepByStepFragment} that is displayed in the second section of the ViewPager.
+   * The {@link agilec.ikeaswipe.views.StepByStepFragment} that is displayed in the second section of the ViewPager.
    */
   StepByStepFragment stepFragment;
 

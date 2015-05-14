@@ -1,8 +1,7 @@
 // Copyright 2007-2014 metaio GmbH. All rights reserved.
-package agilec.ikeaswipe;
+package agilec.ikeaswipe.activities;
 
 import java.io.File;
-import java.util.Vector;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,7 +18,9 @@ import com.metaio.sdk.jni.TrackingValuesVector;
 import com.metaio.sdk.jni.Vector2di;
 import com.metaio.tools.io.AssetsManager;
 
-public class ArFindStepsActivity extends ARViewActivity {
+import agilec.ikeaswipe.R;
+
+public class ArStepsActivity extends ARViewActivity {
 
 
   /**
@@ -54,7 +55,7 @@ public class ArFindStepsActivity extends ARViewActivity {
 
   @Override
   protected int getGUILayout() {
-    return R.layout.activity_ar_view_find_steps;
+    return R.layout.activity_ar_view_steps;
   }
 
   public void onButtonClick(View v) {

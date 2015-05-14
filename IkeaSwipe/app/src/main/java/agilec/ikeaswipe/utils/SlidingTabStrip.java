@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package agilec.ikeaswipe;
+package agilec.ikeaswipe.utils;
 
 import android.R;
 import android.content.Context;

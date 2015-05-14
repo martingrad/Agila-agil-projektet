@@ -1,4 +1,4 @@
-package agilec.ikeaswipe;
+package agilec.ikeaswipe.json;
 
 import android.content.Context;
 import android.util.Log;
@@ -12,6 +12,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+
+import agilec.ikeaswipe.models.Article;
 
 /**
  * Handles the articles via loading from a JSON file, parsing and storing

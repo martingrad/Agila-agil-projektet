@@ -1,4 +1,4 @@
-<agilec.ikeaswipe.SingleSwipeViewPager
+<agilec.ikeaswipe.utils.SingleSwipeViewPager
     android:id="@+id/pagerSplash"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"

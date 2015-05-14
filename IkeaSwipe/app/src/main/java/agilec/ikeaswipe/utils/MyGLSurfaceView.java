@@ -1,4 +1,4 @@
-package agilec.ikeaswipe;
+package agilec.ikeaswipe.utils;
 
 import android.content.Context;
 import android.graphics.PointF;

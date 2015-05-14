@@ -1,16 +1,16 @@
 <LinearLayout
+    android:id="@+id/sample_main_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/sample_main_layout">
+    android:orientation="vertical">
 
-    <agilec.ikeaswipe.SlidingTabLayout
+    <agilec.ikeaswipe.utils.SlidingTabLayout
+        android:id="@+id/sliding_tabs"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:id="@+id/sliding_tabs"/>
+        android:layout_height="48dp"/>
 
-    <agilec.ikeaswipe.SingleSwipeViewPager
+    <agilec.ikeaswipe.utils.SingleSwipeViewPager
         android:id="@+id/pager"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"

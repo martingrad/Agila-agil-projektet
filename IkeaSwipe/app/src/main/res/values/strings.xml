@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Ikea Swipe</string>
+    <string name="app_name">IKEA Swipe</string>
     <string name="title_section1">Innehåll</string>
     <string name="title_section2">Instruktion</string>
     <string name="title_section3">3D-vy</string>
-    <string name="hello_world">Hello world!</string>
 
     <string name="action_settings">Settings</string>
 

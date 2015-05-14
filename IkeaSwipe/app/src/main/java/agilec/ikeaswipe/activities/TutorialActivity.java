@@ -1,4 +1,4 @@
-package agilec.ikeaswipe;
+package agilec.ikeaswipe.activities;
 
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
@@ -10,6 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+
+import agilec.ikeaswipe.R;
+import agilec.ikeaswipe.utils.SingleSwipeViewPager;
 
 /**
  * Author: @Ingelhag

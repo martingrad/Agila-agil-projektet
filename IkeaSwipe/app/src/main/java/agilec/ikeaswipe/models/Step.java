@@ -1,4 +1,4 @@
-package agilec.ikeaswipe;
+package agilec.ikeaswipe.models;
 
 /**
  * Created by Ingelhag on 05/05/15.
