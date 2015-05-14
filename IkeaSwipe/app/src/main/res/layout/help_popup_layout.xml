@@ -14,7 +14,6 @@
         android:background="@android:color/transparent"
         android:padding="30dp"
         android:src="@drawable/ic_action_done_before"
-        android:layout_weight="0.24"
         android:layout_margin="20dp"/>
 
     <ImageButton
@@ -24,7 +23,6 @@
         android:background="@android:color/transparent"
         android:padding="30dp"
         android:src="@drawable/ic_action_done_before"
-        android:layout_weight="0.22"
         android:layout_margin="20dp"/>
 
 </LinearLayout>

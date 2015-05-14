@@ -70,7 +70,7 @@
         android:layout_gravity="center"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
-        android:src="@drawable/kritter_not_vector"/>
+        android:src="@drawable/kritter_lowres"/>
 
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

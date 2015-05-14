@@ -11,7 +11,7 @@
         android:layout_alignParentRight="true"
         android:background="@android:color/transparent"
         android:onClick="onButtonClick"
-        android:src="@drawable/cancel" />
+        android:src="@drawable/return_btn" />
 
     <LinearLayout
         android:id="@+id/buttonBar"

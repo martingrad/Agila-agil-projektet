@@ -298,8 +298,8 @@ public class StepByStepFragment extends Fragment {
 
     //Initialize the Point with x, and y positions
     p = new Point();
-    p.x = location[0] - 320;
-    p.y = location[1] + 20;
+    p.x = location[0];
+    p.y = location[1];
 
   }
 
@@ -313,8 +313,8 @@ public class StepByStepFragment extends Fragment {
   // The method that displays the popup.
   private void showPopup(final Activity context, Point p) {
     findPos();
-    int popupWidth = 400;
-    int popupHeight = 300;
+    int popupWidth = 600;
+    int popupHeight = 400;
 
 
     // Inflate the popup_layout.xml
@@ -331,8 +331,8 @@ public class StepByStepFragment extends Fragment {
     popup.setFocusable(true);
 
     // Some offset to align the popup a bit to the right, and a bit down, relative to button's position.
-    int OFFSET_X = 30;
-    int OFFSET_Y = 30;
+    int OFFSET_X = -435;
+    int OFFSET_Y = 75;
 
     // Clear the default translucent background
     popup.setBackgroundDrawable(new BitmapDrawable());

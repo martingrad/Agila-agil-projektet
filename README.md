@@ -12,7 +12,7 @@ In alphabetical order:
 - Emma Forsling Parborg
 - Martin Gråd
 - Hannes Ingelhag
-- Marcus Nygren
 - Linnea Malcherek
+- Marcus Nygren
 - Jacob Selg
 - Anton Österblad

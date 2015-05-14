@@ -7,4 +7,15 @@
     <color name="green">#66CC00</color>
     <color name="greenOpacity">#6066CC00</color>
     <color name="greyOpacity">#40CCCCCC</color>
+
+    <!-- IKEA Swipe Colors -->
+    <color name="ikea_blue_dark">#2E5CA7</color>
+    <color name="ikea_blue_light">#9DACD1</color>
+    <color name="ikea_grey_dark">#9B9B9B</color>
+    <color name="ikea_grey_light">#CDCDCD</color>
+    <color name="ikea_yellow_dark">#FFBB33</color>
+    <color name="ikea_orange_dark">#EF890F</color>
+    <color name="ikea_orange_light">#EAC28E</color>
+    <color name="ikea_green_dark">#ADCD37</color>
+    <color name="ikea_green_light">#DAE5A1</color>
 </resources>
