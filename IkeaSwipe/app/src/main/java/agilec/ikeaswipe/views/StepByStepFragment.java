@@ -90,15 +90,6 @@ public class StepByStepFragment extends Fragment {
     } else {
       previous(id);
     }
-
-    /*
-    Animation in = AnimationUtils.loadAnimation(getActivity(), android.R.anim.slide_in_left);
-    Animation out = AnimationUtils.loadAnimation(getActivity(), android.R.anim.slide_out_right);
-    imageSwitcher.setInAnimation(in);
-    imageSwitcher.setOutAnimation(out);
-    imageSwitcher.setImageResource(id);
-    */
-
   }
 
 
@@ -180,6 +171,7 @@ public class StepByStepFragment extends Fragment {
     imageSwitcher.setFactory(new ViewSwitcher.ViewFactory() {
       public View makeView() {
         ImageView myView = new ImageView(getActivity().getApplicationContext());
+        myView.setMinimumHeight(3000);
         return myView;
       }
     });
