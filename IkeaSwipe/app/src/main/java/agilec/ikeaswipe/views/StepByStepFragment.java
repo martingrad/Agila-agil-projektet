@@ -20,7 +20,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 import org.json.JSONException;
@@ -53,11 +52,11 @@ public class StepByStepFragment extends Fragment {
    * currentStep in the parent SwipeActivity.
    * int prevStep is used to track the previous step.
    * boolean prevIsCompleted is used to see if the step is completed or not.
+   * ImageSwitcher imageSwitcher is used to make animated transitions between the instruction images
    */
   private int stepNumber;
   private int prevStep;
   private boolean prevIsCompleted;
-
   private ImageSwitcher imageSwitcher;
 
   /**
