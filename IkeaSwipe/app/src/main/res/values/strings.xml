@@ -20,4 +20,7 @@
     <string name="checkButton">Check Button</string>
     <string name="helpButton">Help Button</string>
 
+    <!-- ArticlesListFragment Related -->
+    <string name="alfTitle">Innehåll</string>
+
 </resources>

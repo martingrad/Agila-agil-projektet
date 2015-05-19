@@ -504,6 +504,6 @@ public class StepByStepFragment extends Fragment {
         startActivity(arIntent);
       }
     });
-
   }
+
 }
