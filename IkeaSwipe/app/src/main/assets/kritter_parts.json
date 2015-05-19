@@ -5,7 +5,8 @@
             "articleNumber": "100001",
             "quantity": "1",
             "quantityLeft": "1",
-            "step": [
+            "arAvailable": "false",
+            "step":[
                 0,
                 0,
                 0,
@@ -21,6 +22,7 @@
             "articleNumber": "100214",
             "quantity": "6",
             "quantityLeft": "6",
+            "arAvailable": "false",
             "step": [
                 0,
                 0,
@@ -37,6 +39,7 @@
             "articleNumber": "101350",
             "quantity": "2",
             "quantityLeft": "2",
+            "arAvailable": "false",
             "step": [
                 2,
                 0,
@@ -53,6 +56,7 @@
             "articleNumber": "",
             "quantity": "1",
             "quantityLeft": "1",
+            "arAvailable": "true",
             "step": [
                 1,
                 0,
@@ -69,6 +73,7 @@
             "articleNumber": "",
             "quantity": "1",
             "quantityLeft": "1",
+            "arAvailable": "true",
             "step": [
                 1,
                 0,
@@ -85,6 +90,7 @@
             "articleNumber": "",
             "quantity": "1",
             "quantityLeft": "1",
+            "arAvailable": "true",
             "step": [
                 0,
                 1,
@@ -101,6 +107,7 @@
             "articleNumber": "",
             "quantity": "1",
             "quantityLeft": "1",
+            "arAvailable": "true",
             "step": [
                 0,
                 0,
@@ -117,6 +124,7 @@
             "articleNumber": "",
             "quantity": "1",
             "quantityLeft": "1",
+            "arAvailable": "true",
             "step": [
                 0,
                 0,
