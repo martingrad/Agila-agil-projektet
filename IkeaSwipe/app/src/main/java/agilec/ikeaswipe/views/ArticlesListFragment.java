@@ -192,14 +192,21 @@ public class ArticlesListFragment extends ListFragment {
       final Article a = article.get(position);
       if (a != null) {
         //Finding the current ListItems TopText, BottomText and Image
-        TextView listTopText      = (TextView) v.findViewById(R.id.toptext);
-        TextView listBottomText   = (TextView) v.findViewById(R.id.bottomtext);
-        ImageView listImg         = (ImageView) v.findViewById(R.id.icon);
-        ImageButton arButton      = (ImageButton) v.findViewById(R.id.arButton);
-        Button statusButton       = (Button) v.findViewById(R.id.status);
 
+        TextView listTopText = (TextView) v.findViewById(R.id.toptext);
+        TextView listBottomText = (TextView) v.findViewById(R.id.bottomtext);
+        ImageView listImg = (ImageView) v.findViewById(R.id.icon);
+        ImageButton arButton = (ImageButton) v.findViewById(R.id.arButton);
+
+        // ImageButton for 'checked' status of article
+        final ImageButton statusButton = (ImageButton) v.findViewById(R.id.status);
+
+        // Checking what status the checked button has for correct rendering on initiation
         if (a.getChecked()) {
-          statusButton.setBackgroundColor(Color.GREEN);
+            ((ImageButton) v.findViewById(R.id.status)).setImageResource(R.drawable.ic_action_done_after);
+        }
+        else{
+            ((ImageButton) v.findViewById(R.id.status)).setImageResource(R.drawable.ic_action_done_before);
         }
 
         /*
@@ -227,6 +234,29 @@ public class ArticlesListFragment extends ListFragment {
             arIntent.putExtra("currentStep", currentStep);  // Add which the current step
             startActivity(arIntent);
           }
+        });
+
+        // OnClickListener for 'checked'-button
+        statusButton.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                  if (a.getChecked()) {
+                      // Update article variable
+                      a.setChecked(false);
+                      // Update checked button
+                      ((ImageButton) v.findViewById(R.id.status)).setImageResource(R.drawable.ic_action_done_before);
+                      // Notify change to AllArticles, forces a save to JSON
+                      articleHandler.updateAndSaveJson(getActivity());
+                  }
+                  else{
+                      // Update article variable
+                      a.setChecked(true);
+                      // Update checked button
+                      ((ImageButton) v.findViewById(R.id.status)).setImageResource(R.drawable.ic_action_done_after);
+                      // Notify change to AllArticles, forces a save to JSON
+                      articleHandler.updateAndSaveJson(getActivity());
+                  }
+              }
         });
 
         // Set title
