@@ -1,6 +1,7 @@
 package agilec.ikeaswipe.activities;
 
 import java.io.File;
+import java.io.IOException;
 
 import android.content.Intent;
 import android.graphics.PointF;
@@ -47,6 +48,8 @@ public class ArFindActivity extends ARViewActivity {
 
   // Edge visualization model
   private IGeometry mVizAidModel = null;
+
+  private IGeometry testgeometry = null;
 
   // Variables for SwipeActivity
   private String articleImgUrl = "";
@@ -133,6 +136,16 @@ public class ArFindActivity extends ARViewActivity {
 
     mRimModel = loadModel("custom/" + articleImgUrl + "/" + articleImgUrl + ".obj");
     mVizAidModel = loadModel("custom/" + articleImgUrl + "/" + articleImgUrl + ".obj");
+
+    // test
+//    try {
+//      AssetsManager.extractAllAssets(this, true);
+//      final File modelPath2 = AssetsManager.getAssetPathAsFile(getApplicationContext(), "testanimation.md2");
+//      //testgeometry = metaioSDK.createGeometry(modelPath2);
+//      //testgeometry.startAnimation("away", true);
+//    } catch (IOException e) {
+//      e.printStackTrace();
+//    }
 
     // Set id for each models individual coordinate system
     if (mRimModel != null)
@@ -244,8 +257,10 @@ public class ArFindActivity extends ARViewActivity {
       // Load model
       AssetsManager.extractAllAssets(this, true);
       final File modelPath = AssetsManager.getAssetPathAsFile(getApplicationContext(), path);
+
       // Log.i("info", "modelPath: " + modelPath);
       geometry = metaioSDK.createGeometry(modelPath);
+
 
       MetaioDebug.log("Loaded geometry " + modelPath);
     } catch (Exception e) {
