@@ -12,7 +12,6 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 
-
 import org.json.JSONException;
 
 import agilec.ikeaswipe.R;
@@ -21,7 +20,6 @@ import agilec.ikeaswipe.utils.SlidingTabLayout;
 import agilec.ikeaswipe.views.ArticlesListFragment;
 import agilec.ikeaswipe.views.StepByStepFragment;
 import agilec.ikeaswipe.views.View3dFragment;
-
 
 public class SwipeActivity extends FragmentActivity {
 
@@ -77,7 +75,14 @@ public class SwipeActivity extends FragmentActivity {
 
     // Update the list - Only show articles that belongs to the current step
     alf.updateListWithStep(currentStep);
-    v3DF.changeObject(currentStep);
+
+    Thread thread = new Thread(new Runnable(){
+      @Override
+      public void run(){
+        v3DF.changeObject(currentStep);
+      }
+    });
+    thread.start();
   }
 
   public void setCompletedStep(int stepNumber, boolean isCompleted) {
