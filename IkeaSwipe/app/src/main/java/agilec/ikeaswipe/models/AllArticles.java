@@ -128,6 +128,7 @@ public class AllArticles {
         part.put("quantityLeft", article.getQuantityLeft());
         part.put("imgUrl", article.getImgUrl());
         part.put("checked", article.getChecked());
+        part.put("arAvailable", article.getArAvailable());
 
         // If an array should be stored, parse the article values and add in to a new array
         JSONArray list = new JSONArray();

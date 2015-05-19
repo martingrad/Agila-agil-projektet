@@ -192,14 +192,25 @@ public class ArticlesListFragment extends ListFragment {
       final Article a = article.get(position);
       if (a != null) {
         //Finding the current ListItems TopText, BottomText and Image
-        TextView listTopText = (TextView) v.findViewById(R.id.toptext);
-        TextView listBottomText = (TextView) v.findViewById(R.id.bottomtext);
-        ImageView listImg = (ImageView) v.findViewById(R.id.icon);
-        ImageButton arButton = (ImageButton) v.findViewById(R.id.arButton);
-        Button statusButton = (Button) v.findViewById(R.id.status);
+        TextView listTopText      = (TextView) v.findViewById(R.id.toptext);
+        TextView listBottomText   = (TextView) v.findViewById(R.id.bottomtext);
+        ImageView listImg         = (ImageView) v.findViewById(R.id.icon);
+        ImageButton arButton      = (ImageButton) v.findViewById(R.id.arButton);
+        Button statusButton       = (Button) v.findViewById(R.id.status);
 
         if (a.getChecked()) {
           statusButton.setBackgroundColor(Color.GREEN);
+        }
+
+        /*
+         * Checks if arButton show be shown for the article
+         * If it should not - set the image button as INVISIBLE
+         * else             - set the image button as VISIBLE
+         */
+        if(!a.getArAvailable()){
+          arButton.setVisibility(ImageButton.INVISIBLE);
+        } else {
+          arButton.setVisibility(ImageButton.VISIBLE);
         }
 
         /**

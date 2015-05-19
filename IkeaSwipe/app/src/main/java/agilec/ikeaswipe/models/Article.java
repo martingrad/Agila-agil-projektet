@@ -14,6 +14,7 @@ public class Article {
   private String imgUrl;              // The image url of the article
   private int[] steps;                // How many each step require of this article
   private boolean checked = false;    //
+  private boolean arAvailable;
 
   /**
    * Constructor
@@ -26,7 +27,7 @@ public class Article {
    * @param imgUrl
    * @param steps
    */
-  public Article(String title, String articleNumber, int quantity, int quantityLeft, String imgUrl, int[] steps, boolean checked) {
+  public Article(String title, String articleNumber, int quantity, int quantityLeft, String imgUrl, int[] steps, boolean checked, boolean arAvailable) {
     this.title = title;
     this.articleNumber = articleNumber;
     this.quantity = quantity;
@@ -34,6 +35,7 @@ public class Article {
     this.imgUrl = imgUrl;
     this.steps = steps;
     this.checked = checked;
+    this.arAvailable = arAvailable;
   }
 
   /**
@@ -107,4 +109,11 @@ public class Article {
   public boolean getChecked() {
     return checked;
   }
+
+  /**
+   * Returns a boolean if the user can can the article with the camera
+   *
+   * @return checked
+   */
+  public boolean getArAvailable() { return arAvailable; }
 }
