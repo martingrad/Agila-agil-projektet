@@ -2,6 +2,7 @@
 package agilec.ikeaswipe.activities;
 
 import java.io.File;
+import java.io.IOException;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import com.metaio.sdk.jni.Camera;
 import com.metaio.sdk.jni.CameraVector;
 import com.metaio.sdk.jni.IGeometry;
 import com.metaio.sdk.jni.IMetaioSDKCallback;
+import com.metaio.sdk.jni.Rotation;
 import com.metaio.sdk.jni.TrackingValuesVector;
 import com.metaio.sdk.jni.Vector2di;
 import com.metaio.tools.io.AssetsManager;
@@ -32,6 +34,8 @@ public class ArStepsActivity extends ARViewActivity {
   private IGeometry mMetaioStep4;
   private IGeometry mMetaioStep5;
   private IGeometry mMetaioStep6;
+
+  private IGeometry testgeometry;
 
   /**
    * Metaio SDK callback handler
@@ -71,12 +75,28 @@ public class ArStepsActivity extends ARViewActivity {
   @Override
   protected void loadContents() {
     // Load all the geometries with its corresponding texture
-    mMetaioStep1 = loadModel("scanningsteps/objects/step_01.obj", "scanningsteps/textures/step01.png");
-    mMetaioStep2 = loadModel("scanningsteps/objects/step_02.obj", "scanningsteps/textures/step02.png");
-    mMetaioStep3 = loadModel("scanningsteps/objects/step_03.obj", "scanningsteps/textures/step03.png");
-    mMetaioStep4 = loadModel("scanningsteps/objects/step_04.obj", "scanningsteps/textures/step04.png");
-    mMetaioStep5 = loadModel("scanningsteps/objects/step_05.obj", "scanningsteps/textures/step05.png");
-    mMetaioStep6 = loadModel("scanningsteps/objects/step_06.obj", "scanningsteps/textures/step06.png");
+//    mMetaioStep1 = loadModel("scanningsteps/objects/step_01.obj", "scanningsteps/textures/step01.png");
+//    mMetaioStep2 = loadModel("scanningsteps/objects/step_02.obj", "scanningsteps/textures/step02.png");
+//    mMetaioStep3 = loadModel("scanningsteps/objects/step_03.obj", "scanningsteps/textures/step03.png");
+//    mMetaioStep4 = loadModel("scanningsteps/objects/step_04.obj", "scanningsteps/textures/step04.png");
+//    mMetaioStep5 = loadModel("scanningsteps/objects/step_05.obj", "scanningsteps/textures/step05.png");
+//    mMetaioStep6 = loadModel("scanningsteps/objects/step_06.obj", "scanningsteps/textures/step06.png");
+
+    // test
+    try {
+      AssetsManager.extractAllAssets(this, true);
+      final File modelPath2 = AssetsManager.getAssetPathAsFile(getApplicationContext(), "animation_step01_test.zip");
+      testgeometry = metaioSDK.createGeometry(modelPath2);
+      testgeometry.startAnimation("Default Take", true);
+      testgeometry.setScale(50f);
+      testgeometry.setRotation(new Rotation((float)(-Math.PI/2.0), 0, 0));
+      //testgeometry.setTranslation(new Vector3d(0, -100, 50));
+
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+
 
     // Tracking.xml defines how to track the model
     setTrackingConfiguration("scanningsteps/TrackingData_MarkerlessFast.xml");
@@ -148,29 +168,32 @@ public class ArStepsActivity extends ARViewActivity {
     public void onTrackingEvent(TrackingValuesVector trackingValues) {
       //Connect a geometry to a tracking marker.
       // The coordinate ID corresponds to the patches in the XML file.
-      if (mMetaioStep1 != null) {
-        mMetaioStep1.setCoordinateSystemID(1); //bind the loaded geometry to this target
+      if(testgeometry != null){
+        testgeometry.setCoordinateSystemID(1);
       }
-
-      if (mMetaioStep2 != null) {
-        mMetaioStep2.setCoordinateSystemID(2); //bind the loaded geometry to this target
-      }
-
-      if (mMetaioStep3 != null) {
-        mMetaioStep3.setCoordinateSystemID(3); //bind the loaded geometry to this target
-      }
-
-      if (mMetaioStep4 != null) {
-        mMetaioStep4.setCoordinateSystemID(4); //bind the loaded geometry to this target
-      }
-
-      if (mMetaioStep5 != null) {
-        mMetaioStep5.setCoordinateSystemID(5); //bind the loaded geometry to this target
-      }
-
-      if (mMetaioStep6 != null) {
-        mMetaioStep6.setCoordinateSystemID(6); //bind the loaded geometry to this target
-      }
+//      if (mMetaioStep1 != null) {
+//        mMetaioStep1.setCoordinateSystemID(1); //bind the loaded geometry to this target
+//      }
+//
+//      if (mMetaioStep2 != null) {
+//        mMetaioStep2.setCoordinateSystemID(2); //bind the loaded geometry to this target
+//      }
+//
+//      if (mMetaioStep3 != null) {
+//        mMetaioStep3.setCoordinateSystemID(3); //bind the loaded geometry to this target
+//      }
+//
+//      if (mMetaioStep4 != null) {
+//        mMetaioStep4.setCoordinateSystemID(4); //bind the loaded geometry to this target
+//      }
+//
+//      if (mMetaioStep5 != null) {
+//        mMetaioStep5.setCoordinateSystemID(5); //bind the loaded geometry to this target
+//      }
+//
+//      if (mMetaioStep6 != null) {
+//        mMetaioStep6.setCoordinateSystemID(6); //bind the loaded geometry to this target
+//      }
     }
 
   }
