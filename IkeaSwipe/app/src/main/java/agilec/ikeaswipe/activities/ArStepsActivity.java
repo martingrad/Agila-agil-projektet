@@ -93,7 +93,7 @@ public class ArStepsActivity extends ARViewActivity {
     mDirectionalLight.setType(ELIGHT_TYPE.ELIGHT_TYPE_DIRECTIONAL); // Define the light as directional
     mDirectionalLight.setAmbientColor(new Vector3d(0, 0.15f, 0)); // Slightly green color
     mDirectionalLight.setDiffuseColor(new Vector3d(0.6f, 0.2f, 0)); // Orange color
-    mDirectionalLight.setCoordinateSystemID(0); // Set the lights coordinate system to the camera
+    //mDirectionalLight.setCoordinateSystemID(0); // Set the lights coordinate system to the camera
 
     // Tracking.xml defines how to track the model
     setTrackingConfiguration("scanningsteps/TrackingData_MarkerlessFast.xml");
