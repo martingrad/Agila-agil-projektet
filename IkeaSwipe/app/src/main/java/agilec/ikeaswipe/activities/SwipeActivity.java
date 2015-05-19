@@ -77,7 +77,14 @@ public class SwipeActivity extends FragmentActivity {
 
     // Update the list - Only show articles that belongs to the current step
     alf.updateListWithStep(currentStep);
-    v3DF.changeObject(currentStep);
+
+    Thread thread = new Thread(new Runnable(){
+      @Override
+      public void run(){
+        v3DF.changeObject(currentStep);
+      }
+    });
+    thread.start();
   }
 
   public void setCompletedStep(int stepNumber, boolean isCompleted) {
