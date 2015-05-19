@@ -40,24 +40,6 @@ public class ArStepsActivity extends ARViewActivity {
    * Light sources
    */
   private ILight mDirectionalLight;
-  private IGeometry mDirectionalLightGeo;
-
-  private IGeometry createLightGeometry()
-  {
-    final File modelPath = AssetsManager.getAssetPathAsFile(getApplicationContext(), "scanningsteps/objects/sphere_10mm.obj");
-    if (modelPath != null)
-    {
-      IGeometry model = metaioSDK.createGeometry(modelPath);
-      if (model != null)
-        return model;
-      else
-        MetaioDebug.log(Log.ERROR, "Error loading geometry: " + modelPath);
-    }
-    else
-      MetaioDebug.log(Log.ERROR, "Could not find 3D model to use as light indicator");
-
-    return null;
-  }
 
   /**
    * Metaio SDK callback handler
@@ -92,7 +74,7 @@ public class ArStepsActivity extends ARViewActivity {
    * This function loads the tracking file, which contains the images which are used as trackers.
    * This function then loads the geometries which shall be used for each tracker.
    *
-   * @author @emmaforsling @marcusnygren
+   * @author @emmaforsling @marcusnygren @antonosterblad
    */
   @Override
   protected void loadContents() {
@@ -104,18 +86,14 @@ public class ArStepsActivity extends ARViewActivity {
     mMetaioStep5 = loadModel("scanningsteps/objects/step_05.obj", "scanningsteps/textures/step05.png");
     mMetaioStep6 = loadModel("scanningsteps/objects/step_06.obj", "scanningsteps/textures/step06.png");
 
-    metaioSDK.setAmbientLight(new Vector3d(0.50f));
+    metaioSDK.setAmbientLight(new Vector3d(0.50f)); // Set the ambient light in the scene
 
+    // TODO: change the color of ambient and diffuse to a more suitable, when the texture are removed.
     mDirectionalLight = metaioSDK.createLight();
-    mDirectionalLight.setType(ELIGHT_TYPE.ELIGHT_TYPE_DIRECTIONAL);
-    mDirectionalLight.setAmbientColor(new Vector3d(0, 0.15f, 0)); // slightly green
-    mDirectionalLight.setDiffuseColor(new Vector3d(0.6f, 0.2f, 0)); // orange
-    //mDirectionalLight.setTranslation(new Vector3d(0,0,0));
-    //mDirectionalLight.setCoordinateSystemID(2);
-    mDirectionalLight.setCoordinateSystemID(0);
-    mDirectionalLightGeo = createLightGeometry();
-    mDirectionalLightGeo.setCoordinateSystemID(mDirectionalLight.getCoordinateSystemID());
-    mDirectionalLightGeo.setDynamicLightingEnabled(false);
+    mDirectionalLight.setType(ELIGHT_TYPE.ELIGHT_TYPE_DIRECTIONAL); // Define the light as directional
+    mDirectionalLight.setAmbientColor(new Vector3d(0, 0.15f, 0)); // Slightly green color
+    mDirectionalLight.setDiffuseColor(new Vector3d(0.6f, 0.2f, 0)); // Orange color
+    mDirectionalLight.setCoordinateSystemID(0); // Set the lights coordinate system to the camera
 
     // Tracking.xml defines how to track the model
     setTrackingConfiguration("scanningsteps/TrackingData_MarkerlessFast.xml");
@@ -190,7 +168,6 @@ public class ArStepsActivity extends ARViewActivity {
       // The coordinate ID corresponds to the patches in the XML file.
       if (mMetaioStep1 != null) {
         mMetaioStep1.setCoordinateSystemID(1); //bind the loaded geometry to this target
-        //mDirectionalLight.setCoordinateSystemID(1); //bind directional light to model
       }
 
       if (mMetaioStep2 != null) {
