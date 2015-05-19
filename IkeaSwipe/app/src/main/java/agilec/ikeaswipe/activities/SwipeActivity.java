@@ -3,12 +3,17 @@ package agilec.ikeaswipe.activities;
 import java.util.Arrays;
 import java.util.Locale;
 
+import android.app.ActionBar;
+import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ImageSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -51,6 +56,12 @@ public class SwipeActivity extends FragmentActivity {
   private int totalNumberOfSteps = 7;
   private boolean[] completedStepsArray;
 
+    // Resource paths for SlidingTab icons
+    private int[] imageResId = {
+        R.drawable.list_icon,
+        R.drawable.build_icon,
+        R.drawable.threedee_icon
+    };
 
   /**
    * The {@link Bundle} that is used to initialize stepByStepFragment with the current
@@ -159,8 +170,10 @@ public class SwipeActivity extends FragmentActivity {
     mViewPager.setCurrentItem(currentTab); // Set which tab that will be shown
 
     // Set the sliding tabs layout from the xml and bind the viewPager to it.
-    mSlidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
-    mSlidingTabLayout.setViewPager(mViewPager);
+    SlidingTabLayout slidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
+    slidingTabLayout.setCustomTabView(R.layout.custom_tab, 0);
+    slidingTabLayout.getLayoutParams().height = ActionBar.LayoutParams.WRAP_CONTENT;
+    slidingTabLayout.setViewPager(mViewPager);
     // TODO: Set the color of selectedIndicator. The line below does not seem to do... =(
     //mSlidingTabLayout.setSelectedIndicatorColors(R.color.blue);
   }
@@ -262,16 +275,13 @@ public class SwipeActivity extends FragmentActivity {
      */
     @Override
     public CharSequence getPageTitle(int position) {
-      Locale l = Locale.getDefault();
-      switch (position) {
-        case 0:
-          return getString(R.string.title_section1).toUpperCase(l);
-        case 1:
-          return getString(R.string.title_section2).toUpperCase(l);
-        case 2:
-          return getString(R.string.title_section3).toUpperCase(l);
-      }
-      return null;
+        // Changed static text tabs to SpannableStrings with ImageSpans to render icons in tabs
+        Drawable image = getResources().getDrawable(imageResId[position]);
+        image.setBounds(0, 0, image.getIntrinsicWidth(), image.getIntrinsicHeight());
+        SpannableString sb = new SpannableString(" ");
+        ImageSpan imageSpan = new ImageSpan(image, ImageSpan.ALIGN_BOTTOM);
+        sb.setSpan(imageSpan, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return sb;
     }
   }
 }
