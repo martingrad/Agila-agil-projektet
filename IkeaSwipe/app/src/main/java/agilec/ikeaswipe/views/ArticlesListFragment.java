@@ -196,9 +196,11 @@ public class ArticlesListFragment extends ListFragment {
         TextView listBottomText = (TextView) v.findViewById(R.id.bottomtext);
         ImageView listImg = (ImageView) v.findViewById(R.id.icon);
         ImageButton arButton = (ImageButton) v.findViewById(R.id.arButton);
+
+        // ImageButton for 'checked' status of article
         final ImageButton statusButton = (ImageButton) v.findViewById(R.id.status);
 
-        // Checking what status the checked button has for correct rendering
+        // Checking what status the checked button has for correct rendering on initiation
         if (a.getChecked()) {
             ((ImageButton) v.findViewById(R.id.status)).setImageResource(R.drawable.ic_action_done_after);
         }
@@ -222,20 +224,25 @@ public class ArticlesListFragment extends ListFragment {
           }
         });
 
-      /**
-       * Onclicklistener for change of variable "checked" for each Article in the list
-       */
+        // OnClickListener for 'checked'-button
         statusButton.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View v) {
-                  // Changing status of variable "checked" for current Article
                   if (a.getChecked()) {
+                      // Update article variable
                       a.setChecked(false);
+                      // Update checked button
                       ((ImageButton) v.findViewById(R.id.status)).setImageResource(R.drawable.ic_action_done_before);
+                      // Notify change to AllArticles, forces a save to JSON
+                      articleHandler.updateAndSaveJson(getActivity());
                   }
                   else{
+                      // Update article variable
                       a.setChecked(true);
+                      // Update checked button
                       ((ImageButton) v.findViewById(R.id.status)).setImageResource(R.drawable.ic_action_done_after);
+                      // Notify change to AllArticles, forces a save to JSON
+                      articleHandler.updateAndSaveJson(getActivity());
                   }
               }
         });
