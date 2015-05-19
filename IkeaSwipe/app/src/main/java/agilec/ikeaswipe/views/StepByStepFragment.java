@@ -63,10 +63,11 @@ public class StepByStepFragment extends Fragment {
   /**
    * transitionToNextImage makes the currently displayed image slide upward and a new, specified
    * image slide in from below.
+   *
    * @param id
    * @author @martingrad
    */
-  public void transitionToNextImage(int id){
+  public void transitionToNextImage(int id) {
     Animation in = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_in_up);
     Animation out = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_out_up);
     imageSwitcher.setInAnimation(in);
@@ -77,10 +78,11 @@ public class StepByStepFragment extends Fragment {
   /**
    * transitionToPreviousImage makes the currently displayed image slide downward and a new,
    * specified image slide in from above.
-   * @author @martingrad
+   *
    * @param id
+   * @author @martingrad
    */
-  public void transitionToPreviousImage(int id){
+  public void transitionToPreviousImage(int id) {
     Animation in = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_out_down);
     Animation out = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_in_down);
     imageSwitcher.setInAnimation(out);
@@ -98,7 +100,7 @@ public class StepByStepFragment extends Fragment {
     String imgUrl = stepHandler.getSteps().get(stepNumber).getImgUrl(); // Get the image url for the instruction image
     int id = getResources().getIdentifier(imgUrl, "drawable", getActivity().getPackageName()); // Get the id
 
-    if(stepNumber > prevStep) {
+    if (stepNumber > prevStep) {
       transitionToNextImage(id);
     } else {
       transitionToPreviousImage(id);
@@ -238,11 +240,12 @@ public class StepByStepFragment extends Fragment {
 
   /**
    * OnCreateView initializes the instance variables of the fragment.
+   *
    * @param inflater
    * @param container
    * @param savedInstanceState
-   * @author @martingrad
    * @return
+   * @author @martingrad
    */
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -332,7 +335,7 @@ public class StepByStepFragment extends Fragment {
         ((SwipeActivity) getActivity()).setCompletedStep(stepNumber, isCompleted);
 
         // If the step was completed, show the next step
-        if(isCompleted) {
+        if (isCompleted) {
           goToNextStep();
         }
       }
@@ -355,21 +358,22 @@ public class StepByStepFragment extends Fragment {
 
   /**
    * Sets the navigation buttons clickable
+   *
    * @param theView
    */
   private void setNavigationButtonsClickable(View theView) {
 
     // Loop through all the navigation buttons and set action to them
-    for(int i = 0; i<7; i++) {
+    for (int i = 0; i < 7; i++) {
 
       // The current step
       final int goToStep = i;
 
       // Get the id of the button
-      int       id = getResources().getIdentifier("step"+i, "id", getActivity().getPackageName());
+      int id = getResources().getIdentifier("step" + i, "id", getActivity().getPackageName());
 
       // Set the current button
-      Button    navigationButton = (Button) view.findViewById(id);
+      Button navigationButton = (Button) view.findViewById(id);
 
       // Set Action to the current button
       navigationButton.setOnClickListener(new View.OnClickListener() {
@@ -411,8 +415,9 @@ public class StepByStepFragment extends Fragment {
    * Get the x and y position after the button is draw on screen
    * (It's important to note that we can't get the position in the onCreate(),
    * because at that stage most probably the view isn't drawn yet, so it will return (0, 0))
-   *
+   * <p/>
    * The function will be run from SwipeActivity when onWindowFocusChanged return true
+   *
    * @author @antonosterblad
    */
   public void findPos() {
@@ -433,9 +438,9 @@ public class StepByStepFragment extends Fragment {
 
   /**
    * Displays pop up and it's contents
-   * @param context Context
-   * @param p Point for help buttons position
    *
+   * @param context Context
+   * @param p       Point for help buttons position
    * @author @antonosterblad @ingelhag @emmaforsling
    */
   // The method that displays the popup.
@@ -475,7 +480,7 @@ public class StepByStepFragment extends Fragment {
       @Override
       public void onClick(View v) {
         Intent arIntent = new Intent(getActivity(), ArStepsActivity.class);
-        arIntent.putExtra("currentTab",1);
+        arIntent.putExtra("currentTab", 1);
         startActivity(arIntent);
 
       }
