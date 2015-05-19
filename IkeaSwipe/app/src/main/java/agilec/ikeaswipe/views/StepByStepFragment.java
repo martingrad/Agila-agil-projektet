@@ -10,13 +10,17 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.support.v4.app.Fragment;
 import android.widget.ImageButton;
+import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
 import org.json.JSONException;
 
@@ -48,10 +52,40 @@ public class StepByStepFragment extends Fragment {
    * currentStep in the parent SwipeActivity.
    * int prevStep is used to track the previous step.
    * boolean prevIsCompleted is used to see if the step is completed or not.
+   * ImageSwitcher imageSwitcher is used to make animated transitions between the instruction images
    */
   private int stepNumber;
   private int prevStep;
   private boolean prevIsCompleted;
+  private ImageSwitcher imageSwitcher;
+
+  /**
+   * transitionToNextImage makes the currently displayed image slide upward and a new, specified
+   * image slide in from below.
+   * @param id
+   * @author @martingrad
+   */
+  public void transitionToNextImage(int id){
+    Animation in = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_in_up);
+    Animation out = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_out_up);
+    imageSwitcher.setInAnimation(in);
+    imageSwitcher.setOutAnimation(out);
+    imageSwitcher.setImageResource(id);
+  }
+
+  /**
+   * transitionToPreviousImage makes the currently displayed image slide downward and a new,
+   * specified image slide in from above.
+   * @author @martingrad
+   * @param id
+   */
+  public void transitionToPreviousImage(int id){
+    Animation in = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_out_down);
+    Animation out = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_in_down);
+    imageSwitcher.setInAnimation(out);
+    imageSwitcher.setOutAnimation(in);
+    imageSwitcher.setImageResource(id);
+  }
 
   /**
    * setImage changes the image source of imgView depending on the current step
@@ -62,7 +96,12 @@ public class StepByStepFragment extends Fragment {
   private void setImage(int stepNumber) {
     String imgUrl = stepHandler.getSteps().get(stepNumber).getImgUrl(); // Get the image url for the instruction image
     int id = getResources().getIdentifier(imgUrl, "drawable", getActivity().getPackageName()); // Get the id
-    imgView.setImageResource(id); // Set the correct image using id
+
+    if(stepNumber > prevStep) {
+      transitionToNextImage(id);
+    } else {
+      transitionToPreviousImage(id);
+    }
   }
 
   private void setHeader(int stepNumber) {
@@ -132,11 +171,29 @@ public class StepByStepFragment extends Fragment {
     super.onSaveInstanceState(outState);
   }
 
+  /**
+   * OnCreateView initializes the instance variables of the fragment.
+   * @param inflater
+   * @param container
+   * @param savedInstanceState
+   * @author @martingrad
+   * @return
+   */
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
     final View view = inflater.inflate(R.layout.fragment_step_by_step, container, false); // Inflate the layout for this fragment
     header = (TextView) view.findViewById(R.id.stepByStepHeader); // Define header id connection
+
+    // Initialize the imageSwitcher
+    imageSwitcher = (ImageSwitcher) view.findViewById(R.id.imageSwitcher1);
+    imageSwitcher.setFactory(new ViewSwitcher.ViewFactory() {
+      public View makeView() {
+        ImageView myView = new ImageView(getActivity().getApplicationContext());
+        myView.setMinimumHeight(3000);    // Ugly... To keep the image vertically centered.
+        return myView;
+      }
+    });
 
     try {
       stepHandler = new AllSteps("kritter_steps.json", getActivity());

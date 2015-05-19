@@ -12,7 +12,6 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 
-
 import org.json.JSONException;
 
 import agilec.ikeaswipe.R;
@@ -21,7 +20,6 @@ import agilec.ikeaswipe.utils.SlidingTabLayout;
 import agilec.ikeaswipe.views.ArticlesListFragment;
 import agilec.ikeaswipe.views.StepByStepFragment;
 import agilec.ikeaswipe.views.View3dFragment;
-
 
 public class SwipeActivity extends FragmentActivity {
 
