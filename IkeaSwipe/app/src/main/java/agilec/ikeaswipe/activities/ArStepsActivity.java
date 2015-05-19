@@ -92,7 +92,7 @@ public class ArStepsActivity extends ARViewActivity {
     mDirectionalLight.setType(ELIGHT_TYPE.ELIGHT_TYPE_DIRECTIONAL); // Define the light as directional
     mDirectionalLight.setAmbientColor(new Vector3d(0, 0.15f, 0)); // Slightly green color
     mDirectionalLight.setDiffuseColor(new Vector3d(0.6f, 0.2f, 0)); // Orange color
-    mDirectionalLight.setCoordinateSystemID(0); // Set the lights coordinate system to the camera
+    mDirectionalLight.setCoordinateSystemID(1); // Set the lights coordinate system to the camera
 
 
     // Load all the geometries with its corresponding texture
@@ -103,54 +103,46 @@ public class ArStepsActivity extends ARViewActivity {
 //    mMetaioStep5 = loadModel("scanningsteps/objects/step_05.obj", "scanningsteps/textures/step05.png");
 //    mMetaioStep6 = loadModel("scanningsteps/objects/step_06.obj", "scanningsteps/textures/step06.png");
 
-    // test
+    // Load the zip file, which have been created, by converting the FBX-file, with FBXMeshConverter.
+    // Create the geometry, and scale it up.
     try {
       AssetsManager.extractAllAssets(this, true);
-      final File modelPath2 = AssetsManager.getAssetPathAsFile(getApplicationContext(), "scanningsteps/steg_2.zip");
+      final File modelPath2 = AssetsManager.getAssetPathAsFile(getApplicationContext(), "scanningsteps/animation_step01_test.zip");
       Log.d("******", modelPath2.toString());
       testgeometry = metaioSDK.createGeometry(modelPath2);
-
-      testgeometry.setCoordinateSystemID(1);
-      testgeometry.startAnimation("Default Take", true);
-      Log.d("***** translation", testgeometry.getTranslation().toString());
-
+      testgeometry.setScale(50f);
+      Log.d("******", testgeometry.toString());
 
     } catch (IOException e) {
       e.printStackTrace();
     }
+    // Create a button in which the user can choose to start the animation.
+    Button testBtn = (Button) findViewById(R.id.testButton);
+    testBtn.setVisibility(View.VISIBLE);
 
-//    Button testBtn = (Button) findViewById(R.id.testButton);
-//    testBtn.setVisibility(View.VISIBLE);
-//    // Set listener to run the function returnToSwipeActivity when onClick.
-//    testBtn.setOnClickListener(new View.OnClickListener() {
-//      @Override
-//      public void onClick(View v) {
-//        System.out.println("Nu klickar jag på knappen");
-//        System.out.println("startar animering");
-//        testgeometry.startAnimation("Default Take", true);
-//        System.out.println("Skalar");
-//        testgeometry.setScale(50f);
-//        //testgeometry.setRotation(new Rotation((float)(-Math.PI/2.0), 0, 0));
-//        //testgeometry.setTranslation(new Vector3d(0, -100, 50));
-//
-//      }
-//    });
+    // Set listener to run the function returnToSwipeActivity when onClick.
+    testBtn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        testgeometry.setDynamicLightingEnabled(true);
+        testgeometry.setVisible(true);
 
-//    testgeometry.startAnimation("Default Take", true);
-//
-//    testgeometry.setScale(10f);
-//    testgeometry.setRelativeToScreen(IGeometry.ANCHOR_NONE);
-//    mDirectionalLight.setCoordinateSystemID(1);
-//    testgeometry.setCoordinateSystemID(1);
-//    testgeometry.setScale(100f);
+        testgeometry.startAnimation("Default Take", true);    // start the animation.
+                                                              // Default Take, is the animation name
+                                                              // which can be read in the log-file
+                                                              // when using FBXMeshConverter
+        //testgeometry.setScale(50f);
+        testgeometry.setRelativeToScreen(IGeometry.ANCHOR_NONE);
+        testgeometry.setCoordinateSystemID(1);
+        mDirectionalLight.setCoordinateSystemID(1);
 
-
-
-
-
+        Log.d("***** translation", testgeometry.getTranslation().toString());
+        Log.d("***** scale ", testgeometry.getScale().toString());
+      }
+    });
 
     // Tracking.xml defines how to track the model
-    setTrackingConfiguration("scanningsteps/TrackingData_MarkerlessFast2.xml");
+    setTrackingConfiguration("scanningsteps/TrackingData_MarkerlessFast.xml");
   }
 
   /**
