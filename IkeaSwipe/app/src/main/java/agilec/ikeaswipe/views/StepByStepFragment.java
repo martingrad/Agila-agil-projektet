@@ -10,13 +10,18 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.support.v4.app.Fragment;
 import android.widget.ImageButton;
+import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.ViewSwitcher;
 
 import org.json.JSONException;
 
@@ -53,6 +58,23 @@ public class StepByStepFragment extends Fragment {
   private int prevStep;
   private boolean prevIsCompleted;
 
+  private ImageSwitcher imageSwitcher;
+
+  public void next(int id){
+    Animation in = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_in_up);
+    Animation out = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_out_up);
+    imageSwitcher.setInAnimation(in);
+    imageSwitcher.setOutAnimation(out);
+    imageSwitcher.setImageResource(id);
+  }
+  public void previous(int id){
+    Animation in = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_out_down);
+    Animation out = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_in_down);
+    imageSwitcher.setInAnimation(out);
+    imageSwitcher.setOutAnimation(in);
+    imageSwitcher.setImageResource(id);
+  }
+
   /**
    * setImage changes the image source of imgView depending on the current step
    *
@@ -62,8 +84,24 @@ public class StepByStepFragment extends Fragment {
   private void setImage(int stepNumber) {
     String imgUrl = stepHandler.getSteps().get(stepNumber).getImgUrl(); // Get the image url for the instruction image
     int id = getResources().getIdentifier(imgUrl, "drawable", getActivity().getPackageName()); // Get the id
-    imgView.setImageResource(id); // Set the correct image using id
+
+    if(stepNumber > prevStep) {
+      next(id);
+    } else {
+      previous(id);
+    }
+
+    /*
+    Animation in = AnimationUtils.loadAnimation(getActivity(), android.R.anim.slide_in_left);
+    Animation out = AnimationUtils.loadAnimation(getActivity(), android.R.anim.slide_out_right);
+    imageSwitcher.setInAnimation(in);
+    imageSwitcher.setOutAnimation(out);
+    imageSwitcher.setImageResource(id);
+    */
+
   }
+
+
 
   private void setHeader(int stepNumber) {
     String title = stepHandler.getSteps().get(stepNumber).getTitle(); // Get the image url for the instruction image
@@ -137,6 +175,14 @@ public class StepByStepFragment extends Fragment {
 
     final View view = inflater.inflate(R.layout.fragment_step_by_step, container, false); // Inflate the layout for this fragment
     header = (TextView) view.findViewById(R.id.stepByStepHeader); // Define header id connection
+
+    imageSwitcher = (ImageSwitcher) view.findViewById(R.id.imageSwitcher1);
+    imageSwitcher.setFactory(new ViewSwitcher.ViewFactory() {
+      public View makeView() {
+        ImageView myView = new ImageView(getActivity().getApplicationContext());
+        return myView;
+      }
+    });
 
     try {
       stepHandler = new AllSteps("kritter_steps.json", getActivity());

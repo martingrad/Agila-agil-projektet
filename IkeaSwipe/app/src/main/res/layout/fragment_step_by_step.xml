@@ -70,7 +70,15 @@
         android:layout_gravity="center"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
-        android:src="@drawable/kritter_lowres"/>
+        />
+
+    <ImageSwitcher
+        android:id="@+id/imageSwitcher1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" >
+    </ImageSwitcher>
 
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
