@@ -58,12 +58,15 @@
             android:background="#00000000"
             android:src="@drawable/icon_3d_scan"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/status"
             android:layout_width="200px"
             android:layout_height="200px"
             android:layout_gravity="center"
+            android:layout_marginRight="10px"
             android:layout_weight="1"
-            android:text="1/10"/>
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/checkButton"
+            android:src="@drawable/ic_action_done_before"/>
     </LinearLayout>
 </LinearLayout>
