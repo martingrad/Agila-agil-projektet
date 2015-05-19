@@ -60,14 +60,27 @@ public class StepByStepFragment extends Fragment {
 
   private ImageSwitcher imageSwitcher;
 
-  public void next(int id){
+  /**
+   * transitionToNextImage makes the currently displayed image slide upward and a new, specified
+   * image slide in from below.
+   * @param id
+   * @author @martingrad
+   */
+  public void transitionToNextImage(int id){
     Animation in = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_in_up);
     Animation out = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_out_up);
     imageSwitcher.setInAnimation(in);
     imageSwitcher.setOutAnimation(out);
     imageSwitcher.setImageResource(id);
   }
-  public void previous(int id){
+
+  /**
+   * transitionToPreviousImage makes the currently displayed image slide downward and a new,
+   * specified image slide in from above.
+   * @author @martingrad
+   * @param id
+   */
+  public void transitionToPreviousImage(int id){
     Animation in = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_out_down);
     Animation out = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_in_down);
     imageSwitcher.setInAnimation(out);
@@ -86,13 +99,11 @@ public class StepByStepFragment extends Fragment {
     int id = getResources().getIdentifier(imgUrl, "drawable", getActivity().getPackageName()); // Get the id
 
     if(stepNumber > prevStep) {
-      next(id);
+      transitionToNextImage(id);
     } else {
-      previous(id);
+      transitionToPreviousImage(id);
     }
   }
-
-
 
   private void setHeader(int stepNumber) {
     String title = stepHandler.getSteps().get(stepNumber).getTitle(); // Get the image url for the instruction image
@@ -161,17 +172,26 @@ public class StepByStepFragment extends Fragment {
     super.onSaveInstanceState(outState);
   }
 
+  /**
+   * OnCreateView initializes the instance variables of the fragment.
+   * @param inflater
+   * @param container
+   * @param savedInstanceState
+   * @author @martingrad
+   * @return
+   */
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
     final View view = inflater.inflate(R.layout.fragment_step_by_step, container, false); // Inflate the layout for this fragment
     header = (TextView) view.findViewById(R.id.stepByStepHeader); // Define header id connection
 
+    // Initialize the imageSwitcher
     imageSwitcher = (ImageSwitcher) view.findViewById(R.id.imageSwitcher1);
     imageSwitcher.setFactory(new ViewSwitcher.ViewFactory() {
       public View makeView() {
         ImageView myView = new ImageView(getActivity().getApplicationContext());
-        myView.setMinimumHeight(3000);
+        myView.setMinimumHeight(3000);    // Ugly... To keep the image vertically centered.
         return myView;
       }
     });
