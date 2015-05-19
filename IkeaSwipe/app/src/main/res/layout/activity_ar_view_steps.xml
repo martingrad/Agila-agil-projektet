@@ -19,6 +19,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/testButton"
         android:layout_margin="40dp"
+        android:text="Starta Animering"
         android:layout_alignParentLeft="true"
         android:onClick="onButtonClick"/>
 

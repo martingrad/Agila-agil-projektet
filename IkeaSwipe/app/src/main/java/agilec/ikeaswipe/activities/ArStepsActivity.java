@@ -108,10 +108,8 @@ public class ArStepsActivity extends ARViewActivity {
     try {
       AssetsManager.extractAllAssets(this, true);
       final File modelPath2 = AssetsManager.getAssetPathAsFile(getApplicationContext(), "scanningsteps/animation_step01_test.zip");
-      Log.d("******", modelPath2.toString());
       testgeometry = metaioSDK.createGeometry(modelPath2);
       testgeometry.setScale(50f);
-      Log.d("******", testgeometry.toString());
 
     } catch (IOException e) {
       e.printStackTrace();
@@ -126,7 +124,6 @@ public class ArStepsActivity extends ARViewActivity {
       public void onClick(View v) {
         testgeometry.setDynamicLightingEnabled(true);
         testgeometry.setVisible(true);
-
         testgeometry.startAnimation("Default Take", true);    // start the animation.
                                                               // Default Take, is the animation name
                                                               // which can be read in the log-file
@@ -135,9 +132,6 @@ public class ArStepsActivity extends ARViewActivity {
         testgeometry.setRelativeToScreen(IGeometry.ANCHOR_NONE);
         testgeometry.setCoordinateSystemID(1);
         mDirectionalLight.setCoordinateSystemID(1);
-
-        Log.d("***** translation", testgeometry.getTranslation().toString());
-        Log.d("***** scale ", testgeometry.getScale().toString());
       }
     });
 
