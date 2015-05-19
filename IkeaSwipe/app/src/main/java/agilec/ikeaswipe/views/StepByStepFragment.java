@@ -43,7 +43,7 @@ public class StepByStepFragment extends Fragment {
   private TextView header;
   private ImageView imgView;
   private Button checkbarButton;
-  private View view;
+  private View view;                    // View variable used across multiple functions
 
   //The "x" and "y" position of the "Show Button" on screen.
   private Point p;
@@ -314,7 +314,7 @@ public class StepByStepFragment extends Fragment {
     completedStepBtn.setOnClickListener(new View.OnClickListener() {
       /**
        * onClick function for the completedStepBtn
-       * @author @emmaforsling @marcusnygren
+       * @author @emmaforsling @marcusnygren @martingrad
        * @param v The view
        */
       @Override
@@ -331,7 +331,7 @@ public class StepByStepFragment extends Fragment {
         // Mark the step as done or undone
         ((SwipeActivity) getActivity()).setCompletedStep(stepNumber, isCompleted);
 
-        // Go to next step
+        // If the step was completed, show the next step
         if(isCompleted) {
           goToNextStep();
         }
@@ -358,12 +358,6 @@ public class StepByStepFragment extends Fragment {
    * @param theView
    */
   private void setNavigationButtonsClickable(View theView) {
-
-    /*
-     * Set the view
-     * Final -> want to reach it in the onClick method
-     */
-    final View view = theView;
 
     // Loop through all the navigation buttons and set action to them
     for(int i = 0; i<7; i++) {
