@@ -276,7 +276,70 @@ public class StepByStepFragment extends Fragment {
       }
     });
 
+    // Set action the the navigation bar
+    setNavigationButtonsClickable(view);
+
     return view;
+  }
+
+  /**
+   * Sets the navigation buttons clickable
+   * @param theView
+   */
+  private void setNavigationButtonsClickable(View theView) {
+
+    /*
+     * Set the view
+     * Final -> want to reach it in the onClick method
+     */
+    final View view = theView;
+
+    // Loop through all the navigation buttons and set action to them
+    for(int i = 0; i<7; i++) {
+
+      // The current step
+      final int goToStep = i;
+
+      // Get the id of the button
+      int       id = getResources().getIdentifier("step"+i, "id", getActivity().getPackageName());
+
+      // Set the current button
+      Button    navigationButton = (Button) view.findViewById(id);
+
+      // Set Action to the current button
+      navigationButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+          //Number for previous step
+          prevStep = stepNumber;
+
+          //To see if the step is completed
+          prevIsCompleted = ((SwipeActivity) getActivity()).getCompletedStep(prevStep);
+
+          //Set opacity of background color for previous button
+          setDefaultColorButtons(view, prevIsCompleted, prevStep);
+
+          // Set step number to new new step
+          stepNumber = goToStep;
+
+          // Load the step completed button
+          loadIsCompletedButton(((SwipeActivity) getActivity()).getCompletedStep(stepNumber), view, stepNumber);
+
+          // Change the image source
+          setImage(stepNumber);
+
+          // Change header
+          setHeader(stepNumber);
+
+          // Call the setStepNumber function in SwipeActivity to change the current step number
+          try {
+            ((SwipeActivity) getActivity()).setStepNumber(stepNumber);
+          } catch (JSONException e) {
+            e.printStackTrace();
+          }
+        }
+      });
+    }
   }
 
   /**
