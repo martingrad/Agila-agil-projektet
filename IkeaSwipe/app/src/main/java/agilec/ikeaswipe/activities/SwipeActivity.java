@@ -275,6 +275,7 @@ public class SwipeActivity extends FragmentActivity {
      */
     @Override
     public CharSequence getPageTitle(int position) {
+        // Changed static text tabs to SpannableStrings with ImageSpans to render icons in tabs
         Drawable image = getResources().getDrawable(imageResId[position]);
         image.setBounds(0, 0, image.getIntrinsicWidth(), image.getIntrinsicHeight());
         SpannableString sb = new SpannableString(" ");
