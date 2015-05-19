@@ -196,10 +196,14 @@ public class ArticlesListFragment extends ListFragment {
         TextView listBottomText = (TextView) v.findViewById(R.id.bottomtext);
         ImageView listImg = (ImageView) v.findViewById(R.id.icon);
         ImageButton arButton = (ImageButton) v.findViewById(R.id.arButton);
-        Button statusButton = (Button) v.findViewById(R.id.status);
+        final ImageButton statusButton = (ImageButton) v.findViewById(R.id.status);
 
+        // Checking what status the checked button has for correct rendering
         if (a.getChecked()) {
-          statusButton.setBackgroundColor(Color.GREEN);
+            ((ImageButton) v.findViewById(R.id.status)).setImageResource(R.drawable.ic_action_done_after);
+        }
+        else{
+            ((ImageButton) v.findViewById(R.id.status)).setImageResource(R.drawable.ic_action_done_before);
         }
 
         /**
@@ -216,6 +220,24 @@ public class ArticlesListFragment extends ListFragment {
             arIntent.putExtra("currentStep", currentStep);  // Add which the current step
             startActivity(arIntent);
           }
+        });
+
+      /**
+       * Onclicklistener for change of variable "checked" for each Article in the list
+       */
+        statusButton.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                  // Changing status of variable "checked" for current Article
+                  if (a.getChecked()) {
+                      a.setChecked(false);
+                      ((ImageButton) v.findViewById(R.id.status)).setImageResource(R.drawable.ic_action_done_before);
+                  }
+                  else{
+                      a.setChecked(true);
+                      ((ImageButton) v.findViewById(R.id.status)).setImageResource(R.drawable.ic_action_done_after);
+                  }
+              }
         });
 
         // Set title
