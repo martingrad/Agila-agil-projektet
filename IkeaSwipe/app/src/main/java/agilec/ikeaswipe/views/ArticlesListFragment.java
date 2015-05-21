@@ -44,6 +44,7 @@ public class ArticlesListFragment extends ListFragment {
   View view;
   private ImageButton helpBtn;
   private AllSteps stepHandler;         // Handles all steps
+  private TextView header;
 
   //The "x" and "y" position of the "Show Button" on screen.
   private Point p;
@@ -98,6 +99,7 @@ public class ArticlesListFragment extends ListFragment {
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
     view = inflater.inflate(R.layout.fragment_item_list, container, false); // Inflate the layout for this fragment
+    header = (TextView) view.findViewById(R.id.listHeader);
 
     System.out.println("view: " + view);
     //ListView listView = new ListView(getActivity()); // Create a list view in the current activity
@@ -169,6 +171,11 @@ public class ArticlesListFragment extends ListFragment {
     startActivity(arIntent);
   }
 
+  private void setHeader(int stepNumber) {
+    String title = stepHandler.getSteps().get(stepNumber).getTitle(); // Get the image url for the instruction image
+    header.setText("Innehåll: " + title); // Set the correct image using id
+  }
+
   /**
    * Updates out list depending on which step is active
    *
@@ -190,6 +197,8 @@ public class ArticlesListFragment extends ListFragment {
     ourAdapter.clear();
     ourAdapter.addAll(theList);
     ourAdapter.notifyDataSetChanged();
+
+    setHeader(currentStep);
   }
 
   public void findPos() {
