@@ -14,8 +14,8 @@ import android.view.ViewGroup;
 import android.support.v4.app.Fragment;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import org.json.JSONException;
 
@@ -27,7 +27,6 @@ import agilec.ikeaswipe.utils.MyGLDrawModel;
 import agilec.ikeaswipe.utils.MyGLSurfaceView;
 import agilec.ikeaswipe.R;
 
-
 /**
  * @author martingrad
  */
@@ -35,19 +34,28 @@ public class View3dFragment extends Fragment {
 
   MyGLSurfaceView mGLSV;
   private ImageButton helpBtn;
-  private AllSteps stepHandler;
+  private int currentStep;
 
   //The "x" and "y" position of the "Show Button" on screen.
   private Point p;
-  private int currentStep;
+
+  private TextView header;
+  private AllSteps stepHandler;
+
+  public void setHeader(int stepNumber) {
+    String title = stepHandler.getSteps().get(stepNumber).getTitle(); // Get the image url for the instruction image
+    header.setText("3D-modell: " + title); // Set the correct image using id
+  }
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     // Inflate the layout for this fragment
     View view = inflater.inflate(R.layout.fragment_view3d, container, false);
+    header = (TextView) view.findViewById(R.id.threeDHeader);
+
     mGLSV = (MyGLSurfaceView) view.findViewById(R.id.mGLSV);
 
-    helpBtn = (ImageButton) view.findViewById(R.id.listHelpButton);
+    helpBtn = (ImageButton) view.findViewById(R.id.threeDHelpButton);
     helpBtn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -67,7 +75,7 @@ public class View3dFragment extends Fragment {
   public void findPos() {
 
     int[] location = new int[2];
-    helpBtn = (ImageButton) getActivity().findViewById(R.id.stepByStepHelpButton);
+    helpBtn = (ImageButton) getActivity().findViewById(R.id.threeDHelpButton);
 
     // Get the x, y location and store it in the location[] array
     // location[0] = x, location[1] = y.
@@ -161,6 +169,6 @@ public class View3dFragment extends Fragment {
     int textureId = getResources().getIdentifier("step0"+currentStep, "drawable", getActivity().getPackageName());
 
     // Set the model and texture
-    mGLSV.getGLRenderer().setModel(new MyGLDrawModel(getActivity(), objectId),textureId);
+    mGLSV.getGLRenderer().setModel(new MyGLDrawModel(getActivity(), objectId), textureId);
   }
 }

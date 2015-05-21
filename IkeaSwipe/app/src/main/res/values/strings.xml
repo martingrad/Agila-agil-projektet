@@ -21,9 +21,9 @@
     <string name="helpButton">Help Button</string>
 
     <!-- ArticlesListFragment Related -->
-    <string name="alfTitle">Innehåll</string>
+    <string name="alfTitle">Innehåll: Kritter</string>
 
     <!-- View3dFragment Related -->
-    <string name="v3fTitle">3D-vy</string>
+    <string name="vtfTitle">3D-modell: Kritter</string>
 
 </resources>
