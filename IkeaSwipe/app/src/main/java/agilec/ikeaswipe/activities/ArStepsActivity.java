@@ -36,8 +36,8 @@ public class ArStepsActivity extends ARViewActivity {
   private IGeometry mMetaioStep2;
   private IGeometry mMetaioStep3;
   private IGeometry mMetaioStep4;
-//  private IGeometry mMetaioStep5;
-//  private IGeometry mMetaioStep6;
+  private IGeometry mMetaioStep5;
+  private IGeometry mMetaioStep6;
 
   /*
   * Geometries for the animated steps
@@ -97,24 +97,13 @@ public class ArStepsActivity extends ARViewActivity {
     mDirectionalLight.setCoordinateSystemID(0); // Set the lights coordinate system to the camera, 0
 
     // Load all the geometries with its corresponding texture
-      mMetaioStep1 = loadModel("scanningsteps/animations/animation_step04.zip");    // denna rad ska tas bort, används för att ändra/testa modellerna
-//    mMetaioStep1 = loadModel("scanningsteps/animations/animation_step01.zip");
-//    mMetaioStep2 = loadModel("scanningsteps/animations/animation_step02.zip");
-//    mMetaioStep3 = loadModel("scanningsteps/animations/animation_step03.zip");
-//    mMetaioStep4 = loadModel("scanningsteps/animations/animation_step04.zip");
-//    mMetaioStep5 = loadModel("scanningsteps/animations/animation_step05.zip");
-//    mMetaioStep6 = loadModel("scanningsteps/animations/animation_step06.zip");
-
-
-    Button pausAnimationBtn = (Button) findViewById(R.id.pausAnimationButton);
-    pausAnimationBtn.setVisibility(View.VISIBLE);
-    pausAnimationBtn.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-          mMetaioStep1.pauseAnimation();
-        }
-      });
-
+//      mMetaioStep1 = loadModel("scanningsteps/animations/animation_step04.zip");    // denna rad ska tas bort, används för att ändra/testa modellerna
+    mMetaioStep1 = loadModel("scanningsteps/animations/animation_step01.zip");
+    mMetaioStep2 = loadModel("scanningsteps/animations/animation_step02.zip");
+    mMetaioStep3 = loadModel("scanningsteps/animations/animation_step03.zip");
+    mMetaioStep4 = loadModel("scanningsteps/animations/animation_step04.zip");
+    mMetaioStep5 = loadModel("scanningsteps/animations/animation_step05.zip");
+    mMetaioStep6 = loadModel("scanningsteps/animations/animation_step06.zip");
 
     // Tracking.xml defines how to track the model
     setTrackingConfiguration("scanningsteps/TrackingData_MarkerlessFast.xml");
@@ -151,24 +140,14 @@ public class ArStepsActivity extends ARViewActivity {
         // Set the model visible
         geometry.setVisible(true);
 
-        // Create a button in which the user can choose to start the animation.
-        Button testBtn = (Button) findViewById(R.id.startAnimationButton);
-        testBtn.setVisibility(View.VISIBLE);
+        // Start the animation.
+        // "Default Take", is the animation name which can be read in the log-file (that was created)
+        // when using FBXMeshConverter
+        geometry.startAnimation("Default Take", true);
 
-        // Set listener to the playButton when onClick.
-        testBtn.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
+        // Stop rendering geometry as relative to screen
+        geometry.setRelativeToScreen(IGeometry.ANCHOR_NONE);
 
-            // Start the animation.
-            // "Default Take", is the animation name which can be read in the log-file (that was created)
-            // when using FBXMeshConverter
-            geometry.startAnimation("Default Take", true);
-
-            // Stop rendering geometry as relative to screen
-            geometry.setRelativeToScreen(IGeometry.ANCHOR_NONE);
-          }
-        });
 
       } else {
         MetaioDebug.log(Log.ERROR, "Error loading geometry: " + geometry);
@@ -227,6 +206,12 @@ public class ArStepsActivity extends ARViewActivity {
       }
       if (mMetaioStep4 != null) {
         mMetaioStep4.setCoordinateSystemID(4); // Bind the loaded geometry to this target
+      }
+      if (mMetaioStep5 != null) {
+        mMetaioStep5.setCoordinateSystemID(5); // Bind the loaded geometry to this target
+      }
+      if (mMetaioStep6 != null) {
+        mMetaioStep6.setCoordinateSystemID(6); // Bind the loaded geometry to this target
       }
     }
 
