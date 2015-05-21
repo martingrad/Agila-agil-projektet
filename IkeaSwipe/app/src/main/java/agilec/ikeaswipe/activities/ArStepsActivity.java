@@ -112,7 +112,7 @@ public class ArStepsActivity extends ARViewActivity {
       AssetsManager.extractAllAssets(this, true);
       // Load the zip-file, containing the animation
       final File modelPath2 = AssetsManager.getAssetPathAsFile(
-              getApplicationContext(), "scanningsteps/animation_step01_test.zip");
+              getApplicationContext(), "scanningsteps/animation_step04.zip");
       // Create a geometry object for the animation
       animationgeometry1 = metaioSDK.createGeometry(modelPath2);
       // Scale up the model
