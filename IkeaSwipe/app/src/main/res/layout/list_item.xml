@@ -56,7 +56,7 @@
             android:layout_marginRight="10px"
             android:layout_weight="1"
             android:background="#00000000"
-            android:src="@drawable/icon_3d_scan"/>
+            android:src="@drawable/ic_3d_scan"/>
 
         <ImageButton
             android:id="@+id/status"

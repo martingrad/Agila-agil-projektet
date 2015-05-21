@@ -2,14 +2,12 @@ package agilec.ikeaswipe.views;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -220,7 +218,7 @@ public class ArticlesListFragment extends ListFragment {
           arButton.setVisibility(ImageButton.VISIBLE);
 
           // Set correct image from beginning
-          ((ImageButton) v.findViewById(R.id.arButton)).setImageResource(R.drawable.icon_3d_scan);
+          ((ImageButton) v.findViewById(R.id.arButton)).setImageResource(R.drawable.ic_3d_scan);
         }
 
         /**
@@ -234,7 +232,7 @@ public class ArticlesListFragment extends ListFragment {
           public void onClick(View v) {
 
             // Change image when clicked
-            ((ImageButton) v.findViewById(R.id.arButton)).setImageResource(R.drawable.icon_3d_scan_clicked);
+            ((ImageButton) v.findViewById(R.id.arButton)).setImageResource(R.drawable.ic_3d_scan_clicked);
             Intent arIntent = new Intent(getActivity(), ArFindActivity.class);
             arIntent.putExtra("article", a.getImgUrl());    // Add the image url for the article
             arIntent.putExtra("currentStep", currentStep);  // Add which the current step
