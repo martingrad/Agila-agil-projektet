@@ -37,8 +37,8 @@ public class SwipeActivity extends FragmentActivity {
    * {@link android.support.v4.app.FragmentStatePagerAdapter}.
    */
 
-  ArticlesListFragment alf;
-  View3dFragment v3DF = new View3dFragment();
+  ArticlesListFragment articlesListFragment;
+  View3dFragment view3DFragment = new View3dFragment();
 
   SectionsPagerAdapter mSectionsPagerAdapter;
 
@@ -86,19 +86,19 @@ public class SwipeActivity extends FragmentActivity {
     currentStep = stepNumber;
 
     // Update the list - Only show articles that belongs to the current step
-    alf.updateListWithStep(currentStep);
+    articlesListFragment.updateListWithStep(currentStep);
 
     // Load object in 3D view on separate thread to increase GUI performance
     Thread thread = new Thread(new Runnable(){
       @Override
       public void run(){
-        v3DF.changeObject(currentStep);
+        view3DFragment.changeObject(currentStep);
       }
     });
     thread.start();
 
     // Update the header of the 3D view.
-    v3DF.setHeader(currentStep);
+    view3DFragment.setHeader(currentStep);
   }
 
   public void setCompletedStep(int stepNumber, boolean isCompleted) {
@@ -157,7 +157,7 @@ public class SwipeActivity extends FragmentActivity {
     }
 
     // Create the Article List Fragment using the current step
-    alf = ArticlesListFragment.createArticlesListFragment(currentStep);
+    articlesListFragment = ArticlesListFragment.createArticlesListFragment(currentStep);
 
     // Create a bundle with the currentStep = 0 as default, using the key "stepNumber", and
     // pass the arguments bundle to the stepByStepFragment
@@ -184,16 +184,19 @@ public class SwipeActivity extends FragmentActivity {
     // Set the current tab using a listener to the slidingTabLayout
     slidingTabLayout.setOnPageChangeListener(new ViewPager.OnPageChangeListener(){
 
+      // Auto-generated, must be there and be empty
       @Override
       public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
       }
 
+      // Set current tab when swiping
       @Override
       public void onPageSelected(int position) {
         currentTab = position; // set current tab
       }
 
+      // Auto-generated, must be there and be empty
       @Override
       public void onPageScrollStateChanged(int state) {
 
@@ -214,12 +217,12 @@ public class SwipeActivity extends FragmentActivity {
       System.out.println("CurrentTab = " + currentTab);
       stepFragment.findPos();
       if(currentTab == 0) {
-        alf.findPos();
+        articlesListFragment.findPos();
       } else if (currentTab == 1) {
-        alf.findPos();
-        v3DF.findPos();
+        articlesListFragment.findPos();
+        view3DFragment.findPos();
       } else if (currentTab == 2) {
-        v3DF.findPos();
+        view3DFragment.findPos();
       }
     }
   }
@@ -280,11 +283,11 @@ public class SwipeActivity extends FragmentActivity {
     @Override
     public Fragment getItem(int position) {
       if (position == 0) {
-        return alf;
+        return articlesListFragment;
       } else if (position == 1) {
         return stepFragment;
       } else { // Position == 2
-        return v3DF;
+        return view3DFragment;
       }
     }
 

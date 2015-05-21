@@ -73,6 +73,15 @@ public class View3dFragment extends Fragment {
     return view;
   }
 
+  /**
+   * Get the x and y position after the button is draw on screen
+   * (It's important to note that we can't get the position in the onCreate(),
+   * because at that stage most probably the view isn't drawn yet, so it will return (0, 0))
+   * <p/>
+   * The function will be run from SwipeActivity when onWindowFocusChanged return true
+   * TODO: refactor so that findPos code is not repeated in all views
+   * @author @antonosterblad
+   */
   public void findPos() {
 
     int[] location = new int[2];

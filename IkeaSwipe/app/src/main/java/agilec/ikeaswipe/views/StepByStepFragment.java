@@ -419,7 +419,7 @@ public class StepByStepFragment extends Fragment {
    * because at that stage most probably the view isn't drawn yet, so it will return (0, 0))
    * <p/>
    * The function will be run from SwipeActivity when onWindowFocusChanged return true
-   *
+   * TODO: refactor so that findPos code is not repeated in all views
    * @author @antonosterblad
    */
   public void findPos() {
