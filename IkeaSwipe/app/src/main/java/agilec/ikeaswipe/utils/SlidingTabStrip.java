@@ -111,6 +111,7 @@ class SlidingTabStrip extends LinearLayout {
     mSelectedPosition = position;
     mSelectionOffset = positionOffset;
     invalidate();
+
   }
 
   @Override

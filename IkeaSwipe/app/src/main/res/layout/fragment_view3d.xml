@@ -4,6 +4,50 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="8dp">
+
+        <TextView
+            android:id="@+id/threeDHeader"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:fontFamily="Verdana"
+            android:gravity="center_vertical"
+            android:paddingBottom="10dp"
+            android:paddingLeft="15dp"
+            android:singleLine="false"
+            android:text="@string/vtfTitle"
+            android:textColor="@color/black"
+            android:textIsSelectable="true"
+            android:textSize="35sp"
+            android:textStyle="bold"/>
+
+        <ImageButton
+            android:id="@+id/threeDHelpButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/helpButton"
+            android:paddingBottom="10dp"
+            android:src="@drawable/ic_action_help"/>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/linearLayout2"
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/linearLayout"
+        android:background="@color/black"
+        android:paddingBottom="8dp"/>
+
     <agilec.ikeaswipe.utils.MyGLSurfaceView
         android:id="@+id/mGLSV"
         android:layout_width="match_parent"

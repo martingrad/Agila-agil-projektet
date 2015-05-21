@@ -25,6 +25,7 @@ import android.widget.ViewSwitcher;
 
 import org.json.JSONException;
 
+import agilec.ikeaswipe.activities.TutorialActivity;
 import agilec.ikeaswipe.models.AllSteps;
 import agilec.ikeaswipe.activities.ArFindActivity;
 import agilec.ikeaswipe.activities.ArStepsActivity;
@@ -110,7 +111,7 @@ public class StepByStepFragment extends Fragment {
 
   private void setHeader(int stepNumber) {
     String title = stepHandler.getSteps().get(stepNumber).getTitle(); // Get the image url for the instruction image
-    header.setText(title); // Set the correct image using id
+    header.setText("Instruktioner för " + title); // Set the correct image using id
   }
 
   /**
@@ -418,12 +419,13 @@ public class StepByStepFragment extends Fragment {
    * because at that stage most probably the view isn't drawn yet, so it will return (0, 0))
    * <p/>
    * The function will be run from SwipeActivity when onWindowFocusChanged return true
-   *
+   * TODO: refactor so that findPos code is not repeated in all views
    * @author @antonosterblad
    */
   public void findPos() {
 
     int[] location = new int[2];
+
     helpBtn = (ImageButton) getActivity().findViewById(R.id.stepByStepHelpButton);
 
     // Get the x, y location and store it in the location[] array
@@ -436,7 +438,6 @@ public class StepByStepFragment extends Fragment {
     p.y = location[1];
 
     System.out.println("The point is:  " + p);
-
   }
 
   /**
@@ -452,7 +453,7 @@ public class StepByStepFragment extends Fragment {
 
     // Set Width and height for the popup window. Uses DIP - works on different tablets
     float popupWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 400, getResources().getDisplayMetrics());
-    float popupHeight = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 200, getResources().getDisplayMetrics());
+    float popupHeight = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 250, getResources().getDisplayMetrics());
 
     // Inflate the popup_layout.xml
     LinearLayout viewGroup = (LinearLayout) context.findViewById(R.id.popup);
@@ -470,7 +471,6 @@ public class StepByStepFragment extends Fragment {
     /* Some offset to align the popup a bit to the right, and a bit down, relative to button's position.
      * Use DIP - works on different tablets
      */
-
     float OFFSET_X = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, -295, getResources().getDisplayMetrics());
     float OFFSET_Y = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 55, getResources().getDisplayMetrics());
 
@@ -494,9 +494,6 @@ public class StepByStepFragment extends Fragment {
       }
     });
 
-    // Displaying the popup at the specified location, + offsets.
-    popup.showAtLocation(layout, Gravity.NO_GRAVITY, p.x + (int)OFFSET_X, p.y + (int)OFFSET_Y);
-
     // Getting a reference to ARHelp button, and send to new activity when clicked
     ImageButton ARCheckComplete = (ImageButton) layout.findViewById(R.id.ARCheckComplete);
     ARCheckComplete.setOnClickListener(new View.OnClickListener() {
@@ -513,5 +510,17 @@ public class StepByStepFragment extends Fragment {
       }
     });
 
+    // Getting a reference to tutorial button, and send to new activity when clicked
+    ImageButton tutorialBtn = (ImageButton) layout.findViewById(R.id.tutorialButton);
+    tutorialBtn.setOnClickListener(new View.OnClickListener() {
+
+      @Override
+      public void onClick(View v) {
+        Intent tutIntent = new Intent(getActivity(), TutorialActivity.class);
+        tutIntent.putExtra("currentTab", 1);
+        tutIntent.putExtra("currentStep", stepNumber);
+        startActivity(tutIntent);
+      }
+    });
   }
 }

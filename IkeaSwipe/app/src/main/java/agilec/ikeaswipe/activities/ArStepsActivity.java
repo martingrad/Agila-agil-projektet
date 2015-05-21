@@ -2,13 +2,11 @@
 package agilec.ikeaswipe.activities;
 
 import java.io.File;
-import java.io.IOException;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.metaio.sdk.ARViewActivity;
@@ -28,16 +26,15 @@ import agilec.ikeaswipe.R;
 
 public class ArStepsActivity extends ARViewActivity {
 
-
   /**
    * Reference to loaded step geometry
    */
   private IGeometry mMetaioStep1;
-//  private IGeometry mMetaioStep2;
-//  private IGeometry mMetaioStep3;
-//  private IGeometry mMetaioStep4;
-//  private IGeometry mMetaioStep5;
-//  private IGeometry mMetaioStep6;
+  private IGeometry mMetaioStep2;
+  private IGeometry mMetaioStep3;
+  private IGeometry mMetaioStep4;
+  private IGeometry mMetaioStep5;
+  private IGeometry mMetaioStep6;
 
   /*
   * Geometries for the animated steps
@@ -69,7 +66,6 @@ public class ArStepsActivity extends ARViewActivity {
     mCallbackHandler = null;
   }
 
-
   @Override
   protected int getGUILayout() {
     return R.layout.activity_ar_view_steps;
@@ -97,15 +93,82 @@ public class ArStepsActivity extends ARViewActivity {
     mDirectionalLight.setCoordinateSystemID(0); // Set the lights coordinate system to the camera, 0
 
     // Load all the geometries with its corresponding texture
-    mMetaioStep1 = loadModel("scanningsteps/animations/animation_step01_test.zip");
-//    mMetaioStep2 = loadModel("scanningsteps/animations/animation_step02_test.zip");
-//    mMetaioStep3 = loadModel("scanningsteps/animations/animation_step03_test.zip");
-//    mMetaioStep4 = loadModel("scanningsteps/animations/animation_step04_test.zip");
-//    mMetaioStep5 = loadModel("scanningsteps/animations/animation_step05_test.zip");
-//    mMetaioStep6 = loadModel("scanningsteps/animations/animation_step06_test.zip");
+    mMetaioStep1 = loadModel("scanningsteps/animations/animation_step01.zip");
+    mMetaioStep2 = loadModel("scanningsteps/animations/animation_step02.zip");
+    mMetaioStep3 = loadModel("scanningsteps/animations/animation_step03.zip");
+    mMetaioStep4 = loadModel("scanningsteps/animations/animation_step04.zip");
+    mMetaioStep5 = loadModel("scanningsteps/animations/animation_step05.zip");
+    //mMetaioStep6 = loadModel("scanningsteps/animations/animation_step06.zip");
 
     // Tracking.xml defines how to track the model
     setTrackingConfiguration("scanningsteps/TrackingData_MarkerlessFast.xml");
+
+    ImageButton playButton = (ImageButton) findViewById(R.id.btn_play); // Button to start the animation.
+    ImageButton pauseButton = (ImageButton) findViewById(R.id.btn_pause); // Button to pause the animation.
+
+    /**
+     * Set listener to the playButton when onClick.
+     *
+     * TODO: Refactor with a better solution to not check every geometry
+     *
+     * getIsRendered was the best function I found to check which geometry
+     *  the user currently are looking at. There might be a better way. @antonosterblad
+     */
+    playButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        if (mMetaioStep1.getIsRendered()) {
+          mMetaioStep1.startAnimation("Default Take", true);
+          mMetaioStep1.setRelativeToScreen(IGeometry.ANCHOR_NONE);
+        }
+        if (mMetaioStep2.getIsRendered()) {
+          mMetaioStep2.startAnimation("Default Take", true);
+          mMetaioStep2.setRelativeToScreen(IGeometry.ANCHOR_NONE);
+        }
+        if (mMetaioStep3.getIsRendered()) {
+          mMetaioStep3.startAnimation("Default Take", true);
+          mMetaioStep3.setRelativeToScreen(IGeometry.ANCHOR_NONE);
+        }
+        if (mMetaioStep4.getIsRendered()) {
+          mMetaioStep4.startAnimation("Default Take", true);
+          mMetaioStep4.setRelativeToScreen(IGeometry.ANCHOR_NONE);
+        }
+        if (mMetaioStep5.getIsRendered()) {
+          mMetaioStep5.startAnimation("Default Take", true);
+          mMetaioStep5.setRelativeToScreen(IGeometry.ANCHOR_NONE);
+        }
+      }
+    });
+
+    /**
+     * Set listener to the pauseButton when onClick.
+     *
+     * TODO: Refactor with a better solution to not check every geometry
+     *
+     * getIsRendered was the best function I found to check which geometry
+     *  the user currently are looking at. There might be a better way. @antonosterblad
+     */
+    pauseButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        if (mMetaioStep1.getIsRendered()) {
+          mMetaioStep1.pauseAnimation();
+        }
+        if (mMetaioStep2.getIsRendered()) {
+          mMetaioStep2.pauseAnimation();
+        }
+        if (mMetaioStep3.getIsRendered()) {
+          mMetaioStep3.pauseAnimation();
+        }
+        if (mMetaioStep4.getIsRendered()) {
+          mMetaioStep4.pauseAnimation();
+        }
+        if (mMetaioStep5.getIsRendered()) {
+          mMetaioStep5.pauseAnimation();
+        }
+      }
+    });
+
   }
 
   /**
@@ -130,7 +193,7 @@ public class ArStepsActivity extends ARViewActivity {
 
       if (geometry != null) {
         // Set geometry properties
-        geometry.setScale(50f);
+        geometry.setScale(30f);
         MetaioDebug.log("Loaded geometry " + modelPath);
 
         // Enable lighting for the model
@@ -138,25 +201,6 @@ public class ArStepsActivity extends ARViewActivity {
 
         // Set the model visible
         geometry.setVisible(true);
-
-        // Create a button in which the user can choose to start the animation.
-        ImageButton playButton = (ImageButton) findViewById(R.id.btn_play);
-        playButton.setVisibility(View.VISIBLE);
-
-        // Set listener to the playButton when onClick.
-        playButton.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
-
-            // Start the animation.
-            // "Default Take", is the animation name which can be read in the log-file (that was created)
-            // when using FBXMeshConverter
-            geometry.startAnimation("Default Take", true);
-
-            // Stop rendering geometry as relative to screen
-            geometry.setRelativeToScreen(IGeometry.ANCHOR_NONE);
-          }
-        });
 
       } else {
         MetaioDebug.log(Log.ERROR, "Error loading geometry: " + geometry);
@@ -170,7 +214,13 @@ public class ArStepsActivity extends ARViewActivity {
 
   @Override
   protected void onGeometryTouched(IGeometry geometry) {
-    // If we would like to interact with touch events on geometry
+    // Start the animation.
+    // "Default Take", is the animation name which can be read in the log-file (that was created)
+    // when using FBXMeshConverter
+    geometry.startAnimation("Default Take", true);
+
+    // Stop rendering geometry as relative to screen
+    geometry.setRelativeToScreen(IGeometry.ANCHOR_NONE);
   }
 
   /**
@@ -206,6 +256,21 @@ public class ArStepsActivity extends ARViewActivity {
       // The coordinate ID corresponds to the patches in the XML file.
       if (mMetaioStep1 != null) {
         mMetaioStep1.setCoordinateSystemID(1); // Bind the loaded geometry to this target
+      }
+      if (mMetaioStep2 != null) {
+        mMetaioStep2.setCoordinateSystemID(2); // Bind the loaded geometry to this target
+      }
+      if (mMetaioStep3 != null) {
+        mMetaioStep3.setCoordinateSystemID(3); // Bind the loaded geometry to this target
+      }
+      if (mMetaioStep4 != null) {
+        mMetaioStep4.setCoordinateSystemID(4); // Bind the loaded geometry to this target
+      }
+      if (mMetaioStep5 != null) {
+        mMetaioStep5.setCoordinateSystemID(5); // Bind the loaded geometry to this target
+      }
+      if (mMetaioStep6 != null) {
+        mMetaioStep6.setCoordinateSystemID(6); // Bind the loaded geometry to this target
       }
     }
 
