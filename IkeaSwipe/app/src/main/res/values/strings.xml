@@ -23,4 +23,7 @@
     <!-- ArticlesListFragment Related -->
     <string name="alfTitle">Innehåll</string>
 
+    <!-- View3dFragment Related -->
+    <string name="v3fTitle">3D-vy</string>
+
 </resources>
