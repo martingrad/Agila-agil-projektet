@@ -18,7 +18,6 @@ import com.metaio.sdk.jni.ELIGHT_TYPE;
 import com.metaio.sdk.jni.IGeometry;
 import com.metaio.sdk.jni.ILight;
 import com.metaio.sdk.jni.IMetaioSDKCallback;
-import com.metaio.sdk.jni.Rotation;
 import com.metaio.sdk.jni.TrackingValuesVector;
 import com.metaio.sdk.jni.Vector2di;
 import com.metaio.sdk.jni.Vector3d;
@@ -30,7 +29,7 @@ public class ArStepsActivity extends ARViewActivity {
 
 
   /**
-   * Reference to loaded metaioman geometry
+   * Reference to loaded step geometry
    */
   private IGeometry mMetaioStep1;
   private IGeometry mMetaioStep2;
@@ -40,7 +39,10 @@ public class ArStepsActivity extends ARViewActivity {
   private IGeometry mMetaioStep6;
 
 
-  private IGeometry testgeometry;
+  /*
+  * Geometries for the animated steps
+  */
+  private IGeometry animationgeometry1;
 
   /*
    * Light sources
@@ -107,9 +109,13 @@ public class ArStepsActivity extends ARViewActivity {
     // Create the geometry, and scale it up.
     try {
       AssetsManager.extractAllAssets(this, true);
-      final File modelPath2 = AssetsManager.getAssetPathAsFile(getApplicationContext(), "scanningsteps/animation_step01_test.zip");
-      testgeometry = metaioSDK.createGeometry(modelPath2);
-      testgeometry.setScale(50f);
+      // Load the zip-file, containing the animation
+      final File modelPath2 = AssetsManager.getAssetPathAsFile(
+              getApplicationContext(), "scanningsteps/animation_step01_test.zip");
+      // Create a geometry object for the animation
+      animationgeometry1 = metaioSDK.createGeometry(modelPath2);
+      // Scale up the model
+      animationgeometry1.setScale(50f);
 
     } catch (IOException e) {
       e.printStackTrace();
@@ -122,15 +128,27 @@ public class ArStepsActivity extends ARViewActivity {
     testBtn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        testgeometry.setDynamicLightingEnabled(true);
-        testgeometry.setVisible(true);
-        testgeometry.startAnimation("Default Take", true);    // start the animation.
-                                                              // Default Take, is the animation name
-                                                              // which can be read in the log-file
-                                                              // when using FBXMeshConverter
-        //testgeometry.setScale(50f);
-        testgeometry.setRelativeToScreen(IGeometry.ANCHOR_NONE);
-        testgeometry.setCoordinateSystemID(1);
+        // enable lighting for the model
+        animationgeometry1.setDynamicLightingEnabled(true);
+
+        // set the model visible
+        animationgeometry1.setVisible(true);
+
+        // start the animation.
+        // "Default Take", is the animation name which can be read in the log-file (that was created)
+        // when using FBXMeshConverter
+        animationgeometry1.startAnimation("Default Take", true);
+
+        // alternatively scale the model up, when the user has pushed the button
+        //animationgeometry1.setScale(50f);
+
+        // stop rendering geometry as relative to screen
+        animationgeometry1.setRelativeToScreen(IGeometry.ANCHOR_NONE);
+
+        // bind the loaded geometry to its target
+        animationgeometry1.setCoordinateSystemID(1);
+
+        // bind the light to the same coordinate system
         mDirectionalLight.setCoordinateSystemID(1);
       }
     });
@@ -141,6 +159,8 @@ public class ArStepsActivity extends ARViewActivity {
 
   /**
    * Load 3D model
+   * This function can be called from loadContents(), when multiple objects
+   * want to be shown on the screen. e.g. MyGeometry = loadModel("PathToModel.obj", "PathToTextureToTheModel.png");
    *
    * @param path Path to object to load
    * @return geometry
@@ -206,8 +226,8 @@ public class ArStepsActivity extends ARViewActivity {
     public void onTrackingEvent(TrackingValuesVector trackingValues) {
       //Connect a geometry to a tracking marker.
       // The coordinate ID corresponds to the patches in the XML file.
-      if(testgeometry != null){
-        testgeometry.setCoordinateSystemID(1);
+      if(animationgeometry1 != null){
+        animationgeometry1.setCoordinateSystemID(1);
       }
 //      if (mMetaioStep1 != null) {
 //        mMetaioStep1.setCoordinateSystemID(1); //bind the loaded geometry to this target
