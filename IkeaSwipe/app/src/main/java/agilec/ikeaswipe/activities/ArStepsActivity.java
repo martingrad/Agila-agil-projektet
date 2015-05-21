@@ -60,7 +60,6 @@ public class ArStepsActivity extends ARViewActivity {
     mCallbackHandler = null;
   }
 
-
   @Override
   protected int getGUILayout() {
     return R.layout.activity_ar_view_steps;

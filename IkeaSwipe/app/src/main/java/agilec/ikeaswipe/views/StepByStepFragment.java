@@ -450,68 +450,67 @@ public class StepByStepFragment extends Fragment {
   private void showPopup(final Activity context, Point p) {
     findPos();
 
-    // Set Width and height for the popup window. Uses DIP - works on different tablets
-    float popupWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 400, getResources().getDisplayMetrics());
-    float popupHeight = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 200, getResources().getDisplayMetrics());
+  // Set Width and height for the popup window. Uses DIP - works on different tablets
+  float popupWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 400, getResources().getDisplayMetrics());
+  float popupHeight = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 200, getResources().getDisplayMetrics());
 
-    // Inflate the popup_layout.xml
-    LinearLayout viewGroup = (LinearLayout) context.findViewById(R.id.popup);
-    LayoutInflater layoutInflater = (LayoutInflater) context
-            .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-    View layout = layoutInflater.inflate(R.layout.help_popup_layout, viewGroup);
+  // Inflate the popup_layout.xml
+  LinearLayout viewGroup = (LinearLayout) context.findViewById(R.id.popup);
+  LayoutInflater layoutInflater = (LayoutInflater) context
+          .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+  View layout = layoutInflater.inflate(R.layout.help_popup_layout, viewGroup);
 
-    // Creating the PopupWindow
-    final PopupWindow popup = new PopupWindow(context);
-    popup.setContentView(layout);
-    popup.setWidth((int)popupWidth);
-    popup.setHeight((int)popupHeight);
-    popup.setFocusable(true);
+  // Creating the PopupWindow
+  final PopupWindow popup = new PopupWindow(context);
+  popup.setContentView(layout);
+  popup.setWidth((int)popupWidth);
+  popup.setHeight((int)popupHeight);
+  popup.setFocusable(true);
 
-    /* Some offset to align the popup a bit to the right, and a bit down, relative to button's position.
-     * Use DIP - works on different tablets
-     */
+  /* Some offset to align the popup a bit to the right, and a bit down, relative to button's position.
+   * Use DIP - works on different tablets
+   */
+  float OFFSET_X = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, -295, getResources().getDisplayMetrics());
+  float OFFSET_Y = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 55, getResources().getDisplayMetrics());
 
-    float OFFSET_X = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, -295, getResources().getDisplayMetrics());
-    float OFFSET_Y = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 55, getResources().getDisplayMetrics());
 
+  // Clear the default translucent background
+  popup.setBackgroundDrawable(new BitmapDrawable());
 
-    // Clear the default translucent background
-    popup.setBackgroundDrawable(new BitmapDrawable());
+  // Displaying the popup at the specified location, + offsets.
+  popup.showAtLocation(layout, Gravity.NO_GRAVITY, p.x + (int)OFFSET_X, p.y + (int)OFFSET_Y);
 
-    // Displaying the popup at the specified location, + offsets.
-    popup.showAtLocation(layout, Gravity.NO_GRAVITY, p.x + (int)OFFSET_X, p.y + (int)OFFSET_Y);
+  // Getting a reference to ARHelp button, and send to new activity when clicked
+  ImageButton ARHelp = (ImageButton) layout.findViewById(R.id.ARHelp);
+  ARHelp.setOnClickListener(new View.OnClickListener() {
 
-    // Getting a reference to ARHelp button, and send to new activity when clicked
-    ImageButton ARHelp = (ImageButton) layout.findViewById(R.id.ARHelp);
-    ARHelp.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+      Intent arIntent = new Intent(getActivity(), ArStepsActivity.class);
+      arIntent.putExtra("currentTab", 1);
+      startActivity(arIntent);
 
-      @Override
-      public void onClick(View v) {
-        Intent arIntent = new Intent(getActivity(), ArStepsActivity.class);
-        arIntent.putExtra("currentTab", 1);
-        startActivity(arIntent);
+    }
+  });
 
-      }
-    });
+  // Displaying the popup at the specified location, + offsets.
+  popup.showAtLocation(layout, Gravity.NO_GRAVITY, p.x + (int)OFFSET_X, p.y + (int)OFFSET_Y);
 
-    // Displaying the popup at the specified location, + offsets.
-    popup.showAtLocation(layout, Gravity.NO_GRAVITY, p.x + (int)OFFSET_X, p.y + (int)OFFSET_Y);
+  // Getting a reference to ARHelp button, and send to new activity when clicked
+  ImageButton ARCheckComplete = (ImageButton) layout.findViewById(R.id.ARCheckComplete);
+  ARCheckComplete.setOnClickListener(new View.OnClickListener() {
 
-    // Getting a reference to ARHelp button, and send to new activity when clicked
-    ImageButton ARCheckComplete = (ImageButton) layout.findViewById(R.id.ARCheckComplete);
-    ARCheckComplete.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+      Intent arIntent = new Intent(getActivity(), ArFindActivity.class);
+      Step currentStep = stepHandler.getSteps().get(stepNumber);
 
-      @Override
-      public void onClick(View v) {
-        Intent arIntent = new Intent(getActivity(), ArFindActivity.class);
-        Step currentStep = stepHandler.getSteps().get(stepNumber);
-
-        arIntent.putExtra("article", currentStep.getCompleteModelUrl());
-        arIntent.putExtra("currentTab", 1);
-        arIntent.putExtra("currentStep", currentStep.getStep());
-        startActivity(arIntent);
-      }
-    });
-  }
+      arIntent.putExtra("article", currentStep.getCompleteModelUrl());
+      arIntent.putExtra("currentTab", 1);
+      arIntent.putExtra("currentStep", currentStep.getStep());
+      startActivity(arIntent);
+    }
+  });
+}
 
 }
