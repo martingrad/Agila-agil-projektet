@@ -292,8 +292,10 @@ public class ArticlesListFragment extends ListFragment {
 
       @Override
       public void onClick(View v) {
+        Step _currentStep = stepHandler.getSteps().get(currentStep);
         Intent tutIntent = new Intent(getActivity(), TutorialActivity.class);
         tutIntent.putExtra("currentTab", 0);
+        tutIntent.putExtra("currentStep", _currentStep.getStep());
         startActivity(tutIntent);
       }
     });

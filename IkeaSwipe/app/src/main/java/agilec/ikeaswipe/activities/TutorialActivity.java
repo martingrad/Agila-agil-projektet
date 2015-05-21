@@ -22,6 +22,8 @@ public class TutorialActivity extends FragmentActivity {
   SectionsPagerAdapter mSectionsPagerAdapter;
   SingleSwipeViewPager mViewPager;
 
+  int currentStep = 0;
+
 
   /**
    * This function is overridden to save the current step number when the activity is recreated
@@ -53,6 +55,7 @@ public class TutorialActivity extends FragmentActivity {
 
     Intent intent = getIntent();
     int currentTab = intent.getIntExtra("currentTab", 1); // Get the current step number
+    currentStep = intent.getIntExtra("currentStep",0); // Get Current step
     mViewPager.setCurrentItem(currentTab); // Start tab should be number 1
   }
 
@@ -117,6 +120,7 @@ public class TutorialActivity extends FragmentActivity {
           System.out.println("Go to swipe from step 1");
           Intent i = new Intent(getApplicationContext(), SwipeActivity.class);
           i.putExtra("currentTab", 0);
+          i.putExtra("currentStep", currentStep); // Send back the current step
           startActivity(i);
         }
       });
@@ -143,6 +147,7 @@ public class TutorialActivity extends FragmentActivity {
           System.out.println("Go to swipe from step 2");
           Intent i = new Intent(getApplicationContext(), SwipeActivity.class);
           i.putExtra("currentTab", 1);
+          i.putExtra("currentStep", currentStep); // Send back the current step
           startActivity(i);
         }
       });
@@ -169,6 +174,7 @@ public class TutorialActivity extends FragmentActivity {
           System.out.println("Go to swipe from step 3");
           Intent i = new Intent(getApplicationContext(), SwipeActivity.class);
           i.putExtra("currentTab", 2);
+          i.putExtra("currentStep", currentStep); // Send back the current step
           startActivity(i);
         }
       });

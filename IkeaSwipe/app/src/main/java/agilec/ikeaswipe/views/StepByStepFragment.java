@@ -518,6 +518,7 @@ public class StepByStepFragment extends Fragment {
       public void onClick(View v) {
         Intent tutIntent = new Intent(getActivity(), TutorialActivity.class);
         tutIntent.putExtra("currentTab", 1);
+        tutIntent.putExtra("currentStep", stepNumber);
         startActivity(tutIntent);
       }
     });
