@@ -342,6 +342,9 @@ public class ArticlesListFragment extends ListFragment {
           arButton.setVisibility(ImageButton.INVISIBLE);
         } else {
           arButton.setVisibility(ImageButton.VISIBLE);
+
+          // Set correct image from beginning
+          ((ImageButton) v.findViewById(R.id.arButton)).setImageResource(R.drawable.icon_3d_scan);
         }
 
         /**
@@ -353,6 +356,9 @@ public class ArticlesListFragment extends ListFragment {
         arButton.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
+
+            // Change image when clicked
+            ((ImageButton) v.findViewById(R.id.arButton)).setImageResource(R.drawable.icon_3d_scan_clicked);
             Intent arIntent = new Intent(getActivity(), ArFindActivity.class);
             arIntent.putExtra("article", a.getImgUrl());    // Add the image url for the article
             arIntent.putExtra("currentStep", currentStep);  // Add which the current step
