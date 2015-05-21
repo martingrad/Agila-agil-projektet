@@ -119,6 +119,13 @@ public class ArStepsActivity extends ARViewActivity {
       animationgeometry1.setScale(50f);
       //animationgeometry1.setRotation(new Rotation(0,1,0));
 
+      // enable lighting for the model
+      animationgeometry1.setDynamicLightingEnabled(true);
+
+      // set the model visible
+      animationgeometry1.setVisible(true);
+
+
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -130,11 +137,7 @@ public class ArStepsActivity extends ARViewActivity {
     startAnimationBtn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        // enable lighting for the model
-        animationgeometry1.setDynamicLightingEnabled(true);
 
-        // set the model visible
-        animationgeometry1.setVisible(true);
 
         // start the animation.
         // "Default Take", is the animation name which can be read in the log-file (that was created)
