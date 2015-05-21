@@ -174,7 +174,7 @@ public class ArticlesListFragment extends ListFragment {
 
   private void setHeader(int stepNumber) {
     String title = stepHandler.getSteps().get(stepNumber).getTitle(); // Get the image url for the instruction image
-    header.setText("Innehåll: " + title); // Set the correct image using id
+    header.setText("Delar för " + title); // Set the correct image using id
   }
 
   /**
