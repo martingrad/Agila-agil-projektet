@@ -97,7 +97,6 @@ public class ArStepsActivity extends ARViewActivity {
     mDirectionalLight.setCoordinateSystemID(0); // Set the lights coordinate system to the camera, 0
 
     // Load all the geometries with its corresponding texture
-//      mMetaioStep1 = loadModel("scanningsteps/animations/animation_step04.zip");    // denna rad ska tas bort, används för att ändra/testa modellerna
     mMetaioStep1 = loadModel("scanningsteps/animations/animation_step01.zip");
     mMetaioStep2 = loadModel("scanningsteps/animations/animation_step02.zip");
     mMetaioStep3 = loadModel("scanningsteps/animations/animation_step03.zip");
