@@ -99,7 +99,7 @@ public class View3dFragment extends Fragment {
 
     // Set Width and height for the popup window. Uses DIP - works on different tablets
     float popupWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 400, getResources().getDisplayMetrics());
-    float popupHeight = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 200, getResources().getDisplayMetrics());
+    float popupHeight = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 250, getResources().getDisplayMetrics());
 
     // Inflate the popup_layout.xml
     LinearLayout viewGroup = (LinearLayout) context.findViewById(R.id.popup);

@@ -180,8 +180,25 @@ public class SwipeActivity extends FragmentActivity {
     slidingTabLayout.setCustomTabView(R.layout.custom_tab, 0);
     slidingTabLayout.getLayoutParams().height = ActionBar.LayoutParams.WRAP_CONTENT;
     slidingTabLayout.setViewPager(mViewPager);
-    // TODO: Set the color of selectedIndicator. The line below does not seem to do... =(
-    //mSlidingTabLayout.setSelectedIndicatorColors(R.color.blue);
+
+    // Set the current tab using a listener to the slidingTabLayout
+    slidingTabLayout.setOnPageChangeListener(new ViewPager.OnPageChangeListener(){
+
+      @Override
+      public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+      }
+
+      @Override
+      public void onPageSelected(int position) {
+        currentTab = position; // set current tab
+      }
+
+      @Override
+      public void onPageScrollStateChanged(int state) {
+
+      }
+    });
   }
 
   /**
@@ -194,6 +211,7 @@ public class SwipeActivity extends FragmentActivity {
   @Override
   public void onWindowFocusChanged(boolean hasFocus) {
     if (hasFocus) {
+      System.out.println("CurrentTab = " + currentTab);
       stepFragment.findPos();
       if(currentTab == 0) {
         alf.findPos();

@@ -6,7 +6,7 @@
               android:background="@drawable/popup_background"
               android:orientation="vertical"
               android:weightSum="1"
-              android:paddingTop="20dp">
+              android:paddingTop="30dp">
 
     <LinearLayout
         android:layout_width="match_parent"
