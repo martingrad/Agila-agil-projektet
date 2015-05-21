@@ -32,17 +32,16 @@ public class ArStepsActivity extends ARViewActivity {
    * Reference to loaded step geometry
    */
   private IGeometry mMetaioStep1;
-  private IGeometry mMetaioStep2;
-  private IGeometry mMetaioStep3;
-  private IGeometry mMetaioStep4;
-  private IGeometry mMetaioStep5;
-  private IGeometry mMetaioStep6;
-
+//  private IGeometry mMetaioStep2;
+//  private IGeometry mMetaioStep3;
+//  private IGeometry mMetaioStep4;
+//  private IGeometry mMetaioStep5;
+//  private IGeometry mMetaioStep6;
 
   /*
   * Geometries for the animated steps
   */
-  private IGeometry animationgeometry1;
+  private IGeometry geometry;
 
   /*
    * Light sources
@@ -94,92 +93,70 @@ public class ArStepsActivity extends ARViewActivity {
     mDirectionalLight.setType(ELIGHT_TYPE.ELIGHT_TYPE_DIRECTIONAL); // Define the light as directional
     mDirectionalLight.setAmbientColor(new Vector3d(0, 0.15f, 0)); // Slightly green color
     mDirectionalLight.setDiffuseColor(new Vector3d(0.6f, 0.2f, 0)); // Orange color
-    mDirectionalLight.setCoordinateSystemID(1); // Set the lights coordinate system to the camera
-
+    mDirectionalLight.setCoordinateSystemID(0); // Set the lights coordinate system to the camera, 0
 
     // Load all the geometries with its corresponding texture
-//    mMetaioStep1 = loadModel("scanningsteps/objects/step_01.obj", "scanningsteps/textures/step01.png");
-//    mMetaioStep2 = loadModel("scanningsteps/objects/step_02.obj", "scanningsteps/textures/step02.png");
-//    mMetaioStep3 = loadModel("scanningsteps/objects/step_03.obj", "scanningsteps/textures/step03.png");
-//    mMetaioStep4 = loadModel("scanningsteps/objects/step_04.obj", "scanningsteps/textures/step04.png");
-//    mMetaioStep5 = loadModel("scanningsteps/objects/step_05.obj", "scanningsteps/textures/step05.png");
-//    mMetaioStep6 = loadModel("scanningsteps/objects/step_06.obj", "scanningsteps/textures/step06.png");
-
-    // Load the zip file, which have been created, by converting the FBX-file, with FBXMeshConverter.
-    // Create the geometry, and scale it up.
-    try {
-      AssetsManager.extractAllAssets(this, true);
-      // Load the zip-file, containing the animation
-      final File modelPath2 = AssetsManager.getAssetPathAsFile(
-              getApplicationContext(), "scanningsteps/animation_step01_test.zip");
-      // Create a geometry object for the animation
-      animationgeometry1 = metaioSDK.createGeometry(modelPath2);
-      // Scale up the model
-      animationgeometry1.setScale(50f);
-
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    // Create a button in which the user can choose to start the animation.
-    Button testBtn = (Button) findViewById(R.id.testButton);
-    testBtn.setVisibility(View.VISIBLE);
-
-    // Set listener to run the function returnToSwipeActivity when onClick.
-    testBtn.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        // enable lighting for the model
-        animationgeometry1.setDynamicLightingEnabled(true);
-
-        // set the model visible
-        animationgeometry1.setVisible(true);
-
-        // start the animation.
-        // "Default Take", is the animation name which can be read in the log-file (that was created)
-        // when using FBXMeshConverter
-        animationgeometry1.startAnimation("Default Take", true);
-
-        // alternatively scale the model up, when the user has pushed the button
-        //animationgeometry1.setScale(50f);
-
-        // stop rendering geometry as relative to screen
-        animationgeometry1.setRelativeToScreen(IGeometry.ANCHOR_NONE);
-
-        // bind the loaded geometry to its target
-        animationgeometry1.setCoordinateSystemID(1);
-
-        // bind the light to the same coordinate system
-        mDirectionalLight.setCoordinateSystemID(1);
-      }
-    });
+    mMetaioStep1 = loadModel("scanningsteps/animations/animation_step01_test.zip");
+//    mMetaioStep2 = loadModel("scanningsteps/animations/animation_step02_test.zip");
+//    mMetaioStep3 = loadModel("scanningsteps/animations/animation_step03_test.zip");
+//    mMetaioStep4 = loadModel("scanningsteps/animations/animation_step04_test.zip");
+//    mMetaioStep5 = loadModel("scanningsteps/animations/animation_step05_test.zip");
+//    mMetaioStep6 = loadModel("scanningsteps/animations/animation_step06_test.zip");
 
     // Tracking.xml defines how to track the model
     setTrackingConfiguration("scanningsteps/TrackingData_MarkerlessFast.xml");
   }
 
   /**
-   * Load 3D model
+   * Load 3D animation
    * This function can be called from loadContents(), when multiple objects
-   * want to be shown on the screen. e.g. MyGeometry = loadModel("PathToModel.obj", "PathToTextureToTheModel.png");
+   * want to be shown on the screen. e.g. animation.zip = loadModel("PathToFile.zip");
    *
    * @param path Path to object to load
    * @return geometry
-   * @author @antonosterblad @linneamalcherek @jacobselg
+   * @author @antonosterblad
    */
-  private IGeometry loadModel(final String path, final String texturepath) {
-    IGeometry geometry = null;
+  private IGeometry loadModel(final String path) {
+    geometry = null;
     try {
       // Load model
       AssetsManager.extractAllAssets(this, true);
+      // Load the zip-file, containing the animation
       final File modelPath = AssetsManager.getAssetPathAsFile(getApplicationContext(), path);
       // Log.i("info", "modelPath: " + modelPath);
+      // Create a geometry object for the animation
       geometry = metaioSDK.createGeometry(modelPath);
-      geometry.setTexture(AssetsManager.getAssetPathAsFile(getApplicationContext(), texturepath));
 
       if (geometry != null) {
         // Set geometry properties
-        geometry.setScale(30f);
+        geometry.setScale(50f);
         MetaioDebug.log("Loaded geometry " + modelPath);
+
+        // Enable lighting for the model
+        geometry.setDynamicLightingEnabled(true);
+
+        // Set the model visible
+        geometry.setVisible(true);
+
+        // Create a button in which the user can choose to start the animation.
+        Button testBtn = (Button) findViewById(R.id.testButton);
+        testBtn.setVisibility(View.VISIBLE);
+
+        // Set listener to the playButton when onClick.
+        testBtn.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+
+            // Start the animation.
+            // "Default Take", is the animation name which can be read in the log-file (that was created)
+            // when using FBXMeshConverter
+            geometry.startAnimation("Default Take", true);
+
+            // Stop rendering geometry as relative to screen
+            geometry.setRelativeToScreen(IGeometry.ANCHOR_NONE);
+          }
+        });
+
       } else {
         MetaioDebug.log(Log.ERROR, "Error loading geometry: " + geometry);
       }
@@ -192,11 +169,11 @@ public class ArStepsActivity extends ARViewActivity {
 
   @Override
   protected void onGeometryTouched(IGeometry geometry) {
-    // TODO Auto-generated method stub
+    // If we would like to interact with touch events on geometry
   }
 
   /**
-   * @return
+   * @return CallbackHandler
    */
   @Override
   protected IMetaioSDKCallback getMetaioSDKCallbackHandler() {
@@ -226,32 +203,9 @@ public class ArStepsActivity extends ARViewActivity {
     public void onTrackingEvent(TrackingValuesVector trackingValues) {
       //Connect a geometry to a tracking marker.
       // The coordinate ID corresponds to the patches in the XML file.
-      if(animationgeometry1 != null){
-        animationgeometry1.setCoordinateSystemID(1);
+      if (mMetaioStep1 != null) {
+        mMetaioStep1.setCoordinateSystemID(1); // Bind the loaded geometry to this target
       }
-//      if (mMetaioStep1 != null) {
-//        mMetaioStep1.setCoordinateSystemID(1); //bind the loaded geometry to this target
-//      }
-//
-//      if (mMetaioStep2 != null) {
-//        mMetaioStep2.setCoordinateSystemID(2); //bind the loaded geometry to this target
-//      }
-//
-//      if (mMetaioStep3 != null) {
-//        mMetaioStep3.setCoordinateSystemID(3); //bind the loaded geometry to this target
-//      }
-//
-//      if (mMetaioStep4 != null) {
-//        mMetaioStep4.setCoordinateSystemID(4); //bind the loaded geometry to this target
-//      }
-//
-//      if (mMetaioStep5 != null) {
-//        mMetaioStep5.setCoordinateSystemID(5); //bind the loaded geometry to this target
-//      }
-//
-//      if (mMetaioStep6 != null) {
-//        mMetaioStep6.setCoordinateSystemID(6); //bind the loaded geometry to this target
-//      }
     }
 
   }
