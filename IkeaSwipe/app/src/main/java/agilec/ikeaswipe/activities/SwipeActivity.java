@@ -86,6 +86,7 @@ public class SwipeActivity extends FragmentActivity {
     // Update the list - Only show articles that belongs to the current step
     alf.updateListWithStep(currentStep);
 
+    // Load object in 3D view on separate thread to increase GUI performance
     Thread thread = new Thread(new Runnable(){
       @Override
       public void run(){
@@ -93,6 +94,8 @@ public class SwipeActivity extends FragmentActivity {
       }
     });
     thread.start();
+
+    // Update the header of the 3D view.
     v3DF.setHeader(currentStep);
   }
 
