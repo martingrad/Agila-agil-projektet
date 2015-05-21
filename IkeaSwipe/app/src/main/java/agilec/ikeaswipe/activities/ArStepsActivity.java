@@ -18,6 +18,7 @@ import com.metaio.sdk.jni.ELIGHT_TYPE;
 import com.metaio.sdk.jni.IGeometry;
 import com.metaio.sdk.jni.ILight;
 import com.metaio.sdk.jni.IMetaioSDKCallback;
+import com.metaio.sdk.jni.Rotation;
 import com.metaio.sdk.jni.TrackingValuesVector;
 import com.metaio.sdk.jni.Vector2di;
 import com.metaio.sdk.jni.Vector3d;
@@ -116,16 +117,17 @@ public class ArStepsActivity extends ARViewActivity {
       animationgeometry1 = metaioSDK.createGeometry(modelPath2);
       // Scale up the model
       animationgeometry1.setScale(50f);
+      //animationgeometry1.setRotation(new Rotation(0,1,0));
 
     } catch (IOException e) {
       e.printStackTrace();
     }
     // Create a button in which the user can choose to start the animation.
-    Button testBtn = (Button) findViewById(R.id.testButton);
-    testBtn.setVisibility(View.VISIBLE);
+    Button startAnimationBtn = (Button) findViewById(R.id.startAnimationButton);
+    startAnimationBtn.setVisibility(View.VISIBLE);
 
     // Set listener to run the function returnToSwipeActivity when onClick.
-    testBtn.setOnClickListener(new View.OnClickListener() {
+    startAnimationBtn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
         // enable lighting for the model
@@ -152,6 +154,16 @@ public class ArStepsActivity extends ARViewActivity {
         mDirectionalLight.setCoordinateSystemID(1);
       }
     });
+
+    Button pausAnimationBtn = (Button) findViewById(R.id.pausAnimationButton);
+    pausAnimationBtn.setVisibility(View.VISIBLE);
+    pausAnimationBtn.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+          animationgeometry1.pauseAnimation();
+        }
+      });
+
 
     // Tracking.xml defines how to track the model
     setTrackingConfiguration("scanningsteps/TrackingData_MarkerlessFast.xml");

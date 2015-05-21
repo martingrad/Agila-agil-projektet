@@ -17,10 +17,22 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/testButton"
-        android:layout_margin="40dp"
+        android:id="@+id/startAnimationButton"
+        android:layout_margin="10dp"
         android:text="Starta Animering"
-        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
         android:onClick="onButtonClick"/>
+
+    <Button
+        android:id="@+id/pausAnimationButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:text="Pausa Animering"
+        android:onClick="onButtonClick"
+        />
 
 </RelativeLayout>
