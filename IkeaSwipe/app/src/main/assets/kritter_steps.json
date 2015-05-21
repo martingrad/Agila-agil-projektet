@@ -12,7 +12,7 @@
         },
         {
             "step":                 "1",
-            "title":                "Steg 1",
+            "title":                "steg 1",
             "imgUrl":               "step1_lowres",
             "checkbarButtonUrl":    "step1",
             "completeModelUrl":     "step1_done",
@@ -22,7 +22,7 @@
         },
         {
             "step":                 "2",
-            "title":                "Steg 2",
+            "title":                "steg 2",
             "imgUrl":               "step2_lowres",
             "checkbarButtonUrl":    "step2",
             "completeModelUrl":     "step2_done",
@@ -32,7 +32,7 @@
         },
         {
             "step":                 "3",
-            "title":                "Steg 3",
+            "title":                "steg 3",
             "imgUrl":               "step3_lowres",
             "checkbarButtonUrl":    "step3",
             "completeModelUrl":     "step3_done",
@@ -42,7 +42,7 @@
         },
         {
             "step":                 "4",
-            "title":                "Steg 4",
+            "title":                "steg 4",
             "imgUrl":               "step4_lowres",
             "checkbarButtonUrl":    "step4",
             "completeModelUrl":     "step4_done",
@@ -52,7 +52,7 @@
         },
         {
             "step":                 "5",
-            "title":                "Steg 5",
+            "title":                "steg 5",
             "imgUrl":               "step5_lowres",
             "checkbarButtonUrl":    "step5",
             "completeModelUrl":     "step4_done",
@@ -62,7 +62,7 @@
         },
         {
             "step":                 "6",
-            "title":                "Steg 6",
+            "title":                "steg 6",
             "imgUrl":               "step6_lowres",
             "checkbarButtonUrl":    "step6",
             "completeModelUrl":     "step4_done",

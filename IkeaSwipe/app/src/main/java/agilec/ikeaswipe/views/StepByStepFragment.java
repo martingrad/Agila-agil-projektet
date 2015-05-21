@@ -110,7 +110,7 @@ public class StepByStepFragment extends Fragment {
 
   private void setHeader(int stepNumber) {
     String title = stepHandler.getSteps().get(stepNumber).getTitle(); // Get the image url for the instruction image
-    header.setText("Instruktioner: " + title); // Set the correct image using id
+    header.setText("Instruktioner för " + title); // Set the correct image using id
   }
 
   /**

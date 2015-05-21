@@ -44,7 +44,7 @@ public class View3dFragment extends Fragment {
 
   public void setHeader(int stepNumber) {
     String title = stepHandler.getSteps().get(stepNumber).getTitle(); // Get the image url for the instruction image
-    header.setText("3D-modell: " + title); // Set the correct image using id
+    header.setText("3D-interaktion för " + title); // Set the correct image using id
   }
 
   @Override
