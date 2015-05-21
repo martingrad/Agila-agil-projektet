@@ -12,7 +12,7 @@
         android:paddingTop="8dp">
 
         <TextView
-            android:id="@+id/stepByStepHeader"
+            android:id="@+id/threeDHeader"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
@@ -21,7 +21,7 @@
             android:paddingBottom="10dp"
             android:paddingLeft="15dp"
             android:singleLine="false"
-            android:text="@string/v3fTitle"
+            android:text="@string/vtfTitle"
             android:textColor="@color/black"
             android:textIsSelectable="true"
             android:textSize="35sp"

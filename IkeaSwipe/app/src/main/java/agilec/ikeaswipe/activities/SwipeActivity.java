@@ -83,6 +83,7 @@ public class SwipeActivity extends FragmentActivity {
       }
     });
     thread.start();
+    v3DF.setHeader(currentStep);
   }
 
   public void setCompletedStep(int stepNumber, boolean isCompleted) {

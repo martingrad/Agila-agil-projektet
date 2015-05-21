@@ -24,6 +24,6 @@
     <string name="alfTitle">Innehåll</string>
 
     <!-- View3dFragment Related -->
-    <string name="v3fTitle">3D-vy</string>
+    <string name="vtfTitle">3D-modell: Kritter</string>
 
 </resources>
