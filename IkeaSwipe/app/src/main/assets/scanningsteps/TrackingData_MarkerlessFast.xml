@@ -133,7 +133,7 @@
 				<SensorCosID>Patch2</SensorCosID>
 				<Parameters>
 					<ReferenceImage>markers/step2b.png</ReferenceImage>
-					<SimilarityThreshold>0.3</SimilarityThreshold>
+					<SimilarityThreshold>0.8</SimilarityThreshold>
 				</Parameters>
 			</SensorCOS>
 
@@ -168,8 +168,8 @@
             <SensorCOS>
                 <SensorCosID>Patch6</SensorCosID>
                 <Parameters>
-                    <ReferenceImage>markers/step6d.png</ReferenceImage>
-                    <SimilarityThreshold>0.3</SimilarityThreshold>
+                    <ReferenceImage>markers/step6.png</ReferenceImage>
+                    <SimilarityThreshold>0.2</SimilarityThreshold>
                 </Parameters>
             </SensorCOS>
 
