@@ -4,23 +4,42 @@
                 android:layout_height="match_parent"
                 android:visibility="gone">
 
-    <ImageButton
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_alignParentRight="true"
-        android:background="@android:color/transparent"
-        android:onClick="onButtonClick"
-        android:src="@drawable/return_btn" />
+        android:orientation="horizontal"
+        android:paddingTop="10dp">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/testButton"
-        android:layout_margin="40dp"
-        android:text="Starta Animering"
-        android:layout_alignParentLeft="true"
-        android:onClick="onButtonClick"/>
+
+        <ImageButton
+            android:id="@+id/btn_return"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_margin="10dp"
+            android:background="@android:color/transparent"
+            android:onClick="onButtonClick"
+            android:src="@drawable/ic_action_return"/>
+
+        <ImageButton
+            android:id="@+id/btn_pause"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:background="@android:color/transparent"
+            android:focusable="true"
+            android:src="@drawable/ic_action_pause"/>
+
+        <ImageButton
+            android:id="@+id/btn_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:adjustViewBounds="false"
+            android:background="@android:color/transparent"
+            android:focusable="true"
+            android:src="@drawable/ic_action_play"/>
+
+    </LinearLayout>
 
 </RelativeLayout>

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.metaio.sdk.ARViewActivity;
 import com.metaio.sdk.MetaioDebug;
@@ -139,11 +140,11 @@ public class ArStepsActivity extends ARViewActivity {
         geometry.setVisible(true);
 
         // Create a button in which the user can choose to start the animation.
-        Button testBtn = (Button) findViewById(R.id.testButton);
-        testBtn.setVisibility(View.VISIBLE);
+        ImageButton playButton = (ImageButton) findViewById(R.id.btn_play);
+        playButton.setVisibility(View.VISIBLE);
 
         // Set listener to the playButton when onClick.
-        testBtn.setOnClickListener(new View.OnClickListener() {
+        playButton.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
 
