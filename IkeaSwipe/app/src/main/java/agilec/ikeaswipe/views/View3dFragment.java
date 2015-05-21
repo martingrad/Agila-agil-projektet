@@ -21,6 +21,7 @@ import org.json.JSONException;
 
 import agilec.ikeaswipe.activities.ArFindActivity;
 import agilec.ikeaswipe.activities.ArStepsActivity;
+import agilec.ikeaswipe.activities.TutorialActivity;
 import agilec.ikeaswipe.models.AllSteps;
 import agilec.ikeaswipe.models.Step;
 import agilec.ikeaswipe.utils.MyGLDrawModel;
@@ -128,7 +129,6 @@ public class View3dFragment extends Fragment {
     // Getting a reference to ARHelp button, and send to new activity when clicked
     ImageButton ARHelp = (ImageButton) layout.findViewById(R.id.ARHelp);
     ARHelp.setOnClickListener(new View.OnClickListener() {
-
       @Override
       public void onClick(View v) {
         Intent arIntent = new Intent(getActivity(), ArStepsActivity.class);
@@ -153,6 +153,17 @@ public class View3dFragment extends Fragment {
         arIntent.putExtra("currentTab", 1);
         arIntent.putExtra("currentStep", _currentStep.getStep());
         startActivity(arIntent);
+      }
+    });
+
+    // Getting a reference to tutorial button, and send to new activity when clicked
+    ImageButton tutorialBtn = (ImageButton) layout.findViewById(R.id.tutorialButton);
+    tutorialBtn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        Intent tutIntent = new Intent(getActivity(), TutorialActivity.class);
+        tutIntent.putExtra("currentTab", 2);
+        startActivity(tutIntent);
       }
     });
   }

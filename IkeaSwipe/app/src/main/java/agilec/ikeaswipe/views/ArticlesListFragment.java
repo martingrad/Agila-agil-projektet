@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import agilec.ikeaswipe.activities.ArStepsActivity;
+import agilec.ikeaswipe.activities.TutorialActivity;
 import agilec.ikeaswipe.models.AllArticles;
 import agilec.ikeaswipe.activities.ArFindActivity;
 import agilec.ikeaswipe.models.AllSteps;
@@ -282,6 +283,18 @@ public class ArticlesListFragment extends ListFragment {
         arIntent.putExtra("currentTab", 1);
         arIntent.putExtra("currentStep", _currentStep.getStep());
         startActivity(arIntent);
+      }
+    });
+
+    // Getting a reference to tutorial button, and send to new activity when clicked
+    ImageButton tutorialBtn = (ImageButton) layout.findViewById(R.id.tutorialButton);
+    tutorialBtn.setOnClickListener(new View.OnClickListener() {
+
+      @Override
+      public void onClick(View v) {
+        Intent tutIntent = new Intent(getActivity(), TutorialActivity.class);
+        tutIntent.putExtra("currentTab", 0);
+        startActivity(tutIntent);
       }
     });
   }
