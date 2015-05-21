@@ -25,7 +25,6 @@ import agilec.ikeaswipe.R;
 
 public class ArStepsActivity extends ARViewActivity {
 
-
   /**
    * Reference to loaded metaioman geometry
    */
