@@ -1,6 +1,7 @@
 package agilec.ikeaswipe.activities;
 
 import java.io.File;
+import java.io.IOException;
 
 import android.content.Intent;
 import android.graphics.PointF;
@@ -133,7 +134,6 @@ public class ArFindActivity extends ARViewActivity {
   @Override
   protected void loadContents() {
     // Set path for the model/file to load
-
     mRimModel = loadModel("custom/" + articleImgUrl + "/" + articleImgUrl + ".obj");
     mVizAidModel = loadModel("custom/" + articleImgUrl + "/" + articleImgUrl + ".obj");
 
@@ -247,8 +247,10 @@ public class ArFindActivity extends ARViewActivity {
       // Load model
       AssetsManager.extractAllAssets(this, true);
       final File modelPath = AssetsManager.getAssetPathAsFile(getApplicationContext(), path);
+
       // Log.i("info", "modelPath: " + modelPath);
       geometry = metaioSDK.createGeometry(modelPath);
+
 
       MetaioDebug.log("Loaded geometry " + modelPath);
     } catch (Exception e) {
