@@ -1,7 +1,6 @@
 package agilec.ikeaswipe.activities;
 
 import java.util.Arrays;
-import java.util.Locale;
 
 import android.app.ActionBar;
 import android.graphics.drawable.Drawable;
@@ -190,6 +189,7 @@ public class SwipeActivity extends FragmentActivity {
     if (hasFocus) {
       stepFragment.findPos();
       alf.findPos();
+      v3DF.findPos();
     }
   }
 

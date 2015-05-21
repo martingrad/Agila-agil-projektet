@@ -436,7 +436,6 @@ public class StepByStepFragment extends Fragment {
     p.y = location[1];
 
     System.out.println("The point is:  " + p);
-
   }
 
   /**

@@ -275,7 +275,6 @@ public class ArticlesListFragment extends ListFragment {
         startActivity(arIntent);
       }
     });
-
   }
 
   /**
