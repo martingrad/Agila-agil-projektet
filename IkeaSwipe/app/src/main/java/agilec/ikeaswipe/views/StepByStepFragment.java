@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,6 +44,7 @@ public class StepByStepFragment extends Fragment {
   private TextView header;
   private ImageView imgView;
   private Button checkbarButton;
+  private View view;                    // View variable used across multiple functions
 
   //The "x" and "y" position of the "Show Button" on screen.
   private Point p;
@@ -62,10 +64,11 @@ public class StepByStepFragment extends Fragment {
   /**
    * transitionToNextImage makes the currently displayed image slide upward and a new, specified
    * image slide in from below.
+   *
    * @param id
    * @author @martingrad
    */
-  public void transitionToNextImage(int id){
+  public void transitionToNextImage(int id) {
     Animation in = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_in_up);
     Animation out = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_out_up);
     imageSwitcher.setInAnimation(in);
@@ -76,10 +79,11 @@ public class StepByStepFragment extends Fragment {
   /**
    * transitionToPreviousImage makes the currently displayed image slide downward and a new,
    * specified image slide in from above.
-   * @author @martingrad
+   *
    * @param id
+   * @author @martingrad
    */
-  public void transitionToPreviousImage(int id){
+  public void transitionToPreviousImage(int id) {
     Animation in = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_out_down);
     Animation out = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_in_down);
     imageSwitcher.setInAnimation(out);
@@ -97,7 +101,7 @@ public class StepByStepFragment extends Fragment {
     String imgUrl = stepHandler.getSteps().get(stepNumber).getImgUrl(); // Get the image url for the instruction image
     int id = getResources().getIdentifier(imgUrl, "drawable", getActivity().getPackageName()); // Get the id
 
-    if(stepNumber > prevStep) {
+    if (stepNumber > prevStep) {
       transitionToNextImage(id);
     } else {
       transitionToPreviousImage(id);
@@ -171,18 +175,83 @@ public class StepByStepFragment extends Fragment {
     super.onSaveInstanceState(outState);
   }
 
+  public void goToNextStep() {
+    if (stepNumber != 6) {
+      // Increment the stepNumber
+      stepNumber++;
+
+      //Number for previous step
+      prevStep = stepNumber - 1;
+
+      //To see if the step is completed
+      prevIsCompleted = ((SwipeActivity) getActivity()).getCompletedStep(stepNumber - 1);
+
+      //Set opacity of background color for previous button
+      setDefaultColorButtons(view, prevIsCompleted, prevStep);
+
+      // Change the image source
+      setImage(stepNumber);
+
+      // Change header
+      setHeader(stepNumber);
+
+      // Load the step completed button
+      loadIsCompletedButton(((SwipeActivity) getActivity()).getCompletedStep(stepNumber), view, stepNumber);
+
+      // Call the setStepNumber function in SwipeActivity to change the current step number
+      try {
+        ((SwipeActivity) getActivity()).setStepNumber(stepNumber);
+      } catch (JSONException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+
+  public void goToPreviousStep() {
+    if (stepNumber != 0) {
+      // Decrement the stepNumber
+      stepNumber--;
+
+      //Number for previous step
+      prevStep = stepNumber + 1;
+
+      //To see if the step is completed
+      prevIsCompleted = ((SwipeActivity) getActivity()).getCompletedStep(stepNumber + 1);
+
+      //Set opacity of background color for previous button
+      setDefaultColorButtons(view, prevIsCompleted, prevStep);
+
+      // Change the image source
+      setImage(stepNumber);
+
+      // Change header
+      setHeader(stepNumber);
+
+      // Load the step completed button
+      loadIsCompletedButton(((SwipeActivity) getActivity()).getCompletedStep(stepNumber), view, stepNumber);
+
+      // Call the setStepNumber function in SwipeActivity to change the current step number
+      try {
+        ((SwipeActivity) getActivity()).setStepNumber(stepNumber);
+      } catch (JSONException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+
   /**
    * OnCreateView initializes the instance variables of the fragment.
+   *
    * @param inflater
    * @param container
    * @param savedInstanceState
-   * @author @martingrad
    * @return
+   * @author @martingrad
    */
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-    final View view = inflater.inflate(R.layout.fragment_step_by_step, container, false); // Inflate the layout for this fragment
+    view = inflater.inflate(R.layout.fragment_step_by_step, container, false); // Inflate the layout for this fragment
     header = (TextView) view.findViewById(R.id.stepByStepHeader); // Define header id connection
 
     // Initialize the imageSwitcher
@@ -217,70 +286,14 @@ public class StepByStepFragment extends Fragment {
 
     // Set listener to the view
     view.setOnTouchListener(new OnSwipeTouchListener(getActivity()) {
-      // If user swipe down -> up
+      // If user swipes down -> up
       public void onSwipeTop() {
-        if (stepNumber != 6) {
-          // Increment the stepNumber
-          stepNumber++;
-
-          //Number for previous step
-          prevStep = stepNumber - 1;
-
-          //To see if the step is completed
-          prevIsCompleted = ((SwipeActivity) getActivity()).getCompletedStep(stepNumber - 1);
-
-          //Set opacity of background color for previous button
-          setDefaultColorButtons(view, prevIsCompleted, prevStep);
-
-          // Change the image source
-          setImage(stepNumber);
-
-          // Change header
-          setHeader(stepNumber);
-
-          // Load the step completed button
-          loadIsCompletedButton(((SwipeActivity) getActivity()).getCompletedStep(stepNumber), view, stepNumber);
-
-          // Call the setStepNumber function in SwipeActivity to change the current step number
-          try {
-            ((SwipeActivity) getActivity()).setStepNumber(stepNumber);
-          } catch (JSONException e) {
-            e.printStackTrace();
-          }
-        }
+        goToNextStep();
       }
 
-      // If user swipe up -> down
+      // If user swipes up -> down
       public void onSwipeBottom() {
-        if (stepNumber != 0) {
-          // Decrement the stepNumber
-          stepNumber--;
-
-          //Number for previous step
-          prevStep = stepNumber + 1;
-
-          //To see if the step is completed
-          prevIsCompleted = ((SwipeActivity) getActivity()).getCompletedStep(stepNumber + 1);
-
-          //Set opacity of background color for previous button
-          setDefaultColorButtons(view, prevIsCompleted, prevStep);
-
-          // Change the image source
-          setImage(stepNumber);
-
-          // Change header
-          setHeader(stepNumber);
-
-          // Load the step completed button
-          loadIsCompletedButton(((SwipeActivity) getActivity()).getCompletedStep(stepNumber), view, stepNumber);
-
-          // Call the setStepNumber function in SwipeActivity to change the current step number
-          try {
-            ((SwipeActivity) getActivity()).setStepNumber(stepNumber);
-          } catch (JSONException e) {
-            e.printStackTrace();
-          }
-        }
+        goToPreviousStep();
       }
     });
 
@@ -305,7 +318,7 @@ public class StepByStepFragment extends Fragment {
     completedStepBtn.setOnClickListener(new View.OnClickListener() {
       /**
        * onClick function for the completedStepBtn
-       * @author @emmaforsling @marcusnygren
+       * @author @emmaforsling @marcusnygren @martingrad
        * @param v The view
        */
       @Override
@@ -321,6 +334,11 @@ public class StepByStepFragment extends Fragment {
 
         // Mark the step as done or undone
         ((SwipeActivity) getActivity()).setCompletedStep(stepNumber, isCompleted);
+
+        // If the step was completed, show the next step
+        if (isCompleted) {
+          goToNextStep();
+        }
       }
     });
 
@@ -341,27 +359,22 @@ public class StepByStepFragment extends Fragment {
 
   /**
    * Sets the navigation buttons clickable
+   *
    * @param theView
    */
   private void setNavigationButtonsClickable(View theView) {
 
-    /*
-     * Set the view
-     * Final -> want to reach it in the onClick method
-     */
-    final View view = theView;
-
     // Loop through all the navigation buttons and set action to them
-    for(int i = 0; i<7; i++) {
+    for (int i = 0; i < 7; i++) {
 
       // The current step
       final int goToStep = i;
 
       // Get the id of the button
-      int       id = getResources().getIdentifier("step"+i, "id", getActivity().getPackageName());
+      int id = getResources().getIdentifier("step" + i, "id", getActivity().getPackageName());
 
       // Set the current button
-      Button    navigationButton = (Button) view.findViewById(id);
+      Button navigationButton = (Button) view.findViewById(id);
 
       // Set Action to the current button
       navigationButton.setOnClickListener(new View.OnClickListener() {
@@ -403,8 +416,9 @@ public class StepByStepFragment extends Fragment {
    * Get the x and y position after the button is draw on screen
    * (It's important to note that we can't get the position in the onCreate(),
    * because at that stage most probably the view isn't drawn yet, so it will return (0, 0))
-   *
+   * <p/>
    * The function will be run from SwipeActivity when onWindowFocusChanged return true
+   *
    * @author @antonosterblad
    */
   public void findPos() {
@@ -421,21 +435,24 @@ public class StepByStepFragment extends Fragment {
     p.x = location[0];
     p.y = location[1];
 
+    System.out.println("The point is:  " + p);
+
   }
 
   /**
    * Displays pop up and it's contents
-   * @param context Context
-   * @param p Point for help buttons position
    *
+   * @param context Context
+   * @param p       Point for help buttons position
    * @author @antonosterblad @ingelhag @emmaforsling
    */
   // The method that displays the popup.
   private void showPopup(final Activity context, Point p) {
     findPos();
-    int popupWidth = 600;
-    int popupHeight = 400;
 
+    // Set Width and height for the popup window. Uses DIP - works on different tablets
+    float popupWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 400, getResources().getDisplayMetrics());
+    float popupHeight = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 200, getResources().getDisplayMetrics());
 
     // Inflate the popup_layout.xml
     LinearLayout viewGroup = (LinearLayout) context.findViewById(R.id.popup);
@@ -446,19 +463,23 @@ public class StepByStepFragment extends Fragment {
     // Creating the PopupWindow
     final PopupWindow popup = new PopupWindow(context);
     popup.setContentView(layout);
-    popup.setWidth(popupWidth);
-    popup.setHeight(popupHeight);
+    popup.setWidth((int)popupWidth);
+    popup.setHeight((int)popupHeight);
     popup.setFocusable(true);
 
-    // Some offset to align the popup a bit to the right, and a bit down, relative to button's position.
-    int OFFSET_X = -435;
-    int OFFSET_Y = 75;
+    /* Some offset to align the popup a bit to the right, and a bit down, relative to button's position.
+     * Use DIP - works on different tablets
+     */
+
+    float OFFSET_X = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, -295, getResources().getDisplayMetrics());
+    float OFFSET_Y = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 55, getResources().getDisplayMetrics());
+
 
     // Clear the default translucent background
     popup.setBackgroundDrawable(new BitmapDrawable());
 
     // Displaying the popup at the specified location, + offsets.
-    popup.showAtLocation(layout, Gravity.NO_GRAVITY, p.x + OFFSET_X, p.y + OFFSET_Y);
+    popup.showAtLocation(layout, Gravity.NO_GRAVITY, p.x + (int)OFFSET_X, p.y + (int)OFFSET_Y);
 
     // Getting a reference to ARHelp button, and send to new activity when clicked
     ImageButton ARHelp = (ImageButton) layout.findViewById(R.id.ARHelp);
@@ -467,14 +488,14 @@ public class StepByStepFragment extends Fragment {
       @Override
       public void onClick(View v) {
         Intent arIntent = new Intent(getActivity(), ArStepsActivity.class);
-        arIntent.putExtra("currentTab",1);
+        arIntent.putExtra("currentTab", 1);
         startActivity(arIntent);
 
       }
     });
 
     // Displaying the popup at the specified location, + offsets.
-    popup.showAtLocation(layout, Gravity.NO_GRAVITY, p.x + OFFSET_X, p.y + OFFSET_Y);
+    popup.showAtLocation(layout, Gravity.NO_GRAVITY, p.x + (int)OFFSET_X, p.y + (int)OFFSET_Y);
 
     // Getting a reference to ARHelp button, and send to new activity when clicked
     ImageButton ARCheckComplete = (ImageButton) layout.findViewById(R.id.ARCheckComplete);

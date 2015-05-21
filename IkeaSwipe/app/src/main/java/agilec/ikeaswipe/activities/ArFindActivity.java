@@ -103,13 +103,16 @@ public class ArFindActivity extends ARViewActivity {
   }
 
   /**
-   * Perform when onButtonClick.
+   * Return to swipe activity
    *
    * @param v View
-   * @author @antonosterblad @linneamalcherek
+   * @author @ingelhag
    */
   public void onButtonClick(View v) {
-    finish();
+    Intent i = new Intent(getApplicationContext(), SwipeActivity.class);
+    i.putExtra("currentStep", currentStep); // Send back the current step
+    i.putExtra("currentTab", currentTab);   // Send back the current tab
+    startActivity(i);
   }
 
   /**

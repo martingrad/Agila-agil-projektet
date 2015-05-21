@@ -30,6 +30,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.HorizontalScrollView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
@@ -233,6 +234,9 @@ public class SlidingTabLayout extends HorizontalScrollView {
       }
 
       tabTitleView.setText(adapter.getPageTitle(i));
+      // Added LinearLayout to evenly space the tabs with icons
+      LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0, LayoutParams.WRAP_CONTENT, 1f);
+      tabView.setLayoutParams(lp);
       tabView.setOnClickListener(tabClickListener);
 
       mTabStrip.addView(tabView);
