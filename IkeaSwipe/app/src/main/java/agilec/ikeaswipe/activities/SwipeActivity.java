@@ -1,9 +1,9 @@
 package agilec.ikeaswipe.activities;
 
 import java.util.Arrays;
-import java.util.Locale;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.Fragment;
@@ -74,6 +74,7 @@ public class SwipeActivity extends FragmentActivity {
    */
   SingleSwipeViewPager mViewPager;
   private SlidingTabLayout mSlidingTabLayout;
+  private int currentTab;
 
   /**
    * setStepNumber is called to update the current step number from the StepByStepFragment
@@ -87,6 +88,7 @@ public class SwipeActivity extends FragmentActivity {
     // Update the list - Only show articles that belongs to the current step
     alf.updateListWithStep(currentStep);
 
+    // Load object in 3D view on separate thread to increase GUI performance
     Thread thread = new Thread(new Runnable(){
       @Override
       public void run(){
@@ -94,6 +96,9 @@ public class SwipeActivity extends FragmentActivity {
       }
     });
     thread.start();
+
+    // Update the header of the 3D view.
+    v3DF.setHeader(currentStep);
   }
 
   public void setCompletedStep(int stepNumber, boolean isCompleted) {
@@ -140,7 +145,8 @@ public class SwipeActivity extends FragmentActivity {
     setContentView(R.layout.activity_swipe);
 
     // From the beginning the application will show the StepByStep Fragment
-    int currentTab = 1;
+    Intent intent = getIntent();
+    currentTab = intent.getIntExtra("currentTab", 1); // Get the current tab number
 
     // Get the intent that is created in ArFindAllActivity when a user clicks the "done" button
     Bundle extras = getIntent().getExtras();
@@ -189,6 +195,14 @@ public class SwipeActivity extends FragmentActivity {
   public void onWindowFocusChanged(boolean hasFocus) {
     if (hasFocus) {
       stepFragment.findPos();
+      if(currentTab == 0) {
+        alf.findPos();
+      } else if (currentTab == 1) {
+        alf.findPos();
+        v3DF.findPos();
+      } else if (currentTab == 2) {
+        v3DF.findPos();
+      }
     }
   }
 

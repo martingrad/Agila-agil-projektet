@@ -28,17 +28,6 @@
             android:textStyle="bold"/>
 
         <ImageButton
-            android:id="@+id/stepByStepHelpButton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/helpButton"
-            android:paddingBottom="10dp"
-            android:src="@drawable/ic_action_help"/>
-
-        <ImageButton
             android:id="@+id/completedStepButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -51,8 +40,18 @@
             android:paddingBottom="10dp"
             android:src="@drawable/ic_action_done_before"/>
 
+        <ImageButton
+            android:id="@+id/stepByStepHelpButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/helpButton"
+            android:paddingBottom="10dp"
+            android:src="@drawable/ic_action_help"/>
+        
     </LinearLayout>
-
 
     <View
         android:id="@+id/linearLayout2"
@@ -61,7 +60,6 @@
         android:layout_below="@+id/linearLayout"
         android:background="@color/black"
         android:paddingBottom="8dp"/>
-
 
     <ImageView
         android:id="@+id/steps"
@@ -81,7 +79,6 @@
         android:scaleType="fitCenter"
         >
     </ImageSwitcher>
-
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                   xmlns:tools="http://schemas.android.com/tools"

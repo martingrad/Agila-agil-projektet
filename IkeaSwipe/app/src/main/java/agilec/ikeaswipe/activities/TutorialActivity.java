@@ -43,7 +43,6 @@ public class TutorialActivity extends FragmentActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_splash);
 
-
     // Create the adapter that will return a fragment for each of the three
     // primary sections of the activity.
     mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -51,7 +50,10 @@ public class TutorialActivity extends FragmentActivity {
     // Set up the ViewPager with the sections adapter.
     mViewPager = (SingleSwipeViewPager) findViewById(R.id.pagerSplash);
     mViewPager.setAdapter(mSectionsPagerAdapter);
-    mViewPager.setCurrentItem(1); // Start tab should be number 1
+
+    Intent intent = getIntent();
+    int currentTab = intent.getIntExtra("currentTab", 1); // Get the current step number
+    mViewPager.setCurrentItem(currentTab); // Start tab should be number 1
   }
 
 
@@ -114,6 +116,7 @@ public class TutorialActivity extends FragmentActivity {
         public void onClick(View v) {
           System.out.println("Go to swipe from step 1");
           Intent i = new Intent(getApplicationContext(), SwipeActivity.class);
+          i.putExtra("currentTab", 0);
           startActivity(i);
         }
       });
@@ -139,6 +142,7 @@ public class TutorialActivity extends FragmentActivity {
         public void onClick(View v) {
           System.out.println("Go to swipe from step 2");
           Intent i = new Intent(getApplicationContext(), SwipeActivity.class);
+          i.putExtra("currentTab", 1);
           startActivity(i);
         }
       });
@@ -164,6 +168,7 @@ public class TutorialActivity extends FragmentActivity {
         public void onClick(View v) {
           System.out.println("Go to swipe from step 3");
           Intent i = new Intent(getApplicationContext(), SwipeActivity.class);
+          i.putExtra("currentTab", 2);
           startActivity(i);
         }
       });

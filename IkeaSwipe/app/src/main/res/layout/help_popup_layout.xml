@@ -25,4 +25,13 @@
         android:src="@drawable/ic_action_done_before"
         android:layout_margin="20dp"/>
 
+    <ImageButton
+        android:id="@+id/tutorialButton"
+        android:layout_width="40dp"
+        android:layout_height="67dp"
+        android:background="@android:color/transparent"
+        android:padding="30dp"
+        android:src="@android:drawable/ic_menu_help"
+        android:layout_margin="20dp"/>
+
 </LinearLayout>

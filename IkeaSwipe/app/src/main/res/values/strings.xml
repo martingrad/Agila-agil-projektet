@@ -16,8 +16,14 @@
     <string name="btnDone">Done</string>
 
     <!-- StepByStepFragment Related -->
-    <string name="sbsTitle">Kritter</string>
+    <string name="sbsTitle">Instruktioner för Kritter</string>
     <string name="checkButton">Check Button</string>
     <string name="helpButton">Help Button</string>
+
+    <!-- ArticlesListFragment Related -->
+    <string name="alfTitle">Delar för Kritter</string>
+
+    <!-- View3dFragment Related -->
+    <string name="vtfTitle">3D-interaktion för Kritter</string>
 
 </resources>
