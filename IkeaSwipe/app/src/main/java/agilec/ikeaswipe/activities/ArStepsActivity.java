@@ -102,7 +102,7 @@ public class ArStepsActivity extends ARViewActivity {
     mMetaioStep3 = loadModel("scanningsteps/animations/animation_step03.zip");
     mMetaioStep4 = loadModel("scanningsteps/animations/animation_step04.zip");
     mMetaioStep5 = loadModel("scanningsteps/animations/animation_step05.zip");
-    mMetaioStep6 = loadModel("scanningsteps/animations/animation_step06.zip");
+    //mMetaioStep6 = loadModel("scanningsteps/animations/animation_step06.zip");
 
     // Tracking.xml defines how to track the model
     setTrackingConfiguration("scanningsteps/TrackingData_MarkerlessFast.xml");
