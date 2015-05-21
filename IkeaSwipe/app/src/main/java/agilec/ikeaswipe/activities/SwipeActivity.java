@@ -176,6 +176,7 @@ public class SwipeActivity extends FragmentActivity {
   public void onWindowFocusChanged(boolean hasFocus) {
     if (hasFocus) {
       stepFragment.findPos();
+      alf.findPos();
     }
   }
 
