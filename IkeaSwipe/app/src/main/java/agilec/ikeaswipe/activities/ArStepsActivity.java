@@ -25,7 +25,6 @@ import agilec.ikeaswipe.R;
 
 public class ArStepsActivity extends ARViewActivity {
 
-
   /**
    * Reference to loaded metaioman geometry
    */
@@ -59,7 +58,6 @@ public class ArStepsActivity extends ARViewActivity {
     mCallbackHandler.delete();
     mCallbackHandler = null;
   }
-
 
   @Override
   protected int getGUILayout() {
