@@ -37,11 +37,6 @@ public class ArFindActivity extends ARViewActivity {
   private float yPrev, y; // Y Position
   private float density;  // Density for the device
 
-  // Tracking coordinate system rotation offsets
-  private float cosXRotationOffset = 0.f;
-  private float cosYRotationOffset = 0.f;
-  private float cosZRotationOffset = 0.f;
-
   // 3D model
   private IGeometry mRimModel = null;
 
@@ -115,16 +110,6 @@ public class ArFindActivity extends ARViewActivity {
   }
 
   /**
-   * Reset the tracking.
-   *
-   * @param v View
-   * @author @antonosterblad @linneamalcherek
-   */
-  public void onResetButtonClick(View v) {
-    metaioSDK.sensorCommand("reset");
-  }
-
-  /**
    * Set paths to which files to load.
    * Define their local coordinate system ID.
    *
@@ -163,7 +148,7 @@ public class ArFindActivity extends ARViewActivity {
      */
     @Override
     public void onSDKReady() {
-      // show GUI
+      // Show GUI
       runOnUiThread(new Runnable() {
         @Override
         public void run() {
@@ -228,20 +213,18 @@ public class ArFindActivity extends ARViewActivity {
    * @author @antonosterblad @linneamalcherek @jacobselg
    */
   private IGeometry loadModel(final String path) {
-    IGeometry geometry = null;
+    IGeometry geometry;
     try {
       // Load model
       AssetsManager.extractAllAssets(this, true);
       final File modelPath = AssetsManager.getAssetPathAsFile(getApplicationContext(), path);
 
-      // Log.i("info", "modelPath: " + modelPath);
       geometry = metaioSDK.createGeometry(modelPath);
 
-
-      MetaioDebug.log("Loaded geometry " + modelPath);
+      //MetaioDebug.log("Loaded geometry " + modelPath);
     } catch (Exception e) {
-      MetaioDebug.log(Log.ERROR, "Error loading geometry: " + e.getMessage());
-      return geometry;
+      //MetaioDebug.log(Log.ERROR, "Error loading geometry: " + e.getMessage());
+      return null;
     }
     return geometry;
   }
@@ -254,15 +237,15 @@ public class ArFindActivity extends ARViewActivity {
    * @author @antonosterblad @linneamalcherek @jacobselg
    */
   private boolean setTrackingConfiguration(final String path) {
-    boolean result = false;
+    boolean result;
     try {
       // Set tracking configuration
       final File xmlPath = AssetsManager.getAssetPathAsFile(getApplicationContext(), path);
       result = metaioSDK.setTrackingConfiguration(xmlPath);
-      MetaioDebug.log("Loaded tracking configuration " + xmlPath);
+      //MetaioDebug.log("Loaded tracking configuration " + xmlPath);
     } catch (Exception e) {
-      MetaioDebug.log(Log.ERROR, "Error loading tracking configuration: " + path + " " + e.getMessage());
-      return result;
+      //MetaioDebug.log(Log.ERROR, "Error loading tracking configuration: " + path + " " + e.getMessage());
+      return false;
     }
     return result;
   }
@@ -325,12 +308,6 @@ public class ArFindActivity extends ARViewActivity {
   }
 
   private boolean setVizAidRotation(MotionEvent event) {
-    // get pointer index from the event object
-    int pointerIndex = event.getActionIndex();
-
-    // get pointer ID
-    int pointerId = event.getPointerId(pointerIndex);
-
     // get masked (not specific to a pointer) action
     int maskedAction = event.getActionMasked();
 
@@ -367,7 +344,7 @@ public class ArFindActivity extends ARViewActivity {
    * rotateAndScaleModel rotates and scales the visualization aid model. One finger is used to
    * rotate around the x and y axes, and two fingers are used to rotate around the z axis (using
    * horizontal gestures) and to scale the model (using vertical gestures).
-   * TODO: Implement scaling. No sensor commands seem to achieve this...
+   * TODO: Implement scaling. No sensor commands seem to achieve this.
    *
    * @param pointerCount
    * @author @martingrad, @byggprojektledarn

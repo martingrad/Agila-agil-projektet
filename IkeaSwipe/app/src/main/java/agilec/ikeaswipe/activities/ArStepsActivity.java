@@ -1,4 +1,3 @@
-// Copyright 2007-2014 metaio GmbH. All rights reserved.
 package agilec.ikeaswipe.activities;
 
 import java.io.File;
@@ -92,13 +91,12 @@ public class ArStepsActivity extends ARViewActivity {
     mDirectionalLight.setDiffuseColor(new Vector3d(0.6f, 0.2f, 0)); // Orange color
     mDirectionalLight.setCoordinateSystemID(0); // Set the lights coordinate system to the camera, 0
 
-    // Load all the geometries with its corresponding texture
+    // Load all the geometries with its corresponding animation
     mMetaioStep1 = loadModel("scanningsteps/animations/animation_step01.zip");
     mMetaioStep2 = loadModel("scanningsteps/animations/animation_step02.zip");
     mMetaioStep3 = loadModel("scanningsteps/animations/animation_step03.zip");
     mMetaioStep4 = loadModel("scanningsteps/animations/animation_step04.zip");
     mMetaioStep5 = loadModel("scanningsteps/animations/animation_step05.zip");
-    //mMetaioStep6 = loadModel("scanningsteps/animations/animation_step06.zip");
 
     // Tracking.xml defines how to track the model
     setTrackingConfiguration("scanningsteps/TrackingData_MarkerlessFast.xml");
@@ -109,7 +107,7 @@ public class ArStepsActivity extends ARViewActivity {
     /**
      * Set listener to the playButton when onClick.
      *
-     * TODO: Refactor with a better solution to not check every geometry
+     * TODO: Refactor with a better solution to not check every geometry with if statements
      *
      * getIsRendered was the best function I found to check which geometry
      *  the user currently are looking at. There might be a better way. @antonosterblad
@@ -143,7 +141,7 @@ public class ArStepsActivity extends ARViewActivity {
     /**
      * Set listener to the pauseButton when onClick.
      *
-     * TODO: Refactor with a better solution to not check every geometry
+     * TODO: Refactor with a better solution to not check every geometry with if statements
      *
      * getIsRendered was the best function I found to check which geometry
      *  the user currently are looking at. There might be a better way. @antonosterblad
@@ -193,7 +191,7 @@ public class ArStepsActivity extends ARViewActivity {
 
       if (geometry != null) {
         // Set geometry properties
-        geometry.setScale(30f);
+        geometry.setScale(60f);
         MetaioDebug.log("Loaded geometry " + modelPath);
 
         // Enable lighting for the model
@@ -216,7 +214,7 @@ public class ArStepsActivity extends ARViewActivity {
   protected void onGeometryTouched(IGeometry geometry) {
     // Start the animation.
     // "Default Take", is the animation name which can be read in the log-file (that was created)
-    // when using FBXMeshConverter
+    //    when using FBXMeshConverter
     geometry.startAnimation("Default Take", true);
 
     // Stop rendering geometry as relative to screen
@@ -235,7 +233,7 @@ public class ArStepsActivity extends ARViewActivity {
 
     @Override
     public void onSDKReady() {
-      // show GUI
+      // Show GUI
       runOnUiThread(new Runnable() {
         @Override
         public void run() {
@@ -252,7 +250,7 @@ public class ArStepsActivity extends ARViewActivity {
      */
     @Override
     public void onTrackingEvent(TrackingValuesVector trackingValues) {
-      //Connect a geometry to a tracking marker.
+      // Connect a geometry to a tracking marker.
       // The coordinate ID corresponds to the patches in the XML file.
       if (mMetaioStep1 != null) {
         mMetaioStep1.setCoordinateSystemID(1); // Bind the loaded geometry to this target
