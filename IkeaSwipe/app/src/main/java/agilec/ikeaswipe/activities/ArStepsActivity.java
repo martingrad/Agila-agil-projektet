@@ -1,14 +1,12 @@
-// Copyright 2007-2014 metaio GmbH. All rights reserved.
 package agilec.ikeaswipe.activities;
 
 import java.io.File;
-import java.io.IOException;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.metaio.sdk.ARViewActivity;
 import com.metaio.sdk.MetaioDebug;
@@ -18,7 +16,6 @@ import com.metaio.sdk.jni.ELIGHT_TYPE;
 import com.metaio.sdk.jni.IGeometry;
 import com.metaio.sdk.jni.ILight;
 import com.metaio.sdk.jni.IMetaioSDKCallback;
-import com.metaio.sdk.jni.Rotation;
 import com.metaio.sdk.jni.TrackingValuesVector;
 import com.metaio.sdk.jni.Vector2di;
 import com.metaio.sdk.jni.Vector3d;
@@ -94,16 +91,82 @@ public class ArStepsActivity extends ARViewActivity {
     mDirectionalLight.setDiffuseColor(new Vector3d(0.6f, 0.2f, 0)); // Orange color
     mDirectionalLight.setCoordinateSystemID(0); // Set the lights coordinate system to the camera, 0
 
-    // Load all the geometries with its corresponding texture
+    // Load all the geometries with its corresponding animation
     mMetaioStep1 = loadModel("scanningsteps/animations/animation_step01.zip");
     mMetaioStep2 = loadModel("scanningsteps/animations/animation_step02.zip");
     mMetaioStep3 = loadModel("scanningsteps/animations/animation_step03.zip");
     mMetaioStep4 = loadModel("scanningsteps/animations/animation_step04.zip");
     mMetaioStep5 = loadModel("scanningsteps/animations/animation_step05.zip");
-    //mMetaioStep6 = loadModel("scanningsteps/animations/animation_step06.zip");
 
     // Tracking.xml defines how to track the model
     setTrackingConfiguration("scanningsteps/TrackingData_MarkerlessFast.xml");
+
+    ImageButton playButton = (ImageButton) findViewById(R.id.btn_play); // Button to start the animation.
+    ImageButton pauseButton = (ImageButton) findViewById(R.id.btn_pause); // Button to pause the animation.
+
+    /**
+     * Set listener to the playButton when onClick.
+     *
+     * TODO: Refactor with a better solution to not check every geometry with if statements
+     *
+     * getIsRendered was the best function I found to check which geometry
+     *  the user currently are looking at. There might be a better way. @antonosterblad
+     */
+    playButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        if (mMetaioStep1.getIsRendered()) {
+          mMetaioStep1.startAnimation("Default Take", true);
+          mMetaioStep1.setRelativeToScreen(IGeometry.ANCHOR_NONE);
+        }
+        if (mMetaioStep2.getIsRendered()) {
+          mMetaioStep2.startAnimation("Default Take", true);
+          mMetaioStep2.setRelativeToScreen(IGeometry.ANCHOR_NONE);
+        }
+        if (mMetaioStep3.getIsRendered()) {
+          mMetaioStep3.startAnimation("Default Take", true);
+          mMetaioStep3.setRelativeToScreen(IGeometry.ANCHOR_NONE);
+        }
+        if (mMetaioStep4.getIsRendered()) {
+          mMetaioStep4.startAnimation("Default Take", true);
+          mMetaioStep4.setRelativeToScreen(IGeometry.ANCHOR_NONE);
+        }
+        if (mMetaioStep5.getIsRendered()) {
+          mMetaioStep5.startAnimation("Default Take", true);
+          mMetaioStep5.setRelativeToScreen(IGeometry.ANCHOR_NONE);
+        }
+      }
+    });
+
+    /**
+     * Set listener to the pauseButton when onClick.
+     *
+     * TODO: Refactor with a better solution to not check every geometry with if statements
+     *
+     * getIsRendered was the best function I found to check which geometry
+     *  the user currently are looking at. There might be a better way. @antonosterblad
+     */
+    pauseButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        if (mMetaioStep1.getIsRendered()) {
+          mMetaioStep1.pauseAnimation();
+        }
+        if (mMetaioStep2.getIsRendered()) {
+          mMetaioStep2.pauseAnimation();
+        }
+        if (mMetaioStep3.getIsRendered()) {
+          mMetaioStep3.pauseAnimation();
+        }
+        if (mMetaioStep4.getIsRendered()) {
+          mMetaioStep4.pauseAnimation();
+        }
+        if (mMetaioStep5.getIsRendered()) {
+          mMetaioStep5.pauseAnimation();
+        }
+      }
+    });
+
   }
 
   /**
@@ -128,7 +191,7 @@ public class ArStepsActivity extends ARViewActivity {
 
       if (geometry != null) {
         // Set geometry properties
-        geometry.setScale(30f);
+        geometry.setScale(60f);
         MetaioDebug.log("Loaded geometry " + modelPath);
 
         // Enable lighting for the model
@@ -137,20 +200,11 @@ public class ArStepsActivity extends ARViewActivity {
         // Set the model visible
         geometry.setVisible(true);
 
-        // Start the animation.
-        // "Default Take", is the animation name which can be read in the log-file (that was created)
-        // when using FBXMeshConverter
-        geometry.startAnimation("Default Take", true);
-
-        // Stop rendering geometry as relative to screen
-        geometry.setRelativeToScreen(IGeometry.ANCHOR_NONE);
-
-
       } else {
-        MetaioDebug.log(Log.ERROR, "Error loading geometry: " + geometry);
+        //MetaioDebug.log(Log.ERROR, "Error loading geometry: " + geometry);
       }
     } catch (Exception e) {
-      MetaioDebug.log(Log.ERROR, "Error loading geometry: " + e.getMessage());
+      //MetaioDebug.log(Log.ERROR, "Error loading geometry: " + e.getMessage());
       return geometry;
     }
     return geometry;
@@ -158,7 +212,13 @@ public class ArStepsActivity extends ARViewActivity {
 
   @Override
   protected void onGeometryTouched(IGeometry geometry) {
-    // If we would like to interact with touch events on geometry
+    // Start the animation.
+    // "Default Take", is the animation name which can be read in the log-file (that was created)
+    //    when using FBXMeshConverter
+    geometry.startAnimation("Default Take", true);
+
+    // Stop rendering geometry as relative to screen
+    geometry.setRelativeToScreen(IGeometry.ANCHOR_NONE);
   }
 
   /**
@@ -173,7 +233,7 @@ public class ArStepsActivity extends ARViewActivity {
 
     @Override
     public void onSDKReady() {
-      // show GUI
+      // Show GUI
       runOnUiThread(new Runnable() {
         @Override
         public void run() {
@@ -190,7 +250,7 @@ public class ArStepsActivity extends ARViewActivity {
      */
     @Override
     public void onTrackingEvent(TrackingValuesVector trackingValues) {
-      //Connect a geometry to a tracking marker.
+      // Connect a geometry to a tracking marker.
       // The coordinate ID corresponds to the patches in the XML file.
       if (mMetaioStep1 != null) {
         mMetaioStep1.setCoordinateSystemID(1); // Bind the loaded geometry to this target
@@ -227,9 +287,9 @@ public class ArStepsActivity extends ARViewActivity {
       // Set tracking configuration
       final File xmlPath = AssetsManager.getAssetPathAsFile(getApplicationContext(), path);
       result = metaioSDK.setTrackingConfiguration(xmlPath);
-      MetaioDebug.log("Loaded tracking configuration " + xmlPath);
+      //MetaioDebug.log("Loaded tracking configuration " + xmlPath);
     } catch (Exception e) {
-      MetaioDebug.log(Log.ERROR, "Error loading tracking configuration: " + path + " " + e.getMessage());
+      //MetaioDebug.log(Log.ERROR, "Error loading tracking configuration: " + path + " " + e.getMessage());
       return result;
     }
     return result;
