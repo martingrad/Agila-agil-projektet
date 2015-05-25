@@ -2,11 +2,6 @@
 <resources>
     <color name="black">#000000</color>
     <color name="grey">#BBBBBB</color>
-    <color name="blue">#0000ff</color>
-    <color name="red">#ff0000</color>
-    <color name="green">#66CC00</color>
-    <color name="greenOpacity">#6066CC00</color>
-    <color name="greyOpacity">#40CCCCCC</color>
 
     <!-- IKEA Swipe Colors -->
     <color name="ikea_blue_dark">#2E5CA7</color>

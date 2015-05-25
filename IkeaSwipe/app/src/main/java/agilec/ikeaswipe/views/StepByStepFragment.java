@@ -120,16 +120,16 @@ public class StepByStepFragment extends Fragment {
   private void loadIsCompletedButton(boolean isCompleted, View view, int stepNumber) {
     if (isCompleted == false) {
       ((ImageButton) view.findViewById(R.id.completedStepButton)).setImageResource(R.drawable.ic_action_done_before);
-      //To get the right button
+      // To get the right button
       checkBarButtonView(stepNumber, view);
-      //Change color of the button
-      checkbarButton.setBackgroundColor(getResources().getColor(R.color.grey));
+      // Change color of the button
+      checkbarButton.setBackgroundColor(getResources().getColor(R.color.ikea_grey_dark));
     } else {
       ((ImageButton) view.findViewById(R.id.completedStepButton)).setImageResource(R.drawable.ic_action_done_after);
-      //To get the right button
+      // To get the right button
       checkBarButtonView(stepNumber, view);
-      //Change color of the button
-      checkbarButton.setBackgroundColor(getResources().getColor(R.color.green));
+      // Change color of the button
+      checkbarButton.setBackgroundColor(getResources().getColor(R.color.ikea_green_dark));
     }
   }
 
@@ -146,9 +146,9 @@ public class StepByStepFragment extends Fragment {
     checkBarButtonView(prevStep, view);
 
     if (prevIsCompleted == true) {
-      checkbarButton.setBackgroundColor(getResources().getColor(R.color.greenOpacity));
+      checkbarButton.setBackgroundColor(getResources().getColor(R.color.ikea_green_light));
     } else {
-      checkbarButton.setBackgroundColor(getResources().getColor(R.color.greyOpacity));
+      checkbarButton.setBackgroundColor(getResources().getColor(R.color.ikea_grey_light));
     }
   }
 
