@@ -203,10 +203,10 @@ public class ArStepsActivity extends ARViewActivity {
         geometry.setVisible(true);
 
       } else {
-        MetaioDebug.log(Log.ERROR, "Error loading geometry: " + geometry);
+        //MetaioDebug.log(Log.ERROR, "Error loading geometry: " + geometry);
       }
     } catch (Exception e) {
-      MetaioDebug.log(Log.ERROR, "Error loading geometry: " + e.getMessage());
+      //MetaioDebug.log(Log.ERROR, "Error loading geometry: " + e.getMessage());
       return geometry;
     }
     return geometry;
@@ -289,9 +289,9 @@ public class ArStepsActivity extends ARViewActivity {
       // Set tracking configuration
       final File xmlPath = AssetsManager.getAssetPathAsFile(getApplicationContext(), path);
       result = metaioSDK.setTrackingConfiguration(xmlPath);
-      MetaioDebug.log("Loaded tracking configuration " + xmlPath);
+      //MetaioDebug.log("Loaded tracking configuration " + xmlPath);
     } catch (Exception e) {
-      MetaioDebug.log(Log.ERROR, "Error loading tracking configuration: " + path + " " + e.getMessage());
+      //MetaioDebug.log(Log.ERROR, "Error loading tracking configuration: " + path + " " + e.getMessage());
       return result;
     }
     return result;

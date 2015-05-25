@@ -1,7 +1,6 @@
 package agilec.ikeaswipe.activities;
 
 import java.io.File;
-import java.io.IOException;
 
 import android.content.Intent;
 import android.graphics.PointF;
@@ -9,7 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.metaio.sdk.ARViewActivity;
@@ -203,7 +202,7 @@ public class ArFindActivity extends ARViewActivity {
                   toast.show();
 
                   // Make "done button" appear when an object has been identified.
-                  Button doneButton = (Button) findViewById(R.id.btnDone);
+                  ImageButton doneButton = (ImageButton) findViewById(R.id.btn_done);
                   doneButton.setVisibility(View.VISIBLE);
                   // Set listener to run the function returnToSwipeActivity when onClick.
                   doneButton.setOnClickListener(new View.OnClickListener() {
@@ -215,19 +214,6 @@ public class ArFindActivity extends ARViewActivity {
                 }
               });
             }
-          } else {
-            // If the object is lost this is displayed on the screen with toast.
-            runOnUiThread(new Runnable() {
-              @Override
-              public void run() {
-                if (v.getCoordinateSystemID() == 1) {
-                  CharSequence text = "Object lost!";
-                  int duration = Toast.LENGTH_SHORT;
-                  Toast toast = Toast.makeText(getApplicationContext(), text, duration);
-                  toast.show();
-                }
-              }
-            });
           }
         }
       }
