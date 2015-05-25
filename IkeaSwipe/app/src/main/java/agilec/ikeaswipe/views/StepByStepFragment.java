@@ -1,16 +1,22 @@
 package agilec.ikeaswipe.views;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -206,7 +212,12 @@ public class StepByStepFragment extends Fragment {
         e.printStackTrace();
       }
     }
+    else{
+        Log.d("THE END ===========","THE END =============");
+        initiatePopupWindow(getActivity());
+    }
   }
+
 
   public void goToPreviousStep() {
     if (stepNumber != 0) {
@@ -439,6 +450,25 @@ public class StepByStepFragment extends Fragment {
 
     System.out.println("The point is:  " + p);
   }
+
+    private PopupWindow pwindo;
+
+    private void initiatePopupWindow(final Activity context) {
+        try {
+            // We need to get the instance of the LayoutInflater
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View layout = inflater.inflate(R.layout.end_popup_layout,(ViewGroup) context.findViewById(R.id.popup_element));
+            pwindo = new PopupWindow(layout, 420, 210, true);
+            pwindo.setBackgroundDrawable(new BitmapDrawable());
+            pwindo.showAtLocation(layout, 200, 0, 0);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 
   /**
    * Displays pop up and it's contents
