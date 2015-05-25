@@ -19,7 +19,7 @@
             android:layout_width="0dp"
             android:layout_weight="3"
             android:layout_height="wrap_content"
-            android:text="Extra hjälp med monteringen"
+            android:text="@string/arHelpTitle"
             android:textAlignment="gravity"
             android:layout_gravity="center_vertical"/>
 
@@ -46,7 +46,7 @@
             android:layout_width="0dp"
             android:layout_weight="3"
             android:layout_height="wrap_content"
-            android:text="Kolla om du är klar med steget"
+            android:text="@string/arCheckTitle"
             android:layout_gravity="center_vertical"/>
 
         <ImageButton
@@ -70,7 +70,7 @@
             android:layout_width="0dp"
             android:layout_weight="3"
             android:layout_height="wrap_content"
-            android:text="Behöver du mer hjälp?"
+            android:text="@string/tutorialTitle"
             android:layout_gravity="center_vertical"/>
 
         <ImageButton

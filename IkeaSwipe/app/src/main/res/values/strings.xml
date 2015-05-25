@@ -2,10 +2,6 @@
 <resources>
 
     <string name="app_name">IKEA Swipe</string>
-    <string name="title_section1">Innehåll</string>
-    <string name="title_section2">Instruktion</string>
-    <string name="title_section3">3D-vy</string>
-
     <string name="action_settings">Settings</string>
 
     <!-- ARview Related -->
@@ -25,5 +21,10 @@
 
     <!-- View3dFragment Related -->
     <string name="vtfTitle">3D-interaktion för Kritter</string>
+
+    <!-- Pop Up Related -->
+    <string name="arHelpTitle">Extra hjälp med monteringen</string>
+    <string name="arCheckTitle">Kolla om du är klar med steget</string>
+    <string name="tutorialTitle">Hjälp med hur applikationen fungerar</string>
 
 </resources>
