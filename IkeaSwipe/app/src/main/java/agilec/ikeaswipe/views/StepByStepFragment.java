@@ -459,6 +459,7 @@ public class StepByStepFragment extends Fragment {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View layout = inflater.inflate(R.layout.end_popup_layout,(ViewGroup) context.findViewById(R.id.popup_element));
             pwindo = new PopupWindow(layout, 420, 210, true);
+            pwindo.setBackgroundDrawable(new BitmapDrawable());
             pwindo.showAtLocation(layout, 200, 0, 0);
 
         } catch (Exception e) {

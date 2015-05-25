@@ -5,6 +5,4 @@
     android:background="@drawable/unlock"
     android:orientation="vertical"
     >
-
-
 </LinearLayout>
