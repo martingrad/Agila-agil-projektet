@@ -1,18 +1,20 @@
-# Ikea Swipe
+![IKEA Swipe](https://raw.githubusercontent.com/martingrad/Agila-agil-projektet/master/IkeaSwipe/app/src/main/res/drawable-xxhdpi/ic_launcher.png "App Icon Launcher")
+
 *"Ikea Swipe shows you how to build your IKEA furniture!"*
 
-Ikea Swipe is an android application that uses the [metaioSDK](http://www.metaio.com/products/sdk/) for augmented reality.
+## Video presentation
+<a href="https://www.youtube.com/watch?v=aMqjUe7OPVU
+" target="_blank"><img src="http://img.youtube.com/vi/aMqjUe7OPVU/0.jpg" 
+alt="Video IKEA Swipe" width="240" height="180" border="5" /></a>
+
+## About
+Ikea Swipe is a digital assembly instruction using augmented reality. The project was developed in the course [TNM082](http://kdb-5.liu.se/liu/lith/studiehandboken/action.lasso?&-response=enkursplan.lasso&op=eq&k_budget_year=2015&op=eq&k_kurskod=TNM082), Agile usability development for handheld devices, at Linköping University.
+
+Note that this project is no cooperation with IKEA and the we own no rights to their copyright protected material. The project is a beta version and we does not intend to launch it.
+
+## Technical specifications
+- Android application developed in [Android Studio IDE](https://developer.android.com/sdk/index.html)
+- Augmented Reality through the [metaioSDK](http://www.metaio.com)
 
 ## License
 The project is licensed under the [MIT License](https://github.com/martingrad/Agila-agil-projektet/blob/master/LICENSE)
-
-## Team members
-In alphabetical order:
-- Tobias Erlandsson
-- Emma Forsling Parborg
-- Martin Gråd
-- Hannes Ingelhag
-- Linnea Malcherek
-- Marcus Nygren
-- Jacob Selg
-- Anton Österblad
